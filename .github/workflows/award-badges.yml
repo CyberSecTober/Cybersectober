@@ -1,0 +1,66 @@
+name: Award badges
+
+on:
+  pull_request_target:
+    types: [closed, labeled]
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - data/manual-awards.json
+      - scripts/award_badges.py
+      - .github/workflows/award-badges.yml
+      - badges/**
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "Merged pull request number to post (or refresh) the award comment on. Leave empty to only rebuild the site."
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: award-badges
+  cancel-in-progress: false
+
+jobs:
+  award:
+    # Never checks out or runs code from the pull request itself; only reads PR metadata through the API.
+    if: github.event_name != 'pull_request_target' || github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+      pages: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - id: pages
+        uses: actions/configure-pages@v5
+        continue-on-error: true
+      - name: Award points and badges, build verification site
+        run: python3 scripts/award_badges.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
+          SITE_URL: ${{ steps.pages.outputs.base_url }}
+          OUT_DIR: _site
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: award
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
