@@ -7,10 +7,11 @@ PR, and writes the leaderboard and verification site to OUT_DIR.
 import html
 import json
 import os
+import re
 import shutil
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 
 REPO = os.environ["GITHUB_REPOSITORY"]
 TOKEN = os.environ.get("GITHUB_TOKEN", "")
@@ -22,6 +23,55 @@ SITE_URL = (os.environ.get("SITE_URL") or f"https://{OWNER.lower()}.github.io/{N
 REPO_URL = f"https://github.com/{REPO}"
 RAW_BADGES = f"https://raw.githubusercontent.com/{REPO}/main/badges"
 MARKER = "<!-- cybersectober-award -->"
+NOW = datetime.fromisoformat(os.environ["NOW"]) if os.environ.get("NOW") else datetime.now(timezone.utc)
+
+WEEKS = [  # (first day, last day, theme); launch week also covers anything merged before 5 October
+    (None, date(2026, 10, 10), "Launch week: make your first contribution"),
+    (date(2026, 10, 11), date(2026, 10, 17), "Secure What You Build"),
+    (date(2026, 10, 18), date(2026, 10, 24), "Secure the Future"),
+    (date(2026, 10, 25), date(2026, 10, 31), "Secure Our Communities"),
+]
+
+# ISO code -> (country name, words that identify it in a free-text GitHub location)
+COUNTRIES = {
+    "NG": ("Nigeria", "nigeria naija lagos abuja ibadan kano enugu ilorin abeokuta owerri uyo kaduna jos akure osogbo calabar warri onitsha asaba;port harcourt;benin city"),
+    "GH": ("Ghana", "ghana accra kumasi tamale takoradi;cape coast"),
+    "KE": ("Kenya", "kenya nairobi mombasa kisumu nakuru eldoret"),
+    "ZA": ("South Africa", "johannesburg pretoria durban;south africa;cape town"),
+    "UG": ("Uganda", "uganda kampala entebbe"),
+    "TZ": ("Tanzania", "tanzania dodoma arusha zanzibar;dar es salaam"),
+    "RW": ("Rwanda", "rwanda kigali"),
+    "ET": ("Ethiopia", "ethiopia;addis ababa"),
+    "EG": ("Egypt", "egypt cairo alexandria"),
+    "CM": ("Cameroon", "cameroon douala yaounde yaoundé"),
+    "SN": ("Senegal", "senegal sénégal dakar"),
+    "CI": ("Côte d'Ivoire", "abidjan;ivory coast;côte d'ivoire;cote d'ivoire"),
+    "MA": ("Morocco", "morocco casablanca rabat marrakech"),
+    "ZM": ("Zambia", "zambia lusaka"),
+    "ZW": ("Zimbabwe", "zimbabwe harare bulawayo"),
+    "SL": ("Sierra Leone", "freetown;sierra leone"),
+    "LR": ("Liberia", "liberia monrovia"),
+    "GM": ("The Gambia", "gambia banjul"),
+    "BJ": ("Benin", "cotonou;porto-novo;republic of benin"),
+    "TG": ("Togo", "togo lomé lome"),
+    "GB": ("United Kingdom", "uk england scotland wales london manchester birmingham leeds glasgow edinburgh;united kingdom"),
+    "US": ("United States", "usa california texas seattle boston chicago;united states;new york;san francisco"),
+    "CA": ("Canada", "canada toronto vancouver montreal calgary ottawa"),
+    "IN": ("India", "india bangalore bengaluru mumbai delhi hyderabad chennai pune"),
+    "DE": ("Germany", "germany deutschland berlin munich hamburg"),
+    "NL": ("Netherlands", "netherlands amsterdam rotterdam"),
+    "FR": ("France", "france paris"),
+    "IE": ("Ireland", "ireland dublin"),
+    "AE": ("United Arab Emirates", "uae dubai;abu dhabi;united arab emirates"),
+}
+def _terms(spec):
+    """'word word;multi word phrase;another phrase' -> list of terms."""
+    words, *phrases = spec.split(";")
+    return words.split() + phrases
+
+
+COUNTRY_PATTERNS = [(code, re.compile(r"(?<![\w])(" + "|".join(re.escape(t) for t in _terms(spec)) + r")(?![\w])"))
+                    for code, (_, spec) in COUNTRIES.items()]
 
 BADGES = {
     "first-contribution": ("First Contribution", "Your first pull request was merged."),
@@ -128,6 +178,54 @@ def compute(prs, manual):
     return ranked
 
 
+def flag(code):
+    return "".join(chr(0x1F1E6 + ord(c) - 65) for c in code)
+
+
+def country_from_location(location):
+    """Best-effort country from a free-text GitHub profile location. Returns (code, name) or None."""
+    if not location:
+        return None
+    pair = re.search("[\U0001F1E6-\U0001F1FF]{2}", location)
+    if pair:
+        code = "".join(chr(ord(c) - 0x1F1E6 + 65) for c in pair.group())
+        return code, COUNTRIES.get(code, (code,))[0]
+    text = location.lower()
+    for code, pattern in COUNTRY_PATTERNS:
+        if pattern.search(text):
+            return code, COUNTRIES[code][0]
+    return None
+
+
+def add_countries(ranked):
+    for u in ranked:
+        try:
+            u["country"] = country_from_location((api(f"/users/{u['login']}") or {}).get("location"))
+        except Exception:
+            u["country"] = None
+
+
+def current_week():
+    today = NOW.date()
+    for i, (start, end, theme) in enumerate(WEEKS):
+        if today <= end:
+            return i, start, end, theme
+    return len(WEEKS) - 1, *WEEKS[-1]
+
+
+def in_week(iso, start, end):
+    d = datetime.fromisoformat(iso.replace("Z", "+00:00")).date()
+    return (start is None or d >= start) and d <= end
+
+
+def translated_languages():
+    base = "community/translations"
+    if not os.path.isdir(base):
+        return 0
+    return sum(1 for d in os.listdir(base) if os.path.isdir(os.path.join(base, d))
+               and any(f != "README.md" for _, _, fs in os.walk(os.path.join(base, d)) for f in fs))
+
+
 def verify_url(login):
     return f"{SITE_URL}u/{login.lower()}/"
 
@@ -219,10 +317,15 @@ h1{{font-size:clamp(28px,5vw,40px);margin:8px 0 4px}}h2{{margin:36px 0 12px;font
 table{{width:100%;border-collapse:collapse}}th,td{{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line)}}th{{color:var(--muted);font-weight:400;font-size:14px}}
 td img{{width:28px;height:28px;border-radius:50%;vertical-align:middle;margin-right:8px}}.num{{text-align:right}}
 .muted{{color:var(--muted)}}footer{{margin-top:48px;color:var(--muted);font-size:14px}}
+.statbar{{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:20px 0 8px}}
+.statbar .panel{{padding:14px 16px}}.statbar b{{display:block;font-size:30px}}.statbar span{{color:var(--muted);font-size:14px}}
+.week{{font:500 12px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}}
+.flag{{margin-left:6px}}.progress{{margin-top:20px}}.progress .track{{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:8px}}
+.progress .fill{{height:100%;background:var(--accent);border-radius:99px}}.table-wrap{{overflow-x:auto}}
 </style></head><body><main>
 <div class="eyebrow"><a href="{root}" style="color:inherit;text-decoration:none">CyberSecTOBER 2026</a></div>
 {body}
-<footer>Badges are awarded automatically from merged pull requests in <a href="{REPO_URL}">{html.escape(REPO)}</a>. Points and badges on this site are the official record.</footer>
+<footer>Updated {NOW.strftime("%-d %B %Y, %H:%M")} UTC. Badges are awarded automatically from merged pull requests in <a href="{REPO_URL}">{html.escape(REPO)}</a>. Points and badges on this site are the official record.</footer>
 </main></body></html>"""
 
 
@@ -236,20 +339,61 @@ def badge_tile(u, slug, root):
             f'<a href="{html.escape(x_url(u["login"], slug))}">Post on X</a></div></div>')
 
 
+def who_cell(u, root=""):
+    c = u.get("country")
+    f = f'<span class="flag" title="{html.escape(c[1])}">{flag(c[0])}</span>' if c else ""
+    return (f'<a href="{root}u/{u["login"].lower()}/"><img src="https://github.com/{u["login"]}.png?size=56" alt="">'
+            f'{html.escape(u["login"])}</a>{f}')
+
+
+def table(headers, rows, empty):
+    if not rows:
+        return f'<p class="muted">{empty}</p>'
+    head = "".join(f'<th{" class=num" if h in ("Points", "Badges", "Contributors") else ""}>{h}</th>' for h in headers)
+    return f'<div class="table-wrap"><table><tr>{head}</tr>{"".join(rows)}</table></div>'
+
+
 def build_site(ranked):
     shutil.rmtree(OUT_DIR, ignore_errors=True)
     os.makedirs(OUT_DIR)
     shutil.copytree("badges", os.path.join(OUT_DIR, "badges"), ignore=shutil.ignore_patterns("*.md", "svg"))
     open(os.path.join(OUT_DIR, ".nojekyll"), "w").close()
 
-    rows = "".join(
-        f'<tr><td>{u["rank"]}</td><td><a href="u/{u["login"].lower()}/"><img src="https://github.com/{u["login"]}.png?size=56" alt="">{html.escape(u["login"])}</a></td>'
-        f'<td class="num">{len(u["badges"])}</td><td class="num"><b>{u["points"]}</b></td></tr>' for u in ranked)
-    board = (f'<table><tr><th>#</th><th>Contributor</th><th class="num">Badges</th><th class="num">Points</th></tr>{rows}</table>'
-             if ranked else '<p class="muted">No merged contributions yet. Be the first!</p>')
+    contributions = sorted(((u, p) for u in ranked for p in u["prs"]), key=lambda x: x[1]["merged_at"], reverse=True)
+    countries = {}
+    for u in ranked:
+        if u.get("country"):
+            c = countries.setdefault(u["country"], {"points": 0, "people": 0})
+            c["points"] += u["points"]
+            c["people"] += 1
+    stats = [(len(ranked), "contributors"), (len(contributions), "merged contributions"),
+             (len(countries), "countries"), (translated_languages(), "languages translated")]
+    statbar = "".join(f'<div class="panel"><b>{n}</b><span>{label}</span></div>' for n, label in stats)
+
+    wi, wstart, wend, theme = current_week()
+    weekly = sorted(((u, sum(p["points"] for p in u["prs"] if in_week(p["merged_at"], wstart, wend))) for u in ranked),
+                    key=lambda x: -x[1])
+    weekly = [(u, pts) for u, pts in weekly if pts][:10]
+    span = f'{wstart.strftime("%-d")} – {wend.strftime("%-d %B")}' if wstart else f'Up to {wend.strftime("%-d %B")}'
+    week_rows = [f'<tr><td>{i}</td><td>{who_cell(u)}</td><td class="num"><b>{pts}</b></td></tr>' for i, (u, pts) in enumerate(weekly, 1)]
+
+    overall_rows = [f'<tr><td>{u["rank"]}</td><td>{who_cell(u)}</td><td class="num">{len(u["badges"])}</td>'
+                    f'<td class="num"><b>{u["points"]}</b></td></tr>' for u in ranked]
+    country_rows = [f'<tr><td>{i}</td><td>{flag(code)} {html.escape(name)}</td><td class="num">{c["people"]}</td><td class="num"><b>{c["points"]}</b></td></tr>'
+                    for i, ((code, name), c) in enumerate(sorted(countries.items(), key=lambda x: (-x[1]["points"], -x[1]["people"])), 1)]
+    latest_rows = [f'<tr><td>{who_cell(u)}</td><td><a href="{p["url"]}">#{p["number"]}</a> {html.escape(p["title"])}'
+                   f'<br><span class="muted" style="font-size:14px">{fmt_date(p["merged_at"])}</span></td>'
+                   f'<td class="num">+{p["points"]}</td></tr>' for u, p in contributions[:10]]
+
     index = (f'<h1>Leaderboard</h1><p class="muted">Every merged contribution to CyberSecTOBER 2026, verified. '
              f'<a href="{REPO_URL}#-your-first-contribution-in-5-minutes-no-installs">Make your first contribution →</a></p>'
-             f'<div class="panel">{board}</div>')
+             f'<div class="statbar">{statbar}</div>'
+             f'<h2>This week</h2><div class="week">Week {wi + 1} · {html.escape(theme)} · {span}</div>'
+             f'<div class="panel" style="margin-top:10px">{table(["#", "Contributor", "Points"], week_rows, "No merged contributions this week yet. Yours could be the first!")}</div>'
+             f'<h2>Overall</h2><div class="panel">{table(["#", "Contributor", "Badges", "Points"], overall_rows, "No merged contributions yet. Be the first!")}</div>'
+             f'<h2>Countries</h2><div class="panel">{table(["#", "Country", "Contributors", "Points"], country_rows, "No countries yet. Add your location to your GitHub profile to represent your country.")}'
+             f'<p class="muted" style="margin:12px 0 0;font-size:14px">Based on the Location field of each contributor\'s GitHub profile.</p></div>'
+             f'<h2>Latest contributions</h2><div class="panel">{table(["Contributor", "Contribution", "Points"], latest_rows, "Nothing merged yet.")}</div>')
     open(os.path.join(OUT_DIR, "index.html"), "w").write(page("CyberSecTOBER 2026 Leaderboard", index, 0))
 
     for u in ranked:
@@ -257,23 +401,33 @@ def build_site(ranked):
         d = os.path.join(OUT_DIR, "u", login.lower())
         os.makedirs(d, exist_ok=True)
         tiles = "".join(badge_tile(u, s, "../../") for s in BADGES if s in u["badges"])
-        prs = "".join(f'<tr><td><a href="{p["url"]}">#{p["number"]}</a> {html.escape(p["title"])}</td>'
-                      f'<td>{fmt_date(p["merged_at"])}</td><td class="num">{p["points"]}</td></tr>' for p in reversed(u["prs"]))
+        prs = [f'<tr><td><a href="{p["url"]}">#{p["number"]}</a> {html.escape(p["title"])}</td>'
+               f'<td>{fmt_date(p["merged_at"])}</td><td class="num">{p["points"]}</td></tr>' for p in reversed(u["prs"])]
+        c = u.get("country")
+        where = f'<br><span class="muted">{flag(c[0])} {html.escape(c[1])}</span>' if c else ""
+        nt = next_tier(u["points"])
+        if nt:
+            target = u["points"] + nt[0]
+            progress = (f'<div class="panel progress"><b>{u["points"]} / {target} points</b> to <b>{html.escape(nt[1])}</b>'
+                        f'<div class="track"><div class="fill" style="width:{round(100 * u["points"] / target)}%"></div></div></div>')
+        else:
+            progress = '<div class="panel progress"><b>🎉 Highest tier reached: Cyber Guardian</b></div>'
         body = (f'<div class="panel who"><img src="https://github.com/{login}.png?size=144" alt="">'
-                f'<div><h1>{html.escape(login)}</h1><a href="https://github.com/{login}">github.com/{html.escape(login)}</a><br>'
+                f'<div><h1>{html.escape(login)}</h1><a href="https://github.com/{login}">github.com/{html.escape(login)}</a>{where}<br>'
                 f'<span class="verified">✓ VERIFIED BY CYBERSECTOBER</span></div></div>'
                 f'<div class="stats"><div><b>{u["points"]}</b><span>points</span></div><div><b>{len(u["badges"])}</b><span>badges</span></div>'
                 f'<div><b>#{u["rank"]}</b><span>leaderboard rank</span></div><div><b>{len(u["prs"])}</b><span>merged contributions</span></div></div>'
+                f'{progress}'
                 f'<h2>Badges</h2><div class="grid">{tiles}</div>'
                 f'<h2>Contributions</h2><div class="panel">'
-                + (f'<table><tr><th>Pull request</th><th>Merged</th><th class="num">Points</th></tr>{prs}</table>' if prs
-                   else '<p class="muted">Badges awarded by maintainers.</p>') + '</div>')
+                + table(["Pull request", "Merged", "Points"], prs, "Badges awarded by maintainers.") + '</div>')
         open(os.path.join(d, "index.html"), "w").write(page(f"{login}: CyberSecTOBER 2026 badges", body, 2))
 
 
 def main():
     manual = json.load(open("data/manual-awards.json")) if os.path.exists("data/manual-awards.json") else {}
     ranked = compute(merged_prs(), manual)
+    add_countries(ranked)
     build_site(ranked)
     print(f"Built site for {len(ranked)} contributor(s) at {OUT_DIR}/")
     if PR_NUMBER:

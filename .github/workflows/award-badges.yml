@@ -11,6 +11,8 @@ on:
       - scripts/award_badges.py
       - .github/workflows/award-badges.yml
       - badges/**
+  schedule:
+    - cron: "17 0 * * *"
   workflow_dispatch:
     inputs:
       pr_number:
