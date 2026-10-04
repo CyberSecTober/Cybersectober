@@ -239,7 +239,7 @@ def linkedin_url(login, slug, date):
 
 
 def x_url(login, slug):
-    text = f"I just earned the {BADGES[slug][0]} badge in #CyberSecTOBER 2026, an open-source cybersecurity challenge 🔐"
+    text = f"I earned the {BADGES[slug][0]} badge in #CyberSecTOBER 2026, an open-source cybersecurity challenge."
     return "https://x.com/intent/tweet?" + urllib.parse.urlencode({"text": text, "url": verify_url(login)})
 
 
@@ -254,27 +254,28 @@ def comment_body(u, pr_number):
     pr = next(p for p in u["prs"] if p["number"] == pr_number)
     new = [s for s, b in u["badges"].items() if b["pr"] == pr_number]
     login = u["login"]
-    lines = [MARKER, f"## 🎉 Congratulations @{login}, your contribution is merged!", "",
-             f"**+{pr['points']} points** for this pull request · **{u['points']} points** in total · **Rank #{u['rank']}** on the leaderboard", ""]
+    lines = [MARKER, "### Contribution recorded", "",
+             f"Hi @{login}, thank you for contributing to CyberSecTOBER 2026. "
+             "Your pull request has been merged and added to your record.", "",
+             f"- Points for this contribution: **{pr['points']}**",
+             f"- Total points: **{u['points']}**",
+             f"- Leaderboard rank: **{u['rank']}**", ""]
     if not pr["points"]:
-        lines += ["> ⚠️ **Maintainers:** this pull request has no `points-*` label, so no points were awarded yet. "
-                  "Add the right label and this comment will update automatically.", ""]
-    if new:
-        lines += ["### 🏅 New badge" + ("s" if len(new) > 1 else ""), ""]
-        for s in new:
-            lines += [f'<img src="{RAW_BADGES}/{s}.png" width="110" alt="{BADGES[s][0]} badge">', "",
-                      f"**{BADGES[s][0]}**: {BADGES[s][1]}  ",
-                      f"[➕ Add to LinkedIn]({linkedin_url(login, s, u['badges'][s]['date'])}) · [📣 Post on X]({x_url(login, s)})", ""]
-    else:
-        lines += ["No new badge this time, but every point counts.", ""]
+        lines += ["> **Note for maintainers:** this pull request has no `points-*` label, so no points have been "
+                  "awarded yet. Add the appropriate label and this comment will update automatically.", ""]
+    for s in new:
+        lines += [f"**Badge earned: {BADGES[s][0]}**", "",
+                  f'<img src="{RAW_BADGES}/{s}.png" width="96" alt="{BADGES[s][0]} badge">', "",
+                  f"{BADGES[s][1]}  ",
+                  f"[Add to LinkedIn]({linkedin_url(login, s, u['badges'][s]['date'])}) · [Share on X]({x_url(login, s)})", ""]
     nt = next_tier(u["points"])
     if nt:
-        lines += [f"🎯 You're **{nt[0]} points** away from **{nt[1]}**.", ""]
-    lines += ["### ✅ Your verification page", "",
-              f"Anyone can check your badges and contributions here: **{verify_url(login)}**", "",
-              "Use that link as the **Credential URL** on LinkedIn. To show your badge on your GitHub profile, see "
-              f"[Show off your badge]({REPO_URL}#-show-off-your-badge).", "",
-              "Thank you for helping make the internet safer. 🔐"]
+        lines += [f"**Next milestone:** {nt[0]} more points to reach {nt[1]}.", ""]
+    lines += [f"**Verification:** your badges and contributions can be verified publicly at {verify_url(login)}. "
+              "Use this link as the Credential URL when adding a badge to LinkedIn. To display a badge on your GitHub "
+              f"profile, see [Show off your badge]({REPO_URL}#-show-off-your-badge) in the README.", "",
+              "Thank you for helping make the internet safer.", "",
+              "The CyberSecTOBER team"]
     return "\n".join(lines)
 
 
@@ -411,7 +412,7 @@ def build_site(ranked):
             progress = (f'<div class="panel progress"><b>{u["points"]} / {target} points</b> to <b>{html.escape(nt[1])}</b>'
                         f'<div class="track"><div class="fill" style="width:{round(100 * u["points"] / target)}%"></div></div></div>')
         else:
-            progress = '<div class="panel progress"><b>🎉 Highest tier reached: Cyber Guardian</b></div>'
+            progress = '<div class="panel progress"><b>Highest tier reached: Cyber Guardian</b></div>'
         body = (f'<div class="panel who"><img src="https://github.com/{login}.png?size=144" alt="">'
                 f'<div><h1>{html.escape(login)}</h1><a href="https://github.com/{login}">github.com/{html.escape(login)}</a>{where}<br>'
                 f'<span class="verified">✓ VERIFIED BY CYBERSECTOBER</span></div></div>'
