@@ -73,23 +73,31 @@ def merged_prs():
     return sorted(prs, key=lambda p: p["merged_at"])
 
 
+CONTENT_DIRS = ("awareness/", "api-security/", "ai-security/", "community/")
+
+
 def points_for(pr):
+    """Return (points, labels, counts). Unlabelled PRs that touch no content folder are maintenance and don't count."""
     labels = {l["name"] for l in pr["labels"]}
     pts = max((int(l.split("-")[1]) for l in labels if l.startswith("points-") and l.split("-")[1].isdigit()), default=0)
+    counts = True
     if not pts:
         files = {f["filename"] for f in paginate(f"/repos/{REPO}/pulls/{pr['number']}/files")}
         if files == {"awareness/tips.md"}:
             pts = 3
+        counts = any(f.startswith(CONTENT_DIRS) for f in files)
     if pts and "quality-bonus" in labels:
         pts += 5
-    return pts, labels
+    return pts, labels, counts
 
 
 def compute(prs, manual):
     users = {}
     for pr in prs:
         login = pr["user"]["login"]
-        pts, labels = points_for(pr)
+        pts, labels, counts = points_for(pr)
+        if not counts:
+            continue
         u = users.setdefault(login, {"login": login, "points": 0, "prs": [], "badges": {}})
         before = u["points"]
         u["points"] += pts
@@ -274,7 +282,7 @@ def main():
         if u:
             post_comment(n, comment_body(u, n))
         else:
-            print(f"PR #{n} is not a merged pull request into main; no comment posted.")
+            print(f"PR #{n} is not a merged contribution (not merged into main, or maintenance only); no comment posted.")
 
 
 if __name__ == "__main__":
