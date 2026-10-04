@@ -1,6 +1,6 @@
 # 🔐 CyberSecTOBER 2026
 
-[![GitHub stars](https://img.shields.io/github/stars/CyberSecTober/Cybersectober?style=social)](https://github.com/CyberSecTober/Cybersectober/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/CyberSecTober/Cybersectober?style=social)](https://github.com/CyberSecTober/Cybersectober)
 
 **Learn. Build. Contribute. Secure.**
 
@@ -8,7 +8,7 @@ CyberSecTOBER is a month-long open-source cybersecurity challenge for Cybersecur
 
 > **Don't just learn cybersecurity. Contribute to it.**
 
-⭐ **Star this repo** (top right of this page) to follow along and help more people find CyberSecTOBER.
+⭐ **Star this repo:** click the **☆ Star** button at the top right of the [repo page](https://github.com/CyberSecTober/Cybersectober), next to **Fork** (on a phone, it's just under the repo name). It's free, takes one second, and helps more people find CyberSecTOBER. You need to be signed in to GitHub.
 
 👋 **Never used GitHub before? You're in the right place.** This page walks you through everything step by step. You don't need to know how to code, and you don't need to install anything.
 
@@ -43,7 +43,8 @@ You only need this for the 5-minute and 15–60-minute levels.
 1. Go to [github.com/signup](https://github.com/signup).
 2. Enter your email, create a password and choose a **username**. Your username is how you'll be credited, so pick one you'd be happy to show an employer.
 3. Verify your email address using the code GitHub sends you.
-4. That's it. Come back to this page and stay signed in.
+4. Come back to this page and stay signed in.
+5. ⭐ **Star the repo:** click the **☆ Star** button at the top right of the [repo page](https://github.com/CyberSecTober/Cybersectober), next to **Fork** (on a phone, it's just under the repo name).
 
 ## 📣 Level 1: Post a tip (2 minutes, no GitHub needed)
 
@@ -77,6 +78,8 @@ You'll add one security tip to [`awareness/tips.md`](awareness/tips.md) without 
 7. **A form with a checklist appears.** Read it, tick the boxes that apply, then click **Create pull request** again.
 
 🎉 **That's it. You've made an open-source contribution!**
+
+⭐ **Before you go, star the repo** if you haven't already: click the **☆ Star** button at the top right of the [repo page](https://github.com/CyberSecTober/Cybersectober), next to **Fork** (on a phone, it's just under the repo name).
 
 **What happens next:**
 - A mentor reviews your tip, usually within 48 hours.
@@ -121,6 +124,9 @@ Guides, checklists, translations, threat models, labs and tools all earn more po
 
 **8. Respond to feedback**
 - Mentors may suggest changes in comments. To update your work, edit the file in your fork and commit again, and your pull request updates automatically.
+
+**9. Star the repo**
+- If you haven't already, click the **☆ Star** button at the top right of the [repo page](https://github.com/CyberSecTober/Cybersectober), next to **Fork** (on a phone, it's just under the repo name).
 
 > 🧪 **Labs and tools:** comment on the challenge first so a mentor can help you plan. Labs must be deliberately vulnerable, run locally with Docker, and include a `SOLUTION.md`.
 >
@@ -281,5 +287,7 @@ Ask in [Discussions](https://github.com/CyberSecTober/Cybersectober/discussions)
 ## 📜 License
 
 Written content: [CC BY 4.0](LICENSE-CONTENT.md) · Code: [MIT](LICENSE) · Please follow our [Code of Conduct](CODE_OF_CONDUCT.md).
+
+<p align="center">⭐ <b>Found this useful? <a href="https://github.com/CyberSecTober/Cybersectober">Star the repo</a> (☆ Star button, top right) and share it with a friend.</b></p>
 
 <p align="center"><b>October ends. The knowledge stays.</b><br>#CyberSecTOBER #CybersecurityAwarenessMonth</p>

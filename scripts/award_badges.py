@@ -274,6 +274,8 @@ def comment_body(u, pr_number):
     lines += [f"**Verification:** your badges and contributions can be verified publicly at {verify_url(login)}. "
               "Use this link as the Credential URL when adding a badge to LinkedIn. To display a badge on your GitHub "
               f"profile, see [Show off your badge]({REPO_URL}#-show-off-your-badge) in the README.", "",
+              f"If you haven't already, please star the [repository]({REPO_URL}) using the Star button at the top right "
+              "of the page. It helps more people find CyberSecTOBER.", "",
               "Thank you for helping make the internet safer.", "",
               "The CyberSecTOBER team"]
     return "\n".join(lines)

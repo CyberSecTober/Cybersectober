@@ -2,6 +2,8 @@
 
 First time contributing to open source? Perfect, this project is built for you. 💙
 
+⭐ **Before you start, star the repo:** click the **☆ Star** button at the top right of the [repo page](https://github.com/CyberSecTober/Cybersectober), next to **Fork** (on a phone, it's just under the repo name).
+
 ## The three ways to contribute
 
 **1. Post (2 min, no GitHub).** Share a security tip with #CyberSecTOBER and [submit the link](https://forms.gle/placeholder).
