@@ -1,10 +1,14 @@
 # 🔐 CyberSecTOBER 2026
 
+[![GitHub stars](https://img.shields.io/github/stars/CyberSecTober/Cybersectober?style=social)](https://github.com/CyberSecTober/Cybersectober/stargazers)
+
 **Learn. Build. Contribute. Secure.**
 
 CyberSecTOBER is a month-long open-source cybersecurity challenge for Cybersecurity Awareness Month. Together, we're building a free, community-owned library of security tips, guides, translations and labs that anyone can use.
 
 > **Don't just learn cybersecurity. Contribute to it.**
+
+⭐ **Star this repo** (top right of this page) to follow along and help more people find CyberSecTOBER.
 
 ## ⚡ Pick your level
 
