@@ -1,0 +1,211 @@
+[
+  {
+    "title": "[Open to all] Share a tip about a scam you've seen recently",
+    "track": "awareness",
+    "difficulty": "beginner",
+    "points": 3,
+    "what": "Think of a scam you, a friend or a family member came across recently: a fake giveaway, a \"you've won\" message, a crypto \"double your money\" offer, a fake delivery text. Turn it into one short tip that helps others spot it.",
+    "done": "One new line in [`awareness/tips.md`](https://github.com/CyberSecTober/Cybersectober/blob/main/awareness/tips.md) in the usual format: `- **Short tip title**, one sentence explaining it. (@your-github-username)`. No real names, phone numbers or links to the scam.",
+    "labels": [
+      "open-to-all",
+      "good first issue",
+      "beginner",
+      "awareness",
+      "points-3"
+    ]
+  },
+  {
+    "title": "[Open to all] Write a security tip for your grandparents",
+    "track": "awareness",
+    "difficulty": "beginner",
+    "points": 3,
+    "what": "Write one tip the way you'd explain it to a grandparent or an older relative: simple words, no jargon, one clear action.",
+    "done": "One new line in [`awareness/tips.md`](https://github.com/CyberSecTober/Cybersectober/blob/main/awareness/tips.md): `- **Short tip title**, one sentence explaining it. (@your-github-username)`",
+    "labels": [
+      "open-to-all",
+      "good first issue",
+      "beginner",
+      "awareness",
+      "points-3"
+    ]
+  },
+  {
+    "title": "[Open to all] Mobile money and POS safety tip",
+    "track": "awareness",
+    "difficulty": "beginner",
+    "points": 3,
+    "what": "Share one practical tip for staying safe with mobile money, bank transfers, USSD codes or POS terminals, for example fake transfer alerts, reversed transactions or people \"helping\" at the POS.",
+    "done": "One new line in [`awareness/tips.md`](https://github.com/CyberSecTober/Cybersectober/blob/main/awareness/tips.md): `- **Short tip title**, one sentence explaining it. (@your-github-username)`",
+    "labels": [
+      "open-to-all",
+      "good first issue",
+      "beginner",
+      "awareness",
+      "points-3"
+    ]
+  },
+  {
+    "title": "[Open to all] One tip for using AI chatbots safely",
+    "track": "ai-security",
+    "difficulty": "beginner",
+    "points": 3,
+    "what": "Share one tip for using AI chatbots safely at school or work: what never to paste in, how to check answers, or how to spot AI-generated scams.",
+    "done": "One new line in [`awareness/tips.md`](https://github.com/CyberSecTober/Cybersectober/blob/main/awareness/tips.md): `- **Short tip title**, one sentence explaining it. (@your-github-username)`",
+    "labels": [
+      "open-to-all",
+      "good first issue",
+      "beginner",
+      "ai-security",
+      "points-3"
+    ]
+  },
+  {
+    "title": "[Open to all] Spot the deepfake: a tip about voice and video scams",
+    "track": "ai-security",
+    "difficulty": "beginner",
+    "points": 3,
+    "what": "Scammers now clone voices and fake videos to pretend to be a relative, a boss or a celebrity. Share one tip that helps people check before they trust or pay.",
+    "done": "One new line in [`awareness/tips.md`](https://github.com/CyberSecTober/Cybersectober/blob/main/awareness/tips.md): `- **Short tip title**, one sentence explaining it. (@your-github-username)`",
+    "labels": [
+      "open-to-all",
+      "good first issue",
+      "beginner",
+      "ai-security",
+      "points-3"
+    ]
+  },
+  {
+    "title": "[Open to all] One secure coding tip for developers",
+    "track": "api-security",
+    "difficulty": "beginner",
+    "points": 3,
+    "what": "Share one practical secure coding tip, for example never trusting user input, keeping secrets out of code, or checking that a user owns the data they request.",
+    "done": "One new line in [`awareness/tips.md`](https://github.com/CyberSecTober/Cybersectober/blob/main/awareness/tips.md) that starts with `(For developers)`: `- **Short tip title**, one sentence explaining it. (@your-github-username)`",
+    "labels": [
+      "open-to-all",
+      "good first issue",
+      "beginner",
+      "api-security",
+      "points-3"
+    ]
+  },
+  {
+    "title": "[Open to all] Back to school: a security tip for students",
+    "track": "awareness",
+    "difficulty": "beginner",
+    "points": 3,
+    "what": "Share one tip for students: fake scholarship offers, shared computers in labs or cafés, group chat scams, or protecting school and social media accounts.",
+    "done": "One new line in [`awareness/tips.md`](https://github.com/CyberSecTober/Cybersectober/blob/main/awareness/tips.md): `- **Short tip title**, one sentence explaining it. (@your-github-username)`",
+    "labels": [
+      "open-to-all",
+      "good first issue",
+      "beginner",
+      "awareness",
+      "points-3"
+    ]
+  },
+  {
+    "title": "[Open to all] A security tip for shop owners and market traders",
+    "track": "community",
+    "difficulty": "beginner",
+    "points": 3,
+    "what": "Share one tip for small business owners and market traders: fake payment screenshots, suspicious bulk orders, or protecting the business WhatsApp account.",
+    "done": "One new line in [`awareness/tips.md`](https://github.com/CyberSecTober/Cybersectober/blob/main/awareness/tips.md): `- **Short tip title**, one sentence explaining it. (@your-github-username)`",
+    "labels": [
+      "open-to-all",
+      "good first issue",
+      "beginner",
+      "community",
+      "points-3"
+    ]
+  },
+  {
+    "title": "[Open to all] Explain a security word so a 10-year-old understands it",
+    "track": "awareness",
+    "difficulty": "beginner",
+    "points": 3,
+    "what": "Pick a security word (for example malware, password manager, firewall, encryption or social engineering) and explain it so simply that a 10-year-old would understand.",
+    "done": "One new term in [`awareness/glossary.md`](https://github.com/CyberSecTober/Cybersectober/blob/main/awareness/glossary.md) in the format shown at the top of the file. Check the term isn't already there.",
+    "labels": [
+      "open-to-all",
+      "good first issue",
+      "beginner",
+      "awareness",
+      "points-3"
+    ]
+  },
+  {
+    "title": "[Open to all] Translate a security tip into your language (any language)",
+    "track": "community",
+    "difficulty": "beginner",
+    "points": 3,
+    "what": "Pick any tip from [`awareness/tips.md`](https://github.com/CyberSecTober/Cybersectober/blob/main/awareness/tips.md) and translate it into your language. Every language is welcome, not just Yoruba, Igbo, Hausa, Pidgin and Swahili.",
+    "done": "One translated tip added to `community/translations/your-language/tips.md` ([translations folder](https://github.com/CyberSecTober/Cybersectober/tree/main/community/translations)). Create the folder and file if they don't exist yet. Keep the original tip's meaning and credit yourself at the end of the line.",
+    "labels": [
+      "open-to-all",
+      "good first issue",
+      "beginner",
+      "community",
+      "points-3",
+      "translation"
+    ]
+  },
+  {
+    "title": "[Open to all] Write a 3-question security quiz",
+    "track": "awareness",
+    "difficulty": "beginner",
+    "points": 5,
+    "what": "Write a short, fun multiple-choice quiz that helps people test what they know about phishing, passwords, scams or any security topic.",
+    "done": "A new file in [`awareness/quizzes/`](https://github.com/CyberSecTober/Cybersectober/tree/main/awareness/quizzes) following the instructions in its README: 3 to 5 questions, multiple-choice answers, and an answers section that explains each one.",
+    "labels": [
+      "open-to-all",
+      "good first issue",
+      "beginner",
+      "awareness",
+      "points-5"
+    ]
+  },
+  {
+    "title": "[Open to all] Write a short fictional scam story with a lesson",
+    "track": "awareness",
+    "difficulty": "beginner",
+    "points": 5,
+    "what": "Write a short fictional story (150 to 400 words) about someone who almost falls for a scam, then list the red flags and the lesson. Stories are memorable and easy to share.",
+    "done": "A new file in [`awareness/stories/`](https://github.com/CyberSecTober/Cybersectober/tree/main/awareness/stories) following the instructions in its README. Everyone and every company in it must be fictional, and any web address must use `example.com`.",
+    "labels": [
+      "open-to-all",
+      "good first issue",
+      "beginner",
+      "awareness",
+      "points-5"
+    ]
+  },
+  {
+    "title": "[Open to all] Share your #CyberSecTOBER post",
+    "track": "awareness",
+    "difficulty": "beginner",
+    "points": 0,
+    "what": "Post one security tip on LinkedIn, X, Instagram, Facebook, TikTok, Threads or Medium with #CyberSecTOBER, then add the link to the project. Each post counts towards the awareness badges.",
+    "done": "One new line in [`awareness/posts.md`](https://github.com/CyberSecTober/Cybersectober/blob/main/awareness/posts.md): `- [Short description](https://link-to-your-post) (@your-github-username)`. The post must be public and your own.",
+    "labels": [
+      "open-to-all",
+      "good first issue",
+      "beginner",
+      "awareness"
+    ]
+  },
+  {
+    "title": "[Open to all] Bust a security myth in a social post",
+    "track": "awareness",
+    "difficulty": "beginner",
+    "points": 0,
+    "what": "Pick a common myth (\"I'm not important enough to be hacked\", \"Incognito mode makes me anonymous\", \"Apple devices can't get viruses\") and write a short public post explaining the truth, with #CyberSecTOBER.",
+    "done": "One new line in [`awareness/posts.md`](https://github.com/CyberSecTober/Cybersectober/blob/main/awareness/posts.md) linking to your post: `- [Short description](https://link-to-your-post) (@your-github-username)`.",
+    "labels": [
+      "open-to-all",
+      "good first issue",
+      "beginner",
+      "awareness"
+    ]
+  }
+]

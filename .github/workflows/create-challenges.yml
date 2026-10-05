@@ -1,0 +1,26 @@
+name: Create challenges
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - data/challenges.json
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Create any challenges that don't exist yet
+        run: python3 scripts/create_challenges.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
