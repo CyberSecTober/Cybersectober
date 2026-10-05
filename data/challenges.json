@@ -207,5 +207,165 @@
       "beginner",
       "awareness"
     ]
+  },
+  {
+    "title": "[Open to all] Build a small defensive security tool",
+    "track": "Any track (put it in the folder that fits: awareness, api-security, ai-security or community)",
+    "difficulty": "advanced",
+    "points": 20,
+    "what": "Already built a security script or tool, or want to? Share a small tool that helps people defend themselves. Ideas: a password strength checker, a security headers checker for your own website, a phishing URL analyser that works offline, a log parser that flags failed logins, a secrets scanner for your own repo, or a file integrity checker.",
+    "done": "- A new folder `<track>/tools/your-github-username-tool-name/` with your code and a `README.md` based on [`templates/tool.md`](https://github.com/CyberSecTober/Cybersectober/blob/main/templates/tool.md), including the YAML header, installation, usage and example output.\n- It runs locally with clear instructions, and only touches systems and files the user owns.\n- No binaries, archives, minified code or downloads from unknown URLs. No exploit code against real products.\n- Your own original work, released under the repository's MIT licence.",
+    "labels": [
+      "open-to-all",
+      "advanced",
+      "points-20"
+    ]
+  },
+  {
+    "title": "[Open to all] Turn your security blog post into a guide",
+    "track": "Any track (put it in the folder that fits)",
+    "difficulty": "intermediate",
+    "points": 10,
+    "what": "Written a security blog post on Medium, Hashnode, Dev.to, LinkedIn or your own site? Bring it into the library so it stays free and easy to find. Rewrite it as a guide that stands on its own, and link your original post as the source.",
+    "done": "- A new file `<track>/your-github-username-topic.md` based on [`templates/guide.md`](https://github.com/CyberSecTober/Cybersectober/blob/main/templates/guide.md), with the YAML header.\n- The full guide is in the file itself, not just a link or a summary. Add your original post under a \"Source\" heading at the end.\n- The post must be your own. Defensive focus: explain what went wrong and how to prevent it, without step-by-step attack instructions.\n- Any vulnerability you describe in a real product must already be reported and fixed.",
+    "labels": [
+      "open-to-all",
+      "intermediate",
+      "points-10"
+    ]
+  },
+  {
+    "title": "[Open to all] Write a security checklist for a real situation",
+    "track": "Any track (put it in the folder that fits)",
+    "difficulty": "intermediate",
+    "points": 5,
+    "what": "Write a practical checklist someone can follow step by step. Ideas: setting up a new laptop or phone, securing a small business, before launching a website or API, travelling with devices, protecting a church, mosque or community group's accounts, or offboarding an employee.",
+    "done": "- A new file `<track>/your-github-username-checklist-topic.md` based on [`templates/checklist.md`](https://github.com/CyberSecTober/Cybersectober/blob/main/templates/checklist.md), with the YAML header.\n- At least 10 clear, actionable items, grouped into sections, each with one line on why it matters.\n- Says who the checklist is for.",
+    "labels": [
+      "open-to-all",
+      "intermediate",
+      "points-5"
+    ]
+  },
+  {
+    "title": "[Open to all] Write a step-by-step security walkthrough",
+    "track": "Any track (put it in the folder that fits)",
+    "difficulty": "intermediate",
+    "points": 10,
+    "what": "Show people how to do one security task from start to finish, with screenshots or commands. Ideas: securing a GitHub account, setting up a password manager for your family, turning on full-disk encryption, inspecting your own network traffic with Wireshark, scanning your own website with OWASP ZAP, or setting up a firewall on a home router.",
+    "done": "- A new file `<track>/your-github-username-walkthrough-topic.md` based on [`templates/guide.md`](https://github.com/CyberSecTober/Cybersectober/blob/main/templates/guide.md), with the YAML header.\n- Numbered steps a beginner can follow, with the expected result after each step, and screenshots or commands where they help.\n- Any scanning or testing is only done on systems you own or on deliberately vulnerable practice targets.",
+    "labels": [
+      "open-to-all",
+      "intermediate",
+      "points-10"
+    ]
+  },
+  {
+    "title": "[Open to all] Curate a free resource list for a security topic",
+    "track": "Any track (put it in the folder that fits)",
+    "difficulty": "intermediate",
+    "points": 5,
+    "what": "Help newcomers find the good stuff. Pick one topic (for example getting started in cybersecurity, API security, AI security, cloud security, malware analysis, or careers in Africa) and put together a short list of the best free resources.",
+    "done": "- A new file `<track>/resources/your-github-username-topic.md` with a title, who the list is for, and 8 to 15 free resources.\n- Each resource has a working link and one or two sentences in your own words on why it's useful.\n- No paid courses, affiliate or referral links, or pirated material.",
+    "labels": [
+      "open-to-all",
+      "intermediate",
+      "points-5"
+    ]
+  },
+  {
+    "title": "[Open to all] Explain an OWASP API Security Top 10 risk",
+    "track": "api-security",
+    "difficulty": "intermediate",
+    "points": 10,
+    "what": "Pick one risk from the OWASP API Security Top 10 (for example broken object level authorisation, broken authentication or unrestricted resource consumption) and explain it with a fictional example API, how it's exploited at a high level, and how to prevent and test for it.",
+    "done": "- A new file `api-security/your-github-username-risk-name.md` based on [`templates/guide.md`](https://github.com/CyberSecTober/Cybersectober/blob/main/templates/guide.md), with the YAML header.\n- A vulnerable and a fixed code example for a fictional API using `example.com`.\n- At least 3 prevention steps and how to test for the issue in your own API.",
+    "labels": [
+      "open-to-all",
+      "intermediate",
+      "api-security",
+      "points-10"
+    ]
+  },
+  {
+    "title": "[Open to all] Write a threat model for an AI chatbot or agent",
+    "track": "ai-security",
+    "difficulty": "advanced",
+    "points": 10,
+    "what": "Pick a realistic AI system (a customer support chatbot, a RAG assistant over company documents, or an AI agent that can send emails) and threat-model it: what can go wrong, how likely it is, and how to defend against it.",
+    "done": "- A new file `ai-security/your-github-username-threat-model-topic.md` based on [`templates/guide.md`](https://github.com/CyberSecTober/Cybersectober/blob/main/templates/guide.md), with the YAML header.\n- A short description or diagram of the system, at least 5 threats (for example prompt injection, data leakage, tool misuse) with impact and mitigations.\n- Uses a fictional system, not a real company's product.",
+    "labels": [
+      "open-to-all",
+      "advanced",
+      "ai-security",
+      "points-10"
+    ]
+  },
+  {
+    "title": "[Open to all] Build a prompt injection practice lab",
+    "track": "ai-security",
+    "difficulty": "advanced",
+    "points": 15,
+    "what": "Build a small, deliberately vulnerable AI app that people can run on their own computer to practise finding and fixing prompt injection. It can use a local model or a mocked model response, so no paid API key is needed.",
+    "done": "- A new folder `ai-security/labs/your-github-username-lab-name/` based on [`templates/lab.md`](https://github.com/CyberSecTober/Cybersectober/blob/main/templates/lab.md), with setup steps and a `SOLUTION.md`.\n- Runs locally and binds only to 127.0.0.1. No real API keys, credentials or personal data.\n- Explains how to fix the vulnerability, not just how to exploit it.",
+    "labels": [
+      "open-to-all",
+      "advanced",
+      "ai-security",
+      "points-15"
+    ]
+  },
+  {
+    "title": "[Open to all] Create a beginner capture-the-flag challenge",
+    "track": "Any track (put it in the folder that fits)",
+    "difficulty": "advanced",
+    "points": 15,
+    "what": "Design a small CTF challenge for beginners: a web bug, a hidden clue in a file, a weak password hash, a log file with an attacker in it, or a simple API flaw. Players should learn one clear lesson from it.",
+    "done": "- A new folder `<track>/labs/your-github-username-ctf-name/` based on [`templates/lab.md`](https://github.com/CyberSecTober/Cybersectober/blob/main/templates/lab.md), with the challenge description, setup steps, hints and a `SOLUTION.md` walkthrough.\n- Runs locally or in Docker, binds only to 127.0.0.1, and uses fictional data and `example.com`.\n- No real malware, real credentials or attacks on real systems.",
+    "labels": [
+      "open-to-all",
+      "advanced",
+      "points-15"
+    ]
+  },
+  {
+    "title": "[Open to all] Blue team walkthrough: find the attacker in the logs",
+    "track": "Any track (put it in the folder that fits)",
+    "difficulty": "advanced",
+    "points": 10,
+    "what": "Create a small set of fictional log entries (web server, SSH, Windows or cloud logs) that hide an attack, then write a walkthrough showing how a defender would spot it, what it means, and what to do next. A detection rule (for example Sigma, a grep command or a SIEM query) is a bonus.",
+    "done": "- A new folder `<track>/blue-team/your-github-username-topic/` with the sample logs and a walkthrough based on [`templates/guide.md`](https://github.com/CyberSecTober/Cybersectober/blob/main/templates/guide.md), with the YAML header.\n- All data is fictional: no real IP addresses of real people, usernames or company names.\n- Explains how to detect the attack and how to respond.",
+    "labels": [
+      "open-to-all",
+      "advanced",
+      "points-10"
+    ]
+  },
+  {
+    "title": "[Open to all] Lessons from a public data breach",
+    "track": "Any track (put it in the folder that fits)",
+    "difficulty": "intermediate",
+    "points": 10,
+    "what": "Pick a data breach or cyber incident that has been publicly reported and explain it in plain words: what happened, how the attackers got in, what the impact was, and what others can learn. Focus on lessons for defenders.",
+    "done": "- A new file `<track>/your-github-username-breach-name.md` based on [`templates/guide.md`](https://github.com/CyberSecTober/Cybersectober/blob/main/templates/guide.md), with the YAML header.\n- Cites at least 2 public sources (official reports or reputable news).\n- Only uses information that is already public. No leaked data, no personal details of victims, and no step-by-step attack instructions.\n- Ends with at least 3 practical lessons.",
+    "labels": [
+      "open-to-all",
+      "intermediate",
+      "points-10"
+    ]
+  },
+  {
+    "title": "[Open to all] Security guide for your local community",
+    "track": "community",
+    "difficulty": "intermediate",
+    "points": 5,
+    "what": "Write a security guide for people in your city, country or community, about the scams and risks they actually face. Ideas: mobile money fraud, fake job offers, SIM swap, romance scams, fake loan apps, or WhatsApp group scams. You can write it in English or your local language.",
+    "done": "- A new file in `community/<your-country>/your-github-username-topic.md` based on [`templates/guide.md`](https://github.com/CyberSecTober/Cybersectober/blob/main/templates/guide.md), with the YAML header (set `language` to the language you used).\n- Real local examples described without naming real people, plus clear steps to stay safe and where to report scams locally.",
+    "labels": [
+      "open-to-all",
+      "intermediate",
+      "community",
+      "points-5"
+    ]
   }
 ]

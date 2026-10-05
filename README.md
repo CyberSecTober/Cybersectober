@@ -34,6 +34,7 @@ Earns 3 points and the First Contribution badge. Please check your tip isn't alr
 
 - **[Open-to-all challenges](https://github.com/CyberSecTober/Cybersectober/issues?q=is%3Aopen+label%3Aopen-to-all)** need no claiming: a glossary entry, a quiz, a short scam story, a translation and more.
 - **[Other beginner challenges](https://github.com/CyberSecTober/Cybersectober/issues?q=is%3Aopen+label%3A%22good+first+issue%22)** are claimed first: comment **"I'll take this"** on the issue.
+- **[Intermediate and advanced challenges](https://github.com/CyberSecTober/Cybersectober/issues?q=is%3Aopen+label%3Aintermediate%2Cadvanced)** are for people with more to share: a security tool, a blog post turned into a guide, a checklist, a walkthrough, a resource list, a threat model or a lab. They earn 5 to 20 points.
 - Follow the steps in the challenge, then open a pull request. Need more detail? See the [full contributor guide](docs/guide.md#level-3-build-something-bigger-1560-minutes).
 
 Earns 3 to 20 points per contribution, plus tier and specialty badges.
