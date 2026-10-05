@@ -124,6 +124,7 @@ def merged_prs():
 
 
 CONTENT_DIRS = ("awareness/", "api-security/", "ai-security/", "community/")
+MAINTENANCE_DIRS = ("scripts/", ".github/", "data/")
 
 
 POSTS_FILE = "awareness/posts.md"
@@ -141,7 +142,8 @@ def points_for(pr):
         if files == {"awareness/tips.md"}:
             pts = 3
         is_post = files == {POSTS_FILE}
-        counts = any(f.startswith(CONTENT_DIRS) for f in files)
+        counts = (any(f.startswith(CONTENT_DIRS) for f in files)
+                  and not any(f.startswith(MAINTENANCE_DIRS) for f in files))
     if pts and "quality-bonus" in labels:
         pts += 5
     return pts, labels, counts, is_post
