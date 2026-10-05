@@ -6,7 +6,7 @@ First time contributing to open source? Perfect, this project is built for you. 
 
 ## The three ways to contribute
 
-**1. Post (2 min, no GitHub).** Share a security tip with #CyberSecTOBER and [submit the link](https://forms.gle/placeholder).
+**1. Post (2 min, no GitHub).** Share a security tip with #CyberSecTOBER and keep the link to your post. The submission form is **coming soon**, and posts made before it opens still count.
 
 **2. Submit (5 min, no code).** Either add a tip in your browser (see below) or use the [**Submit a tip or resource**](../../issues/new/choose) form. A maintainer adds form submissions to the repo and credits you as a co-author.
 

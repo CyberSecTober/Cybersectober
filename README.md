@@ -51,7 +51,7 @@ You only need this for the 5-minute and 15–60-minute levels.
 1. **Write one short security tip** in your own words. For example: *"Your bank will never ask for your OTP. If someone does, it's a scam."*
 2. **Post it** on LinkedIn, X, Instagram, Facebook or TikTok with the hashtag **#CyberSecTOBER**.
 3. **Copy the link** to your post. On most apps: tap **Share** on the post, then **Copy link**.
-4. **Submit the link** using our [community form](https://forms.gle/placeholder).
+4. **Keep the link.** Our submission form is **coming soon**, and we'll announce it here and in [Discussions](https://github.com/CyberSecTober/Cybersectober/discussions). Posts you make before it opens still count.
 
 You earn the 📣 **Awareness Advocate** badge for your first post, 📡 **Signal Booster** for 5 posts, and 📅 **Awareness Ambassador** for posting at least once every week of October.
 
