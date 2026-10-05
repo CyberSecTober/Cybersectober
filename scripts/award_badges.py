@@ -297,7 +297,7 @@ def comment_body(u, pr_number):
                   "awarded yet. Add the appropriate label and this comment will update automatically.", ""]
     for s in new:
         lines += [f"**Badge earned: {BADGES[s][0]}**", "",
-                  f'<img src="{RAW_BADGES}/{s}.png" width="96" alt="{BADGES[s][0]} badge">', "",
+                  f'<img src="{RAW_BADGES}/cards/{s}.jpg" width="240" alt="{BADGES[s][0]} badge">', "",
                   f"{BADGES[s][1]}  ",
                   f"[Add to LinkedIn]({linkedin_url(login, s, u['badges'][s]['date'])}) · [Share on X]({x_url(login, s)})", ""]
     if pr["post"]:
@@ -353,7 +353,7 @@ h1{{font-size:clamp(28px,5vw,40px);margin:8px 0 4px}}h2{{margin:36px 0 12px;font
 .verified{{display:inline-block;margin-top:6px;padding:3px 10px;border-radius:99px;border:1px solid var(--accent);color:var(--accent);font:500 12px "IBM Plex Mono",monospace}}
 .stats{{display:flex;gap:28px;flex-wrap:wrap;margin-top:16px}}.stats b{{display:block;font-size:28px}}.stats span{{color:var(--muted);font-size:14px}}
 .grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}}
-.badge{{text-align:center}}.badge img{{width:120px;height:120px}}.badge h3{{margin:6px 0 2px;font-size:17px}}.badge p{{margin:0;color:var(--muted);font-size:14px}}
+.badge{{text-align:center}}.badge img{{width:100%;max-width:240px;height:auto;border-radius:10px;display:block;margin:0 auto 10px}}.badge p{{margin:0;color:var(--muted);font-size:14px}}
 .badge .links{{margin-top:10px;font-size:14px}}
 table{{width:100%;border-collapse:collapse}}th,td{{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line)}}th{{color:var(--muted);font-weight:400;font-size:14px}}
 td img{{width:28px;height:28px;border-radius:50%;vertical-align:middle;margin-right:8px}}.num{{text-align:right}}
@@ -375,8 +375,8 @@ button{{background:var(--accent);color:#06281A;border:0;border-radius:8px;paddin
 def badge_tile(u, slug, root):
     b = u["badges"][slug]
     source = f'<a href="{REPO_URL}/pull/{b["pr"]}">PR #{b["pr"]}</a>' if b["pr"] else "Maintainer award"
-    return (f'<div class="panel badge"><img src="{root}badges/{slug}.png" alt="{html.escape(BADGES[slug][0])} badge">'
-            f'<h3>{html.escape(BADGES[slug][0])}</h3><p>{html.escape(BADGES[slug][1])}</p>'
+    return (f'<div class="panel badge"><img src="{root}badges/cards/{slug}.jpg" alt="{html.escape(BADGES[slug][0])} badge: '
+            f'{html.escape(BADGES[slug][1])}">'
             f'<p>{fmt_date(b["date"])} · {source}</p>'
             f'<div class="links"><a href="{html.escape(linkedin_url(u["login"], slug, b["date"]))}">Add to LinkedIn</a> · '
             f'<a href="{html.escape(x_url(u["login"], slug))}">Post on X</a></div></div>')
@@ -449,7 +449,8 @@ def build_site(ranked):
         earned = [s for s in BADGES if s in u["badges"]]
         for s in earned:
             shutil.copy(os.path.join("badges", f"{s}.png"), os.path.join(d, f"{s}.png"))
-        snippet = "\n".join(f'<a href="{verify_url(login)}"><img src="{verify_url(login)}{s}.png" width="120" '
+            shutil.copy(os.path.join("badges", "cards", f"{s}.jpg"), os.path.join(d, f"{s}.jpg"))
+        snippet = "\n".join(f'<a href="{verify_url(login)}"><img src="{verify_url(login)}{s}.jpg" width="180" '
                              f'alt="CyberSecTOBER 2026 {BADGES[s][0]} badge, verified"></a>' for s in earned)
         embed = (f'<h2>Show your badges on GitHub</h2><div class="panel">'
                  f'<p style="margin-top:0">Paste this into your GitHub profile README. The images only exist for badges you have earned, '
