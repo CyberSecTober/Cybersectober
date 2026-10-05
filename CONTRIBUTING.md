@@ -1,8 +1,8 @@
 # Contributing to CyberSecTOBER
 
-First time contributing to open source? Perfect, this project is built for you. 💙
+First time contributing to open source? Perfect, this project is built for you.
 
-⭐ **Before you start, star the repo:** click the **☆ Star** button at the top right of the [repo page](https://github.com/CyberSecTober/Cybersectober), next to **Fork** (on a phone, it's just under the repo name).
+**Before you start, star the repo:** click the **Star** button at the top right of the [repo page](https://github.com/CyberSecTober/Cybersectober), next to **Fork** (on a phone, it's just under the repo name).
 
 ## The three ways to contribute
 
@@ -14,7 +14,7 @@ First time contributing to open source? Perfect, this project is built for you. 
 
 ## Adding a tip in your browser
 
-1. Open `awareness/tips.md` and click the ✏️ pencil icon
+1. Open `awareness/tips.md` and click the pencil icon (Edit this file)
 2. Add one line at the bottom, in this format:
    `- **Short tip title**, one sentence explaining it. (Your Name or @github-handle)`
 3. Click **Commit changes…** → **Propose changes** → **Create pull request**
@@ -49,7 +49,7 @@ Using AI tools to help is fine, but you're responsible for checking accuracy.
 
 Don't worry about small formatting mistakes, because reviewers will fix those for you.
 
-## 🛡️ Safety rules (non-negotiable)
+## Safety rules (non-negotiable)
 
 **Never submit:** malware or ransomware, credential stealers, working phishing kits or clones of real login pages, attacks on real organizations or systems, real credentials or API keys, personal data or real victim information, or unpatched vulnerabilities in real products (use responsible disclosure instead).
 
@@ -58,7 +58,7 @@ Phishing examples must use fictional companies and `example.com`. Labs must be d
 ## What happens after you submit
 
 1. A mentor reviews your contribution, usually within 48 hours
-2. It gets merged 🎉
+2. It gets merged
 3. You get your badge and points in a comment on your PR
 4. Your name goes on the leaderboard
 

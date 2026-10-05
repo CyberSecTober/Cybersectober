@@ -420,7 +420,7 @@ def build_site(ranked):
                    f'<td class="num">{"Post" if p["post"] else "+" + str(p["points"])}</td></tr>' for u, p in contributions[:10]]
 
     index = (f'<h1>Leaderboard</h1><p class="muted">Every merged contribution to CyberSecTOBER 2026, verified. '
-             f'<a href="{REPO_URL}#-your-first-contribution-in-5-minutes-no-installs">Make your first contribution →</a></p>'
+             f'<a href="{REPO_URL}#level-2-add-a-tip-5-minutes-no-installs">Make your first contribution →</a></p>'
              f'<div class="statbar">{statbar}</div>'
              f'<h2>This week</h2><div class="week">Week {wi + 1} · {html.escape(theme)} · {span}</div>'
              f'<div class="panel" style="margin-top:10px">{table(["#", "Contributor", "Points"], week_rows, "No merged contributions this week yet. Yours could be the first!")}</div>'

@@ -1,4 +1,4 @@
-# 🔐 CyberSecTOBER 2026
+# CyberSecTOBER 2026
 
 [![GitHub stars](https://img.shields.io/github/stars/CyberSecTober/Cybersectober?style=social)](https://github.com/CyberSecTober/Cybersectober)
 
@@ -8,21 +8,38 @@ CyberSecTOBER is a month-long open-source cybersecurity challenge for Cybersecur
 
 > **Don't just learn cybersecurity. Contribute to it.**
 
-⭐ **Star this repo:** click the **☆ Star** button at the top right of the [repo page](https://github.com/CyberSecTober/Cybersectober), next to **Fork** (on a phone, it's just under the repo name). It's free, takes one second, and helps more people find CyberSecTOBER. You need to be signed in to GitHub.
+**Star this repo:** click the **Star** button at the top right of the [repo page](https://github.com/CyberSecTober/Cybersectober), next to **Fork** (on a phone, it's just under the repo name). It's free, takes one second, and helps more people find CyberSecTOBER. You need to be signed in to GitHub.
 
-👋 **Never used GitHub before? You're in the right place.** This page walks you through everything step by step. You don't need to know how to code, and you don't need to install anything.
+**Never used GitHub before? You're in the right place.** This page walks you through everything step by step. You don't need to know how to code, and you don't need to install anything.
 
-## ⚡ Pick your level
+## Table of contents
+
+- [Pick your level](#pick-your-level)
+- [GitHub words, in plain English](#github-words-in-plain-english)
+- [Before you start: create a free GitHub account](#before-you-start-create-a-free-github-account)
+- [Level 1: Share a post (2 minutes)](#level-1-share-a-post-2-minutes)
+- [Level 2: Add a tip (5 minutes, no installs)](#level-2-add-a-tip-5-minutes-no-installs)
+- [Level 3: Build something bigger (15–60 minutes)](#level-3-build-something-bigger-1560-minutes)
+- [Points & badges](#points--badges)
+- [Show off your badge](#show-off-your-badge)
+- [Weekly themes](#weekly-themes)
+- [Tracks](#tracks)
+- [Safety first](#safety-first)
+- [Frequently asked questions](#frequently-asked-questions)
+- [Get involved](#get-involved)
+- [License](#license)
+
+## Pick your level
 
 | Time | What you do | Need a GitHub account? | What you get |
 |---|---|---|---|
-| **2 minutes** | Post a security tip on social media with **#CyberSecTOBER**, then add the link here | Yes (free) | 📣 Awareness badges |
-| **5 minutes** | Add one security tip to this project, right in your browser | Yes (free) | 🟢 First Contribution badge, 3 points and your name in an open-source project |
+| **2 minutes** | Post a security tip on social media with **#CyberSecTOBER**, then add the link here | Yes (free) | Awareness badges |
+| **5 minutes** | Add one security tip to this project, right in your browser | Yes (free) | First Contribution badge, 3 points and your name in an open-source project |
 | **15–60 minutes** | Pick a challenge and build a guide, translation, checklist, lab or tool | Yes (free) | 5–20 points per contribution, tier badges and specialty badges |
 
 **Spread awareness, contribute to open source, or both.** Every level is explained step by step below.
 
-## 📚 GitHub words, in plain English
+## GitHub words, in plain English
 
 You'll see these words a lot. Here's what they mean:
 
@@ -36,7 +53,7 @@ You'll see these words a lot. Here's what they mean:
 | **Issue** | A to-do item. Our challenges are issues, each describing something to build. |
 | **Markdown (`.md`)** | The simple text format our files use. `**bold**` becomes **bold**, and a line starting with `- ` becomes a bullet point. |
 
-## 1️⃣ Before you start: create a free GitHub account
+## Before you start: create a free GitHub account
 
 You need this for every level. It's free and takes about 2 minutes.
 
@@ -44,14 +61,14 @@ You need this for every level. It's free and takes about 2 minutes.
 2. Enter your email, create a password and choose a **username**. Your username is how you'll be credited, so pick one you'd be happy to show an employer.
 3. Verify your email address using the code GitHub sends you.
 4. Come back to this page and stay signed in.
-5. ⭐ **Star the repo:** click the **☆ Star** button at the top right of the [repo page](https://github.com/CyberSecTober/Cybersectober), next to **Fork** (on a phone, it's just under the repo name).
+5. **Star the repo:** click the **Star** button at the top right of the [repo page](https://github.com/CyberSecTober/Cybersectober), next to **Fork** (on a phone, it's just under the repo name).
 
-## 📣 Level 1: Share a post (2 minutes)
+## Level 1: Share a post (2 minutes)
 
 1. **Write one short security tip** in your own words. For example: *"Your bank will never ask for your OTP. If someone does, it's a scam."*
 2. **Post it** on LinkedIn, X, Instagram, Facebook or TikTok with the hashtag **#CyberSecTOBER**. Make sure the post is public.
 3. **Copy the link** to your post. On most apps: tap **Share** on the post, then **Copy link**.
-4. **Open [`awareness/posts.md`](awareness/posts.md)** and click the ✏️ pencil icon. If GitHub asks, click **Fork this repository**.
+4. **Open [`awareness/posts.md`](awareness/posts.md)** and click the pencil icon (Edit this file). If GitHub asks, click **Fork this repository**.
 5. **Add one line at the bottom** with a short description, your link and your username:
    ```
    - [Why your bank will never ask for your OTP](https://www.linkedin.com/posts/your-post-link) (@your-github-username)
@@ -62,21 +79,21 @@ Add **one post per pull request**, so each one is counted. When a mentor merges 
 
 | Posts | Badge |
 |---|---|
-| Your first post | 📣 **Awareness Advocate** |
-| 5 posts | 📡 **Signal Booster** |
-| At least one post in each of the four weeks of October | 📅 **Awareness Ambassador** |
+| Your first post | **Awareness Advocate** |
+| 5 posts | **Signal Booster** |
+| At least one post in each of the four weeks of October | **Awareness Ambassador** |
 
 Posts earn awareness badges, not points. Points come from tips, guides, translations, labs and tools.
 
 > Never include real people's phone numbers, account details or screenshots of real scam victims in your posts.
 
-## ✏️ Your first contribution in 5 minutes (no installs)
+## Level 2: Add a tip (5 minutes, no installs)
 
 You'll add one security tip to [`awareness/tips.md`](awareness/tips.md) without leaving your browser.
 
 1. **Sign in** to GitHub.
 2. **Open [`awareness/tips.md`](awareness/tips.md).**
-3. **Click the ✏️ pencil icon** ("Edit this file") at the top right of the file.
+3. **Click the pencil icon** ("Edit this file") at the top right of the file.
    - GitHub will say *"You need to fork this repository to propose changes."* Click **Fork this repository**. This makes your own copy. It's normal and safe.
 4. **Add your tip on a new line at the bottom**, in exactly this format:
    ```
@@ -90,18 +107,18 @@ You'll add one security tip to [`awareness/tips.md`](awareness/tips.md) without 
 6. On the **Comparing changes** page, click **Create pull request**.
 7. **A form with a checklist appears.** Read it, tick the boxes that apply, then click **Create pull request** again.
 
-🎉 **That's it. You've made an open-source contribution!**
+**That's it. You've made an open-source contribution!**
 
-⭐ **Before you go, star the repo** if you haven't already: click the **☆ Star** button at the top right of the [repo page](https://github.com/CyberSecTober/Cybersectober), next to **Fork** (on a phone, it's just under the repo name).
+**Before you go, star the repo** if you haven't already: click the **Star** button at the top right of the [repo page](https://github.com/CyberSecTober/Cybersectober), next to **Fork** (on a phone, it's just under the repo name).
 
 **What happens next:**
 - A mentor reviews your tip, usually within 48 hours.
 - If something needs changing, they'll comment on your pull request and GitHub will email you. Just reply or make the change. Don't worry about small formatting mistakes, because reviewers can fix those for you.
-- When it's merged, you'll get a comment with your points and your 🟢 **First Contribution** badge.
+- When it's merged, you'll get a comment with your points and your **First Contribution** badge.
 
 **Prefer not to edit files?** Use the [**Submit a tip or resource**](https://github.com/CyberSecTober/Cybersectober/issues/new/choose) form instead. A maintainer adds it to the project and credits you.
 
-## 🛠️ Level 3: Build something bigger (15–60 minutes)
+## Level 3: Build something bigger (15–60 minutes)
 
 Guides, checklists, translations, threat models, labs and tools all earn more points. Here's how to do it in your browser.
 
@@ -119,7 +136,7 @@ Guides, checklists, translations, threat models, labs and tools all earn more po
 
 **4. Copy a template**
 - In your fork, open the [`templates/`](templates/) folder and click the template you need: `guide.md`, `checklist.md`, `translation.md`, `lab.md` or `tool.md`.
-- Click the 📋 **Copy raw file** icon at the top right of the file.
+- Click the **Copy raw file** icon at the top right of the file.
 
 **5. Create your file**
 - Go to the folder the challenge mentions (for example `awareness/`), then click **Add file → Create new file**.
@@ -139,13 +156,13 @@ Guides, checklists, translations, threat models, labs and tools all earn more po
 - Mentors may suggest changes in comments. To update your work, edit the file in your fork and commit again, and your pull request updates automatically.
 
 **9. Star the repo**
-- If you haven't already, click the **☆ Star** button at the top right of the [repo page](https://github.com/CyberSecTober/Cybersectober), next to **Fork** (on a phone, it's just under the repo name).
+- If you haven't already, click the **Star** button at the top right of the [repo page](https://github.com/CyberSecTober/Cybersectober), next to **Fork** (on a phone, it's just under the repo name).
 
-> 🧪 **Labs and tools:** comment on the challenge first so a mentor can help you plan. Labs must be deliberately vulnerable, run locally with Docker, and include a `SOLUTION.md`.
+> **Labs and tools:** comment on the challenge first so a mentor can help you plan. Labs must be deliberately vulnerable, run locally with Docker, and include a `SOLUTION.md`.
 >
-> 💻 **Already comfortable with Git?** Fork, clone, create a branch, commit, push and open a pull request as usual.
+> **Already comfortable with Git?** Fork, clone, create a branch, commit, push and open a pull request as usual.
 
-## 🏅 Points & badges
+## Points & badges
 
 ### Points
 
@@ -166,20 +183,20 @@ Points add up across the whole month. Pull requests opened by **October 31** cou
 
 | Badge | How to earn it |
 |---|---|
-| 🟢 **First Contribution** | Your first pull request is merged |
-| 🔵 **Security Contributor** | Earn 25 points |
-| 🟣 **Security Builder** | Earn 50 points |
-| 🟠 **Security Champion** | Earn 75 points |
-| 🔴 **Cyber Guardian** | Earn 100 points, the highest tier |
-| 📣 **Awareness Advocate** | Share your first awareness post with #CyberSecTOBER |
-| 📡 **Signal Booster** | Share 5 or more awareness posts in October |
-| 📅 **Awareness Ambassador** | Post at least once every week of October |
-| 🌍 **Community Defender** | Create a community or local-language security resource |
-| 🤖 **AI Security Pioneer** | Contribute to the AI Security track |
-| 🌐 **API Defender** | Contribute to the Web & API Security track |
-| 🧪 **Lab Builder** | Build a practical, deliberately vulnerable security lab |
-| 🤝 **Open Source Mentor** | Mentor contributors or review their work |
-| 🏆 **CyberSecTOBER Champion** | Be the top contributor when CyberSecTOBER 2026 closes |
+| **First Contribution** | Your first pull request is merged |
+| **Security Contributor** | Earn 25 points |
+| **Security Builder** | Earn 50 points |
+| **Security Champion** | Earn 75 points |
+| **Cyber Guardian** | Earn 100 points, the highest tier |
+| **Awareness Advocate** | Share your first awareness post with #CyberSecTOBER |
+| **Signal Booster** | Share 5 or more awareness posts in October |
+| **Awareness Ambassador** | Post at least once every week of October |
+| **Community Defender** | Create a community or local-language security resource |
+| **AI Security Pioneer** | Contribute to the AI Security track |
+| **API Defender** | Contribute to the Web & API Security track |
+| **Lab Builder** | Build a practical, deliberately vulnerable security lab |
+| **Open Source Mentor** | Mentor contributors or review their work |
+| **CyberSecTOBER Champion** | Be the top contributor when CyberSecTOBER 2026 closes |
 
 ### How you receive your badge
 
@@ -194,13 +211,13 @@ Points add up across the whole month. Pull requests opened by **October 31** cou
 <tr><td align="center" width="25%"><img src="badges/cards/open-source-mentor.jpg" width="170" alt="Open Source Mentor badge"></td><td align="center" width="25%"><img src="badges/cards/cybersectober-champion.jpg" width="170" alt="CyberSecTOBER Champion badge"></td></tr>
 </table>
 
-## 🎉 Show off your badge
+## Show off your badge
 
 **When your pull request is merged**, you'll get a comment and an email with your badge, one-click **Add to LinkedIn** and **Share on X** buttons, and your personal verification page. That page also has a ready-made snippet to show your badges on your GitHub profile.
 
 Badges are only valid if they appear on the contributor's verification page. You can find everyone's page from the [leaderboard](https://cybersectober.github.io/Cybersectober/).
 
-## 🗓️ Weekly themes
+## Weekly themes
 
 | Dates | Theme |
 |---|---|
@@ -211,16 +228,16 @@ Badges are only valid if they appear on the contributor's verification page. You
 
 Contribute to any track, any week.
 
-## 🧭 Tracks
+## Tracks
 
 | Track | Folder | Examples |
 |---|---|---|
-| 🔐 Cyber Awareness | [`awareness/`](awareness/) | Phishing, scams, passwords, MFA |
-| 🌐 Web & API Security | [`api-security/`](api-security/) | Checklists, OWASP API Top 10, JWT and BOLA labs |
-| 🤖 AI Security | [`ai-security/`](ai-security/) | Prompt injection, RAG and agent security |
-| 🌍 Africa & Local Communities | [`community/`](community/) | Translations, guides for traders, SMEs and schools |
+| Cyber Awareness | [`awareness/`](awareness/) | Phishing, scams, passwords, MFA |
+| Web & API Security | [`api-security/`](api-security/) | Checklists, OWASP API Top 10, JWT and BOLA labs |
+| AI Security | [`ai-security/`](ai-security/) | Prompt injection, RAG and agent security |
+| Africa & Local Communities | [`community/`](community/) | Translations, guides for traders, SMEs and schools |
 
-## 🛡️ Safety first
+## Safety first
 
 Everything here is for **education and defense**.
 
@@ -228,7 +245,7 @@ Everything here is for **education and defense**.
 
 Phishing examples must use **fictional companies** and **`example.com`** addresses. Labs must be deliberately vulnerable and run **only on your own computer or in a sandbox**. Full rules are in [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## ❓ Frequently asked questions
+## Frequently asked questions
 
 <details>
 <summary><b>Do I need to know how to code?</b></summary>
@@ -272,17 +289,17 @@ It's completely free. Pull requests opened by **October 31, 2026** count towards
 Ask in [Discussions](https://github.com/CyberSecTober/Cybersectober/discussions), comment on the challenge you're working on, or email dearlolami@gmail.com. No question is too basic.
 </details>
 
-## 🤝 Get involved
+## Get involved
 
-- 💬 Join the conversation in [Discussions](https://github.com/CyberSecTober/Cybersectober/discussions)
-- 🙋 Become a mentor or reviewer: open an issue or email dearlolami@gmail.com
-- 🎓 Campus ambassadors: bring your classmates to their first contribution
-- 🏢 Partners: sponsor a track or a challenge
+- Join the conversation in [Discussions](https://github.com/CyberSecTober/Cybersectober/discussions)
+- Become a mentor or reviewer: open an issue or email dearlolami@gmail.com
+- Campus ambassadors: bring your classmates to their first contribution
+- Partners: sponsor a track or a challenge
 
-## 📜 License
+## License
 
 Written content: [CC BY 4.0](LICENSE-CONTENT.md) · Code: [MIT](LICENSE) · Please follow our [Code of Conduct](CODE_OF_CONDUCT.md).
 
-<p align="center">⭐ <b>Found this useful? <a href="https://github.com/CyberSecTober/Cybersectober">Star the repo</a> (☆ Star button, top right) and share it with a friend.</b></p>
+<p align="center"><b>Found this useful? <a href="https://github.com/CyberSecTober/Cybersectober">Star the repo</a> (Star button, top right) and share it with a friend.</b></p>
 
 <p align="center"><b>October ends. The knowledge stays.</b><br>#CyberSecTOBER #CybersecurityAwarenessMonth</p>
