@@ -14,7 +14,7 @@ on:
       - badges/**
       - site/**
   schedule:
-    - cron: "17 0 * * *"
+    - cron: "17 * * * *"
   workflow_dispatch:
     inputs:
       pr_number:

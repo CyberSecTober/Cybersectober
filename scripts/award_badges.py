@@ -11,7 +11,7 @@ import re
 import shutil
 import urllib.parse
 import urllib.request
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 
 REPO = os.environ["GITHUB_REPOSITORY"]
 TOKEN = os.environ.get("GITHUB_TOKEN", "")
@@ -23,6 +23,7 @@ SITE_URL = (os.environ.get("SITE_URL") or f"https://{OWNER.lower()}.github.io/{N
 REPO_URL = f"https://github.com/{REPO}"
 RAW_BADGES = f"https://raw.githubusercontent.com/{REPO}/main/badges"
 MARKER = "<!-- cybersectober-award -->"
+CATCH_UP_DAYS = 7
 NOW = datetime.fromisoformat(os.environ["NOW"]) if os.environ.get("NOW") else datetime.now(timezone.utc)
 
 WEEKS = [  # (first day, last day, theme); launch week also covers anything merged before 5 October
@@ -328,16 +329,33 @@ def comment_body(u, pr_number):
     return "\n".join(lines)
 
 
+def award_comments(pr_number):
+    return [c for c in paginate(f"/repos/{REPO}/issues/{pr_number}/comments")
+            if MARKER in (c.get("body") or "") and c["user"]["type"] == "Bot"]
+
+
 def post_comment(pr_number, body):
     if DRY_RUN:
         print(f"--- DRY RUN: comment for PR #{pr_number} ---\n{body}\n---")
         return
-    existing = [c for c in paginate(f"/repos/{REPO}/issues/{pr_number}/comments")
-                if MARKER in (c.get("body") or "") and c["user"]["type"] == "Bot"]
+    existing = award_comments(pr_number)
     if existing:
         api(f"/repos/{REPO}/issues/comments/{existing[0]['id']}", "PATCH", {"body": body})
     else:
         api(f"/repos/{REPO}/issues/{pr_number}/comments", "POST", {"body": body})
+
+
+def catch_up(ranked):
+    """Post award comments that a run never delivered, for example when GitHub Actions had no runner available.
+    Only looks at contributions merged in the last CATCH_UP_DAYS days that have no award comment yet."""
+    cutoff = NOW - timedelta(days=CATCH_UP_DAYS)
+    for u in ranked:
+        for p in u["prs"]:
+            merged = datetime.fromisoformat(p["merged_at"].replace("Z", "+00:00"))
+            if merged < cutoff or award_comments(p["number"]):
+                continue
+            print(f"Catching up: PR #{p['number']} by @{u['login']} has no award comment yet.")
+            post_comment(p["number"], comment_body(u, p["number"]))
 
 
 def fmt_date(iso):
@@ -504,6 +522,7 @@ def main():
             post_comment(n, comment_body(u, n))
         else:
             print(f"PR #{n} is not a merged contribution (not merged into main, or maintenance only); no comment posted.")
+    catch_up(ranked)
 
 
 if __name__ == "__main__":
