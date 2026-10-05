@@ -45,6 +45,8 @@ jobs:
       - id: pages
         uses: actions/configure-pages@v5
         continue-on-error: true
+      - name: Install the markdown renderer for contribution pages
+        run: pip install --quiet markdown==3.11 nh3==0.3.7
       - name: Award points and badges, build verification site
         run: python3 scripts/award_badges.py
         env:

@@ -13,6 +13,12 @@ import urllib.parse
 import urllib.request
 from datetime import date, datetime, timedelta, timezone
 
+try:  # Renders contributions as readable pages; installed by the workflow. Without them pages show plain text.
+    import markdown
+    import nh3
+except ImportError:
+    markdown = nh3 = None
+
 REPO = os.environ["GITHUB_REPOSITORY"]
 TOKEN = os.environ.get("GITHUB_TOKEN", "")
 PR_NUMBER = os.environ.get("PR_NUMBER", "").strip()
@@ -316,25 +322,27 @@ def pr_files(pr):
     return pr["_files"]
 
 
-def content_url(pr):
-    """Link to what the contribution added, as it reads today on main: the exact line for a tip or post, the page for
-    a guide or quiz, the folder for a tool or lab. Falls back to the pull request if the content has moved."""
+def content_info(pr):
+    """What the contribution added, as it reads today on main: the lines it added to the tips or posts list, a single
+    page (guide, quiz, write-up), or a folder (tool, lab). kind is "lines", "file", "folder" or "pr" if it has moved."""
     files = [f for f in pr_files(pr) if f["filename"].startswith(CONTENT_DIRS) and f["status"] != "removed"
              and os.path.exists(f["filename"])]
     if not files:
-        return pr["html_url"]
-    if len(files) == 1 and files[0]["filename"] in (TIPS_FILE, POSTS_FILE):
+        return {"kind": "pr", "url": pr["html_url"]}
+    names = [f["filename"] for f in files]
+    if len(files) == 1 and names[0] in (TIPS_FILE, POSTS_FILE):
         added = [l[1:].strip() for l in (files[0].get("patch") or "").splitlines()
                  if l.startswith("+") and not l.startswith("+++") and l[1:].strip()]
-        lines = [l.strip() for l in open(files[0]["filename"], encoding="utf-8")]
-        line = next((i for i, l in enumerate(lines, 1) if added and l == added[-1]), None)
-        return f"{REPO_URL}/blob/main/{files[0]['filename']}" + (f"#L{line}" if line else "")
-    names = [f["filename"] for f in files]
+        return {"kind": "lines", "path": names[0], "lines": added, "url": f"{REPO_URL}/blob/main/{names[0]}"}
     folder = os.path.commonpath(names) if len(names) > 1 else ""
     if folder and folder.count("/") >= 1:
-        return f"{REPO_URL}/tree/main/{folder}"
-    page = next((n for n in names if n.endswith(".md")), names[0])
-    return f"{REPO_URL}/blob/main/{page}"
+        readme = next((n for n in sorted(names, key=len) if os.path.basename(n).lower() == "readme.md"), None)
+        page_file = readme or next((n for n in names if n.endswith(".md")), None)
+        return {"kind": "folder", "path": folder, "page": page_file, "files": sorted(names),
+                "url": f"{REPO_URL}/tree/main/{folder}"}
+    page_file = next((n for n in names if n.endswith(".md")), names[0])
+    return {"kind": "file", "path": page_file, "page": page_file if page_file.endswith(".md") else None,
+            "url": f"{REPO_URL}/blob/main/{page_file}"}
 
 
 def points_for(pr):
@@ -378,7 +386,8 @@ def compute(prs, manual, organizers=frozenset()):
                 pts, capped = 0, True
         before = u["points"]
         u["points"] += pts
-        u["prs"].append({"number": pr["number"], "title": pr["title"], "url": pr["html_url"], "content": content_url(pr),
+        u["prs"].append({"number": pr["number"], "title": pr["title"], "url": pr["html_url"], "info": content_info(pr),
+                         "labels": sorted(labels),
                          "merged_at": pr["merged_at"], "points": pts, "post": is_post, "capped": capped})
 
         def earn(slug):
@@ -572,10 +581,85 @@ def catch_up(ranked):
             post_comment(p["number"], comment_body(u, p["number"]))
 
 
-def contribution_link(p):
-    """The title opens the contribution itself; the number links to the pull request as proof."""
-    return (f'<a href="{p.get("content") or p["url"]}">{html.escape(p["title"])}</a> '
+def contribution_link(p, root=""):
+    """The title opens a readable page with the contribution itself; the number links to the pull request as proof."""
+    return (f'<a href="{root}c/{p["number"]}/">{html.escape(p["title"])}</a> '
             f'<a class="muted" href="{p["url"]}">#{p["number"]}</a>')
+
+
+def front_matter(text):
+    """Split an optional YAML header (--- key: value ---) from markdown. Returns (fields, body)."""
+    m = re.match(r"\A---\s*\n(.*?)\n---\s*\n", text, re.S)
+    if not m:
+        return {}, text
+    fields = {}
+    for line in m.group(1).splitlines():
+        key, sep, value = line.partition(":")
+        if sep and value.strip():
+            fields[key.strip().lower()] = value.strip().strip("\"'")
+    return fields, text[m.end():]
+
+
+def render_markdown(text, path):
+    """Markdown to safe HTML. Relative links and images point back to the file's folder on GitHub."""
+    if not (markdown and nh3):
+        return f"<pre>{html.escape(text)}</pre>"
+    parts = re.split(r"(```.*?```)", text, flags=re.S)  # make bare web addresses clickable, outside code blocks
+    text = "".join(part if part.startswith("```") else
+                   re.sub(r'(?<![("<\[=])(https?://[^\s<>()"]+[^\s<>()".,;:!?])', r"<\1>", part) for part in parts)
+    out = markdown.markdown(text, extensions=["extra", "sane_lists"])
+    folder = os.path.dirname(path) + "/" if os.path.dirname(path) else ""
+
+    def absolute(m):
+        attr, url = m.group(1), m.group(2)
+        if re.match(r"^(https?:|mailto:|#)", url):
+            return m.group(0)
+        base = f"https://raw.githubusercontent.com/{REPO}/main/" if attr == "src" else f"{REPO_URL}/blob/main/"
+        return f'{attr}="{urllib.parse.urljoin(base + folder, url)}"'
+
+    out = re.sub(r'\b(src|href)="([^"]*)"', absolute, out)
+    return nh3.clean(out, url_schemes={"http", "https", "mailto"})
+
+
+def first_link(text):
+    m = re.search(r"\]\((https?://[^)\s]+)\)", text) or re.search(r"https?://\S+", text)
+    return (m.group(1) if m.lastindex else m.group(0)) if m else None
+
+
+def contribution_page(u, p):
+    info = p["info"]
+    fields, body_md, content = {}, "", ""
+    if info["kind"] == "lines":
+        items = "".join(f"<li>{render_markdown(l[2:] if l.startswith('- ') else l, info['path'])}</li>" for l in info["lines"])
+        content = f'<div class="panel prose"><ul class="contribution-lines">{items}</ul></div>'
+        link = first_link(" ".join(info["lines"])) if p["post"] else None
+        if link:
+            content += f'<p><a class="cta" href="{html.escape(link)}">Read the full post</a></p>'
+    elif info.get("page"):
+        fields, body_md = front_matter(open(info["page"], encoding="utf-8").read())
+        heading = re.match(r"\A\s*#\s+(.+?)\s*#*\s*\n", body_md)
+        if heading:  # the page's own heading becomes the page title instead of appearing twice
+            fields.setdefault("title", heading.group(1))
+            body_md = body_md[heading.end():]
+        content = f'<article class="panel prose">{render_markdown(body_md, info["page"])}</article>'
+        if info["kind"] == "folder":
+            files = "".join(f'<li><a href="{REPO_URL}/blob/main/{f}">{html.escape(f[len(info["path"]) + 1:])}</a></li>'
+                            for f in info["files"])
+            content += f'<h2>Files</h2><div class="panel"><ul>{files}</ul></div>'
+    else:
+        content = f'<div class="panel"><p>View this contribution on GitHub.</p></div>'
+    title = fields.get("title") or p["title"]
+    tracks = [l for l in p["labels"] if l in ("awareness", "api-security", "ai-security", "community")]
+    meta = [f'<a href="../../u/{u["login"].lower()}/">@{html.escape(u["login"])}</a>', fmt_date(p["merged_at"]),
+            "Awareness post" if p["post"] else f'{p["points"]} points'] + [html.escape(t) for t in tracks]
+    desc = f'<p class="lead">{html.escape(fields["description"])}</p>' if fields.get("description") else ""
+    body = (f'<h1>{html.escape(title)}</h1>{desc}'
+            f'<div class="byline"><img src="https://github.com/{u["login"]}.png?size=64" alt="">{" · ".join(meta)}</div>'
+            f'{content}'
+            f'<p class="muted">Contributed to the CyberSecTOBER open-source library under '
+            f'<a href="{REPO_URL}/blob/main/LICENSE-CONTENT.md">CC BY 4.0</a>. '
+            f'<a href="{info["url"]}">View on GitHub</a> · <a href="{p["url"]}">Pull request #{p["number"]}</a></p>')
+    return page(f"{title}: CyberSecTOBER 2026", body, 2)
 
 
 def fmt_date(iso):
@@ -611,6 +695,14 @@ td img{{width:28px;height:28px;border-radius:50%;vertical-align:middle;margin-ri
 .flag{{margin-left:6px}}.progress{{margin-top:20px}}.progress .track{{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:8px}}
 .progress .fill{{height:100%;background:var(--accent);border-radius:99px}}
 pre{{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;white-space:pre;font:13px/1.5 "IBM Plex Mono",monospace;color:var(--text)}}
+.lead{{color:var(--muted);font-size:18px;margin:4px 0 12px}}
+.byline{{color:var(--muted);font-size:15px;margin:10px 0 20px}}.byline img{{width:28px;height:28px;border-radius:50%;vertical-align:middle;margin-right:8px}}
+.prose{{font-size:17px;line-height:1.7;overflow-wrap:anywhere}}.prose h1{{font-size:28px}}.prose h2{{font-size:22px;margin:28px 0 10px}}.prose h3{{font-size:19px;margin:22px 0 8px}}
+.prose img{{max-width:100%;height:auto;border-radius:10px}}.prose hr{{border:0;border-top:1px solid var(--line);margin:24px 0}}
+.prose code{{font:14px "IBM Plex Mono",monospace;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:1px 6px}}.prose pre code{{border:0;padding:0}}
+.prose blockquote{{margin:0;padding-left:14px;border-left:3px solid var(--accent);color:var(--muted)}}.prose>:first-child{{margin-top:0}}
+.contribution-lines{{margin:0;padding-left:20px}}.contribution-lines p{{margin:0}}
+.cta{{display:inline-block;background:var(--accent);color:#06281A;text-decoration:none;font-weight:700;border-radius:10px;padding:11px 18px;margin-top:12px}}
 button{{background:var(--accent);color:#06281A;border:0;border-radius:8px;padding:9px 16px;font:600 15px "Space Grotesk",system-ui,sans-serif;cursor:pointer}}.table-wrap{{overflow-x:auto}}
 </style></head><body><main>
 <div class="eyebrow"><a href="{root}" style="color:inherit;text-decoration:none">CyberSecTOBER 2026</a></div>
@@ -688,6 +780,11 @@ def build_site(ranked):
              f'<h2>Latest contributions</h2><div class="panel">{table(["Contributor", "Contribution", "Points"], latest_rows, "Nothing merged yet.")}</div>')
     open(os.path.join(OUT_DIR, "index.html"), "w").write(page("CyberSecTOBER 2026 Leaderboard", index, 0))
 
+    for u, p in contributions:
+        d = os.path.join(OUT_DIR, "c", str(p["number"]))
+        os.makedirs(d, exist_ok=True)
+        open(os.path.join(d, "index.html"), "w").write(contribution_page(u, p))
+
     for u in ranked:
         login = u["login"]
         d = os.path.join(OUT_DIR, "u", login.lower())
@@ -705,7 +802,7 @@ def build_site(ranked):
                  f'<pre id="snippet">{html.escape(snippet)}</pre>'
                  f'<button onclick="navigator.clipboard.writeText(document.getElementById(\'snippet\').innerText);this.textContent=\'Copied\'">Copy snippet</button>'
                  f'</div>') if earned else ""
-        prs = [f'<tr><td>{contribution_link(p)}</td>'
+        prs = [f'<tr><td>{contribution_link(p, "../../")}</td>'
                f'<td>{fmt_date(p["merged_at"])}</td><td class="num">{"Post" if p["post"] else p["points"]}</td></tr>' for p in reversed(u["prs"])]
         c = u.get("country")
         where = f'<br><span class="muted">{flag(c[0])} {html.escape(c[1])}</span>' if c else ""
@@ -725,7 +822,7 @@ def build_site(ranked):
                 f'<h2>Badges</h2><div class="grid">{tiles}</div>'
                 f'{embed}'
                 f'<h2>Contributions</h2><div class="panel">'
-                + table(["Pull request", "Merged", "Points"], prs, "Badges awarded by maintainers.") + '</div>')
+                + table(["Contribution", "Merged", "Points"], prs, "Badges awarded by maintainers.") + '</div>')
         open(os.path.join(d, "index.html"), "w").write(page(f"{login}: CyberSecTOBER 2026 badges", body, 2))
 
 
