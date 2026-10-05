@@ -150,10 +150,18 @@ def points_for(pr):
     return pts, labels, counts, is_post, is_tip
 
 
-def compute(prs, manual):
+def load_organizers():
+    path = "data/organizers.json"
+    return {l.lower() for l in json.load(open(path))} if os.path.exists(path) else set()
+
+
+def compute(prs, manual, organizers=frozenset()):
+    """Organizers (maintainers running the challenge) never earn points or badges, so they stay off the leaderboard."""
     users = {}
     for pr in prs:
         login = pr["user"]["login"]
+        if login.lower() in organizers:
+            continue
         pts, labels, counts, is_post, is_tip = points_for(pr)
         if not counts:
             continue
@@ -190,6 +198,8 @@ def compute(prs, manual):
             if "points-15" in labels:
                 earn("lab-builder")
     for login, slugs in manual.items():
+        if login.lower() in organizers:
+            continue
         u = users.setdefault(login, {"login": login, "points": 0, "prs": [], "badges": {}, "posts": 0, "post_weeks": set(), "tips": 0})
         for slug in slugs:
             if slug in BADGES:
@@ -483,7 +493,7 @@ def build_site(ranked):
 
 def main():
     manual = json.load(open("data/manual-awards.json")) if os.path.exists("data/manual-awards.json") else {}
-    ranked = compute(merged_prs(), manual)
+    ranked = compute(merged_prs(), manual, load_organizers())
     add_countries(ranked)
     build_site(ranked)
     print(f"Built site for {len(ranked)} contributor(s) at {OUT_DIR}/")
