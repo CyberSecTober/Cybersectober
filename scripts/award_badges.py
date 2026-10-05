@@ -298,7 +298,6 @@ def comment_body(u, pr_number):
     for s in new:
         lines += [f"**Badge earned: {BADGES[s][0]}**", "",
                   f'<img src="{RAW_BADGES}/cards/{s}.jpg" width="240" alt="{BADGES[s][0]} badge">', "",
-                  f"{BADGES[s][1]}  ",
                   f"[Add to LinkedIn]({linkedin_url(login, s, u['badges'][s]['date'])}) · [Share on X]({x_url(login, s)})", ""]
     if pr["post"]:
         if u["posts"] < 5:
