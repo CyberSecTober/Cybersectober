@@ -126,38 +126,52 @@ def merged_prs():
 CONTENT_DIRS = ("awareness/", "api-security/", "ai-security/", "community/")
 
 
+POSTS_FILE = "awareness/posts.md"
+POST_MILESTONES = [(1, "awareness-advocate"), (5, "signal-booster")]
+
+
 def points_for(pr):
-    """Return (points, labels, counts). Unlabelled PRs that touch no content folder are maintenance and don't count."""
+    """Return (points, labels, counts, is_post). Unlabelled PRs that touch no content folder are maintenance and
+    don't count; unlabelled PRs that only add to the posts file are awareness posts (badges, no points)."""
     labels = {l["name"] for l in pr["labels"]}
     pts = max((int(l.split("-")[1]) for l in labels if l.startswith("points-") and l.split("-")[1].isdigit()), default=0)
-    counts = True
+    counts, is_post = True, False
     if not pts:
         files = {f["filename"] for f in paginate(f"/repos/{REPO}/pulls/{pr['number']}/files")}
         if files == {"awareness/tips.md"}:
             pts = 3
+        is_post = files == {POSTS_FILE}
         counts = any(f.startswith(CONTENT_DIRS) for f in files)
     if pts and "quality-bonus" in labels:
         pts += 5
-    return pts, labels, counts
+    return pts, labels, counts, is_post
 
 
 def compute(prs, manual):
     users = {}
     for pr in prs:
         login = pr["user"]["login"]
-        pts, labels, counts = points_for(pr)
+        pts, labels, counts, is_post = points_for(pr)
         if not counts:
             continue
-        u = users.setdefault(login, {"login": login, "points": 0, "prs": [], "badges": {}})
+        u = users.setdefault(login, {"login": login, "points": 0, "prs": [], "badges": {}, "posts": 0, "post_weeks": set()})
         before = u["points"]
         u["points"] += pts
         u["prs"].append({"number": pr["number"], "title": pr["title"], "url": pr["html_url"],
-                         "merged_at": pr["merged_at"], "points": pts})
+                         "merged_at": pr["merged_at"], "points": pts, "post": is_post})
 
         def earn(slug):
             u["badges"].setdefault(slug, {"date": pr["merged_at"], "pr": pr["number"]})
 
         earn("first-contribution")
+        if is_post:
+            u["posts"] += 1
+            u["post_weeks"] |= {i for i, (start, end, _) in enumerate(WEEKS) if in_week(pr["merged_at"], start, end)}
+            for needed, slug in POST_MILESTONES:
+                if u["posts"] >= needed:
+                    earn(slug)
+            if len(u["post_weeks"]) == len(WEEKS):
+                earn("awareness-ambassador")
         for threshold, slug in TIERS:
             if before < threshold <= u["points"]:
                 earn(slug)
@@ -168,7 +182,7 @@ def compute(prs, manual):
             if "points-15" in labels:
                 earn("lab-builder")
     for login, slugs in manual.items():
-        u = users.setdefault(login, {"login": login, "points": 0, "prs": [], "badges": {}})
+        u = users.setdefault(login, {"login": login, "points": 0, "prs": [], "badges": {}, "posts": 0, "post_weeks": set()})
         for slug in slugs:
             if slug in BADGES:
                 u["badges"].setdefault(slug, {"date": None, "pr": None})
@@ -254,13 +268,20 @@ def comment_body(u, pr_number):
     pr = next(p for p in u["prs"] if p["number"] == pr_number)
     new = [s for s, b in u["badges"].items() if b["pr"] == pr_number]
     login = u["login"]
-    lines = [MARKER, "### Contribution recorded", "",
-             f"Hi @{login}, thank you for contributing to CyberSecTOBER 2026. "
-             "Your pull request has been merged and added to your record.", "",
-             f"- Points for this contribution: **{pr['points']}**",
-             f"- Total points: **{u['points']}**",
-             f"- Leaderboard rank: **{u['rank']}**", ""]
-    if not pr["points"]:
+    if pr["post"]:
+        lines = [MARKER, "### Awareness post recorded", "",
+                 f"Hi @{login}, thank you for sharing cybersecurity awareness with #CyberSecTOBER. "
+                 "Your post has been added to your record.", "",
+                 f"- Awareness posts recorded: **{u['posts']}**",
+                 f"- Weeks with a post: **{len(u['post_weeks'])} of {len(WEEKS)}**", ""]
+    else:
+        lines = [MARKER, "### Contribution recorded", "",
+                 f"Hi @{login}, thank you for contributing to CyberSecTOBER 2026. "
+                 "Your pull request has been merged and added to your record.", "",
+                 f"- Points for this contribution: **{pr['points']}**",
+                 f"- Total points: **{u['points']}**",
+                 f"- Leaderboard rank: **{u['rank']}**", ""]
+    if not pr["points"] and not pr["post"]:
         lines += ["> **Note for maintainers:** this pull request has no `points-*` label, so no points have been "
                   "awarded yet. Add the appropriate label and this comment will update automatically.", ""]
     for s in new:
@@ -268,9 +289,15 @@ def comment_body(u, pr_number):
                   f'<img src="{RAW_BADGES}/{s}.png" width="96" alt="{BADGES[s][0]} badge">', "",
                   f"{BADGES[s][1]}  ",
                   f"[Add to LinkedIn]({linkedin_url(login, s, u['badges'][s]['date'])}) · [Share on X]({x_url(login, s)})", ""]
-    nt = next_tier(u["points"])
-    if nt:
-        lines += [f"**Next milestone:** {nt[0]} more points to reach {nt[1]}.", ""]
+    if pr["post"]:
+        if u["posts"] < 5:
+            lines += [f"**Next milestone:** {5 - u['posts']} more posts to reach Signal Booster.", ""]
+        elif "awareness-ambassador" not in u["badges"]:
+            lines += ["**Next milestone:** share a post in every week of October to earn Awareness Ambassador.", ""]
+    else:
+        nt = next_tier(u["points"])
+        if nt:
+            lines += [f"**Next milestone:** {nt[0]} more points to reach {nt[1]}.", ""]
     lines += [f"**Verification:** your badges and contributions can be verified publicly at {verify_url(login)}. "
               "Use this link as the Credential URL when adding a badge to LinkedIn. To display your badges on your GitHub "
               "profile, copy the ready-made snippet from your verification page.", "",
@@ -388,7 +415,7 @@ def build_site(ranked):
                     for i, ((code, name), c) in enumerate(sorted(countries.items(), key=lambda x: (-x[1]["points"], -x[1]["people"])), 1)]
     latest_rows = [f'<tr><td>{who_cell(u)}</td><td><a href="{p["url"]}">#{p["number"]}</a> {html.escape(p["title"])}'
                    f'<br><span class="muted" style="font-size:14px">{fmt_date(p["merged_at"])}</span></td>'
-                   f'<td class="num">+{p["points"]}</td></tr>' for u, p in contributions[:10]]
+                   f'<td class="num">{"Post" if p["post"] else "+" + str(p["points"])}</td></tr>' for u, p in contributions[:10]]
 
     index = (f'<h1>Leaderboard</h1><p class="muted">Every merged contribution to CyberSecTOBER 2026, verified. '
              f'<a href="{REPO_URL}#-your-first-contribution-in-5-minutes-no-installs">Make your first contribution →</a></p>'
@@ -418,7 +445,7 @@ def build_site(ranked):
                  f'<button onclick="navigator.clipboard.writeText(document.getElementById(\'snippet\').innerText);this.textContent=\'Copied\'">Copy snippet</button>'
                  f'</div>') if earned else ""
         prs = [f'<tr><td><a href="{p["url"]}">#{p["number"]}</a> {html.escape(p["title"])}</td>'
-               f'<td>{fmt_date(p["merged_at"])}</td><td class="num">{p["points"]}</td></tr>' for p in reversed(u["prs"])]
+               f'<td>{fmt_date(p["merged_at"])}</td><td class="num">{"Post" if p["post"] else p["points"]}</td></tr>' for p in reversed(u["prs"])]
         c = u.get("country")
         where = f'<br><span class="muted">{flag(c[0])} {html.escape(c[1])}</span>' if c else ""
         nt = next_tier(u["points"])

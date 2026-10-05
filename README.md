@@ -16,7 +16,7 @@ CyberSecTOBER is a month-long open-source cybersecurity challenge for Cybersecur
 
 | Time | What you do | Need a GitHub account? | What you get |
 |---|---|---|---|
-| **2 minutes** | Post a security tip on social media with **#CyberSecTOBER**, then submit the link | No | 📣 Awareness Advocate badge |
+| **2 minutes** | Post a security tip on social media with **#CyberSecTOBER**, then add the link here | Yes (free) | 📣 Awareness badges |
 | **5 minutes** | Add one security tip to this project, right in your browser | Yes (free) | 🟢 First Contribution badge, 3 points and your name in an open-source project |
 | **15–60 minutes** | Pick a challenge and build a guide, translation, checklist, lab or tool | Yes (free) | 5–20 points per contribution, tier badges and specialty badges |
 
@@ -38,7 +38,7 @@ You'll see these words a lot. Here's what they mean:
 
 ## 1️⃣ Before you start: create a free GitHub account
 
-You only need this for the 5-minute and 15–60-minute levels.
+You need this for every level. It's free and takes about 2 minutes.
 
 1. Go to [github.com/signup](https://github.com/signup).
 2. Enter your email, create a password and choose a **username**. Your username is how you'll be credited, so pick one you'd be happy to show an employer.
@@ -46,14 +46,27 @@ You only need this for the 5-minute and 15–60-minute levels.
 4. Come back to this page and stay signed in.
 5. ⭐ **Star the repo:** click the **☆ Star** button at the top right of the [repo page](https://github.com/CyberSecTober/Cybersectober), next to **Fork** (on a phone, it's just under the repo name).
 
-## 📣 Level 1: Post a tip (2 minutes, no GitHub needed)
+## 📣 Level 1: Share a post (2 minutes)
 
 1. **Write one short security tip** in your own words. For example: *"Your bank will never ask for your OTP. If someone does, it's a scam."*
-2. **Post it** on LinkedIn, X, Instagram, Facebook or TikTok with the hashtag **#CyberSecTOBER**.
+2. **Post it** on LinkedIn, X, Instagram, Facebook or TikTok with the hashtag **#CyberSecTOBER**. Make sure the post is public.
 3. **Copy the link** to your post. On most apps: tap **Share** on the post, then **Copy link**.
-4. **Keep the link.** Our submission form is **coming soon**, and we'll announce it here and in [Discussions](https://github.com/CyberSecTober/Cybersectober/discussions). Posts you make before it opens still count.
+4. **Open [`awareness/posts.md`](awareness/posts.md)** and click the ✏️ pencil icon. If GitHub asks, click **Fork this repository**.
+5. **Add one line at the bottom** with a short description, your link and your username:
+   ```
+   - [Why your bank will never ask for your OTP](https://www.linkedin.com/posts/your-post-link) (@your-github-username)
+   ```
+6. Click **Commit changes…** → **Propose changes** → **Create pull request**, then **Create pull request** again.
 
-You earn the 📣 **Awareness Advocate** badge for your first post, 📡 **Signal Booster** for 5 posts, and 📅 **Awareness Ambassador** for posting at least once every week of October.
+Add **one post per pull request**, so each one is counted. When a mentor merges it, you'll get your badge automatically:
+
+| Posts | Badge |
+|---|---|
+| Your first post | 📣 **Awareness Advocate** |
+| 5 posts | 📡 **Signal Booster** |
+| At least one post in each of the four weeks of October | 📅 **Awareness Ambassador** |
+
+Posts earn awareness badges, not points. Points come from tips, guides, translations, labs and tools.
 
 > Never include real people's phone numbers, account details or screenshots of real scam victims in your posts.
 

@@ -6,7 +6,7 @@ First time contributing to open source? Perfect, this project is built for you. 
 
 ## The three ways to contribute
 
-**1. Post (2 min, no GitHub).** Share a security tip with #CyberSecTOBER and keep the link to your post. The submission form is **coming soon**, and posts made before it opens still count.
+**1. Share a post (2 min).** Share a security tip on social media with #CyberSecTOBER, then add the link to [`awareness/posts.md`](awareness/posts.md) in your browser, one post per pull request. Posts earn awareness badges, not points.
 
 **2. Submit (5 min, no code).** Either add a tip in your browser (see below) or use the [**Submit a tip or resource**](../../issues/new/choose) form. A maintainer adds form submissions to the repo and credits you as a co-author.
 
