@@ -272,8 +272,8 @@ def comment_body(u, pr_number):
     if nt:
         lines += [f"**Next milestone:** {nt[0]} more points to reach {nt[1]}.", ""]
     lines += [f"**Verification:** your badges and contributions can be verified publicly at {verify_url(login)}. "
-              "Use this link as the Credential URL when adding a badge to LinkedIn. To display a badge on your GitHub "
-              f"profile, see [Show off your badge]({REPO_URL}#-show-off-your-badge) in the README.", "",
+              "Use this link as the Credential URL when adding a badge to LinkedIn. To display your badges on your GitHub "
+              "profile, copy the ready-made snippet from your verification page.", "",
               f"If you haven't already, please star the [repository]({REPO_URL}) using the Star button at the top right "
               "of the page. It helps more people find CyberSecTOBER.", "",
               "Thank you for helping make the internet safer.", "",
@@ -324,7 +324,9 @@ td img{{width:28px;height:28px;border-radius:50%;vertical-align:middle;margin-ri
 .statbar .panel{{padding:14px 16px}}.statbar b{{display:block;font-size:30px}}.statbar span{{color:var(--muted);font-size:14px}}
 .week{{font:500 12px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}}
 .flag{{margin-left:6px}}.progress{{margin-top:20px}}.progress .track{{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:8px}}
-.progress .fill{{height:100%;background:var(--accent);border-radius:99px}}.table-wrap{{overflow-x:auto}}
+.progress .fill{{height:100%;background:var(--accent);border-radius:99px}}
+pre{{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;white-space:pre;font:13px/1.5 "IBM Plex Mono",monospace;color:var(--text)}}
+button{{background:var(--accent);color:#06281A;border:0;border-radius:8px;padding:9px 16px;font:600 15px "Space Grotesk",system-ui,sans-serif;cursor:pointer}}.table-wrap{{overflow-x:auto}}
 </style></head><body><main>
 <div class="eyebrow"><a href="{root}" style="color:inherit;text-decoration:none">CyberSecTOBER 2026</a></div>
 {body}
@@ -404,6 +406,17 @@ def build_site(ranked):
         d = os.path.join(OUT_DIR, "u", login.lower())
         os.makedirs(d, exist_ok=True)
         tiles = "".join(badge_tile(u, s, "../../") for s in BADGES if s in u["badges"])
+        earned = [s for s in BADGES if s in u["badges"]]
+        for s in earned:
+            shutil.copy(os.path.join("badges", f"{s}.png"), os.path.join(d, f"{s}.png"))
+        snippet = "\n".join(f'<a href="{verify_url(login)}"><img src="{verify_url(login)}{s}.png" width="120" '
+                             f'alt="CyberSecTOBER 2026 {BADGES[s][0]} badge, verified"></a>' for s in earned)
+        embed = (f'<h2>Show your badges on GitHub</h2><div class="panel">'
+                 f'<p style="margin-top:0">Paste this into your GitHub profile README. The images only exist for badges you have earned, '
+                 f'and each one links back to this page as proof.</p>'
+                 f'<pre id="snippet">{html.escape(snippet)}</pre>'
+                 f'<button onclick="navigator.clipboard.writeText(document.getElementById(\'snippet\').innerText);this.textContent=\'Copied\'">Copy snippet</button>'
+                 f'</div>') if earned else ""
         prs = [f'<tr><td><a href="{p["url"]}">#{p["number"]}</a> {html.escape(p["title"])}</td>'
                f'<td>{fmt_date(p["merged_at"])}</td><td class="num">{p["points"]}</td></tr>' for p in reversed(u["prs"])]
         c = u.get("country")
@@ -422,6 +435,7 @@ def build_site(ranked):
                 f'<div><b>#{u["rank"]}</b><span>leaderboard rank</span></div><div><b>{len(u["prs"])}</b><span>merged contributions</span></div></div>'
                 f'{progress}'
                 f'<h2>Badges</h2><div class="grid">{tiles}</div>'
+                f'{embed}'
                 f'<h2>Contributions</h2><div class="panel">'
                 + table(["Pull request", "Merged", "Points"], prs, "Badges awarded by maintainers.") + '</div>')
         open(os.path.join(d, "index.html"), "w").write(page(f"{login}: CyberSecTOBER 2026 badges", body, 2))

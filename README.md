@@ -183,24 +183,25 @@ Points add up across the whole month. Pull requests opened by **October 31** cou
 
 ## 🎉 Show off your badge
 
-Once you've earned a badge, show it off. Only display badges you've actually earned; your merged pull request is the proof.
+Once you've earned a badge, show it off. Every real badge is backed by your **verification page**, for example `https://cybersectober.github.io/Cybersectober/u/your-username/`, which lists your badges and the merged pull requests that earned them. Find yours in the comment you receive when your pull request is merged, or click your name on the [leaderboard](https://cybersectober.github.io/Cybersectober/).
+
+> Badges are only valid if they appear on the contributor's verification page. If someone shows a badge that isn't on their page, it wasn't earned.
 
 **On your GitHub profile**
 1. Create a new repository with **exactly the same name as your username**. GitHub treats it as your profile page. Tick **Add a README file**.
-2. Edit that README and paste in this snippet:
-   ```html
-   <a href="https://github.com/CyberSecTober/Cybersectober"><img src="https://raw.githubusercontent.com/CyberSecTober/Cybersectober/main/badges/first-contribution.png" width="120" alt="CyberSecTOBER 2026 First Contribution badge"></a>
-   ```
-3. Replace `first-contribution` with the badge you earned: `security-contributor`, `security-builder`, `security-champion`, `cyber-guardian`, `awareness-advocate`, `signal-booster`, `awareness-ambassador`, `community-defender`, `ai-security-pioneer`, `api-defender`, `lab-builder`, `open-source-mentor` or `cybersectober-champion`.
+2. Open your verification page and click **Copy snippet** under **Show your badges on GitHub**.
+3. Edit your profile README, paste the snippet, and click **Commit changes**.
+
+The snippet only shows images for badges you've earned, and each badge links to your verification page as proof.
 
 **On LinkedIn**
 1. Go to your profile and click **Add profile section → Add licenses & certifications**.
 2. Fill in:
    - **Name:** `CyberSecTOBER 2026: First Contribution` (or your badge name)
    - **Issuing organization:** `CyberSecTOBER`
-   - **Issue date:** October 2026
-   - **Credential URL:** the link to your merged pull request
-3. Click **Save**.
+   - **Issue date:** the month you earned it
+   - **Credential URL:** your verification page
+3. Click **Save**. The **Add to LinkedIn** button in your award comment fills this in for you.
 
 **In a post on LinkedIn or X**
 - Open your badge card in [`badges/cards/`](badges/cards/), click the **Download raw file** icon, and share it with a line about what you contributed. Add **#CyberSecTOBER** so we can celebrate you.
