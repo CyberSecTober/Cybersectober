@@ -57,12 +57,15 @@ Phishing examples must use fictional companies and `example.com`. Labs must be d
 
 ## What happens after you submit
 
-1. A mentor reviews your contribution, usually within 48 hours
-2. It gets merged
-3. You get your badge and points in a comment on your PR
-4. Your name goes on the leaderboard
+1. Automatic checks look for duplicate posts and tips, and make sure each post is your own. If they find something, a comment explains what to fix.
+2. A mentor reviews your contribution, usually within 48 hours
+3. It gets merged
+4. You get your badge and points in a comment on your PR
+5. Your name goes on the leaderboard
 
 PRs opened by **October 31** count, even if they're merged in November.
+
+To keep reviews fair, each contributor can have up to **3 open pull requests** at a time; extra ones are closed automatically. Only your first **5 tips** earn points, so after that, try a guide, translation or checklist.
 
 ## Need help?
 

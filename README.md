@@ -89,7 +89,7 @@ You need this for every level. It's free and takes about 2 minutes.
    ```
 6. Click **Commit changes…** → **Propose changes** → **Create pull request**, then **Create pull request** again.
 
-Add **one post per pull request**, so each one is counted. When a mentor merges it, you'll get your badge automatically:
+Add **one post per pull request**, so each one is counted. Only share posts you wrote and published yourself; each post can only be submitted once. When a mentor merges it, you'll get your badge automatically:
 
 | Posts | Badge |
 |---|---|
@@ -127,6 +127,7 @@ You'll add one security tip to [`awareness/tips.md`](awareness/tips.md) without 
 
 ### What happens next
 
+- Automatic checks run first. If your tip is very similar to an existing one, you'll get a comment asking you to share a different tip.
 - A mentor reviews your tip, usually within 48 hours.
 - If something needs changing, they'll comment on your pull request and GitHub will email you. Just reply or make the change. Don't worry about small formatting mistakes, because reviewers can fix those for you.
 - When it's merged, you'll get a comment with your points and your **First Contribution** badge.
@@ -187,7 +188,7 @@ Every merged contribution earns points:
 
 | Contribution | Points |
 |---|---|
-| One tip or glossary entry | 3 |
+| One tip or glossary entry (up to 5 tips per person earn points) | 3 |
 | Guide, checklist, translation or infographic | 5 |
 | Tutorial, threat model or write-up | 10 |
 | Security lab or CTF challenge | 15 |

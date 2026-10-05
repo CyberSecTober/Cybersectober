@@ -1,0 +1,31 @@
+name: Pull request checks
+
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize, edited]
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-checks-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    steps:
+      # Checks out main, never the pull request; the PR is only read through the API.
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Check for floods, duplicate posts and duplicate tips
+        run: python3 scripts/pr_checks.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}

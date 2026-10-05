@@ -129,6 +129,7 @@ MAINTENANCE_DIRS = ("scripts/", ".github/", "data/")
 
 POSTS_FILE = "awareness/posts.md"
 POST_MILESTONES = [(1, "awareness-advocate"), (5, "signal-booster")]
+MAX_TIPS_FOR_POINTS = 5
 
 
 def points_for(pr):
@@ -136,31 +137,36 @@ def points_for(pr):
     don't count; unlabelled PRs that only add to the posts file are awareness posts (badges, no points)."""
     labels = {l["name"] for l in pr["labels"]}
     pts = max((int(l.split("-")[1]) for l in labels if l.startswith("points-") and l.split("-")[1].isdigit()), default=0)
-    counts, is_post = True, False
+    counts, is_post, is_tip = True, False, False
     if not pts:
         files = {f["filename"] for f in paginate(f"/repos/{REPO}/pulls/{pr['number']}/files")}
         if files == {"awareness/tips.md"}:
-            pts = 3
+            pts, is_tip = 3, True
         is_post = files == {POSTS_FILE}
         counts = (any(f.startswith(CONTENT_DIRS) for f in files)
                   and not any(f.startswith(MAINTENANCE_DIRS) for f in files))
     if pts and "quality-bonus" in labels:
         pts += 5
-    return pts, labels, counts, is_post
+    return pts, labels, counts, is_post, is_tip
 
 
 def compute(prs, manual):
     users = {}
     for pr in prs:
         login = pr["user"]["login"]
-        pts, labels, counts, is_post = points_for(pr)
+        pts, labels, counts, is_post, is_tip = points_for(pr)
         if not counts:
             continue
-        u = users.setdefault(login, {"login": login, "points": 0, "prs": [], "badges": {}, "posts": 0, "post_weeks": set()})
+        u = users.setdefault(login, {"login": login, "points": 0, "prs": [], "badges": {}, "posts": 0, "post_weeks": set(), "tips": 0})
+        capped = False
+        if is_tip:
+            u["tips"] += 1
+            if u["tips"] > MAX_TIPS_FOR_POINTS:
+                pts, capped = 0, True
         before = u["points"]
         u["points"] += pts
         u["prs"].append({"number": pr["number"], "title": pr["title"], "url": pr["html_url"],
-                         "merged_at": pr["merged_at"], "points": pts, "post": is_post})
+                         "merged_at": pr["merged_at"], "points": pts, "post": is_post, "capped": capped})
 
         def earn(slug):
             u["badges"].setdefault(slug, {"date": pr["merged_at"], "pr": pr["number"]})
@@ -184,7 +190,7 @@ def compute(prs, manual):
             if "points-15" in labels:
                 earn("lab-builder")
     for login, slugs in manual.items():
-        u = users.setdefault(login, {"login": login, "points": 0, "prs": [], "badges": {}, "posts": 0, "post_weeks": set()})
+        u = users.setdefault(login, {"login": login, "points": 0, "prs": [], "badges": {}, "posts": 0, "post_weeks": set(), "tips": 0})
         for slug in slugs:
             if slug in BADGES:
                 u["badges"].setdefault(slug, {"date": None, "pr": None})
@@ -283,7 +289,10 @@ def comment_body(u, pr_number):
                  f"- Points for this contribution: **{pr['points']}**",
                  f"- Total points: **{u['points']}**",
                  f"- Leaderboard rank: **{u['rank']}**", ""]
-    if not pr["points"] and not pr["post"]:
+    if pr["capped"]:
+        lines += [f"Your tip has been merged. Only your first {MAX_TIPS_FOR_POINTS} tips earn points, so this one is "
+                  "recorded without points. Guides, translations, checklists, labs and tools are the way to keep earning.", ""]
+    elif not pr["points"] and not pr["post"]:
         lines += ["> **Note for maintainers:** this pull request has no `points-*` label, so no points have been "
                   "awarded yet. Add the appropriate label and this comment will update automatically.", ""]
     for s in new:
