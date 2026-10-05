@@ -35,7 +35,7 @@ WEEKS = [  # (first day, last day, theme); launch week also covers anything merg
 
 # ISO code -> (country name, words that identify it in a free-text GitHub location)
 COUNTRIES = {
-    "NG": ("Nigeria", "nigeria naija lagos abuja ibadan kano enugu ilorin abeokuta owerri uyo kaduna jos akure osogbo calabar warri onitsha asaba;port harcourt;benin city"),
+    "NG": ("Nigeria", "nigeria nigerian naija lagos abuja ibadan kano enugu ilorin abeokuta owerri uyo kaduna jos akure osogbo calabar warri onitsha asaba ikeja lekki yaba ikorodu ota ogun oyo osun ondo ekiti kwara edo anambra imo abia ebonyi bayelsa benue kogi nasarawa plateau katsina sokoto zamfara kebbi gombe bauchi borno yobe adamawa taraba jigawa fct awka nsukka zaria maiduguri makurdi lokoja minna umuahia abakaliki yenagoa ado-ekiti ogbomoso ife ile-ife ijebu sagamu;port harcourt;benin city;delta state;rivers state;cross river;akwa ibom;niger state;lagos state"),
     "GH": ("Ghana", "ghana accra kumasi tamale takoradi;cape coast"),
     "KE": ("Kenya", "kenya nairobi mombasa kisumu nakuru eldoret"),
     "ZA": ("South Africa", "johannesburg pretoria durban;south africa;cape town"),
@@ -53,12 +53,12 @@ COUNTRIES = {
     "SL": ("Sierra Leone", "freetown;sierra leone"),
     "LR": ("Liberia", "liberia monrovia"),
     "GM": ("The Gambia", "gambia banjul"),
-    "BJ": ("Benin", "cotonou;porto-novo;republic of benin"),
+    "BJ": ("Benin", "benin cotonou;porto-novo;republic of benin"),
     "TG": ("Togo", "togo lomé lome"),
-    "GB": ("United Kingdom", "uk england scotland wales london manchester birmingham leeds glasgow edinburgh;united kingdom"),
-    "US": ("United States", "usa california texas seattle boston chicago;united states;new york;san francisco"),
+    "GB": ("United Kingdom", "uk england scotland wales london manchester birmingham leeds glasgow edinburgh belfast;united kingdom;great britain;northern ireland"),
+    "US": ("United States", "usa us america california texas florida washington seattle boston chicago atlanta houston dallas austin denver philadelphia virginia maryland massachusetts illinois ohio michigan arizona colorado oregon minnesota pennsylvania;united states;new york;san francisco;los angeles;new jersey;new mexico;north carolina;bay area"),
     "CA": ("Canada", "canada toronto vancouver montreal calgary ottawa"),
-    "IN": ("India", "india bangalore bengaluru mumbai delhi hyderabad chennai pune"),
+    "IN": ("India", "india indian bharat bangalore bengaluru mumbai delhi hyderabad chennai pune kolkata ahmedabad jaipur lucknow noida gurgaon gurugram bhopal indore chandigarh kochi surat nagpur patna ranchi bhubaneswar coimbatore vizag visakhapatnam mysore mysuru dehradun kanpur varanasi maharashtra karnataka kerala gujarat rajasthan telangana bihar haryana odisha jharkhand uttarakhand goa assam;tamil nadu;uttar pradesh;madhya pradesh;west bengal;andhra pradesh;new delhi"),
     "DE": ("Germany", "germany deutschland berlin munich hamburg"),
     "NL": ("Netherlands", "netherlands amsterdam rotterdam"),
     "FR": ("France", "france paris"),
@@ -71,7 +71,184 @@ def _terms(spec):
     return words.split() + phrases
 
 
-COUNTRY_PATTERNS = [(code, re.compile(r"(?<![\w])(" + "|".join(re.escape(t) for t in _terms(spec)) + r")(?![\w])"))
+# Every other country, matched by its name and common alternative names: "CODE|Name|alias;alias".
+OTHER_COUNTRIES = """AF|Afghanistan
+AL|Albania
+DZ|Algeria
+AD|Andorra
+AO|Angola|luanda
+AG|Antigua and Barbuda|antigua
+AR|Argentina|buenos aires
+AM|Armenia|yerevan
+AU|Australia|sydney;melbourne;brisbane;perth;adelaide;canberra
+AT|Austria|vienna;wien
+AZ|Azerbaijan|baku
+BS|Bahamas
+BH|Bahrain|manama
+BD|Bangladesh|dhaka;chittagong
+BB|Barbados
+BY|Belarus|minsk
+BE|Belgium|brussels;antwerp
+BZ|Belize
+BT|Bhutan
+BO|Bolivia
+BA|Bosnia and Herzegovina|bosnia;sarajevo
+BW|Botswana|gaborone
+BR|Brazil|brasil;são paulo;sao paulo;rio de janeiro
+BN|Brunei
+BG|Bulgaria|sofia
+BF|Burkina Faso|ouagadougou
+BI|Burundi|bujumbura
+CV|Cabo Verde|cape verde
+KH|Cambodia|phnom penh
+CF|Central African Republic
+TD|Chad|n'djamena
+CL|Chile|santiago
+CN|China|beijing;shanghai;shenzhen;guangzhou;hangzhou
+CO|Colombia|bogotá;bogota;medellín;medellin
+KM|Comoros
+CG|Republic of the Congo|congo-brazzaville;brazzaville
+CD|DR Congo|drc;dr congo;democratic republic of the congo;kinshasa;lubumbashi
+CR|Costa Rica
+HR|Croatia|zagreb
+CU|Cuba|havana
+CY|Cyprus|nicosia
+CZ|Czechia|czech republic;prague
+DK|Denmark|copenhagen
+DJ|Djibouti
+DM|Dominica
+DO|Dominican Republic|santo domingo
+EC|Ecuador|quito
+SV|El Salvador
+GQ|Equatorial Guinea
+ER|Eritrea|asmara
+EE|Estonia|tallinn
+SZ|Eswatini|swaziland
+FJ|Fiji
+FI|Finland|helsinki
+GA|Gabon|libreville
+GE|Georgia|tbilisi
+GR|Greece|athens
+GD|Grenada
+GT|Guatemala
+GN|Guinea|conakry
+GW|Guinea-Bissau
+GY|Guyana
+HT|Haiti
+HN|Honduras
+HK|Hong Kong
+HU|Hungary|budapest
+IS|Iceland|reykjavik
+ID|Indonesia|jakarta;bandung;surabaya;bali
+IR|Iran|tehran
+IQ|Iraq|baghdad;erbil
+IL|Israel|tel aviv;jerusalem
+IT|Italy|italia;rome;roma;milan;milano;turin
+JM|Jamaica|kingston
+JP|Japan|tokyo;osaka;kyoto
+JO|Jordan|amman
+KZ|Kazakhstan|almaty;astana
+KI|Kiribati
+KW|Kuwait
+KG|Kyrgyzstan|bishkek
+LA|Laos
+LV|Latvia|riga
+LB|Lebanon|beirut
+LS|Lesotho|maseru
+LY|Libya|tripoli
+LI|Liechtenstein
+LT|Lithuania|vilnius
+LU|Luxembourg
+MO|Macau
+MG|Madagascar|antananarivo
+MW|Malawi|lilongwe;blantyre
+MY|Malaysia|kuala lumpur;penang
+MV|Maldives
+ML|Mali|bamako
+MT|Malta
+MH|Marshall Islands
+MR|Mauritania|nouakchott
+MU|Mauritius
+MX|Mexico|méxico;guadalajara;monterrey
+FM|Micronesia
+MD|Moldova|chisinau
+MC|Monaco
+MN|Mongolia|ulaanbaatar
+ME|Montenegro
+MZ|Mozambique|maputo
+MM|Myanmar|yangon
+NA|Namibia|windhoek
+NR|Nauru
+NP|Nepal|kathmandu
+NZ|New Zealand|auckland;wellington
+NI|Nicaragua
+NE|Niger|niamey
+KP|North Korea
+MK|North Macedonia|skopje
+NO|Norway|oslo
+OM|Oman|muscat
+PK|Pakistan|karachi;lahore;islamabad;rawalpindi;peshawar;faisalabad
+PW|Palau
+PS|Palestine|gaza;ramallah
+PA|Panama
+PG|Papua New Guinea
+PY|Paraguay
+PE|Peru|lima
+PH|Philippines|manila;cebu;quezon city
+PL|Poland|polska;warsaw;krakow;kraków
+PT|Portugal|lisbon;porto
+PR|Puerto Rico
+QA|Qatar|doha
+RO|Romania|bucharest
+RU|Russia|moscow;saint petersburg
+WS|Samoa
+SM|San Marino
+ST|São Tomé and Príncipe|sao tome
+SA|Saudi Arabia|ksa;riyadh;jeddah
+RS|Serbia|belgrade
+SC|Seychelles
+SG|Singapore
+SK|Slovakia|bratislava
+SI|Slovenia|ljubljana
+SB|Solomon Islands
+SO|Somalia|mogadishu;somaliland
+KR|South Korea|korea;seoul;busan
+SS|South Sudan|juba
+ES|Spain|españa;madrid;barcelona;valencia
+LK|Sri Lanka|colombo
+KN|Saint Kitts and Nevis
+LC|Saint Lucia
+VC|Saint Vincent and the Grenadines
+SD|Sudan|khartoum
+SR|Suriname
+SE|Sweden|sverige;stockholm;gothenburg
+CH|Switzerland|zurich;zürich;geneva;bern
+SY|Syria|damascus
+TW|Taiwan|taipei
+TJ|Tajikistan
+TH|Thailand|bangkok
+TL|Timor-Leste|east timor
+TO|Tonga
+TT|Trinidad and Tobago|trinidad
+TN|Tunisia|tunis
+TR|Türkiye|turkey;turkiye;istanbul;ankara;izmir
+TM|Turkmenistan
+TV|Tuvalu
+UA|Ukraine|kyiv;kiev;lviv;kharkiv
+UY|Uruguay|montevideo
+UZ|Uzbekistan|tashkent
+VU|Vanuatu
+VA|Vatican City
+VE|Venezuela|caracas
+VN|Vietnam|viet nam;hanoi;ho chi minh
+YE|Yemen|sanaa
+"""
+for _line in OTHER_COUNTRIES.strip().splitlines():
+    _code, _name, *_aliases = _line.split("|")
+    if _code not in COUNTRIES:
+        COUNTRIES[_code] = (_name, ";" + ";".join([_name.lower()] + (_aliases[0].split(";") if _aliases else [])))
+
+COUNTRY_PATTERNS = [(code, re.compile(r"(?<![\w])(" + "|".join(re.escape(t) for t in _terms(spec) if t) + r")(?![\w])"))
                     for code, (_, spec) in COUNTRIES.items()]
 
 BADGES = {
@@ -223,19 +400,29 @@ def country_from_location(location):
     if pair:
         code = "".join(chr(ord(c) - 0x1F1E6 + 65) for c in pair.group())
         return code, COUNTRIES.get(code, (code,))[0]
-    text = location.lower()
+    # The most specific match wins ("Niger State, Nigeria" is Nigeria, "Papua New Guinea" is not Guinea);
+    # on a tie the country listed first wins ("Atlanta, Georgia" is the United States).
+    text, best = location.lower(), None
     for code, pattern in COUNTRY_PATTERNS:
-        if pattern.search(text):
-            return code, COUNTRIES[code][0]
-    return None
+        length = max((len(m.group()) for m in pattern.finditer(text)), default=0)
+        if length and (best is None or length > best[0]):
+            best = (length, code)
+    return (best[1], COUNTRIES[best[1]][0]) if best else None
 
 
 def add_countries(ranked):
     for u in ranked:
         try:
-            u["country"] = country_from_location((api(f"/users/{u['login']}") or {}).get("location"))
-        except Exception:
+            location = (api(f"/users/{u['login']}") or {}).get("location")
+        except Exception as e:
+            print(f"::warning::Could not read the profile of @{u['login']}: {e}")
             u["country"] = None
+            continue
+        u["country"] = country_from_location(location)
+        if not location:
+            print(f"::notice::@{u['login']} has no location on their GitHub profile, so no country is shown.")
+        elif not u["country"]:
+            print(f"::notice::Could not match a country for @{u['login']} from their location {location!r}.")
 
 
 def current_week():
