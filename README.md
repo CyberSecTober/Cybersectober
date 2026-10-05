@@ -19,8 +19,22 @@ CyberSecTOBER is a month-long open-source cybersecurity challenge for Cybersecur
 - [Before you start: create a free GitHub account](#before-you-start-create-a-free-github-account)
 - [Level 1: Share a post (2 minutes)](#level-1-share-a-post-2-minutes)
 - [Level 2: Add a tip (5 minutes, no installs)](#level-2-add-a-tip-5-minutes-no-installs)
+  - [What happens next](#what-happens-next)
+  - [Prefer not to edit files?](#prefer-not-to-edit-files)
 - [Level 3: Build something bigger (15–60 minutes)](#level-3-build-something-bigger-1560-minutes)
+  - [Step 1: Pick a challenge](#step-1-pick-a-challenge)
+  - [Step 2: Claim it](#step-2-claim-it)
+  - [Step 3: Make your own copy (fork)](#step-3-make-your-own-copy-fork)
+  - [Step 4: Copy a template](#step-4-copy-a-template)
+  - [Step 5: Create your file](#step-5-create-your-file)
+  - [Step 6: Save it](#step-6-save-it)
+  - [Step 7: Submit it](#step-7-submit-it)
+  - [Step 8: Respond to feedback](#step-8-respond-to-feedback)
+  - [Step 9: Star the repo](#step-9-star-the-repo)
 - [Points & badges](#points--badges)
+  - [Points](#points)
+  - [Badges](#badges)
+  - [How you receive your badge](#how-you-receive-your-badge)
 - [Show off your badge](#show-off-your-badge)
 - [Weekly themes](#weekly-themes)
 - [Tracks](#tracks)
@@ -111,51 +125,54 @@ You'll add one security tip to [`awareness/tips.md`](awareness/tips.md) without 
 
 **Before you go, star the repo** if you haven't already: click the **Star** button at the top right of the [repo page](https://github.com/CyberSecTober/Cybersectober), next to **Fork** (on a phone, it's just under the repo name).
 
-**What happens next:**
+### What happens next
+
 - A mentor reviews your tip, usually within 48 hours.
 - If something needs changing, they'll comment on your pull request and GitHub will email you. Just reply or make the change. Don't worry about small formatting mistakes, because reviewers can fix those for you.
 - When it's merged, you'll get a comment with your points and your **First Contribution** badge.
 
-**Prefer not to edit files?** Use the [**Submit a tip or resource**](https://github.com/CyberSecTober/Cybersectober/issues/new/choose) form instead. A maintainer adds it to the project and credits you.
+### Prefer not to edit files?
+
+Use the [**Submit a tip or resource**](https://github.com/CyberSecTober/Cybersectober/issues/new/choose) form instead. A maintainer adds it to the project and credits you.
 
 ## Level 3: Build something bigger (15–60 minutes)
 
 Guides, checklists, translations, threat models, labs and tools all earn more points. Here's how to do it in your browser.
 
-**1. Pick a challenge**
+### Step 1: Pick a challenge
 - Open the [**good first issues**](https://github.com/CyberSecTober/Cybersectober/issues?q=is%3Aopen+label%3A%22good+first+issue%22) (best for beginners), or browse [all open challenges](https://github.com/CyberSecTober/Cybersectober/issues).
 - Each challenge shows the **track**, **difficulty**, **points**, **what to build** and a **"Done when"** checklist.
 
-**2. Claim it**
+### Step 2: Claim it
 - Comment **"I'll take this"** on the issue. It's held for you for 5 days.
 - If someone has already claimed it, pick another one.
 
-**3. Make your own copy (fork)**
+### Step 3: Make your own copy (fork)
 - Click **Fork** at the top right of this page, then **Create fork**.
 - You now have your own copy at `github.com/YOUR-USERNAME/Cybersectober`.
 
-**4. Copy a template**
+### Step 4: Copy a template
 - In your fork, open the [`templates/`](templates/) folder and click the template you need: `guide.md`, `checklist.md`, `translation.md`, `lab.md` or `tool.md`.
 - Click the **Copy raw file** icon at the top right of the file.
 
-**5. Create your file**
+### Step 5: Create your file
 - Go to the folder the challenge mentions (for example `awareness/`), then click **Add file → Create new file**.
 - Name your file in lowercase with hyphens, for example `phishing-red-flags-checklist.md`. Typing a `/` in the name creates a folder, for example `phishing/phishing-red-flags-checklist.md`.
 - Paste the template and fill in the header at the top (`title`, `author`, `track`, `difficulty`, `language`, `description`). Then write your content underneath.
 - Click the **Preview** tab to see how it will look.
 
-**6. Save it**
+### Step 6: Save it
 - Click **Commit changes…**, write a short message, then click **Commit changes**.
 
-**7. Submit it**
+### Step 7: Submit it
 - Go to your fork's main page. You'll see a message saying your branch is ahead. Click **Contribute → Open pull request**.
 - Fill in the checklist and write `Closes #` followed by the challenge number (for example `Closes #25`), so the challenge closes automatically when your work is merged.
 - Click **Create pull request**.
 
-**8. Respond to feedback**
+### Step 8: Respond to feedback
 - Mentors may suggest changes in comments. To update your work, edit the file in your fork and commit again, and your pull request updates automatically.
 
-**9. Star the repo**
+### Step 9: Star the repo
 - If you haven't already, click the **Star** button at the top right of the [repo page](https://github.com/CyberSecTober/Cybersectober), next to **Fork** (on a phone, it's just under the repo name).
 
 > **Labs and tools:** comment on the challenge first so a mentor can help you plan. Labs must be deliberately vulnerable, run locally with Docker, and include a `SOLUTION.md`.
