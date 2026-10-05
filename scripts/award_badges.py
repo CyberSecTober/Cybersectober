@@ -305,9 +305,36 @@ CONTENT_DIRS = ("awareness/", "api-security/", "ai-security/", "community/")
 MAINTENANCE_DIRS = ("scripts/", ".github/", "data/")
 
 
-POSTS_FILE = "awareness/posts.md"
+POSTS_FILE, TIPS_FILE = "awareness/posts.md", "awareness/tips.md"
 POST_MILESTONES = [(1, "awareness-advocate"), (5, "signal-booster")]
 MAX_TIPS_FOR_POINTS = 5
+
+
+def pr_files(pr):
+    if "_files" not in pr:
+        pr["_files"] = paginate(f"/repos/{REPO}/pulls/{pr['number']}/files")
+    return pr["_files"]
+
+
+def content_url(pr):
+    """Link to what the contribution added, as it reads today on main: the exact line for a tip or post, the page for
+    a guide or quiz, the folder for a tool or lab. Falls back to the pull request if the content has moved."""
+    files = [f for f in pr_files(pr) if f["filename"].startswith(CONTENT_DIRS) and f["status"] != "removed"
+             and os.path.exists(f["filename"])]
+    if not files:
+        return pr["html_url"]
+    if len(files) == 1 and files[0]["filename"] in (TIPS_FILE, POSTS_FILE):
+        added = [l[1:].strip() for l in (files[0].get("patch") or "").splitlines()
+                 if l.startswith("+") and not l.startswith("+++") and l[1:].strip()]
+        lines = [l.strip() for l in open(files[0]["filename"], encoding="utf-8")]
+        line = next((i for i, l in enumerate(lines, 1) if added and l == added[-1]), None)
+        return f"{REPO_URL}/blob/main/{files[0]['filename']}" + (f"#L{line}" if line else "")
+    names = [f["filename"] for f in files]
+    folder = os.path.commonpath(names) if len(names) > 1 else ""
+    if folder and folder.count("/") >= 1:
+        return f"{REPO_URL}/tree/main/{folder}"
+    page = next((n for n in names if n.endswith(".md")), names[0])
+    return f"{REPO_URL}/blob/main/{page}"
 
 
 def points_for(pr):
@@ -317,7 +344,7 @@ def points_for(pr):
     pts = max((int(l.split("-")[1]) for l in labels if l.startswith("points-") and l.split("-")[1].isdigit()), default=0)
     counts, is_post, is_tip = True, False, False
     if not pts:
-        files = {f["filename"] for f in paginate(f"/repos/{REPO}/pulls/{pr['number']}/files")}
+        files = {f["filename"] for f in pr_files(pr)}
         if files == {"awareness/tips.md"}:
             pts, is_tip = 3, True
         is_post = files == {POSTS_FILE}
@@ -351,7 +378,7 @@ def compute(prs, manual, organizers=frozenset()):
                 pts, capped = 0, True
         before = u["points"]
         u["points"] += pts
-        u["prs"].append({"number": pr["number"], "title": pr["title"], "url": pr["html_url"],
+        u["prs"].append({"number": pr["number"], "title": pr["title"], "url": pr["html_url"], "content": content_url(pr),
                          "merged_at": pr["merged_at"], "points": pts, "post": is_post, "capped": capped})
 
         def earn(slug):
@@ -545,6 +572,12 @@ def catch_up(ranked):
             post_comment(p["number"], comment_body(u, p["number"]))
 
 
+def contribution_link(p):
+    """The title opens the contribution itself; the number links to the pull request as proof."""
+    return (f'<a href="{p.get("content") or p["url"]}">{html.escape(p["title"])}</a> '
+            f'<a class="muted" href="{p["url"]}">#{p["number"]}</a>')
+
+
 def fmt_date(iso):
     return datetime.fromisoformat(iso.replace("Z", "+00:00")).strftime("%-d %B %Y") if iso else "Awarded by a maintainer"
 
@@ -640,7 +673,7 @@ def build_site(ranked):
                     f'<td class="num"><b>{u["points"]}</b></td></tr>' for u in ranked]
     country_rows = [f'<tr><td>{i}</td><td>{flag(code)} {html.escape(name)}</td><td class="num">{c["people"]}</td><td class="num"><b>{c["points"]}</b></td></tr>'
                     for i, ((code, name), c) in enumerate(sorted(countries.items(), key=lambda x: (-x[1]["points"], -x[1]["people"])), 1)]
-    latest_rows = [f'<tr><td>{who_cell(u)}</td><td><a href="{p["url"]}">#{p["number"]}</a> {html.escape(p["title"])}'
+    latest_rows = [f'<tr><td>{who_cell(u)}</td><td>{contribution_link(p)}'
                    f'<br><span class="muted" style="font-size:14px">{fmt_date(p["merged_at"])}</span></td>'
                    f'<td class="num">{"Post" if p["post"] else "+" + str(p["points"])}</td></tr>' for u, p in contributions[:10]]
 
@@ -672,7 +705,7 @@ def build_site(ranked):
                  f'<pre id="snippet">{html.escape(snippet)}</pre>'
                  f'<button onclick="navigator.clipboard.writeText(document.getElementById(\'snippet\').innerText);this.textContent=\'Copied\'">Copy snippet</button>'
                  f'</div>') if earned else ""
-        prs = [f'<tr><td><a href="{p["url"]}">#{p["number"]}</a> {html.escape(p["title"])}</td>'
+        prs = [f'<tr><td>{contribution_link(p)}</td>'
                f'<td>{fmt_date(p["merged_at"])}</td><td class="num">{"Post" if p["post"] else p["points"]}</td></tr>' for p in reversed(u["prs"])]
         c = u.get("country")
         where = f'<br><span class="muted">{flag(c[0])} {html.escape(c[1])}</span>' if c else ""
