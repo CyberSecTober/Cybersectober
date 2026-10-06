@@ -1448,7 +1448,7 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
     keys.forEach(function (k) { var d = new Date(k + "T12:00:00"); run = prev && (d - prev) / 864e5 < 1.5 ? run + 1 : 1; prev = d; best = Math.max(best, run); });
     var yr = new Date().getFullYear(), oct = []; for (var i = 1; i <= 31; i++) oct.push(yr + "-10-" + (i < 10 ? "0" : "") + i);
     var pad = new Date(yr + "-10-01T12:00:00").getDay();
-    sheet('<div style="text-align:center"><div class="burst">' + ic("fire", "#F59E0B", 54) + '</div><h2>' + n + "-day streak</h2><p class=\"muted small\" style=\"margin:4px 0 0\">Best: " + best + " days</p></div>" +
+    sheet('<div style="text-align:center"><div class="burst">' + ic("fire", "#F59E0B", 54) + '</div><h2>' + n + "-day streak</h2><p class=\"muted small\" style=\"margin:4px 0 0\">Best: " + best + (best === 1 ? " day" : " days") + "</p></div>" +
       '<div class="sec"><h3>Today\'s goal</h3><span class="muted small">' + ((a.m ? 1 : 0) + (a.p ? 1 : 0)) + "/2</span></div>" +
       '<div class="goal' + (a.m ? " ok" : "") + '"><i>' + (a.m ? "✓" : "1") + "</i>Finish a mission</div><div class=\"goal" + (a.p ? " ok" : "") + '"><i>' + (a.p ? "✓" : "2") + "</i>Take a pull request step on GitHub</div>" +
       '<div class="sec"><h3>CyberSecTOBER calendar</h3></div><div class="cal">' + "SMTWTFS".split("").map(function (c) { return "<b>" + c + "</b>"; }).join("") + new Array(pad + 1).join("<span></span>") +
