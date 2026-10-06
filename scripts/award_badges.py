@@ -736,6 +736,34 @@ def table(headers, rows, empty):
     return f'<div class="table-wrap"><table><tr>{head}</tr>{"".join(rows)}</table></div>'
 
 
+CHALLENGE_LABELS = {"open-to-all", "good first issue", "beginner", "intermediate", "advanced"}
+
+
+def issue_section(body, name):
+    """Plain text of one '### Heading' section of a challenge issue, for the game."""
+    m = re.search(rf"^###\s*{re.escape(name)}\s*$(.*?)(?=^###|^---|\Z)", body or "", re.S | re.M)
+    text = m.group(1).strip() if m else ""
+    text = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", text).replace("`", "")
+    return text[:700]
+
+
+def open_challenges():
+    """Open challenge issues, published in data.json so the Shield Up game can show them."""
+    try:
+        issues = paginate(f"/repos/{REPO}/issues?state=open")
+    except Exception as e:  # the site still builds without them
+        print(f"::warning::Could not list open challenges: {e}")
+        return []
+    out = []
+    for i in issues:
+        labels = [label["name"] for label in i.get("labels", [])]
+        if "pull_request" in i or not CHALLENGE_LABELS & set(labels):
+            continue
+        out.append({"number": i["number"], "title": i["title"], "labels": labels, "assigned": bool(i.get("assignees")),
+                    "what": issue_section(i.get("body"), "What to build"), "done": issue_section(i.get("body"), "Done when")})
+    return out
+
+
 def build_site(ranked):
     shutil.rmtree(OUT_DIR, ignore_errors=True)
     os.makedirs(OUT_DIR)
@@ -787,7 +815,8 @@ def build_site(ranked):
                                      "badges": [s for s in BADGES if s in u["badges"]], "contributions": len(u["prs"]),
                                      "country": u["country"][1] if u.get("country") else None,
                                      "merged": sorted(p["merged_at"][:10] for p in u["prs"])}
-                                    for u in ranked]}, f, indent=1)
+                                    for u in ranked],
+                   "challenges": open_challenges()}, f, indent=1)
 
     for u, p in contributions:
         d = os.path.join(OUT_DIR, "c", str(p["number"]))
