@@ -18,8 +18,7 @@
 html,body{margin:0;height:100%;background:#F8EEF3;color:var(--text);font:500 15px/1.5 "Plus Jakarta Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 button{font:inherit;color:inherit;cursor:pointer}
 a{color:var(--green)}
-#app{position:relative;max-width:460px;height:100dvh;margin:0 auto;overflow:hidden;background:radial-gradient(700px 420px at 110% -10%,rgba(236,72,153,.10),transparent 60%),radial-gradient(600px 420px at -20% 35%,rgba(16,185,129,.08),transparent 60%),#FFFFFF}
-@media(min-width:520px){#app{height:min(900px,96dvh);margin-top:2dvh;border-radius:34px;border:1px solid var(--line);box-shadow:0 30px 80px rgba(190,24,93,.14)}}
+#app{position:relative;width:100%;height:100dvh;margin:0 auto;overflow:hidden;background:radial-gradient(700px 420px at 110% -10%,rgba(236,72,153,.10),transparent 60%),radial-gradient(600px 420px at -20% 35%,rgba(16,185,129,.08),transparent 60%),#FFFFFF}
 .scroll{position:absolute;inset:0 0 78px;overflow-y:auto;padding:calc(18px + env(safe-area-inset-top)) 18px 28px}
 .scroll::-webkit-scrollbar,.stagebody::-webkit-scrollbar{display:none}
 h1,h2,h3{margin:0;font-weight:800;letter-spacing:-.02em;line-height:1.15}
@@ -355,6 +354,46 @@ html[data-theme="dark"] .prline{background:#000}
 .themes button.on{border-color:var(--pink);box-shadow:0 0 0 3px rgba(236,72,153,.15)}
 
 .hud .thm{width:36px;height:36px;border-radius:12px;border:1px solid var(--line);background:var(--glass2);font-size:17px;display:flex;align-items:center;justify-content:center;flex:none;color:var(--text)}
+
+/* Fits any screen: phones, tablets and laptops */
+:root{--col:760px;--nav:0px}
+@media (min-width:700px){
+  .scroll{padding-left:max(24px,calc((100% - var(--col))/2));padding-right:max(24px,calc((100% - var(--col))/2))}
+  .stagehead{padding-left:max(20px,calc((100% - var(--col))/2));padding-right:max(20px,calc((100% - var(--col))/2))}
+  .stagebody{padding-left:max(24px,calc((100% - var(--col))/2));padding-right:max(24px,calc((100% - var(--col))/2))}
+  .prog{margin-left:max(24px,calc((100% - var(--col))/2));margin-right:max(24px,calc((100% - var(--col))/2))}
+  .onb{padding-left:max(24px,calc((100% - 560px)/2));padding-right:max(24px,calc((100% - 560px)/2))}
+  .onb{justify-content:center}.onb .art{flex:0 0 auto;min-height:0;margin:28px 0}
+  .comms{margin:0;padding:2px 0 6px}.filters{margin-left:0;margin-right:0;padding:0}.roles{margin-left:0;margin-right:0;padding-left:0;padding-right:0}
+  .opts{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  .medals{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+  .realbadges{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  .studio{height:400px;margin:0;border-radius:24px}
+  /* Sheets become centred dialogs */
+  .sheet{align-items:center;justify-content:center;padding:24px}
+  .sheet .sbox{max-width:560px;max-height:88vh;border-radius:28px;padding-bottom:24px;animation:pop .25s cubic-bezier(.2,.8,.2,1)}
+  .sheet .grab{display:none}
+  @keyframes pop{from{opacity:0;transform:scale(.96) translateY(10px)}}
+  /* City overlays keep to a comfortable width */
+  .hud,.sbar{right:auto;width:min(520px,calc(100% - 28px))}
+  .nextpill{right:auto;width:min(460px,calc(100% - 96px))}
+  .mapbtns{bottom:24px}
+  .nudge{left:auto;right:16px;width:420px}
+  .bub{max-width:240px}
+}
+@media (min-width:1024px){
+  :root{--nav:96px}
+  /* Navigation becomes a side rail on laptops and iPads in landscape */
+  .tabs{top:0;bottom:0;left:0;right:auto;width:var(--nav);height:auto;grid-template-columns:1fr;grid-auto-rows:84px;align-content:center;padding:16px 8px;border-top:0;border-right:1px solid var(--line);box-shadow:none}
+  .tabs button{font-size:12px;border-radius:16px}
+  .tabs button:hover{background:var(--glass2)}
+  .tabs button.on:before{top:50%;left:-8px;width:4px;height:28px;border-radius:0 4px 4px 0;transform:translateY(-50%)}
+  .scroll{inset:0 0 0 var(--nav)}
+  .stage{left:var(--nav)}
+  .studio{height:440px}
+}
+@media (min-width:1400px){:root{--col:880px}}
+@media (hover:hover){.mis:hover,.choice:hover,.role:hover,.opt:hover{border-color:#F9A8D4}.lbl3:hover{transform-origin:center}}
 </style>
 </head>
 <body>
