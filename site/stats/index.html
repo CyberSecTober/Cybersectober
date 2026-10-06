@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>CyberSecTOBER stats</title>
-<script data-goatcounter="https://cybersectober.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
@@ -40,33 +39,19 @@ th{text-align:left;font-size:12px;color:var(--muted);font-weight:700;padding:6px
 td{padding:8px;border-bottom:1px solid var(--grid)}td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 td img{width:24px;height:24px;border-radius:7px;vertical-align:middle;margin-right:8px}
 .tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);padding:6px 10px;border-radius:10px;font-size:13px;font-weight:700;transform:translate(-50%,-120%);display:none;white-space:nowrap;z-index:9}
-.setup{background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:14px 16px;font-size:14px;margin-top:14px}
-.setup ol{margin:6px 0 0;padding-left:20px}
 .empty{color:var(--muted);font-size:14px;padding:20px 0}
 </style>
 </head>
 <body>
 <main>
   <h1>CyberSecTOBER stats</h1>
-  <p class="sub">Organizer dashboard. Contribution numbers update every hour from merged pull requests. Visitor numbers come from GoatCounter, which counts visits without cookies or personal data. <span id="upd"></span></p>
+  <p class="sub">Contribution numbers update every hour from merged pull requests. <span id="upd"></span></p>
 
   <div class="tiles">
-    <div class="tile"><b id="t-visits">…</b><span>Site visits</span><div class="src">GoatCounter</div></div>
-    <div class="tile"><b id="t-play">…</b><span>Shield Up visits</span><div class="src">GoatCounter</div></div>
-    <div class="tile"><b id="t-signup">…</b><span>Game sign-ups</span><div class="src">GoatCounter</div></div>
-    <div class="tile"><b id="t-click">…</b><span>Pull requests started from the game</span><div class="src">GoatCounter</div></div>
     <div class="tile"><b id="t-people">…</b><span>Contributors</span><div class="src">Merged pull requests</div></div>
     <div class="tile"><b id="t-prs">…</b><span>Merged contributions</span><div class="src">Merged pull requests</div></div>
     <div class="tile"><b id="t-points">…</b><span>Points awarded</span><div class="src">Merged pull requests</div></div>
     <div class="tile"><b id="t-countries">…</b><span>Countries</span><div class="src">GitHub profile locations</div></div>
-  </div>
-  <div class="setup" id="gcsetup" hidden>
-    <b>Visitor numbers are not switched on yet.</b>
-    <ol>
-      <li>Sign up free at <a href="https://www.goatcounter.com/signup" target="_blank" rel="noopener">goatcounter.com</a> with the code <b>cybersectober</b>.</li>
-      <li>In GoatCounter, open Settings and tick <b>Allow adding visitor counts on your website</b>.</li>
-      <li>Reload this page. Your full visitor dashboard is at <a href="https://cybersectober.goatcounter.com" target="_blank" rel="noopener">cybersectober.goatcounter.com</a>.</li>
-    </ol>
   </div>
 
   <div class="grid">
@@ -75,7 +60,7 @@ td img{width:24px;height:24px;border-radius:7px;vertical-align:middle;margin-rig
     <section class="card"><h2>Contributors by country</h2><p class="note">From the location on each GitHub profile</p><div class="hb" id="countries"></div></section>
     <section class="card"><h2>Top contributors</h2><p class="note">By points</p><table><thead><tr><th>Contributor</th><th class="n">Contributions</th><th class="n">Points</th></tr></thead><tbody id="top"></tbody></table></section>
   </div>
-  <p class="sub" style="margin-top:22px"><a href="../">Leaderboard</a> · <a href="../play/">Shield Up</a> · <a href="https://cybersectober.goatcounter.com" target="_blank" rel="noopener">Full visitor dashboard</a></p>
+  <p class="sub" style="margin-top:22px"><a href="../">Leaderboard</a> · <a href="../play/">Shield Up</a></p>
 </main>
 <div class="tip" id="tip"></div>
 <script>
@@ -114,14 +99,6 @@ td img{width:24px;height:24px;border-radius:7px;vertical-align:middle;margin-rig
     $("top").innerHTML = people.slice(0, 10).map(function (u) { return '<tr><td><a href="../u/' + encodeURIComponent(u.login.toLowerCase()) + '/"><img src="https://github.com/' + encodeURIComponent(u.login) + '.png?size=48" alt="">' + esc(u.login) + '</a></td><td class="n">' + fmt(u.contributions) + '</td><td class="n">' + fmt(u.points) + "</td></tr>"; }).join("") || '<tr><td colspan="3" class="empty">No merged contributions yet.</td></tr>';
   }).catch(function () { ["t-people", "t-prs", "t-points", "t-countries"].forEach(function (id) { $(id).textContent = "–"; }); });
 
-  // Visitor counts from GoatCounter (needs "Allow adding visitor counts" switched on in GoatCounter settings)
-  var GC = "https://cybersectober.goatcounter.com/counter/", base = location.pathname.replace(/stats\/?$/, "");
-  function count(path, id) {
-    return fetch(GC + encodeURIComponent(path) + ".json").then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (j) { $(id).textContent = j.count; return true; }).catch(function () { $(id).textContent = "–"; return false; });
-  }
-  Promise.all([count("TOTAL", "t-visits"), count(base + "play/", "t-play"), count("signup", "t-signup")]).then(function (ok) { if (!ok[0]) $("gcsetup").hidden = false; });
-  var clicks = ["decide-market", "decide-faith", "decide-school", "decide-family", "decide-workplace", "soc", "redteam", "password", "grc", "ai", "api", "vdp"], total = 0, done = 0;
-  clicks.forEach(function (k) { fetch(GC + encodeURIComponent("contribute-" + k) + ".json").then(function (r) { return r.ok ? r.json() : { count: "0" }; }).then(function (j) { total += +String(j.count).replace(/\D/g, "") || 0; }).catch(function () {}).then(function () { if (++done === clicks.length) $("t-click").textContent = fmt(total); }); });
 })();
 </script>
 </body>
