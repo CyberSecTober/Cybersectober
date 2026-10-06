@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0B0F16;--panel:#141C28;--line:#243042;--text:#F2F4F7;--muted:#9AA4B2;--accent:#3DDC97}
+:root{--bg:#0B0F16;--panel:#141C28;--line:#243042;--text:#F2F4F7;--muted:#9AA4B2;--accent:#3DDC97;--gh-green:#238636;--gh-bg:#0d1117;--gh-line:#30363d}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font:17px/1.6 "Space Grotesk",system-ui,sans-serif}
 a{color:var(--accent)}
@@ -26,14 +26,41 @@ h2{font-size:24px;margin:44px 0 14px}
 .time{font:500 13px "IBM Plex Mono",monospace;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
 ol{margin:12px 0 16px;padding-left:22px}li{margin:6px 0}
 code{font:14px "IBM Plex Mono",monospace;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:2px 6px;word-break:break-word}
-.btn{display:inline-block;background:var(--accent);color:#06281A;text-decoration:none;font-weight:700;border-radius:10px;padding:12px 18px;margin:4px 8px 4px 0}
+.btn{display:inline-block;background:var(--accent);color:#06281A;text-decoration:none;font-weight:700;border-radius:10px;padding:12px 18px;margin:4px 8px 4px 0;border:0;font-size:16px;font-family:inherit;cursor:pointer}
 .btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.btn[aria-disabled="true"]{opacity:.4;pointer-events:none}
 .reward{color:var(--muted);font-size:15px;margin:10px 0 0}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
 .cards img{width:100%;border-radius:10px;display:block}
 .faq b{display:block;margin-top:14px}
 .note{color:var(--muted);font-size:15px}
 footer{margin-top:48px;color:var(--muted);font-size:14px;text-align:center}
+/* The helper */
+label{display:block;font-weight:600;margin:14px 0 6px}
+label span{font-weight:400;color:var(--muted);font-size:14px}
+input,textarea,select{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px 12px;font:16px "Space Grotesk",system-ui,sans-serif}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);border-color:transparent}
+.you{border-color:var(--accent)}
+.preview{margin:16px 0 8px}
+.preview .label{font:500 12px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.preview pre{margin:6px 0 0;background:var(--bg);border:1px dashed var(--accent);border-radius:10px;padding:12px;white-space:pre-wrap;word-break:break-word;font:14px/1.5 "IBM Plex Mono",monospace;min-height:46px}
+.hint{color:#F5B971;font-size:15px;margin:8px 0 0;min-height:1em}
+.then{margin:14px 0 0;padding:12px 14px;border-left:3px solid var(--accent);background:rgba(61,220,151,.06);border-radius:0 10px 10px 0;font-size:15px}
+/* What you'll see on GitHub */
+.screens{display:grid;gap:14px}
+.screen{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:start}
+.num{width:44px;height:44px;border-radius:50%;background:var(--accent);color:#06281A;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:20px}
+.screen p{margin:0 0 10px}
+.gh{background:var(--gh-bg);border:1px solid var(--gh-line);border-radius:10px;overflow:hidden;font:14px/1.5 -apple-system,"Segoe UI",system-ui,sans-serif;color:#e6edf3}
+.gh .bar{background:#161b22;border-bottom:1px solid var(--gh-line);padding:6px 10px;color:#7d8590;font-size:12px}
+.gh .body{padding:12px}
+.gh .row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.gh-btn{display:inline-block;background:var(--gh-green);color:#fff;border-radius:6px;padding:5px 12px;font-weight:600;font-size:14px;box-shadow:0 0 0 3px rgba(61,220,151,.55)}
+.gh-btn.grey{background:#21262d;border:1px solid var(--gh-line);box-shadow:none;color:#e6edf3}
+.gh .code{font:12px/1.6 "IBM Plex Mono",monospace;color:#7d8590}
+.gh .code .new{color:#e6edf3;background:rgba(35,134,54,.25);display:block;border-left:3px solid #3fb950;padding-left:6px}
+.gh .field{border:1px solid var(--gh-line);border-radius:6px;padding:5px 8px;color:#7d8590;margin:6px 0 10px;font-size:13px}
+.gh .open{display:inline-block;background:var(--gh-green);color:#fff;border-radius:99px;padding:2px 10px;font-weight:600;font-size:13px}
 </style>
 </head>
 <body>
@@ -42,55 +69,109 @@ footer{margin-top:48px;color:var(--muted);font-size:14px;text-align:center}
 <h1>Learn. Build. Contribute. Secure.</h1>
 <p class="lead">October ends, but the knowledge stays. Share what you know about staying safe online, add it to a free open-source library, and earn verified badges. Your first contribution takes 2 to 5 minutes, and you don't need to code.</p>
 <p><a class="btn" href="https://github.com/signup">Create a free GitHub account</a><a class="btn ghost" href="https://github.com/CyberSecTober/Cybersectober">Visit the project</a></p>
-<p class="note">Already have a GitHub account? Sign in, then pick one of the three ways below.</p>
+<p class="note">Never used GitHub before? That's fine. This page writes your contribution for you, and <a href="#github-steps">shows every screen you'll see on GitHub</a>. Nothing you do can break the project: a mentor checks everything before it's added.</p>
+
+<h2>Start here</h2>
+<div class="panel">
+  <label for="user">Your GitHub username <span>(the name in your GitHub profile link, without @)</span></label>
+  <input id="user" class="you" autocomplete="username" autocapitalize="off" spellcheck="false" placeholder="e.g. ada-codes">
+  <p class="note" style="margin:8px 0 0">Not sure? Open <a href="https://github.com/settings/profile">github.com/settings/profile</a>. Your username is shown at the top. We use it to credit you and send you your badge.</p>
+</div>
 
 <h2>Three ways to take part</h2>
 
-<div class="panel">
+<div class="panel" id="post">
   <div class="step-head"><h3>1. Share a post</h3><span class="time">2 minutes</span></div>
-  <ol>
-    <li>Post one security tip on LinkedIn, X, Instagram, Facebook, TikTok, Threads or Medium with <b>#CyberSecTOBER</b>.</li>
-    <li>Copy the link to your post.</li>
-    <li>Click the button below, then <b>Fork this repository</b> if GitHub asks.</li>
-    <li>Add one line at the bottom: <code>- [What your post is about](your-post-link) (@your-github-username)</code></li>
-    <li>Click <b>Commit changes…</b>, then <b>Propose changes</b>, then <b>Create pull request</b> twice.</li>
-  </ol>
-  <a class="btn" href="https://github.com/CyberSecTober/Cybersectober/edit/main/awareness/posts.md">Add my post</a>
+  <p style="margin:10px 0 0">Post one security tip on LinkedIn, X, Instagram, Facebook, TikTok, Threads or Medium with <b>#CyberSecTOBER</b>, then fill in the two boxes below.</p>
+  <label for="post-title">What is your post about? <span>(a short title)</span></label>
+  <input id="post-title" placeholder="e.g. How to spot a fake job offer">
+  <label for="post-link">Link to your post <span>(on your post, tap Share, then Copy link)</span></label>
+  <input id="post-link" type="url" inputmode="url" autocapitalize="off" placeholder="https://www.linkedin.com/posts/...">
+  <div class="preview"><div class="label">Your line, ready to paste</div><pre id="post-line">Fill in your username and the two boxes above.</pre></div>
+  <p class="hint" id="post-hint"></p>
+  <button class="btn" id="post-copy" type="button">Copy my line</button>
+  <a class="btn ghost" id="post-open" href="https://github.com/CyberSecTober/Cybersectober/edit/main/awareness/posts.md" target="_blank" rel="noopener">Open GitHub to paste it</a>
+  <div class="then">On GitHub, paste your line on a new line at the very bottom, then follow <a href="#github-steps">the 5 screens below</a>.</div>
   <p class="reward">Earns awareness badges: Awareness Advocate for your first post, Signal Booster for 5, Awareness Ambassador for posting every week of October.</p>
 </div>
 
-<div class="panel">
+<div class="panel" id="tip">
   <div class="step-head"><h3>2. Add a tip</h3><span class="time">5 minutes</span></div>
-  <ol>
-    <li>Click the button below, then <b>Fork this repository</b> if GitHub asks.</li>
-    <li>Add one line at the bottom: <code>- **Short tip title**, one sentence explaining it. (@your-github-username)</code></li>
-    <li>Click <b>Commit changes…</b>, then <b>Propose changes</b>, then <b>Create pull request</b> twice.</li>
-  </ol>
-  <a class="btn" href="https://github.com/CyberSecTober/Cybersectober/edit/main/awareness/tips.md">Add my tip</a>
-  <a class="btn ghost" href="https://github.com/CyberSecTober/Cybersectober/blob/main/awareness/tips.md">See existing tips</a>
-  <p class="reward">Earns 3 points and the First Contribution badge. Please make sure your tip isn't already on the list.</p>
+  <label for="tip-title">Your tip in a few words</label>
+  <input id="tip-title" placeholder="e.g. Never share your OTP">
+  <label for="tip-text">Explain it in one sentence</label>
+  <textarea id="tip-text" rows="2" placeholder="e.g. Banks never ask for your one-time code, so anyone who does is a scammer."></textarea>
+  <div class="preview"><div class="label">Your line, ready to paste</div><pre id="tip-line">Fill in your username and the two boxes above.</pre></div>
+  <p class="hint" id="tip-hint"></p>
+  <button class="btn" id="tip-copy" type="button">Copy my line</button>
+  <a class="btn ghost" id="tip-open" href="https://github.com/CyberSecTober/Cybersectober/edit/main/awareness/tips.md" target="_blank" rel="noopener">Open GitHub to paste it</a>
+  <div class="then">Please check your tip isn't <a href="https://github.com/CyberSecTober/Cybersectober/blob/main/awareness/tips.md">already on the list</a>. On GitHub, paste your line on a new line at the very bottom, then follow <a href="#github-steps">the 5 screens below</a>.</div>
+  <p class="reward">Earns 3 points and the First Contribution badge.</p>
 </div>
 
-<div class="panel">
-  <div class="step-head"><h3>3. Take on a challenge</h3><span class="time">15 to 60 minutes</span></div>
-  <ol>
-    <li>Pick a challenge: a glossary entry, a quiz, a short scam story or a translation. Have more to share? Try a security tool, turn your blog post into a guide, or write a checklist, walkthrough or lab.</li>
-    <li><b>Open-to-all</b> challenges need no claiming. For the others, comment <b>"I'll take this"</b> first.</li>
-    <li>Follow the steps in the challenge and open a pull request.</li>
-  </ol>
-  <a class="btn" href="https://github.com/CyberSecTober/Cybersectober/issues?q=is%3Aopen+label%3Aopen-to-all">Open-to-all challenges</a>
-  <a class="btn ghost" href="https://github.com/CyberSecTober/Cybersectober/issues?q=is%3Aopen+label%3A%22good+first+issue%22">All beginner challenges</a>
-  <a class="btn ghost" href="https://github.com/CyberSecTober/Cybersectober/issues?q=is%3Aopen+label%3Aintermediate%2Cadvanced">Intermediate and advanced</a>
-  <p class="reward">Earns 3 to 20 points per contribution, plus tier and specialty badges.</p>
+<div class="panel" id="write">
+  <div class="step-head"><h3>3. Write something longer</h3><span class="time">15 to 60 minutes</span></div>
+  <p style="margin:10px 0 0">Pick what you'd like to write. We'll open a new file on GitHub that is already named and set up for you, with a starter you just fill in.</p>
+  <label for="kind">What would you like to write?</label>
+  <select id="kind">
+    <option value="quiz">A short security quiz (5 points)</option>
+    <option value="story">A short fictional scam story with a lesson (5 points)</option>
+    <option value="checklist">A security checklist (5 points)</option>
+    <option value="guide">A guide or walkthrough (5 to 10 points)</option>
+  </select>
+  <label for="topic">Topic <span>(a few words)</span></label>
+  <input id="topic" placeholder="e.g. fake delivery texts">
+  <p class="note" id="file-name" style="margin:10px 0 0"></p>
+  <p class="hint" id="write-hint"></p>
+  <a class="btn" id="write-open" href="#" target="_blank" rel="noopener" aria-disabled="true">Create my file on GitHub</a>
+  <div class="then">GitHub opens with your file already started. Replace the example text with your own, then follow <a href="#github-steps">the 5 screens below</a>. In screen 2 you'll be writing in the file instead of pasting a line.</div>
+  <p class="reward">Want something bigger, like a tool, lab or threat model? See the <a href="https://github.com/CyberSecTober/Cybersectober/issues?q=is%3Aopen+label%3Aopen-to-all">open-to-all challenges</a> and the <a href="https://github.com/CyberSecTober/Cybersectober/issues?q=is%3Aopen+label%3Aintermediate%2Cadvanced">intermediate and advanced challenges</a> (5 to 20 points).</p>
+</div>
+
+<h2 id="github-steps">What you'll see on GitHub</h2>
+<p class="note" style="margin-top:-6px">Every way of taking part goes through the same 5 screens. Just press the button with the green glow at each step. On a phone, everything works the same in your browser.</p>
+<div class="screens">
+  <div class="screen"><div class="num">1</div><div>
+    <p><b>Make your own copy.</b> The first time, GitHub asks you to make a copy of the project (called a <i>fork</i>) so you can suggest a change. Press the green button. You only do this once.</p>
+    <div class="gh"><div class="bar">github.com</div><div class="body">
+      <p style="margin:0 0 8px">You need to fork this repository to propose changes.</p>
+      <span class="gh-btn">Fork this repository</span>
+    </div></div>
+  </div></div>
+  <div class="screen"><div class="num">2</div><div>
+    <p><b>Add your line.</b> You'll see the file with everyone's lines. Tap at the very end of the last line, press <b>Enter</b> to start a new line, and paste. Don't change anyone else's lines.</p>
+    <div class="gh"><div class="bar">awareness/tips.md</div><div class="body">
+      <div class="code">- **Use a password manager** instead of reusing… (@cybersectober team)<br>- **Check the sender's real address**… (@DamilolaAbiona)<span class="new">- **Your tip**, your sentence. (@you)  ← paste here</span></div>
+    </div></div>
+  </div></div>
+  <div class="screen"><div class="num">3</div><div>
+    <p><b>Save it.</b> Press <b>Commit changes…</b> at the top right of the editor.</p>
+    <div class="gh"><div class="bar">awareness/tips.md</div><div class="body"><div class="row"><span style="color:#7d8590">Edit · Preview</span><span><span class="gh-btn grey">Cancel changes</span> <span class="gh-btn">Commit changes…</span></span></div></div></div>
+  </div></div>
+  <div class="screen"><div class="num">4</div><div>
+    <p><b>Suggest it.</b> A box pops up. You can leave the message as it is. Press <b>Propose changes</b>.</p>
+    <div class="gh"><div class="bar">Propose changes</div><div class="body">
+      <div style="font-size:13px">Commit message</div><div class="field">Update tips.md</div>
+      <span class="gh-btn">Propose changes</span>
+    </div></div>
+  </div></div>
+  <div class="screen"><div class="num">5</div><div>
+    <p><b>Send it to us.</b> Press <b>Create pull request</b>. A form opens: you can add a short note about your contribution, then press <b>Create pull request</b> one more time. That's it.</p>
+    <div class="gh"><div class="bar">Comparing changes</div><div class="body">
+      <p style="margin:0 0 8px">✓ Able to merge.</p>
+      <span class="gh-btn">Create pull request</span>
+      <p style="margin:12px 0 0;color:#7d8590;font-size:13px">When you see <span class="open">Open</span> next to your title, you're done. We'll take it from here.</p>
+    </div></div>
+  </div></div>
 </div>
 
 <h2>What happens next</h2>
 <div class="panel">
   <ol>
-    <li>Automatic checks look for duplicates and formatting problems, and tell you if anything needs fixing.</li>
+    <li>Automatic checks look for duplicates and formatting problems, and leave a comment if anything needs fixing.</li>
     <li>A mentor reviews your contribution, usually within 48 hours.</li>
-    <li>When it's merged, you get an email with your badge, one-click <b>Add to LinkedIn</b> and <b>Share on X</b> buttons, and a public verification page.</li>
-    <li>Your name appears on the <a href="../">leaderboard</a>.</li>
+    <li>When it's added, you get an email with your badge, one-click <b>Add to LinkedIn</b> and <b>Share on X</b> buttons, and a public verification page.</li>
+    <li>Your name appears on the <a href="../">leaderboard</a>, and your contribution gets its own page that anyone can read.</li>
   </ol>
 </div>
 
@@ -103,16 +184,118 @@ footer{margin-top:48px;color:var(--muted);font-size:14px;text-align:center}
 </div>
 <p class="note">Plus 10 more, from Security Builder to Cyber Guardian. <a href="https://github.com/CyberSecTober/Cybersectober#badges">See all badges</a>.</p>
 
-<h2>Quick answers</h2>
+<h2>Stuck? Quick answers</h2>
 <div class="panel faq">
-  <b>Do I need to know how to code?</b>No. Tips, posts, glossary entries, quizzes, stories and translations only need plain writing.
-  <b>Can I do it on my phone?</b>Yes. Everything above works in your phone's browser.
-  <b>Is it free?</b>Yes, completely. Contributions opened by 31 October 2026 count.
+  <b>GitHub asks me to sign in.</b>Sign in, or create a free account, then press the "Open GitHub" button on this page again.
+  <b>I don't see "Fork this repository".</b>That's fine: you already have a copy from before. GitHub goes straight to the editor.
+  <b>I can't find "Commit changes…".</b>It's at the top right of the editor. On a small phone screen, scroll up or turn your phone sideways.
+  <b>I made a mistake after creating the pull request.</b>No problem. Leave a comment on your pull request saying what's wrong and a mentor will help you fix it.
+  <b>The checks left a comment saying something needs fixing.</b>Read the comment, it says exactly what to change. Then open your pull request, go to <b>Files changed</b>, tap <b>⋯</b> → <b>Edit file</b>, fix it and commit again. The checks run again on their own.
+  <b>Do I need to know how to code?</b>No. Tips, posts, quizzes, stories and checklists only need plain writing.
   <b>What can't I share?</b>Anything harmful: malware, phishing kits, real passwords, personal data or attacks on real organisations. Everything here is for education and defence only.
-  <b>Need help?</b>Ask in <a href="https://github.com/CyberSecTober/Cybersectober/discussions">Discussions</a> or email dearlolami@gmail.com. No question is too basic.
+  <b>Still stuck?</b>Ask in <a href="https://github.com/CyberSecTober/Cybersectober/discussions">Discussions</a> or email dearlolami@gmail.com. No question is too basic.
 </div>
 
 <footer>CyberSecTOBER 2026 · <a href="../">Leaderboard</a> · <a href="https://github.com/CyberSecTober/Cybersectober">GitHub</a><br>#CyberSecTOBER #CybersecurityAwarenessMonth</footer>
 </main>
+<script>
+(function () {
+  var REPO = "https://github.com/CyberSecTober/Cybersectober";
+  var $ = function (id) { return document.getElementById(id); };
+  var store = {
+    get: function (k) { try { return localStorage.getItem(k) || ""; } catch (e) { return ""; } },
+    set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  };
+
+  function username() { return $("user").value.trim().replace(/^@/, "").replace(/^https?:\/\/github\.com\//i, "").replace(/\/.*$/, ""); }
+  function validUser(u) { return /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})$/.test(u); }
+  function clean(s) { return s.trim().replace(/\s+/g, " ").replace(/[\[\]]/g, ""); }
+  function sentence(s) { s = clean(s); return s && !/[.!?]$/.test(s) ? s + "." : s; }
+  function slug(s) { return clean(s).toLowerCase().normalize("NFKD").replace(/[^\w\s-]/g, "").replace(/[\s_]+/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "").slice(0, 50); }
+
+  function copy(text, button) {
+    function done() { var t = button.textContent; button.textContent = "Copied"; setTimeout(function () { button.textContent = t; }, 1800); }
+    if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(text).then(done, fallback); } else { fallback(); }
+    function fallback() {
+      var ta = document.createElement("textarea"); ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); done(); } catch (e) {} document.body.removeChild(ta);
+    }
+  }
+
+  function linePanel(prefix, build) {
+    var line = $(prefix + "-line"), hint = $(prefix + "-hint"), btn = $(prefix + "-copy");
+    function update() {
+      var u = username(), r = build(u);
+      line.textContent = r.line || "Fill in your username and the two boxes above.";
+      hint.textContent = r.problem || "";
+      btn.disabled = !r.line || !!r.problem;
+      btn.style.opacity = btn.disabled ? .4 : 1;
+      return r;
+    }
+    btn.addEventListener("click", function () { var r = update(); if (r.line && !r.problem) copy(r.line, btn); });
+    return update;
+  }
+
+  var updatePost = linePanel("post", function (u) {
+    var title = clean($("post-title").value), link = $("post-link").value.trim();
+    if (!u || !title || !link) return {};
+    var problem = !validUser(u) ? "That doesn't look like a GitHub username. Use the name from your profile link, without spaces." :
+                  !/^https?:\/\/\S+$/.test(link) ? "The link should start with https:// (copy it from your post's Share button)." :
+                  /lnkd\.in\//i.test(link) ? "Please use the full LinkedIn link, not a shortened lnkd.in link. Open the post and copy the address from the top." : "";
+    return { line: "- [" + title + "](" + link + ") (@" + u + ")", problem: problem };
+  });
+
+  var updateTip = linePanel("tip", function (u) {
+    var title = clean($("tip-title").value).replace(/[.,:;]+$/, ""), text = sentence($("tip-text").value);
+    if (!u || !title || !text) return {};
+    var problem = !validUser(u) ? "That doesn't look like a GitHub username. Use the name from your profile link, without spaces." : "";
+    return { line: "- **" + title + "**, " + (/^[A-Z][a-z]/.test(text) ? text.charAt(0).toLowerCase() + text.slice(1) : text) + " (@" + u + ")", problem: problem };
+  });
+
+  var STARTERS = {
+    quiz: { folder: "awareness/quizzes", label: "quiz", body: function (t) { return [
+      "# Quiz: " + t, "", "**For:** who this quiz is for (for example students, parents or small business owners)", "",
+      "## Questions", "", "### 1. Write your first question here", "", "- A. First answer", "- B. Second answer", "- C. Third answer", "- D. Fourth answer", "",
+      "### 2. Write your second question here", "", "- A. ...", "- B. ...", "- C. ...", "- D. ...", "",
+      "### 3. Write your third question here", "", "- A. ...", "- B. ...", "- C. ...", "- D. ...", "",
+      "## Answers", "", "1. **B.** Explain in one or two sentences why this is the right answer.", "2. **...** Why it's right.", "3. **...** Why it's right.", "",
+      "Tip: mix up which letter is correct, and use fictional companies and example.com in any examples.", ""].join("\n"); } },
+    story: { folder: "awareness/stories", label: "story", body: function (t) { return [
+      "# " + t, "", "Write a short fictional story of 150 to 400 words about a made-up person who meets a scam. Use invented names and example.com for any web addresses.", "",
+      "## The red flags", "", "- The first warning sign in the story", "- The second warning sign", "- The third warning sign", "",
+      "## The lesson", "", "What the person should do instead, and what readers can do to stay safe.", ""].join("\n"); } },
+    checklist: { folder: "awareness", label: "checklist", body: function (t, u) { return [
+      "---", "title: " + t + " security checklist", "author: " + u, "track: awareness", "difficulty: beginner", "language: en", "description: One sentence about what this checklist helps people do.", "---", "",
+      "# " + t + ": security checklist", "", "## Who is this for?", "", "Describe who should use this checklist.", "",
+      "## Checklist", "", "- [ ] First thing to do, and one line on why it matters", "- [ ] Second thing to do", "- [ ] Third thing to do", "- [ ] Fourth thing to do", "- [ ] Fifth thing to do", "",
+      "## Why it matters", "", "A short explanation of the risks this checklist protects against.", "",
+      "## Resources", "", "- [A helpful free resource](https://example.com)", ""].join("\n"); } },
+    guide: { folder: "awareness", label: "guide", body: function (t, u) { return [
+      "---", "title: " + t, "author: " + u, "track: awareness", "difficulty: beginner", "language: en", "description: One sentence about what readers will learn.", "---", "",
+      "# " + t, "", "## Overview", "", "What is this guide about, and who is it for?", "",
+      "## Steps", "", "### Step 1", "", "What to do, and what you should see afterwards.", "", "### Step 2", "", "...", "", "### Step 3", "", "...", "",
+      "## Summary", "", "The key things to remember.", "",
+      "## Further reading", "", "- [A helpful free resource](https://example.com)", ""].join("\n"); } }
+  };
+
+  function updateWrite() {
+    var u = username(), kind = STARTERS[$("kind").value], topic = clean($("topic").value), a = $("write-open");
+    var name = u && topic ? u.toLowerCase() + "-" + slug(topic) + ".md" : "";
+    var problem = u && !validUser(u) ? "That doesn't look like a GitHub username. Use the name from your profile link, without spaces." : "";
+    $("write-hint").textContent = problem;
+    $("file-name").textContent = name ? "Your file: " + kind.folder + "/" + name : "Fill in your username and a topic, and we'll name your file.";
+    if (!name || problem) { a.setAttribute("aria-disabled", "true"); a.href = "#"; return; }
+    var title = topic.charAt(0).toUpperCase() + topic.slice(1);
+    a.href = REPO + "/new/main?filename=" + encodeURIComponent(kind.folder + "/" + name) + "&value=" + encodeURIComponent(kind.body(title, u));
+    a.removeAttribute("aria-disabled");
+  }
+
+  function updateAll() { store.set("cybersectober-user", username()); updatePost(); updateTip(); updateWrite(); }
+  $("user").value = store.get("cybersectober-user");
+  ["user", "post-title", "post-link", "tip-title", "tip-text", "topic"].forEach(function (id) { $(id).addEventListener("input", updateAll); });
+  $("kind").addEventListener("change", updateAll);
+  updateAll();
+})();
+</script>
 </body>
 </html>
