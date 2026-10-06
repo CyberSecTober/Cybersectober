@@ -184,8 +184,8 @@ input:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(1
 .hud .t{flex:1;min-width:0}.hud .t b{display:flex;align-items:center;font-size:15px;white-space:nowrap}
 .xpb{height:6px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden;margin-top:6px}.xpb i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--sky));border-radius:99px}
 .hud .streak{padding:6px 10px;border-radius:12px;font-size:14px}
-.hud2{position:absolute;left:14px;top:calc(82px + env(safe-area-inset-top));display:flex;gap:6px;pointer-events:none}
-.hud2 .chip{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);background:rgba(255,255,255,.86);border:1px solid var(--line)}
+.hud2{position:absolute;left:14px;top:calc(128px + env(safe-area-inset-top));display:flex;gap:6px;pointer-events:none}
+.hud2 .chip{white-space:nowrap;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);background:rgba(255,255,255,.86);border:1px solid var(--line)}
 .mapbtns{position:absolute;right:14px;bottom:92px;display:flex;flex-direction:column;gap:8px}
 .mapbtns button{width:42px;height:42px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center}
 .nextpill{position:absolute;left:14px;right:70px;bottom:14px;display:flex;align-items:center;gap:12px;padding:10px 10px 10px 10px;border-radius:22px;border:1px solid rgba(255,255,255,.14);background:linear-gradient(135deg,rgba(91,75,219,.92),rgba(42,30,122,.92));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);text-align:left;box-shadow:0 12px 30px rgba(0,0,0,.35)}
@@ -267,6 +267,39 @@ input:focus,textarea:focus{border-color:var(--pink);box-shadow:0 0 0 4px rgba(23
 .pills{display:flex;gap:8px;flex-wrap:wrap}
 .pills button{border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:8px 13px;font-weight:700;font-size:13px}
 .pills button.on{background:var(--pink);border-color:var(--pink);color:#fff}
+
+/* Streak bar */
+.sbar{position:absolute;left:14px;right:14px;top:calc(82px + env(safe-area-inset-top));display:flex;align-items:center;gap:5px;padding:7px 10px;border-radius:16px;background:rgba(255,255,255,.9);border:1px solid #F6DCE8;box-shadow:0 6px 18px rgba(190,24,93,.08);cursor:pointer}
+.sbar i{flex:1;height:26px;border-radius:9px;background:#F6EEF2;display:flex;align-items:center;justify-content:center;font-style:normal;position:relative}
+.sbar i em{font-style:normal;font-size:10px;font-weight:800;color:#9C8FAA}
+.sbar i.m{background:linear-gradient(135deg,#F9A8D4,#EC4899)}.sbar i.p{background:linear-gradient(135deg,#34D399,#10B981)}.sbar i.m em,.sbar i.p em{color:#fff}
+.sbar i.today{box-shadow:0 0 0 2px #fff,0 0 0 3.5px #EC4899}
+.sbar .sgoal{flex:none;font-size:11px;color:var(--muted);margin-left:4px;white-space:nowrap}.sbar .sgoal b{color:var(--text);font-size:13px}
+.goal{display:flex;gap:10px;align-items:center;padding:12px;border-radius:14px;background:var(--glass2);margin-top:8px;font-weight:700;font-size:14px}
+.goal i{width:26px;height:26px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:12px;font-weight:800;border:1.5px solid var(--line)}
+.goal.ok i{background:var(--green);color:#fff;border-color:var(--green)}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;text-align:center}
+.cal b{font-size:11px;color:var(--muted)}.cal span{aspect-ratio:1;border-radius:10px;background:var(--glass2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--muted)}
+.cal span:empty{background:none}.cal span.m{background:#EC4899;color:#fff}.cal span.p{background:#10B981;color:#fff}.cal span.today{box-shadow:0 0 0 2px #fff,0 0 0 3.5px #241A33}
+.key{display:inline-block;width:10px;height:10px;border-radius:3px;vertical-align:middle}.key.m{background:#EC4899}.key.p{background:#10B981}
+/* Pull request flow */
+.prhead{display:flex;gap:12px;align-items:center;padding:14px;border-radius:18px;background:linear-gradient(135deg,#ECFDF5,#FFF1F7);margin-bottom:12px}
+.prhead b{display:block;font-size:15px}.prhead span{display:block;font-size:12px;color:var(--muted)}
+.prs{display:flex;gap:12px;padding:14px;border-radius:18px;border:1.5px solid var(--line);background:#fff;margin-top:10px;opacity:.55}
+.prs.now{opacity:1;border-color:#F9A8D4;box-shadow:0 0 0 4px rgba(236,72,153,.08)}.prs.done{opacity:1}
+.prs .n{width:30px;height:30px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;background:var(--glass2)}
+.prs.now .n{background:var(--pink);color:#fff}.prs.done .n{background:var(--green);color:#fff}
+.prs .b{flex:1;min-width:0}.prs .b>b{display:block;font-size:15px;margin:4px 0 6px}
+.prs .row .btn{padding:12px 10px;font-size:14px}
+.prline{white-space:pre-wrap;word-break:break-word;background:#0F172A;color:#A7F3D0;padding:12px;border-radius:12px;font:600 12px/1.5 "JetBrains Mono",monospace;margin:0 0 10px}
+
+/* City life */
+.bub{position:absolute;left:0;top:0;max-width:190px;padding:7px 10px;border-radius:14px 14px 14px 4px;background:#fff;color:#241A33;font:600 11.5px/1.35 "Plus Jakarta Sans",system-ui,sans-serif;box-shadow:0 8px 20px rgba(36,26,51,.16);pointer-events:none;z-index:1500;animation:bpop .25s}
+.bub b{color:#BE185D}.bub.good{background:#ECFDF5}.bub.good b{color:#047857}
+@keyframes bpop{from{opacity:0;margin-top:8px}}
+.alertb{position:absolute;left:0;top:0;display:flex;align-items:center;gap:6px;padding:6px 11px 6px 6px;border-radius:99px;border:0;background:#F43F5E;color:#fff;font:800 12px/1 "Plus Jakarta Sans",system-ui,sans-serif;box-shadow:0 8px 20px rgba(244,63,94,.4);pointer-events:auto;z-index:1600;animation:apulse 1.2s ease-in-out infinite}
+.alertb i{width:20px;height:20px;border-radius:50%;background:#fff;color:#F43F5E;display:flex;align-items:center;justify-content:center;font-style:normal}
+@keyframes apulse{50%{box-shadow:0 0 0 8px rgba(244,63,94,0),0 8px 20px rgba(244,63,94,.4)}}
 </style>
 </head>
 <body>
@@ -285,6 +318,8 @@ input:focus,textarea:focus{border-color:var(--pink);box-shadow:0 0 0 4px rgba(23
 
 <script type="module">
 import * as THREE from "./vendor/three.module.min.js";
+import { RoundedBoxGeometry } from "./vendor/addons/RoundedBoxGeometry.js";
+import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
 (function () {
   "use strict";
   var REPO = "https://github.com/CyberSecTober/Cybersectober", SAVE = "shield-up-v1";
@@ -477,11 +512,12 @@ import * as THREE from "./vendor/three.module.min.js";
   // ------------------------------------------------------------ State
   var S = load() || null;
   if (S && !S.nudged) S.nudged = {};
-  function blank(name, gh, comm) { return { v: 1, name: name, github: gh, focus: comm, xp: 0, done: {}, kits: {}, reported: [], nudged: {}, squad: { name: "", members: gh ? [gh] : [] }, real: null, days: [today()] }; }
+  if (S && !S.act) { S.act = {}; (S.days || []).forEach(function (d) { S.act[d] = { m: 1 }; }); delete S.act[today()]; }
+  function blank(name, gh, comm) { return { v: 1, name: name, github: gh, focus: comm, xp: 0, done: {}, kits: {}, reported: [], nudged: {}, act: {}, pr: {}, squad: { name: "", members: gh ? [gh] : [] }, real: null, days: [today()] }; }
   function load() { try { var s = JSON.parse(store.get(SAVE)); return s && s.v === 1 ? s : null; } catch (e) { return null; } }
   function save() { store.set(SAVE, JSON.stringify(S)); if (S.github) store.set("cybersectober-user", S.github); }
   function level() { return Math.min(LEVELS.length - 1, Math.floor(S.xp / 200)); }
-  function streak() { var n = 0, d = new Date(); for (;;) { var k = d.toISOString().slice(0, 10); if (S.days.indexOf(k) === -1) return n; n++; d.setDate(d.getDate() - 1); } }
+  function streak() { var n = 0, d = new Date(); if (!(S.act && S.act[today()])) d.setDate(d.getDate() - 1); for (;;) { var k = d.toISOString().slice(0, 10); if (!(S.act && S.act[k])) return n; n++; d.setDate(d.getDate() - 1); } }
   function commPct(c) { var p = 0; if (S.done["decide-" + c]) p += 34; if (S.done["teach-" + c]) p += 33; if (S.reported.indexOf(c) !== -1) p += 33; return Math.min(100, p); }
   function joinHref(h) { var parts = h.split("#"), base = parts[0].replace(/^join\??/, ""), q = []; if (S.github) q.push("user=" + encodeURIComponent(S.github)); if (base) q.push(base); return "../join/" + (q.length ? "?" + q.join("&") : "") + "#" + parts[1]; }
 
@@ -512,7 +548,7 @@ import * as THREE from "./vendor/three.module.min.js";
   var HAIR_COLS = ["#17110F", "#3B2416", "#6B4423", "#B9853A", "#D9D4CF", "#EC4899"];
   var FABRICS = ["#EC4899", "#10B981", "#F59E0B", "#2563EB", "#7C3AED", "#FFFFFF"];
   var ROLES = [
-    { id: "red", name: "Red Teamer", d: "Ethical hacker who finds the flaws first", district: "red", tops: ["#E11D48", "#1F2937", "#7C3AED"], bottom: "#1F2937", style: "hoodie", acc: "laptop", icon: ["bug", "#E11D48"] },
+    { id: "red", name: "Red Teamer", d: "Ethical hacker who finds the flaws first", district: "red", tops: ["#0F1115", "#1F2937", "#3B0A12"], bottom: "#0B0F14", style: "hoodie", hood: 1, acc: "laptop", icon: ["bug", "#E11D48"] },
     { id: "blue", name: "Blue Teamer", d: "SOC analyst who spots attacks in the logs", district: "soc", tops: ["#1D4ED8", "#0F766E", "#334155"], bottom: "#334155", style: "jacket", acc: "headset", icon: ["radar", "#1D4ED8"] },
     { id: "grc", name: "GRC Analyst", d: "Risk, policy and compliance", district: "grc", tops: ["#334155", "#7C2D12", "#BE185D"], bottom: "#475569", style: "blazer", acc: "clipboard", icon: ["shield", "#334155"] },
     { id: "ai", name: "AI Security", d: "Keeps AI assistants and agents safe", district: "ai", tops: ["#FFFFFF", "#FCE7F3", "#ECFDF5"], bottom: "#64748B", style: "labcoat", acc: "visor", icon: ["brain", "#EC4899"] },
@@ -535,44 +571,60 @@ import * as THREE from "./vendor/three.module.min.js";
   var torsoGeo = function () { return hgeo("torso", function () { var pts = [[.075, 0], [.088, .05], [.094, .12], [.108, .2], [.112, .245], [.09, .275], [.035, .292]].map(function (p) { return new THREE.Vector2(p[0], p[1]); }); var g = new THREE.LatheGeometry(pts, 20); g.scale(1, 1, .68); return g; }); };
 
   // Height is about 1 unit at scale 1, feet at y = 0, facing +z
+  function skinShade(hex, k) { var c = new THREE.Color(hex); c.lerp(new THREE.Color("#5A1F2A"), k); return c.getStyle(); }
+  function canvasTex(w, h, draw) { var c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h); var t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; }
+  var TERM_TEX = null, CODE_TEX = null;
+  function termTex() { return TERM_TEX || (TERM_TEX = canvasTex(128, 64, function (x, w, h) { x.fillStyle = "#0B0F14"; x.fillRect(0, 0, w, h); x.fillStyle = "#39FF88"; x.font = "800 44px monospace"; x.textBaseline = "middle"; x.fillText(">_", 26, h / 2 + 2); })); }
+  function codeTex() { return CODE_TEX || (CODE_TEX = canvasTex(128, 96, function (x, w, h) { x.fillStyle = "#04140A"; x.fillRect(0, 0, w, h); x.font = "600 9px monospace"; for (var i = 0; i < 9; i++) { x.fillStyle = i % 3 ? "#39FF88" : "#A7F3D0"; var line = ""; for (var k = 0; k < 16; k++) line += "01{}<>/=;$#"[Math.floor(Math.random() * 11)]; x.fillText(line.slice(0, 6 + (i * 5) % 11), 6, 12 + i * 10); } })); }
+
+  // Height is about 1 unit at scale 1, feet at y = 0, facing +z
   function makeHuman(c) {
-    c = c || defaultChar(); var role = ROLE_BY[c.role] || ROLES[0], skin = hmat(SKINS[c.skin] || SKINS[2], { roughness: .55 }), top = hmat(role.tops[c.top || 0] || role.tops[0]), bottom = hmat(role.bottom);
-    var wrapped = c.hair === "gele" || c.hair === "hijab", hcol = wrapped ? FABRICS[c.hc % FABRICS.length] : HAIR_COLS[c.hc % HAIR_COLS.length], hair = hmat(hcol, { roughness: wrapped ? .6 : .85 });
+    c = c || defaultChar(); var role = ROLE_BY[c.role] || ROLES[0], skinHex = SKINS[c.skin] || SKINS[2], skin = hmat(skinHex, { roughness: .52 }), top = hmat(role.tops[c.top || 0] || role.tops[0], { roughness: .8 }), bottom = hmat(role.bottom, { roughness: .85 });
+    var wrapped = c.hair === "gele" || c.hair === "hijab", hcol = wrapped ? FABRICS[c.hc % FABRICS.length] : HAIR_COLS[c.hc % HAIR_COLS.length], hair = hmat(hcol, { roughness: wrapped ? .6 : .9 });
     var h = new THREE.Group(), root = pivot(h, 0, 0, 0), rig = { root: root };
-    var longSleeve = role.style !== "tee" && role.style !== "vest";
-    // legs
+    var longSleeve = role.style !== "tee" && role.style !== "vest", shoeCol = role.id === "red" ? "#0B0F14" : "#FFFFFF", soleCol = role.id === "red" ? "#39FF88" : "#EC4899";
+    // Legs: tapered thigh and shin with rounded knee and ankle joints
     ["L", "R"].forEach(function (sd, i) {
-      var sx = i ? -.056 : .056, hip = pivot(root, sx, .5, 0); rig["hip" + sd] = hip;
-      part(hip, hgeo("thigh", function () { return new THREE.CapsuleGeometry(.043, .17, 4, 10); }), bottom, 0, -.125, 0, true);
-      var knee = pivot(hip, 0, -.25, 0); rig["knee" + sd] = knee;
-      part(knee, hgeo("shin", function () { return new THREE.CapsuleGeometry(.036, .17, 4, 10); }), bottom, 0, -.12, 0, true);
-      part(knee, hgeo("shoe", function () { var g = new THREE.CapsuleGeometry(.036, .07, 4, 8); g.rotateX(Math.PI / 2); g.scale(1.05, .75, 1); return g; }), hmat("#FFFFFF"), 0, -.235, .028, true);
-      part(knee, hgeo("sole", function () { return new THREE.BoxGeometry(.075, .014, .15); }), hmat("#EC4899"), 0, -.255, .028);
+      var sx = i ? -.055 : .055, hip = pivot(root, sx, .53, 0); rig["hip" + sd] = hip;
+      part(hip, hgeo("hipj", function () { return new THREE.SphereGeometry(.05, 14, 10); }), bottom, 0, 0, 0);
+      part(hip, hgeo("thigh2", function () { return new THREE.CylinderGeometry(.05, .039, .24, 14); }), bottom, 0, -.12, 0, true);
+      var knee = pivot(hip, 0, -.24, 0); rig["knee" + sd] = knee;
+      part(knee, hgeo("kneej", function () { return new THREE.SphereGeometry(.039, 12, 10); }), bottom, 0, 0, 0);
+      part(knee, hgeo("shin2", function () { return new THREE.CylinderGeometry(.038, .029, .24, 14); }), bottom, 0, -.12, 0, true);
+      part(knee, hgeo("shoe2", function () { var g = new THREE.CapsuleGeometry(.034, .085, 4, 10); g.rotateX(Math.PI / 2); g.scale(1.1, .72, 1); return g; }), hmat(shoeCol, { roughness: .5 }), 0, -.262, .03, true);
+      part(knee, hgeo("sole2", function () { var g = new THREE.CapsuleGeometry(.036, .085, 2, 10); g.rotateX(Math.PI / 2); g.scale(1.12, .25, 1.02); return g; }), hmat(soleCol), 0, -.28, .03);
     });
-    part(root, hgeo("pelvis", function () { var g = new THREE.SphereGeometry(.1, 16, 10); g.scale(.92, .5, .66); return g; }), bottom, 0, .5, 0, true);
-    // torso and head
-    var spine = pivot(root, 0, .5, 0); rig.spine = spine;
-    part(spine, torsoGeo(), top, 0, .02, 0, true);
-    part(spine, hgeo("neck", function () { return new THREE.CylinderGeometry(.027, .03, .07, 12); }), skin, 0, .33, 0);
-    var head = pivot(spine, 0, .42, 0); rig.head = head;
-    part(head, hgeo("head", function () { var g = new THREE.SphereGeometry(.077, 24, 18); g.scale(.95, 1.1, 1); return g; }), skin, 0, 0, 0, true);
-    var eye = hmat("#1B1220", { roughness: .3 });
-    [-1, 1].forEach(function (s) {
-      part(head, hgeo("eye", function () { return new THREE.SphereGeometry(.0105, 10, 8); }), eye, s * .027, .008, .07);
-      part(head, hgeo("ear", function () { var g = new THREE.SphereGeometry(.018, 10, 8); g.scale(.6, 1, .8); return g; }), skin, s * .074, .0, 0);
-      part(head, hgeo("brow", function () { return new THREE.BoxGeometry(.024, .005, .006); }), hmat(HAIR_COLS[0]), s * .027, .03, .072);
+    part(root, hgeo("pelvis2", function () { var pts = [[.0, 0], [.09, .005], [.1, .04], [.096, .085], [.088, .1]].map(function (q) { return new THREE.Vector2(q[0], q[1]); }); var g = new THREE.LatheGeometry(pts, 20); g.scale(1, 1, .68); return g; }), bottom, 0, .5, 0, true);
+    // Torso shaped like a real chest and waist
+    var spine = pivot(root, 0, .6, 0); rig.spine = spine;
+    part(spine, hgeo("torso2", function () { var pts = [[.087, 0], [.083, .05], [.092, .11], [.104, .17], [.112, .205], [.108, .23], [.075, .25], [.036, .262]].map(function (q) { return new THREE.Vector2(q[0], q[1]); }); var g = new THREE.LatheGeometry(pts, 24); g.scale(1, 1, .64); return g; }), top, 0, 0, 0, true);
+    part(spine, hgeo("neck2", function () { return new THREE.CylinderGeometry(.03, .034, .07, 14); }), skin, 0, .275, 0);
+    var head = pivot(spine, 0, .35, 0); rig.head = head;
+    part(head, hgeo("skull", function () { var g = new THREE.SphereGeometry(.071, 28, 20); g.scale(.92, 1.06, 1); return g; }), skin, 0, .005, -.004, true);
+    part(head, hgeo("jaw", function () { var g = new THREE.SphereGeometry(.058, 22, 16); g.scale(.86, .78, .92); return g; }), skin, 0, -.03, .01);
+    var white = hmat("#F8FAFC", { roughness: .25 }), iris = hmat("#2A1A12", { roughness: .2 }), lip = hmat(skinShade(skinHex, .35), { roughness: .45 });
+    [-1, 1].forEach(function (s2) {
+      part(head, hgeo("sclera", function () { var g = new THREE.SphereGeometry(.0125, 12, 10); g.scale(1.15, .8, .6); return g; }), white, s2 * .025, .008, .061);
+      part(head, hgeo("iris", function () { return new THREE.SphereGeometry(.0072, 10, 8); }), iris, s2 * .025, .008, .068);
+      part(head, hgeo("ear2", function () { var g = new THREE.SphereGeometry(.017, 10, 8); g.scale(.55, 1, .8); return g; }), skin, s2 * .066, .0, -.004);
+      var br = part(head, hgeo("brow2", function () { return new THREE.CapsuleGeometry(.0035, .02, 2, 6); }), hmat("#1B1412"), s2 * .026, .029, .066); br.rotation.z = Math.PI / 2 + s2 * .12;
     });
-    part(head, hgeo("nose", function () { var g = new THREE.SphereGeometry(.012, 10, 8); g.scale(1, .9, 1.1); return g; }), skin, 0, -.012, .078);
-    part(head, hgeo("smile", function () { return new THREE.TorusGeometry(.016, .0035, 6, 12, Math.PI); }), hmat("#7A2E3A"), 0, -.03, .07).rotation.z = Math.PI;
-    hairFor(head, c.hair, hair, spine);
-    // arms
+    var nose = part(head, hgeo("nose2", function () { var g = new THREE.ConeGeometry(.013, .032, 10); g.rotateX(-Math.PI / 2.3); return g; }), skin, 0, -.008, .072);
+    part(head, hgeo("lips", function () { var g = new THREE.SphereGeometry(.015, 14, 8); g.scale(1.35, .42, .55); return g; }), lip, 0, -.036, .062);
+    hairFor(head, role.hood && ["short", "bald", "braids", "locs"].indexOf(c.hair) === -1 ? "short" : c.hair, hair, spine);
+    // Arms: shoulder, tapered upper arm, elbow, forearm, hand with thumb
     ["L", "R"].forEach(function (sd, i) {
-      var s = i ? -1 : 1, sh = pivot(spine, s * .128, .255, 0); rig["sh" + sd] = sh; sh.rotation.z = s * .08;
-      part(sh, hgeo("upper", function () { return new THREE.CapsuleGeometry(.033, .13, 4, 10); }), role.style === "vest" ? hmat("#FFFFFF") : top, 0, -.095, 0, true);
+      var s2 = i ? -1 : 1, sh = pivot(spine, s2 * .118, .225, 0); rig["sh" + sd] = sh; sh.rotation.z = s2 * .1;
+      var sleeve = role.style === "vest" ? hmat("#FFFFFF") : top;
+      part(sh, hgeo("shj", function () { return new THREE.SphereGeometry(.043, 14, 12); }), sleeve, 0, 0, 0);
+      part(sh, hgeo("upper2", function () { return new THREE.CylinderGeometry(.037, .03, .2, 14); }), sleeve, 0, -.1, 0, true);
       var el = pivot(sh, 0, -.2, 0); rig["el" + sd] = el;
-      part(el, hgeo("fore", function () { return new THREE.CapsuleGeometry(.028, .12, 4, 10); }), longSleeve ? top : skin, 0, -.085, 0, true);
-      var hand = pivot(el, 0, -.18, 0); rig["hand" + sd] = hand;
-      part(hand, hgeo("hand", function () { var g = new THREE.SphereGeometry(.03, 12, 10); g.scale(.85, 1.1, .7); return g; }), skin, 0, 0, 0);
+      part(el, hgeo("elj", function () { return new THREE.SphereGeometry(.03, 12, 10); }), longSleeve ? top : skin, 0, 0, 0);
+      part(el, hgeo("fore2", function () { return new THREE.CylinderGeometry(.029, .022, .18, 14); }), longSleeve ? top : skin, 0, -.09, 0, true);
+      if (longSleeve) part(el, hgeo("cuff", function () { return new THREE.CylinderGeometry(.024, .024, .02, 12); }), skin, 0, -.185, 0);
+      var hand = pivot(el, 0, -.205, 0); rig["hand" + sd] = hand;
+      part(hand, hgeo("palm", function () { var g = new THREE.SphereGeometry(.026, 12, 10); g.scale(.75, 1.25, .5); return g; }), skin, 0, -.01, 0);
+      var th = part(hand, hgeo("thumb", function () { return new THREE.CapsuleGeometry(.008, .02, 2, 6); }), skin, s2 * -.014, .0, .012); th.rotation.z = s2 * .6;
     });
     outfitFor(spine, root, role, top, rig);
     accessoryFor(rig, role.acc);
@@ -580,68 +632,82 @@ import * as THREE from "./vendor/three.module.min.js";
     return h;
   }
   function hairFor(head, style, mat, spine) {
-    var cap = hgeo("cap", function () { return new THREE.SphereGeometry(.083, 22, 14, 0, Math.PI * 2, 0, Math.PI * .5); });
-    if (style === "short") { var c1 = part(head, cap, mat, 0, .006, -.006); c1.scale.set(1, 1.05, 1.04); }
-    if (style === "afro") { part(head, hgeo("afro", function () { var g = new THREE.IcosahedronGeometry(.115, 2); g.scale(1.05, .95, 1); return g; }), hmat(mat.color.getStyle(), { flatShading: true, roughness: .95 }), 0, .045, -.02, true); }
-    if (style === "bun") { part(head, cap, mat, 0, .006, -.006); part(head, hgeo("bunb", function () { return new THREE.SphereGeometry(.045, 14, 10); }), mat, 0, .085, -.05); }
+    var cap = hgeo("cap2", function () { return new THREE.SphereGeometry(.076, 24, 14, 0, Math.PI * 2, 0, Math.PI * .52); });
+    function capOn(m) { var c1 = part(head, cap, m || mat, 0, .01, -.008); c1.scale.set(.97, 1.04, 1.04); return c1; }
+    if (style === "short") capOn();
+    if (style === "afro") part(head, hgeo("afro2", function () { var g = new THREE.IcosahedronGeometry(.1, 3); g.scale(1.06, .92, 1.02); return g; }), hmat(mat.color.getStyle(), { roughness: 1 }), 0, .04, -.02, true);
+    if (style === "bun") { capOn(); part(head, hgeo("bun2", function () { return new THREE.SphereGeometry(.04, 14, 10); }), mat, 0, .085, -.045); }
     if (style === "braids" || style === "locs") {
-      part(head, cap, mat, 0, .006, -.006);
-      var n = style === "locs" ? 10 : 8, r = style === "locs" ? .016 : .011, len = style === "locs" ? .16 : .2;
-      var g = hgeo("strand" + style, function () { return new THREE.CapsuleGeometry(r, len, 3, 6); });
-      for (var i = 0; i < n; i++) { var a = Math.PI * (.15 + .7 * i / (n - 1)), st = part(head, g, mat, Math.cos(a) * .072, -.05, -Math.sin(a) * .06); st.rotation.x = -.18; st.rotation.z = (Math.cos(a)) * .25; }
+      capOn();
+      var n = style === "locs" ? 12 : 10, r = style === "locs" ? .013 : .009, len = style === "locs" ? .15 : .19;
+      var g = hgeo("strand2" + style, function () { return new THREE.CapsuleGeometry(r, len, 3, 6); });
+      for (var i = 0; i < n; i++) { var a = Math.PI * (.08 + .84 * i / (n - 1)), st = part(head, g, mat, Math.cos(a) * .066, -.06, -Math.sin(a) * .058 - .004); st.rotation.x = -.15; st.rotation.z = Math.cos(a) * .22; }
     }
     if (style === "gele") {
-      var base = part(head, hgeo("gelebase", function () { var g = new THREE.CylinderGeometry(.088, .084, .06, 20); return g; }), mat, 0, .045, -.005);
-      var fan = part(head, hgeo("gelefan", function () { var g = new THREE.SphereGeometry(.12, 18, 10, 0, Math.PI * 2, 0, Math.PI * .5); g.scale(1.15, .9, .55); return g; }), hmat(mat.color.getStyle(), { flatShading: true, roughness: .5 }), 0, .07, -.03, true); fan.rotation.x = -.35;
-      part(head, hgeo("geleknot", function () { return new THREE.TorusKnotGeometry(.03, .012, 40, 6); }), mat, .05, .12, .01);
+      part(head, hgeo("gelebase2", function () { return new THREE.CylinderGeometry(.08, .076, .055, 22); }), mat, 0, .045, -.006);
+      var fan = part(head, hgeo("gelefan2", function () { var g = new THREE.SphereGeometry(.11, 20, 10, 0, Math.PI * 2, 0, Math.PI * .5); g.scale(1.25, .8, .55); return g; }), hmat(mat.color.getStyle(), { flatShading: true, roughness: .45, metalness: .1 }), 0, .07, -.03, true); fan.rotation.x = -.3;
+      part(head, hgeo("geleknot2", function () { return new THREE.TorusKnotGeometry(.026, .011, 40, 6); }), mat, .045, .105, .01);
     }
     if (style === "hijab") {
-      part(head, hgeo("hijabh", function () { return new THREE.SphereGeometry(.092, 22, 16, Math.PI * .85, Math.PI * 1.3, 0, Math.PI * .78); }), hmat(mat.color.getStyle(), { side: THREE.DoubleSide }), 0, .006, -.004);
-      part(spine, hgeo("hijabd", function () { return new THREE.CylinderGeometry(.06, .14, .12, 20, 1, true); }), hmat(mat.color.getStyle(), { side: THREE.DoubleSide }), 0, .31, -.005, true);
+      part(head, hgeo("hijabh2", function () { return new THREE.SphereGeometry(.084, 24, 18, Math.PI * .85, Math.PI * 1.3, 0, Math.PI * .8); }), hmat(mat.color.getStyle(), { side: THREE.DoubleSide }), 0, .006, -.004);
+      part(spine, hgeo("hijabd2", function () { return new THREE.CylinderGeometry(.055, .13, .11, 22, 1, true); }), hmat(mat.color.getStyle(), { side: THREE.DoubleSide }), 0, .245, -.004, true);
     }
     if (style === "cap") {
-      part(head, cap, hmat("#EC4899"), 0, .012, -.004);
-      var br = part(head, hgeo("brim", function () { return new THREE.CylinderGeometry(.06, .06, .008, 18, 1, false, -Math.PI / 2, Math.PI); }), hmat("#BE185D"), 0, .028, .05); br.rotation.x = .1;
-      part(head, hgeo("short2", function () { return new THREE.SphereGeometry(.08, 16, 10, 0, Math.PI * 2, Math.PI * .45, Math.PI * .2); }), mat, 0, 0, -.004);
+      capOn(hmat("#EC4899"));
+      var br = part(head, hgeo("brim2", function () { return new THREE.CylinderGeometry(.058, .058, .008, 18, 1, false, -Math.PI / 2, Math.PI); }), hmat("#BE185D"), 0, .03, .045); br.rotation.x = .1;
     }
   }
   function outfitFor(spine, root, role, top, rig) {
-    var st = role.style;
+    var st = role.style, darker = hmat(new THREE.Color(top.color).multiplyScalar(.8).getStyle());
     if (st === "hoodie") {
-      var hood = part(spine, hgeo("hood", function () { return new THREE.TorusGeometry(.06, .028, 8, 18); }), top, 0, .3, -.045); hood.rotation.x = Math.PI / 2.4;
-      part(spine, hgeo("pocket", function () { return new THREE.BoxGeometry(.12, .055, .01); }), hmat(new THREE.Color(top.color).multiplyScalar(.82).getStyle()), 0, .09, .064);
-      [-1, 1].forEach(function (s) { part(spine, hgeo("string", function () { return new THREE.CylinderGeometry(.003, .003, .06, 4); }), hmat("#FFFFFF"), s * .018, .24, .07); });
+      part(spine, hgeo("pocket2", function () { return new THREE.BoxGeometry(.11, .05, .008); }), darker, 0, .06, .056);
+      [-1, 1].forEach(function (s2) { part(spine, hgeo("string2", function () { return new THREE.CylinderGeometry(.003, .003, .06, 4); }), hmat(role.hood ? "#39FF88" : "#FFFFFF", role.hood ? { emissive: "#39FF88", emissiveIntensity: .6 } : null), s2 * .016, .2, .068); });
+      if (role.hood) {
+        // Hood up, dark glasses and a glowing terminal print: the hacker look
+        part(rig.head, hgeo("hoodup", function () { return new THREE.SphereGeometry(.088, 24, 18, Math.PI * .8, Math.PI * 1.4, 0, Math.PI * .78); }), hmat(top.color.getStyle(), { side: THREE.DoubleSide, roughness: .85 }), 0, .012, -.008, true);
+        part(spine, hgeo("hoodback", function () { var g = new THREE.SphereGeometry(.07, 16, 10, 0, Math.PI * 2, 0, Math.PI / 2); g.scale(1.2, .6, 1); return g; }), top, 0, .245, -.035);
+        var glass = hmat("#05070A", { roughness: .05, metalness: .6 });
+        [-1, 1].forEach(function (s2) { part(rig.head, hgeo("lens2", function () { var g = new THREE.BoxGeometry(.03, .016, .004); return g; }), glass, s2 * .025, .009, .074); });
+        part(rig.head, hgeo("bridge", function () { return new THREE.BoxGeometry(.074, .004, .004); }), glass, 0, .014, .074);
+        part(rig.head, hgeo("gaiter", function () { return new THREE.CylinderGeometry(.06, .058, .05, 22, 1, true); }), hmat("#0B0F14", { side: THREE.DoubleSide, roughness: .9 }), 0, -.03, .004);
+        var pr = part(spine, hgeo("print", function () { return new THREE.PlaneGeometry(.07, .035); }), new THREE.MeshStandardMaterial({ map: termTex(), emissive: "#ffffff", emissiveMap: termTex(), emissiveIntensity: .7 }), 0, .155, .071);
+      } else { var hood = part(spine, hgeo("hood2", function () { return new THREE.TorusGeometry(.055, .026, 8, 18); }), top, 0, .255, -.04); hood.rotation.x = Math.PI / 2.4; }
     }
-    if (st === "jacket") { part(spine, hgeo("zip", function () { return new THREE.BoxGeometry(.008, .26, .006); }), hmat("#E5E7EB"), 0, .14, .07); part(spine, hgeo("collar", function () { return new THREE.TorusGeometry(.045, .014, 6, 16); }), top, 0, .3, 0).rotation.x = Math.PI / 2; }
+    if (st === "jacket") { part(spine, hgeo("zip2", function () { return new THREE.BoxGeometry(.007, .23, .005); }), hmat("#E5E7EB", { metalness: .6, roughness: .3 }), 0, .12, .062); part(spine, hgeo("collar2", function () { return new THREE.TorusGeometry(.042, .013, 6, 16); }), top, 0, .255, 0).rotation.x = Math.PI / 2; }
     if (st === "blazer") {
-      var shirt = part(spine, hgeo("shirt", function () { var g = new THREE.ConeGeometry(.045, .13, 3); g.rotateZ(Math.PI); return g; }), hmat("#FFFFFF"), 0, .23, .062); shirt.scale.z = .3;
-      part(spine, hgeo("tie", function () { return new THREE.BoxGeometry(.016, .11, .006); }), hmat("#EC4899"), 0, .2, .071);
+      var shirt = part(spine, hgeo("shirt2", function () { var g = new THREE.ConeGeometry(.042, .12, 3); g.rotateZ(Math.PI); return g; }), hmat("#FFFFFF"), 0, .2, .064); shirt.scale.z = .3;
+      part(spine, hgeo("tie2", function () { return new THREE.BoxGeometry(.015, .1, .005); }), hmat("#EC4899"), 0, .17, .07);
+      [-1, 1].forEach(function (s2) { part(spine, hgeo("btn", function () { return new THREE.SphereGeometry(.005, 6, 6); }), hmat("#111827"), s2 * .012, .07, .058); });
     }
     if (st === "labcoat" || st === "trench") {
-      part(spine, hgeo("coat", function () { var g = new THREE.CylinderGeometry(.1, .13, .3, 20, 1, true); g.scale(1, 1, .75); return g; }), hmat(top.color.getStyle(), { side: THREE.DoubleSide }), 0, -.13, 0, true);
-      if (st === "trench") part(spine, hgeo("belt", function () { var g = new THREE.TorusGeometry(.097, .01, 6, 24); g.rotateX(Math.PI / 2); g.scale(1, 1, .7); return g; }), hmat("#3F2A14"), 0, .03, 0);
-      else part(spine, hgeo("pen", function () { return new THREE.BoxGeometry(.008, .04, .006); }), hmat("#EC4899"), .05, .2, .07);
+      part(spine, hgeo("coat2", function () { var g = new THREE.CylinderGeometry(.09, .125, .32, 22, 1, true); g.scale(1, 1, .72); return g; }), hmat(top.color.getStyle(), { side: THREE.DoubleSide }), 0, -.16, 0, true);
+      if (st === "trench") part(spine, hgeo("belt2", function () { var g = new THREE.TorusGeometry(.086, .009, 6, 24); g.rotateX(Math.PI / 2); g.scale(1, 1, .66); return g; }), hmat("#3F2A14"), 0, .02, 0);
+      else part(spine, hgeo("pen2", function () { return new THREE.BoxGeometry(.007, .035, .005); }), hmat("#EC4899"), .045, .18, .066);
     }
-    if (st === "vest") {
-      [.07, .16].forEach(function (y) { part(spine, hgeo("stripe", function () { var g = new THREE.CylinderGeometry(.106, .104, .016, 20, 1, true); g.scale(1, 1, .7); return g; }), hmat("#F1F5F9", { metalness: .4, roughness: .3 }), 0, y, 0); });
-    }
-    if (st === "tee") { var lg = part(spine, hgeo("logo", function () { return new THREE.CircleGeometry(.028, 6); }), hmat("#FFFFFF"), 0, .19, .075); }
+    if (st === "vest") [.06, .15].forEach(function (y) { part(spine, hgeo("stripe2", function () { var g = new THREE.CylinderGeometry(.1, .096, .014, 22, 1, true); g.scale(1, 1, .66); return g; }), hmat("#F1F5F9", { metalness: .5, roughness: .25 }), 0, y, 0); });
+    if (st === "tee") part(spine, hgeo("logo2", function () { return new THREE.CircleGeometry(.025, 6); }), hmat("#FFFFFF"), 0, .16, .071);
   }
   function accessoryFor(rig, acc) {
     var hR = rig.handR, hL = rig.handL;
-    if (acc === "laptop") { rig.holdL = 1; var lp = part(hL, hgeo("laptop", function () { return new THREE.BoxGeometry(.16, .012, .11); }), hmat("#CBD5E1", { metalness: .5, roughness: .3 }), -.02, .02, .04); lp.rotation.z = Math.PI / 2; lp.rotation.y = .2; }
-    if (acc === "headset") {
-      var hs = part(rig.head, hgeo("band", function () { return new THREE.TorusGeometry(.085, .007, 6, 20, Math.PI); }), hmat("#111827"), 0, .005, 0);
-      [-1, 1].forEach(function (s) { var cup = part(rig.head, hgeo("cup", function () { return new THREE.CylinderGeometry(.024, .024, .016, 14); }), hmat("#111827"), s * .085, -.005, 0); cup.rotation.z = Math.PI / 2; });
-      var mic = part(rig.head, hgeo("mic", function () { return new THREE.CylinderGeometry(.004, .004, .07, 5); }), hmat("#111827"), .07, -.04, .04); mic.rotation.x = 1.2; mic.rotation.z = .5;
+    if (acc === "laptop") {
+      rig.holdL = 1; var lp = new THREE.Group(); lp.position.set(0, -.01, .07); lp.rotation.x = -.15; hL.add(lp);
+      part(lp, hgeo("lbase", function () { return new THREE.BoxGeometry(.15, .008, .1); }), hmat("#1F2937", { metalness: .6, roughness: .3 }), 0, 0, 0);
+      var scr = part(lp, hgeo("lscr", function () { return new THREE.BoxGeometry(.15, .1, .006); }), hmat("#111827", { metalness: .6, roughness: .3 }), 0, .05, -.05); scr.rotation.x = -.25;
+      var glow = part(scr, hgeo("lglow", function () { return new THREE.PlaneGeometry(.135, .085); }), new THREE.MeshStandardMaterial({ map: codeTex(), emissive: "#ffffff", emissiveMap: codeTex(), emissiveIntensity: 1 }), 0, 0, .0035); glow.rotation.y = 0;
+      lp.rotation.y = .3;
     }
-    if (acc === "clipboard") { rig.holdR = 1; var cb = part(hR, hgeo("clip", function () { return new THREE.BoxGeometry(.1, .13, .01); }), hmat("#A16207"), 0, .03, .04); cb.rotation.x = -1.1; part(cb, hgeo("paper", function () { return new THREE.BoxGeometry(.085, .1, .002); }), hmat("#FFFFFF"), 0, -.005, .006); }
-    if (acc === "visor") { var v = part(rig.head, hgeo("visor", function () { return new THREE.TorusGeometry(.079, .013, 6, 24, Math.PI * .7); }), hmat("#F472B6", { emissive: "#EC4899", emissiveIntensity: .9, roughness: .2 }), 0, .01, 0); v.rotation.x = Math.PI / 2; v.rotation.z = Math.PI * .15; }
-    if (acc === "keycard") { part(rig.spine, hgeo("card", function () { return new THREE.BoxGeometry(.04, .055, .006); }), hmat("#FFFFFF"), .03, .17, .078); part(rig.spine, hgeo("lanyard", function () { var g = new THREE.TorusGeometry(.05, .004, 4, 18, Math.PI); g.rotateZ(Math.PI); return g; }), hmat("#EC4899"), .0, .27, .06).rotation.x = -.5; }
-    if (acc === "magnifier") { rig.holdR = 1; var mg = new THREE.Group(); mg.position.set(0, .02, .05); hR.add(mg); part(mg, hgeo("lens", function () { return new THREE.TorusGeometry(.035, .007, 6, 20); }), hmat("#A16207"), 0, .07, 0); part(mg, hgeo("glass", function () { return new THREE.CircleGeometry(.033, 18); }), hmat("#BAE6FD", { transparent: true, opacity: .55, side: THREE.DoubleSide }), 0, .07, 0); part(mg, hgeo("handle", function () { return new THREE.CylinderGeometry(.008, .008, .06, 6); }), hmat("#3F2A14"), 0, .015, 0); }
-    if (acc === "backpack") { part(rig.spine, hgeo("pack", function () { var g = new THREE.CapsuleGeometry(.07, .1, 4, 10); g.scale(1, 1, .55); return g; }), hmat("#F472B6"), 0, .15, -.09, true); }
-    if (acc === "wrench") { rig.holdR = 1; var w = part(hR, hgeo("wrench", function () { return new THREE.BoxGeometry(.016, .12, .01); }), hmat("#94A3B8", { metalness: .7, roughness: .3 }), 0, .05, .03); part(w, hgeo("whead", function () { return new THREE.TorusGeometry(.016, .007, 6, 12, Math.PI * 1.5); }), hmat("#94A3B8", { metalness: .7, roughness: .3 }), 0, .065, 0); }
-    if (acc === "megaphone") { rig.holdR = 1; var mp = part(hR, hgeo("mega", function () { var g = new THREE.CylinderGeometry(.045, .015, .12, 16, 1, true); g.rotateX(Math.PI / 2); return g; }), hmat("#FFFFFF", { side: THREE.DoubleSide }), 0, .02, .07); part(mp, hgeo("megab", function () { var g = new THREE.TorusGeometry(.045, .006, 6, 18); return g; }), hmat("#EC4899"), 0, 0, .06); }
+    if (acc === "headset") {
+      part(rig.head, hgeo("band2", function () { return new THREE.TorusGeometry(.079, .006, 6, 20, Math.PI); }), hmat("#111827"), 0, .008, 0);
+      [-1, 1].forEach(function (s2) { var cup = part(rig.head, hgeo("cup2", function () { return new THREE.CylinderGeometry(.022, .022, .014, 14); }), hmat("#111827"), s2 * .074, -.002, 0); cup.rotation.z = Math.PI / 2; });
+      var mic = part(rig.head, hgeo("mic2", function () { return new THREE.CylinderGeometry(.0035, .0035, .065, 5); }), hmat("#111827"), .058, -.035, .04); mic.rotation.x = 1.2; mic.rotation.z = .5;
+    }
+    if (acc === "clipboard") { rig.holdR = 1; var cb = part(hR, hgeo("clip2", function () { return new THREE.BoxGeometry(.09, .12, .008); }), hmat("#A16207"), 0, .02, .04); cb.rotation.x = -1.1; part(cb, hgeo("paper2", function () { return new THREE.BoxGeometry(.078, .095, .002); }), hmat("#FFFFFF"), 0, -.004, .005); }
+    if (acc === "visor") { var v = part(rig.head, hgeo("visor2", function () { return new THREE.TorusGeometry(.073, .012, 6, 24, Math.PI * .7); }), hmat("#F472B6", { emissive: "#EC4899", emissiveIntensity: .9, roughness: .2 }), 0, .01, .0); v.rotation.x = Math.PI / 2; v.rotation.z = Math.PI * .15; }
+    if (acc === "keycard") { part(rig.spine, hgeo("card2", function () { return new THREE.BoxGeometry(.036, .05, .005); }), hmat("#FFFFFF"), .028, .14, .07); part(rig.spine, hgeo("lanyard2", function () { var g = new THREE.TorusGeometry(.045, .0035, 4, 18, Math.PI); g.rotateZ(Math.PI); return g; }), hmat("#EC4899"), 0, .235, .055).rotation.x = -.5; }
+    if (acc === "magnifier") { rig.holdR = 1; var mg = new THREE.Group(); mg.position.set(0, .01, .045); hR.add(mg); part(mg, hgeo("lens3", function () { return new THREE.TorusGeometry(.032, .006, 6, 20); }), hmat("#A16207"), 0, .065, 0); part(mg, hgeo("glass3", function () { return new THREE.CircleGeometry(.03, 18); }), hmat("#BAE6FD", { transparent: true, opacity: .55, side: THREE.DoubleSide }), 0, .065, 0); part(mg, hgeo("handle3", function () { return new THREE.CylinderGeometry(.007, .007, .055, 6); }), hmat("#3F2A14"), 0, .015, 0); }
+    if (acc === "backpack") part(rig.spine, hgeo("pack2", function () { var g = new THREE.CapsuleGeometry(.065, .09, 4, 10); g.scale(1, 1, .55); return g; }), hmat("#F472B6"), 0, .13, -.08, true);
+    if (acc === "wrench") { rig.holdR = 1; var w = part(hR, hgeo("wrench2", function () { return new THREE.BoxGeometry(.014, .11, .009); }), hmat("#94A3B8", { metalness: .8, roughness: .3 }), 0, .045, .03); part(w, hgeo("whead2", function () { return new THREE.TorusGeometry(.015, .006, 6, 12, Math.PI * 1.5); }), hmat("#94A3B8", { metalness: .8, roughness: .3 }), 0, .06, 0); }
+    if (acc === "megaphone") { rig.holdR = 1; var mp = part(hR, hgeo("mega2", function () { var g = new THREE.CylinderGeometry(.042, .014, .11, 16, 1, true); g.rotateX(Math.PI / 2); return g; }), hmat("#FFFFFF", { side: THREE.DoubleSide }), 0, .015, .065); part(mp, hgeo("megab2", function () { return new THREE.TorusGeometry(.042, .006, 6, 18); }), hmat("#EC4899"), 0, 0, .055); }
   }
   // Walk cycle and idle pose. sp is how fast the feet move.
   function animateHuman(h, t, moving, sp) {
@@ -652,7 +718,7 @@ import * as THREE from "./vendor/three.module.min.js";
     var idle = Math.sin(t * 1.8 + (h.userData.ph || 0)) * .04;
     r.shL.rotation.x = r.holdL ? -.35 : sw * .9 + idle; r.shR.rotation.x = r.holdR ? -.55 : -sw * .9 - idle;
     r.elL.rotation.x = r.holdL ? -.9 : -.18 - Math.max(0, sw) * .4; r.elR.rotation.x = r.holdR ? -1.25 : -.18 - Math.max(0, -sw) * .4;
-    r.root.position.y = a * Math.abs(Math.cos(ph)) * .022; r.spine.rotation.y = a * Math.sin(ph) * .08; r.spine.rotation.x = a * .05;
+    r.root.position.y = a * Math.abs(Math.cos(ph)) * .02; r.root.rotation.z = a * Math.sin(ph) * .025; r.spine.rotation.y = a * -Math.sin(ph) * .1; r.spine.rotation.z = a * -Math.sin(ph) * .02; r.spine.rotation.x = a * .04;
     r.spine.scale.y = 1 + (a ? 0 : Math.sin(t * 2.2 + (h.userData.ph || 0)) * .008); r.head.rotation.y = a ? 0 : Math.sin(t * .6 + (h.userData.ph || 0)) * .25;
   }
 
@@ -699,14 +765,27 @@ import * as THREE from "./vendor/three.module.min.js";
     sun.position.set(-6, 22, 4); sun.target.position.set(9, 0, 10); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048);
     var sc = sun.shadow.camera; sc.left = -15; sc.right = 15; sc.top = 15; sc.bottom = -15; sc.near = 1; sc.far = 70; sun.shadow.bias = -.0004; sun.shadow.normalBias = .03;
     scene.add(hemi, sun, sun.target);
-    var MATS = {}, anim = [], pick = [], winMats = [];
+    // Soft studio reflections so glass, metal and paint look real
+    try { var pm = new THREE.PMREMGenerator(R); scene.environment = pm.fromScene(new RoomEnvironment(), .04).texture; scene.environmentIntensity = .32; } catch (e) {}
+    var MATS = {}, anim = [], pick = [], winMats = [], GEO = {};
     function M(c, o) { o = o || {}; var k = c + JSON.stringify(o); if (!MATS[k]) MATS[k] = new THREE.MeshStandardMaterial(Object.assign({ color: c, roughness: .78, metalness: .02 }, o)); return MATS[k]; }
     function add(g, geo, mat, x, y, z, noShadow) { var m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.castShadow = !noShadow; m.receiveShadow = true; g.add(m); return m; }
-    function box(g, w, h, d, c, x, y, z, o) { return add(g, new THREE.BoxGeometry(w, h, d), typeof c === "string" ? M(c, o) : c, x, y + h / 2, z); }
+    // Boxes big enough to notice get softly rounded edges, like real buildings
+    function boxGeo(w, h, d) { var mn = Math.min(w, h, d), k = [w, h, d].map(function (v) { return v.toFixed(3); }).join(","); if (mn < .18) return new THREE.BoxGeometry(w, h, d); return GEO[k] || (GEO[k] = new RoundedBoxGeometry(w, h, d, 2, Math.min(.05, mn * .18))); }
+    function box(g, w, h, d, c, x, y, z, o) { return add(g, boxGeo(w, h, d), typeof c === "string" ? M(c, o) : c, x, y + h / 2, z); }
     function cyl(g, r1, r2, h, c, x, y, z, seg, o) { return add(g, new THREE.CylinderGeometry(r1, r2, h, seg || 24), typeof c === "string" ? M(c, o) : c, x, y + h / 2, z); }
     function roof(g, w, h, d, c, x, y, z, alongX) { var sh = new THREE.Shape(); sh.moveTo(-d / 2, 0); sh.lineTo(d / 2, 0); sh.lineTo(0, h); sh.lineTo(-d / 2, 0); var geo = new THREE.ExtrudeGeometry(sh, { depth: w, bevelEnabled: false }); geo.translate(0, 0, -w / 2); var m = add(g, geo, M(c, { flatShading: true }), x, y, z); m.rotation.y = alongX ? Math.PI / 2 : 0; return m; }
     function win() { var m = new THREE.MeshStandardMaterial({ color: "#CFEFFF", emissive: "#FFD27A", emissiveIntensity: 0, roughness: .3, metalness: .1 }); winMats.push(m); return m; }
-    var WIN = win(), GLASS = M("#CDE8FF", { roughness: .15, metalness: .15 });
+    var WIN = win(), GLASS = M("#CDE8FF", { roughness: .08, metalness: .3 }), FRAME = M("#F8FAFC", { roughness: .5 }), FRAME_GEO = new THREE.BoxGeometry(.28, .26, .03);
+    // Rooftop life: water tanks, AC units and solar panels
+    function roofProps(g, x, y, z, kinds) {
+      kinds.forEach(function (k, i) {
+        var px = x + (i - (kinds.length - 1) / 2) * .55;
+        if (k === "tank") { cyl(g, .025, .025, .22, "#9CA3AF", px - .1, y, z - .1, 6); cyl(g, .025, .025, .22, "#9CA3AF", px + .1, y, z + .1, 6); cyl(g, .17, .17, .32, "#1F2937", px, y + .22, z, 20, { roughness: .45 }); cyl(g, .12, .17, .05, "#111827", px, y + .54, z, 20); }
+        if (k === "ac") { box(g, .26, .16, .2, "#E5E7EB", px, y, z, { roughness: .4, metalness: .3 }); var fan = add(g, new THREE.CylinderGeometry(.06, .06, .01, 16), M("#374151"), px, y + .08, z + .101, true); fan.rotation.x = Math.PI / 2; }
+        if (k === "solar") { var sp = box(g, .5, .025, .32, "#1E3A8A", px, y + .12, z, { roughness: .2, metalness: .6 }); sp.rotation.x = -.35; cyl(g, .015, .015, .12, "#9CA3AF", px, y, z, 6); }
+      });
+    }
     function windows(g, cx, cz, w, d, y0, floors, gap, perRow) {
       var geo = new THREE.BoxGeometry(.22, .2, .04), mesh = new THREE.InstancedMesh(geo, WIN, floors * perRow * 4), mx = new THREE.Matrix4(), q = new THREE.Quaternion(), n = 0;
       for (var f = 0; f < floors; f++) for (var c = 0; c < perRow; c++) {
@@ -715,7 +794,8 @@ import * as THREE from "./vendor/three.module.min.js";
           q.setFromAxisAngle(new THREE.Vector3(0, 1, 0), p[2]); mx.compose(new THREE.Vector3(p[0], y, p[1]), q, new THREE.Vector3(1, 1, 1)); mesh.setMatrixAt(n++, mx);
         });
       }
-      g.add(mesh); return mesh;
+      var frame = new THREE.InstancedMesh(FRAME_GEO, FRAME, n); for (var k = 0; k < n; k++) { mesh.getMatrixAt(k, mx); frame.setMatrixAt(k, mx); }
+      g.add(mesh, frame); return mesh;
     }
     function signTex(lines, bg, fg, wpx, hpx) {
       var c = document.createElement("canvas"); c.width = wpx || 512; c.height = hpx || 160; var x = c.getContext("2d");
@@ -734,10 +814,18 @@ import * as THREE from "./vendor/three.module.min.js";
     box(island, N + .4, 1.1, N + .4, "#F9CFE0", N / 2, -1.16, N / 2); box(island, N - 1, 1.4, N - 1, "#F3B6CF", N / 2, -2.4, N / 2); box(island, N - 4, 1.4, N - 4, "#E99BBF", N / 2, -3.7, N / 2);
     var tileGeo = new THREE.BoxGeometry(.98, .12, .98), tiles = new THREE.InstancedMesh(tileGeo, M("#ffffff"), N * N), mx = new THREE.Matrix4(), col = new THREE.Color(), n = 0;
     for (var x = 0; x < N; x++) for (var z = 0; z < N; z++) {
-      if (isWater(x, z)) continue; mx.makeTranslation(x + .5, -.06, z + .5); tiles.setMatrixAt(n, mx);
-      col.set(isRoad(x, z) ? ((x + z) % 2 ? "#FFFFFF" : "#F8F1F5") : ((x * 7 + z * 3) % 5 === 0 ? "#8BD49B" : (x + z) % 2 ? "#7FCB91" : "#78C58A")); tiles.setColorAt(n, col); n++;
+      if (isWater(x, z)) continue; var rd = isRoad(x, z), walk = !rd && (isRoad(x - 1, z) || isRoad(x + 1, z) || isRoad(x, z - 1) || isRoad(x, z + 1) || isRoad(x - 1, z - 1) || isRoad(x + 1, z + 1) || isRoad(x - 1, z + 1) || isRoad(x + 1, z - 1));
+      mx.makeTranslation(x + .5, rd ? -.06 : -.035, z + .5); tiles.setMatrixAt(n, mx);
+      col.set(rd ? ((x + z) % 2 ? "#8A909B" : "#868C97") : walk ? ((x + z) % 2 ? "#FBF7F9" : "#F3ECF0") : ((x * 7 + z * 3) % 5 === 0 ? "#8BD49B" : (x + z) % 2 ? "#7FCB91" : "#78C58A")); tiles.setColorAt(n, col); n++;
     }
     tiles.count = n; tiles.receiveShadow = true; scene.add(tiles);
+    var dashes = [], dashGeo = new THREE.BoxGeometry(.32, .004, .05), DASH = M("#FFFFFF", { roughness: .6 });
+    for (var x2 = 0; x2 < N; x2++) for (var z2 = 2; z2 < N; z2++) { if (!isRoad(x2, z2)) continue; var vx = ROADS.indexOf(x2) !== -1, hz = ROADS.indexOf(z2) !== -1; if (vx && hz) continue; dashes.push([x2 + .5, z2 + .5, vx ? Math.PI / 2 : 0]); }
+    var dm = new THREE.InstancedMesh(dashGeo, DASH, dashes.length), dq = new THREE.Quaternion(); dashes.forEach(function (d, i) { dq.setFromAxisAngle(new THREE.Vector3(0, 1, 0), d[2]); mx.compose(new THREE.Vector3(d[0], .001, d[1]), dq, new THREE.Vector3(1, 1, 1)); dm.setMatrixAt(i, mx); }); dm.receiveShadow = true; scene.add(dm);
+    // Zebra crossings beside each junction
+    var zeb = [], zebGeo = new THREE.BoxGeometry(.07, .004, .5);
+    ROADS.forEach(function (rx) { ROADS.forEach(function (rz) { if (rz < 2) return; [[1, 0], [-1, 0], [0, 1], [0, -1]].forEach(function (d) { var cx = rx + d[0], cz = rz + d[1]; if (!isRoad(cx, cz) || cz < 2) return; for (var k = 0; k < 5; k++) { var o = -.32 + k * .16; zeb.push(d[0] ? [cx + .5 - d[0] * .3, cz + .5 + o, Math.PI / 2] : [cx + .5 + o, cz + .5 - d[1] * .3, 0]); } }); }); });
+    var zm = new THREE.InstancedMesh(zebGeo, DASH, zeb.length); zeb.forEach(function (d, i) { dq.setFromAxisAngle(new THREE.Vector3(0, 1, 0), d[2]); mx.compose(new THREE.Vector3(d[0], .001, d[1]), dq, new THREE.Vector3(d[2] ? 1 : 1, 1, 1)); zm.setMatrixAt(i, mx); }); scene.add(zm);
     var wgeo = new THREE.PlaneGeometry(N, 2, 36, 6); wgeo.rotateX(-Math.PI / 2);
     var water = new THREE.Mesh(wgeo, new THREE.MeshStandardMaterial({ color: "#4FB8E8", roughness: .15, metalness: .1, transparent: true, opacity: .92, flatShading: true }));
     water.position.set(N / 2, -.14, 1); water.receiveShadow = true; scene.add(water);
@@ -818,6 +906,10 @@ import * as THREE from "./vendor/three.module.min.js";
         var door = add(g, new THREE.CylinderGeometry(.32, .32, .08, 28), M("#FFC94A", { metalness: .7, roughness: .25 }), b.cx, .7, b.cz + .58); door.rotation.x = Math.PI / 2; anim.push(function (t) { door.rotation.y = t * .6; }); b.top = 2.3; }
     };
     BUILDINGS.forEach(function (b) { var g = group(b); D[b.id](g, b); g.traverse(function (o) { if (o.isMesh) pick.push(o); }); });
+    var RP = { vdp: [2.04, ["tank", "ac", "ac"], -.3], red: [1.7, ["tank", "ac"], -.9], aware: [1.62, ["ac", "tank"], -.8], office: [6, ["ac", "ac"], 0], hq: [2.88, ["solar", "solar"], 1.1], ai: [.7, ["ac"], -1.25] };
+    Object.keys(RP).forEach(function (id) { var b = B_BY[id], r = RP[id]; if (id === "hq") { roofProps(B.hq, b.cx, r[0], b.cz + .45, r[1]); return; } roofProps(B[id], b.cx + r[2], r[0], b.cz - .2, r[1]); });
+    // A water tank tower beside the family homes, a common sight in our cities
+    (function () { var b = B_BY.family, g = B.family; [[-.12, -.12], [.12, .12], [-.12, .12], [.12, -.12]].forEach(function (o) { cyl(g, .02, .02, 1.2, "#6B7280", b.cx + 1.75 + o[0], 0, b.cz - .55 + o[1], 6); }); cyl(g, .2, .2, .38, "#1F2937", b.cx + 1.75, 1.2, b.cz - .55, 20, { roughness: .45 }); })();
 
     // Scam clouds and shield domes for the five communities
     var clouds = {}, domes = {};
@@ -839,22 +931,60 @@ import * as THREE from "./vendor/three.module.min.js";
     var mineRing = new THREE.Mesh(new THREE.TorusGeometry(2.25, .05, 8, 72), new THREE.MeshStandardMaterial({ color: "#10B981", emissive: "#10B981", emissiveIntensity: 1.2 })); mineRing.rotation.x = Math.PI / 2; mineRing.scale.y = .55; mineRing.visible = false; scene.add(mineRing);
     anim.push(function (t) { mineRing.material.emissiveIntensity = .8 + Math.sin(t * 2.5) * .4; });
 
-    // People walking around the streets
-    var people = [], roadCells = []; for (var rx = 0; rx < N; rx++) for (var rz = 2; rz < N; rz++) if (isRoad(rx, rz)) roadCells.push([rx, rz]);
-    for (var i = 0; i < 16; i++) (function (i) {
-      var p = makeHuman(randomChar(i + 3)), cell = roadCells[(i * 37) % roadCells.length]; p.position.set(cell[0] + .5, 0, cell[1] + .5); p.scale.setScalar(.6); scene.add(p);
-      people.push({ m: p, from: cell, to: cell, t: 1, sp: .45 + (i % 4) * .1, off: (i % 3 - 1) * .2 });
+    // Traffic: cars and yellow buses driving on the right
+    var cars = [], LOOPS = [[[2.5, 2.5], [17.5, 2.5], [17.5, 17.5], [2.5, 17.5]], [[7.5, 7.5], [12.5, 7.5], [12.5, 12.5], [7.5, 12.5]], [[7.5, 2.5], [7.5, 17.5], [12.5, 17.5], [12.5, 2.5]]];
+    function vehicle(kind, colr) {
+      var g = new THREE.Group(), bus = kind === "bus", L = bus ? .95 : .6, H = bus ? .3 : .15, W = bus ? .36 : .3;
+      box(g, L, H, W, colr, 0, .06, 0, { roughness: .35, metalness: .25 });
+      if (bus) { box(g, L - .1, .1, W + .01, "#1F2937", .02, .2, 0, { roughness: .1, metalness: .4 }); [-1, 1].forEach(function (sd) { add(g, new THREE.BoxGeometry(L - .04, .025, .005), M("#111827"), 0, .13, sd * (W / 2 + .003), true); }); }
+      else box(g, .32, .12, W - .03, "#1F2937", -.04, .21, 0, { roughness: .08, metalness: .5 });
+      [[-1, -1], [-1, 1], [1, -1], [1, 1]].forEach(function (w) { var wh = add(g, new THREE.CylinderGeometry(.06, .06, .05, 14), M("#111827", { roughness: .9 }), w[0] * (L / 2 - .12), .06, w[1] * (W / 2), true); wh.rotation.x = Math.PI / 2; });
+      var hl = new THREE.MeshStandardMaterial({ color: "#FFFBEA", emissive: "#FFE9A8", emissiveIntensity: .2 }); lampMats.push(hl);
+      [-1, 1].forEach(function (sd) { add(g, new THREE.BoxGeometry(.02, .04, .06), hl, L / 2, .13, sd * (W / 2 - .06), true); add(g, new THREE.BoxGeometry(.02, .04, .06), M("#EF4444", { emissive: "#EF4444", emissiveIntensity: .6 }), -L / 2, .13, sd * (W / 2 - .06), true); });
+      scene.add(g); return g;
+    }
+    [["car", "#EC4899", 0, 0], ["bus", "#FACC15", 0, .5], ["car", "#FFFFFF", 1, .1], ["car", "#10B981", 2, .3], ["bus", "#FACC15", 2, .8], ["car", "#2563EB", 0, .75]].forEach(function (v) {
+      var pts = LOOPS[v[2]], segs = [], tot = 0; for (var i = 0; i < pts.length; i++) { var p0 = pts[i], p1 = pts[(i + 1) % pts.length], len = Math.abs(p1[0] - p0[0]) + Math.abs(p1[1] - p0[1]); segs.push([p0, p1, len, tot]); tot += len; }
+      cars.push({ m: vehicle(v[0], v[1]), segs: segs, tot: tot, d: v[3] * tot, sp: v[0] === "bus" ? 1.1 : 1.5 });
+    });
+    anim.push(function (t, dt) { cars.forEach(function (c) {
+      c.d = (c.d + dt * c.sp) % c.tot; var sg = c.segs.filter(function (q) { return c.d >= q[3] && c.d < q[3] + q[2]; })[0] || c.segs[0], f = (c.d - sg[3]) / sg[2];
+      var dx = Math.sign(sg[1][0] - sg[0][0]), dz = Math.sign(sg[1][1] - sg[0][1]), x = sg[0][0] + (sg[1][0] - sg[0][0]) * f, z = sg[0][1] + (sg[1][1] - sg[0][1]) * f;
+      c.m.position.set(x - dz * .2, 0, z + dx * .2); c.m.rotation.y = -Math.atan2(dz, dx);
+    }); });
+
+    // People with simple daily lives: they walk to places, go inside, check their phones and chat
+    var roadCells = []; for (var rx = 0; rx < N; rx++) for (var rz = 2; rz < N; rz++) if (isRoad(rx, rz)) roadCells.push([rx, rz]);
+    var people = [], NAMES = ["Ada", "Bayo", "Chidi", "Fatima", "Emeka", "Zainab", "Kwame", "Amara", "Tunde", "Ngozi", "Musa", "Kemi", "Ife", "Halima", "Segun", "Aisha"];
+    var doors = BUILDINGS.map(function (b) { return b; });
+    function npcPos(n) { var c = n.cell, nx = n.next || c, dx = nx[0] - c[0], dz = nx[1] - c[1]; return [c[0] + .5 + dx * n.t - dz * .36 * n.side, c[1] + .5 + dz * n.t + dx * .36 * n.side]; }
+    function plan(n) { var tgt = doors[Math.floor(Math.random() * doors.length)]; n.goal = tgt; n.path = route(n.cell, tgt.door); n.state = n.path.length ? "walk" : "pause"; n.next = n.path[0]; n.t = 0; n.timer = 1 + Math.random() * 2; }
+    for (var i = 0; i < 14; i++) (function (i) {
+      var ch = randomChar(i + 3), p = makeHuman(ch), cell = roadCells[(i * 37) % roadCells.length]; p.scale.setScalar(.6); scene.add(p);
+      var n = { m: p, name: NAMES[i % NAMES.length], cell: cell, side: i % 2 ? 1 : -1, sp: 1.1 + (i % 4) * .15, t: 0, state: "pause", timer: Math.random() * 3 };
+      p.userData.npc = n; p.traverse(function (o) { if (o.isMesh) pick.push(o); }); people.push(n);
+      var ph = new THREE.Mesh(new THREE.BoxGeometry(.035, .065, .008), new THREE.MeshStandardMaterial({ color: "#111827", emissive: "#9FE7FF", emissiveIntensity: 1.2 })); ph.position.set(0, .03, .02); ph.visible = false; p.userData.rig.handR.add(ph); n.phone = ph;
     })(i);
-    // Small groups chatting outside buildings
     var idlers = [];
     [[[5.2, 7.35], [5.75, 7.6]], [[10.4, 12.35], [10.9, 12.6], [10.6, 12.95]], [[14.6, 7.4], [15.1, 7.55]], [[4.4, 12.4], [4.9, 12.65]]].forEach(function (grp, gi) {
       var cx = 0, cz = 0; grp.forEach(function (q) { cx += q[0] / grp.length; cz += q[1] / grp.length; });
-      grp.forEach(function (q, k) { var p = makeHuman(randomChar(gi * 3 + k + 30)); p.position.set(q[0], 0, q[1]); p.rotation.y = Math.atan2(cx - q[0], cz - q[1]); p.scale.setScalar(.6); scene.add(p); idlers.push(p); });
+      grp.forEach(function (q, k) { var p = makeHuman(randomChar(gi * 3 + k + 30)); p.position.set(q[0], 0, q[1]); p.rotation.y = Math.atan2(cx - q[0], cz - q[1]); p.scale.setScalar(.6); scene.add(p); idlers.push({ m: p, name: NAMES[(gi * 3 + k + 5) % NAMES.length], talk: k === 0 }); });
     });
-    function nextCell(c, prev) { var ns = [[1, 0], [-1, 0], [0, 1], [0, -1]].map(function (d) { return [c[0] + d[0], c[1] + d[1]]; }).filter(function (n2) { return isRoad(n2[0], n2[1]) && n2[1] >= 2; }); var fw = ns.filter(function (n2) { return !prev || n2[0] !== prev[0] || n2[1] !== prev[1]; }); var pool = fw.length ? fw : ns; return pool[Math.floor(Math.random() * pool.length)]; }
     anim.push(function (t, dt) {
-      people.forEach(function (p) { p.t += dt * p.sp; if (p.t >= 1) { var prev = p.from; p.from = p.to; p.to = nextCell(p.from, prev); p.t = 0; } var x = p.from[0] + (p.to[0] - p.from[0]) * p.t + .5 + p.off, z = p.from[1] + (p.to[1] - p.from[1]) * p.t + .5 + p.off; p.m.position.set(x, 0, z); p.m.rotation.y = Math.atan2(p.to[0] - p.from[0], p.to[1] - p.from[1]); animateHuman(p.m, t, true, p.sp * 13); });
-      idlers.forEach(function (p) { animateHuman(p, t, false); });
+      people.forEach(function (n) {
+        var m = n.m, r = m.userData.rig;
+        if (n.state === "walk") {
+          n.t += dt * n.sp; while (n.t >= 1 && n.next) { n.cell = n.next; n.path.shift(); n.next = n.path[0]; n.t -= 1; }
+          if (!n.next) { n.t = 0; var roll = Math.random(); n.state = roll < .45 ? "inside" : roll < .8 ? "phone" : "pause"; n.timer = n.state === "inside" ? 4 + Math.random() * 6 : 3 + Math.random() * 4; if (n.state !== "walk") m.rotation.y = Math.atan2(n.goal.cx - (n.cell[0] + .5), n.goal.cz - (n.cell[1] + .5)); }
+          else m.rotation.y = Math.atan2(n.next[0] - n.cell[0], n.next[1] - n.cell[1]);
+        } else if (!n.alert) { n.timer -= dt; if (n.timer <= 0) { n.phone.visible = false; m.visible = true; m.scale.setScalar(.6); plan(n); } }
+        var pos = npcPos(n); m.position.set(pos[0], 0, pos[1]);
+        m.visible = n.state !== "inside";
+        n.phone.visible = n.state === "phone" || !!n.alert;
+        animateHuman(m, t, n.state === "walk", n.sp * 9);
+        if (n.phone.visible) { r.shR.rotation.x = -1.0; r.elR.rotation.x = -1.3; r.head.rotation.x = .25; } else r.head.rotation.x = 0;
+      });
+      idlers.forEach(function (p, i) { animateHuman(p.m, t, false); if (p.talk) { var r = p.m.userData.rig; r.shR.rotation.x = -.5 + Math.sin(t * 3 + i) * .25; r.elR.rotation.x = -.9; r.shR.rotation.z = -.25; } });
     });
 
     // The player: your own character, with a glowing ring and a marker
@@ -863,7 +993,7 @@ import * as THREE from "./vendor/three.module.min.js";
     var marker = add(hero, new THREE.ConeGeometry(.08, .16, 4), new THREE.MeshStandardMaterial({ color: "#EC4899", emissive: "#EC4899", emissiveIntensity: 1.2 }), 0, 1.05, 0, true); marker.rotation.x = Math.PI;
     anim.push(function (t) { marker.position.y = 1.05 + Math.sin(t * 3) * .05; marker.rotation.y = t * 2; halo.scale.setScalar(1 + Math.sin(t * 3) * .1); if (hero.userData.body) animateHuman(hero.userData.body, t, !!walkPath, 11); });
 
-    return { R: R, scene: scene, cam: cam, hemi: hemi, sun: sun, anim: anim, pick: pick, clouds: clouds, domes: domes, hero: hero, mineRing: mineRing, winMats: winMats, lampMats: lampMats, canvas: canvas, cam3: { tx: 9.5, tz: 12.5, dist: 25, th: Math.PI / 4, ph: .95 } };
+    return { people: people, idlers: idlers, R: R, scene: scene, cam: cam, hemi: hemi, sun: sun, anim: anim, pick: pick, clouds: clouds, domes: domes, hero: hero, mineRing: mineRing, winMats: winMats, lampMats: lampMats, canvas: canvas, cam3: { tx: 9.5, tz: 12.5, dist: 25, th: Math.PI / 4, ph: .95 } };
   }
 
   function setHero(c) { if (!W3) return; var h = W3.hero; if (h.userData.body) h.remove(h.userData.body); var b = makeHuman(c || S.char || defaultChar()); b.scale.setScalar(.82); h.add(b); h.userData.body = b; }
@@ -883,7 +1013,7 @@ import * as THREE from "./vendor/three.module.min.js";
     W3.anim.forEach(function (f) { f(t, dt); });
     if (walkPath) stepWalk(dt);
     if (follow) { var c = W3.cam3, h = W3.hero.position; c.tx += (h.x - c.tx) * Math.min(1, dt * 4); c.tz += (h.z - c.tz) * Math.min(1, dt * 4); }
-    camUpdate(); if (!$("stage").classList.contains("on")) { W3.R.render(W3.scene, W3.cam); placeLabels(); }
+    simTick(t, dt); camUpdate(); if (!$("stage").classList.contains("on")) { W3.R.render(W3.scene, W3.cam); placeLabels(); placeBubbles(); }
     requestAnimationFrame(loop);
   }
   function placeLabels() {
@@ -891,7 +1021,7 @@ import * as THREE from "./vendor/three.module.min.js";
     BUILDINGS.forEach(function (b) {
       if (!b.lbl) return; v.set(b.cx, b.top + .35, b.cz).project(W3.cam);
       var x = (v.x + 1) / 2 * w, y = (1 - v.y) / 2 * h;
-      if (v.z < 1 && x > -40 && x < w + 40 && y > 150 && y < h - 70) items.push({ b: b, x: x, y: y, z: v.z }); else b.lbl.style.display = "none";
+      if (v.z < 1 && x > -40 && x < w + 40 && y > 200 && y < h - 70) items.push({ b: b, x: x, y: y, z: v.z }); else b.lbl.style.display = "none";
     });
     // Nearest labels win; one that would overlap a nearer label is hidden until you move closer
     items.sort(function (a, c) { return (a.b.special ? -1 : 0) - (c.b.special ? -1 : 0) || a.z - c.z; });
@@ -908,6 +1038,66 @@ import * as THREE from "./vendor/three.module.min.js";
     if (b.comm) return S.done["teach-" + b.comm] ? "#10B981" : S.done["decide-" + b.comm] ? "#F59E0B" : "#F43F5E";
     if (b.mission) return S.done[b.mission] ? "#10B981" : "#8D96AE";
     return "";
+  }
+
+  // ------------------------------------------------------------ City life: people who need your help, and street chatter
+  var HELP = [
+    { s: "got a text saying their bank account is blocked, asking for the OTP to unblock it.", o: ["Never share an OTP. Call the bank on the number on your card.", "Send the OTP quickly so the account isn't closed.", "Reply and ask them to call instead."] },
+    { s: "was told they won a prize but must pay a delivery fee first.", o: ["Real prizes never ask you to pay. Ignore it and block the sender.", "Pay the small fee, the prize is worth more.", "Send your home address so they can deliver it."] },
+    { s: "got a message from a new number claiming to be their son, asking for urgent money.", o: ["Call the son on his old number before sending anything.", "Send the money, it sounds urgent.", "Ask the new number to confirm his full name."] },
+    { s: "received a link to update their account details or lose access.", o: ["Don't tap it. Open the official app or website yourself.", "Tap it quickly to check if it's real.", "Forward it to friends to ask what they think."] },
+    { s: "is being pushed to join a scheme that doubles money in a week.", o: ["Walk away. Guaranteed fast returns are a classic scam.", "Invest a little first to test it.", "Bring more friends so everyone profits."] },
+    { s: "found a USB drive on the street and wants to plug it into the office laptop.", o: ["Don't plug it in. Hand it to the IT team.", "Plug it in to find the owner.", "Try it on a home laptop instead."] },
+    { s: "got a call from someone saying they're customer care, asking for their card PIN.", o: ["Hang up. Real staff never ask for your PIN.", "Read it out, they said they're customer care.", "Give only the first two digits."] },
+    { s: "uses the same password for email, bank and social media.", o: ["Use a different passphrase for each, with a password manager.", "It's fine as long as the password is long.", "Write it on a note stuck to the screen."] }
+  ];
+  var sim = { alert: 6, chat: 3 }, bubbles = [];
+  function simTick(t, dt) {
+    if (!W3 || !W3.people) return;
+    sim.alert -= dt;
+    if (sim.alert <= 0 && !W3.people.some(function (n) { return n.alert; })) {
+      var c = W3.people.filter(function (n) { return n.state !== "inside" && n.m.visible; }); var n = c[Math.floor(Math.random() * c.length)];
+      if (n) { n.alert = HELP[Math.floor(Math.random() * HELP.length)]; n.alertAt = t; n.state = "phone"; n.timer = 99; }
+      sim.alert = 40 + Math.random() * 25;
+    }
+    W3.people.forEach(function (n) { if (n.alert && t - n.alertAt > 45) { n.alert = null; n.timer = 1; } });
+    sim.chat -= dt;
+    if (sim.chat <= 0 && bubbles.length < 2) {
+      var pool = W3.idlers.concat(W3.people.filter(function (n) { return n.state !== "inside" && !n.alert; })), who = pool[Math.floor(Math.random() * pool.length)], keys = Object.keys(TIPS), tip = TIPS[keys[Math.floor(Math.random() * keys.length)]];
+      if (who) say(who, Math.random() < .35 ? tip.pcm : tip.en, 5);
+      sim.chat = 4 + Math.random() * 4;
+    }
+  }
+  function say(who, text, secs, cls) {
+    if (!labelsEl) return; bubbles.forEach(function (b) { if (b.who === who) b.until = 0; });
+    var el = document.createElement("div"); el.className = "bub" + (cls ? " " + cls : ""); el.innerHTML = "<b>" + esc(who.name) + "</b> " + esc(text); labelsEl.appendChild(el);
+    bubbles.push({ who: who, el: el, until: performance.now() / 1000 + secs });
+  }
+  function placeBubbles() {
+    if (!labelsEl) return; var w = labelsEl.clientWidth, h = labelsEl.clientHeight, v = new THREE.Vector3(), now = performance.now() / 1000;
+    bubbles = bubbles.filter(function (b) { if (now > b.until || !b.el.isConnected) { b.el.remove(); return false; } return true; });
+    bubbles.forEach(function (b) { var m = b.who.m; v.set(m.position.x, .78, m.position.z).project(W3.cam); var x = (v.x + 1) / 2 * w, y = (1 - v.y) / 2 * h, on = v.z < 1 && y > 200 && y < h - 80 && m.visible; b.el.style.display = on ? "" : "none"; if (on) b.el.style.transform = "translate(" + x + "px," + y + "px) translate(-50%,-100%)"; });
+    W3.people.forEach(function (n) {
+      if (n.alertEl && !n.alertEl.isConnected) n.alertEl = null;
+      if (!n.alert) { if (n.alertEl) { n.alertEl.remove(); n.alertEl = null; } return; }
+      if (!n.alertEl) { n.alertEl = document.createElement("button"); n.alertEl.className = "alertb"; n.alertEl.innerHTML = '<i>!</i>' + esc(n.name) + " needs help"; n.alertEl.addEventListener("pointerdown", function (e) { e.stopPropagation(); }); n.alertEl.onclick = function () { helpSheet(n); }; labelsEl.appendChild(n.alertEl); }
+      v.set(n.m.position.x, .85, n.m.position.z).project(W3.cam); var x = (v.x + 1) / 2 * w, y = (1 - v.y) / 2 * h, on = v.z < 1 && y > 200 && y < h - 80;
+      n.alertEl.style.display = on ? "" : "none"; if (on) n.alertEl.style.transform = "translate(" + x + "px," + y + "px) translate(-50%,-100%)";
+    });
+  }
+  function helpSheet(n) {
+    var hp = n.alert; if (!hp) return; var opts = shuffle(hp.o.map(function (o, i) { return { t: o, ok: i === 0 }; }));
+    sheet('<div style="display:flex;gap:12px;align-items:center;margin-bottom:12px">' + tile("shield", "#EC4899", 24) + "<div><h2>" + esc(n.name) + ' needs help</h2><div class="muted small">Someone in your city just got targeted</div></div></div>' +
+      '<div class="scene"><p style="margin:0">' + esc(n.name) + " " + esc(hp.s) + "</p></div><div class=\"lbl\">What do you tell " + esc(n.name) + "?</div>" +
+      opts.map(function (o, i) { return '<button class="choice" data-h="' + i + '"><span class="l">' + "ABC"[i] + "</span>" + esc(o.t) + "</button>"; }).join("") + '<div id="hx"></div>');
+    $("sbox").querySelectorAll("[data-h]").forEach(function (b) { b.onclick = function () {
+      var o = opts[+b.dataset.h], right = opts.filter(function (x) { return x.ok; })[0];
+      $("sbox").querySelectorAll("[data-h]").forEach(function (x) { x.disabled = true; if (opts[+x.dataset.h].ok) x.classList.add("ok"); }); if (!o.ok) b.classList.add("bad");
+      n.alert = null; n.timer = 2; S.helped = (S.helped || 0) + (o.ok ? 1 : 0); if (o.ok) { S.xp += 15; markAct("m"); track("help"); } save();
+      say(n, o.ok ? "Thank you! I almost fell for that." : "Hmm, I'll be more careful.", 4, o.ok ? "good" : "");
+      $("hx").innerHTML = '<div class="explain ' + (o.ok ? "good" : "bad") + '"><b>' + (o.ok ? "+15 XP. You protected " + esc(n.name) + "." : "Better: " + esc(right.t)) + "</b></div>" + ghCard("help") + '<button class="btn ghost block" data-close style="margin-top:10px">Back to the city</button>';
+      bindGh($("sbox"));
+    }; });
   }
 
   // Walking along the streets
@@ -947,7 +1137,7 @@ import * as THREE from "./vendor/three.module.min.js";
     function end(e) {
       var tap = !moved && Object.keys(pts).length === 1; delete pts[e.pointerId];
       if (tap) { var r = el.getBoundingClientRect(), m = new THREE.Vector2((e.clientX - r.left) / r.width * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1), ray = new THREE.Raycaster(); ray.setFromCamera(m, W3.cam); var hit = ray.intersectObjects(W3.pick, false)[0];
-        if (hit) { var o = hit.object; while (o && !o.userData.bid) o = o.parent; if (o) visit(o.userData.bid); } }
+        if (hit) { var o = hit.object; while (o && !o.userData.bid && !o.userData.npc) o = o.parent; if (o && o.userData.npc) { var np = o.userData.npc; if (np.alert) helpSheet(np); else say(np, "Hi, I'm " + np.name + ". " + TIPS[Object.keys(TIPS)[Math.floor(Math.random() * Object.keys(TIPS).length)]].en, 5); } else if (o) visit(o.userData.bid); } }
       var c = W3.cam3, ids = Object.keys(pts); if (ids.length === 1) st = { x: pts[ids[0]].x, y: pts[ids[0]].y, tx: c.tx, tz: c.tz, th: c.th, ph: c.ph, dist: c.dist, two: null, btn: 0 };
     }
     el.addEventListener("pointerup", end); el.addEventListener("pointercancel", end); el.addEventListener("contextmenu", function (e) { e.preventDefault(); });
@@ -992,7 +1182,7 @@ import * as THREE from "./vendor/three.module.min.js";
     $("view").classList.add("mapmode");
     $("view").innerHTML = '<div class="map" id="map"><div class="labels" id="labels"></div></div>' +
       '<div class="hud"><div class="ava" id="me" role="button" aria-label="Edit your character">' + (S.charImg ? '<img src="' + S.charImg + '" alt="">' : esc((S.name || "?").charAt(0).toUpperCase())) + '</div><div class="t"><b>' + esc(S.name) + ' <span class="chip v" style="margin-left:4px">Lv ' + (lv + 1) + " · " + LEVELS[lv] + '</span></b><div class="xpb"><i style="width:' + into / 2 + '%"></i></div></div><div class="streak">' + ic("fire", "#F59E0B", 16) + streak() + "</div></div>" +
-      '<div class="hud2">' + (S.github ? "" : '<button class="chip v" id="linkgh" style="pointer-events:auto;border:0">' + ic("git", "#BE185D", 14) + " Link GitHub</button>") + '<span class="chip ' + (prot === 5 ? "g" : "r") + '">' + (5 - prot) + " scam cloud" + (5 - prot === 1 ? "" : "s") + ' left</span><span class="chip g">' + COMMS.filter(function (c) { return S.done["teach-" + c.id]; }).length + '/5 shielded</span></div>' +
+      streakBar() + '<div class="hud2">' + (S.github ? "" : '<button class="chip v" id="linkgh" style="pointer-events:auto;border:0">' + ic("git", "#BE185D", 14) + " Link GitHub</button>") + '<span class="chip ' + (prot === 5 ? "g" : "r") + '">' + (5 - prot) + " scam cloud" + (5 - prot === 1 ? "" : "s") + ' left</span><span class="chip g">' + COMMS.filter(function (c) { return S.done["teach-" + c.id]; }).length + '/5 shielded</span></div>' +
       '<div class="mapbtns"><button id="prb" class="pr" aria-label="Contribute on GitHub">' + ic("git", "#fff", 20) + '</button><button id="dn" aria-label="Day or night">' + (night ? "☀" : "☾") + '</button><button id="rl" aria-label="Rotate left">⟲</button><button id="rr" aria-label="Rotate right">⟳</button><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="zme" aria-label="Find me">' + ic("radar", null, 18) + "</button></div>" +
       (nm ? '<button class="nextpill" id="nextp">' + tile(nm.icon, nm.col, 22, "ni") + '<span class="tx"><span class="k">NEXT MISSION · +' + nm.xp + ' XP</span><b>' + esc(nm.title) + '</b></span><span class="gob">Go</span></button>'
           : '<button class="nextpill" id="nextp">' + tile("trophy", "#10B981", 22, "ni") + '<span class="tx"><span class="k">EVERY CLOUD CLEARED</span><b>Visit Open Source HQ</b></span><span class="gob">Go</span></button>');
@@ -1017,7 +1207,7 @@ import * as THREE from "./vendor/three.module.min.js";
     $("rl").onclick = cam(function (c) { c.th -= Math.PI / 4; }); $("rr").onclick = cam(function (c) { c.th += Math.PI / 4; });
     $("zme").onclick = function () { if (W3) follow = true; setTimeout(function () { follow = false; }, 1200); };
     $("dn").onclick = function () { night = !night; this.textContent = night ? "☀" : "☾"; applyDayNight(); };
-    $("prb").onclick = function () { contributeSheet(); }; $("me").onclick = function () { studio(false); }; if ($("linkgh")) $("linkgh").onclick = function () { contributeSheet(); };
+    $("prb").onclick = function () { contributeSheet(); }; $("sbar").onclick = streakSheet; $("sbar").addEventListener("pointerdown", function (e) { e.stopPropagation(); }); $("me").onclick = function () { studio(false); }; if ($("linkgh")) $("linkgh").onclick = function () { contributeSheet(); };
     ["zin", "zout", "zme", "nextp", "rl", "rr", "dn", "prb", "me"].concat($("linkgh") ? ["linkgh"] : []).forEach(function (id) { $(id).addEventListener("pointerdown", function (e) { e.stopPropagation(); }); });
   }
 
@@ -1030,14 +1220,14 @@ import * as THREE from "./vendor/three.module.min.js";
     }).join("") : "";
     var st = pathStage(), fc = COMMS.filter(function (c) { return c.id === S.focus; })[0] || COMMS[0];
     var steps = [["Practise", "Make real-life security decisions"], ["Teach", "Build a kit for your " + fc.name.toLowerCase()], ["Contribute", "Report your session or share what you know"], ["Claim", "Earn a real, verified CyberSecTOBER badge"]];
-    $("view").innerHTML = "<h1>Missions</h1><p class=\"muted\" style=\"margin:4px 0 14px\">Practise, teach your people, then contribute.</p>" +
+    $("view").innerHTML = "<h1>Missions</h1><p class=\"muted\" style=\"margin:4px 0 14px\">Every mission ends the same way: you fork the repository and open a real pull request.</p>" +
       '<div class="glass pad">' + steps.map(function (s2, i) { return '<div class="step ' + (i < st ? "done" : i === st ? "now" : "") + '"><span class="n">' + (i < st ? "✓" : i + 1) + "</span><div><b>" + s2[0] + "</b><span>" + s2[1] + "</span></div></div>"; }).join("") + "</div>" +
       '<div class="filters">' + cats.map(function (c) { return '<button data-filter="' + c[0] + '" class="' + (filter === c[0] ? "on" : "") + '">' + c[1] + "</button>"; }).join("") + "</div>" + list + create;
     bind();
   }
   function misCard(m) {
     var done = S.done[m.id], c = m.comm && COMMS.filter(function (x) { return x.id === m.comm; })[0];
-    return '<button class="mis' + (done ? " done" : "") + '" data-m="' + m.id + '">' + tile(m.icon, m.col) + '<span class="tx"><b>' + esc(m.title) + "</b><span>" + esc(m.desc) + '</span><span class="cats">' + (c ? '<span class="chip" style="color:' + c.col + '">' + esc(c.name) + "</span>" : "") + '<span class="chip g">+' + m.xp + " XP</span>" + (done ? '<span class="chip">Best ' + done + "</span>" : "") + '</span></span><span class="go">' + ic(done ? "check" : "arrow", null, 18) + "</span></button>";
+    return '<button class="mis' + (done ? " done" : "") + '" data-m="' + m.id + '">' + tile(m.icon, m.col) + '<span class="tx"><b>' + esc(m.title) + "</b><span>" + esc(m.desc) + '</span><span class="cats">' + (c ? '<span class="chip" style="color:' + c.col + '">' + esc(c.name) + "</span>" : "") + '<span class="chip g">+' + m.xp + " XP</span>" + (done ? '<span class="chip">Best ' + done + "</span>" : "") + (prSpec(m.id) ? (S.pr && S.pr[m.id] && S.pr[m.id].n ? '<span class="chip g">' + ic("git", "#047857", 12) + " PR #" + S.pr[m.id].n + "</span>" : '<span class="chip v">' + ic("git", "#BE185D", 12) + " Ends in a pull request</span>") : "") + '</span></span><span class="go">' + ic(done ? "check" : "arrow", null, 18) + "</span></button>";
   }
 
   // ------------------------------------------------------------ Character studio
@@ -1107,28 +1297,19 @@ import * as THREE from "./vendor/three.module.min.js";
 
   // ------------------------------------------------------------ Contribute on GitHub from inside the game
   // What each finished mission can become on GitHub
-  function contribFor(id) {
-    var m = MISSIONS.filter(function (x) { return x.id === id; })[0]; if (!m) return null;
-    if (id.indexOf("decide-") === 0) { var k = (COMM_TIPS[m.comm] || ["otp"])[0], tip = TIPS[k].en, cm = COMMS.filter(function (x) { return x.id === m.comm; })[0];
-      return { t: "Share the tip you just practised", d: "Add it to the public tips list for " + cm.name.toLowerCase() + " communities. 3 points.", h: joinHref("join?tip_title=" + encodeURIComponent("Safety tip for " + cm.name.toLowerCase() + " communities") + "&tip=" + encodeURIComponent(tip) + "#tip") }; }
-    if (id.indexOf("teach-") === 0) return { t: "Report your awareness session", d: "Ran it with real people? Report it for a real badge.", report: m.comm };
-    if (id === "password") return { t: "Share a passphrase tip", d: "Teach others the trick you just learned. 3 points.", h: joinHref("join?tip_title=" + encodeURIComponent("Use a passphrase, not a password") + "&tip=" + encodeURIComponent("Join four random words into one passphrase. It is easier to remember and far harder to crack than a short password.") + "#tip") };
-    var key = { soc: "soc", redteam: "red", grc: "grc", ai: "ai", api: "api", vdp: "vdp" }[id], c = key && CONTRIB[key] && CONTRIB[key][0];
-    if (c) return { t: c.t, d: c.d + " " + c.p + ".", h: c.h.indexOf("http") === 0 ? c.h : joinHref(c.h) };
-    return null;
-  }
+  function contribFor(id) { var sp = prSpec(id); if (!sp) return null; return { t: "Turn this into " + sp.name, d: sp.points + " on the leaderboard." }; }
   function ghCard(id) {
     var c = contribFor(id); if (!c) return "";
-    return '<div class="ghcard"><span class="gi" style="width:42px;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex:none;background:linear-gradient(135deg,#34D399,#10B981)">' + ic("git", "#fff", 22) + '</span><span style="flex:1;min-width:0"><b style="display:block;font-size:14px">Contribute this on GitHub?</b><span class="small muted">' + esc(c.t) + "</span></span></div>" +
-      (c.report ? '<button class="btn green block" style="margin-top:10px" data-ghreport="' + c.report + '">' + ic("git", "#fff", 18) + " Open pull request</button>" : '<a class="btn green block" style="margin-top:10px" target="_blank" rel="noopener" data-ghgo="' + id + '" href="' + c.h + '">' + ic("git", "#fff", 18) + " Open pull request</a>");
+    var done = S.pr && S.pr[id] && S.pr[id].n;
+    return '<div class="ghcard"><span class="gi" style="width:42px;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex:none;background:linear-gradient(135deg,#34D399,#10B981)">' + ic("git", "#fff", 22) + '</span><span style="flex:1;min-width:0"><b style="display:block;font-size:14px">' + (done ? "Pull request #" + done + " is open" : "Final step: your pull request") + '</b><span class="small muted">' + esc(c.t) + " · " + esc(c.d) + "</span></span></div>" +
+      '<button class="btn green block" style="margin-top:10px" data-pr="' + id + '">' + ic("git", "#fff", 18) + (done ? " See my pull request" : " Fork and open a pull request") + "</button>";
   }
   function bindGh(root) {
-    root.querySelectorAll("[data-ghgo]").forEach(function (a) { a.addEventListener("click", function () { S.clickedCreate = 1; S.nudged[a.dataset.ghgo] = 2; save(); track("contribute-" + a.dataset.ghgo); }); });
-    root.querySelectorAll("[data-ghreport]").forEach(function (b) { b.onclick = function () { closeSheet(); dismissNudge(); reportFlow(b.dataset.ghreport); }; });
+    root.querySelectorAll("[data-pr]").forEach(function (b) { b.onclick = function () { closeSheet(); dismissNudge(); S.nudged[b.dataset.pr] = 2; save(); track("contribute-" + b.dataset.pr); prFlow(b.dataset.pr); }; });
   }
   // A notification that slides in three seconds after you finish something
   var nudgeTimer = null;
-  function queueNudge(id) { if (!contribFor(id) || (S.nudged[id] || 0) >= 2) return; clearTimeout(nudgeTimer); nudgeTimer = setTimeout(function () { showNudge(id); }, 3000); }
+  function queueNudge(id) { if (!contribFor(id) || (S.nudged[id] || 0) >= 2 || (S.pr && S.pr[id] && S.pr[id].n)) return; clearTimeout(nudgeTimer); nudgeTimer = setTimeout(function () { showNudge(id); }, 3000); }
   function dismissNudge() { var n = document.querySelector(".nudge"); if (n) n.remove(); }
   function showNudge(id) {
     if ($("stage").classList.contains("on") || $("sheet").classList.contains("on") || $("onb").classList.contains("on")) { nudgeTimer = setTimeout(function () { showNudge(id); }, 3000); return; }
@@ -1137,7 +1318,7 @@ import * as THREE from "./vendor/three.module.min.js";
     d.innerHTML = '<span class="gi">' + ic("git", "#fff", 22) + '</span><span class="tx"><b>Contribute this on GitHub?</b><span>' + esc(c.t) + '</span></span><button class="btn green" id="nyes">Yes</button><button class="x" id="nno" aria-label="Not now">×</button>';
     $("app").appendChild(d);
     $("nno").onclick = dismissNudge;
-    $("nyes").onclick = function () { dismissNudge(); contributeSheet(id); };
+    $("nyes").onclick = function () { dismissNudge(); S.nudged[id] = 2; save(); prFlow(id); };
     setTimeout(function () { if (d.parentNode) d.remove(); }, 12000);
   }
   // The pull request sheet: your GitHub username and everything you can contribute right now
@@ -1146,8 +1327,8 @@ import * as THREE from "./vendor/three.module.min.js";
     sheet('<div style="display:flex;gap:12px;align-items:center;margin-bottom:12px">' + tile("git", "#10B981", 24) + '<div><h2>Contribute on GitHub</h2><div class="muted small">Real points and badges on the leaderboard</div></div></div>' +
       '<label class="lbl" for="ghq">Your GitHub username</label><div class="row"><input id="ghq" value="' + esc(S.github) + '" placeholder="your-username" autocapitalize="off" spellcheck="false"><button class="btn ghost" id="ghqs" style="flex:0 0 auto">Save</button></div>' +
       '<p class="small muted" style="margin:8px 2px 0">No account yet? <a href="https://github.com/signup" target="_blank" rel="noopener">Create one free</a>, it takes two minutes.</p>' +
-      (ids.length ? '<div class="sec"><h3>From what you just did</h3></div>' + ids.slice(0, 6).map(function (id) { var c = contribFor(id); return c.report ? '<button class="mis" data-ghreport="' + c.report + '">' + tile("git", "#10B981") + '<span class="tx"><b>' + esc(c.t) + "</b><span>" + esc(c.d) + '</span></span><span class="go">' + ic("arrow", null, 18) + "</span></button>" : '<a class="mis" target="_blank" rel="noopener" data-ghgo="' + id + '" href="' + c.h + '">' + tile("git", "#10B981") + '<span class="tx"><b>' + esc(c.t) + "</b><span>" + esc(c.d) + '</span></span><span class="go">' + ic("arrow", null, 18) + "</span></a>"; }).join("") : '<p class="muted small">Finish a mission in the city and it shows up here, ready to contribute.</p>') +
-      '<div class="sec"><h3>What happens on GitHub</h3></div><div class="glass pad small"><ol style="margin:0;padding-left:18px;line-height:1.7"><li>GitHub opens with your file or tip ready.</li><li>Press <b>Commit changes</b>, then <b>Propose changes</b>.</li><li>Press <b>Create pull request</b>. That\'s it.</li><li>A mentor reviews it. Once merged, your points and badge arrive automatically.</li></ol></div>' +
+      (ids.length ? '<div class="sec"><h3>From what you just did</h3></div>' + ids.slice(0, 8).map(function (id) { var c = contribFor(id), n = S.pr && S.pr[id] && S.pr[id].n; return '<button class="mis" data-pr="' + id + '">' + tile("git", "#10B981") + '<span class="tx"><b>' + esc(c.t) + "</b><span>" + esc(c.d) + '</span><span class="cats">' + (n ? '<span class="chip g">PR #' + n + "</span>" : '<span class="chip v">Fork · commit · pull request</span>') + '</span></span><span class="go">' + ic("arrow", null, 18) + "</span></button>"; }).join("") : '<p class="muted small">Finish a mission in the city and it shows up here, ready to contribute.</p>') +
+      '<div class="sec"><h3>How it works</h3></div><div class="glass pad small"><ol style="margin:0;padding-left:18px;line-height:1.7"><li><b>Fork</b> the CyberSecTOBER repository, your own copy.</li><li><b>Commit</b> your file or tip in your fork. The game writes it for you.</li><li><b>Open a pull request</b> to ask the mentors to add it.</li><li>Once merged, your points and badge arrive automatically.</li></ol></div>' +
       '<a class="btn ghost block" style="margin-top:12px" target="_blank" rel="noopener" href="' + joinHref("join#user") + '">More ways to contribute</a>');
     $("ghqs").onclick = function () { var u = cleanUser($("ghq").value); if (!validUser(u)) return toast("That's not a GitHub username"); S.github = u; save(); toast("Saved @" + u); contributeSheet(focus); };
     bindGh($("sbox"));
@@ -1155,6 +1336,127 @@ import * as THREE from "./vendor/three.module.min.js";
 
   // ------------------------------------------------------------ Anonymous visit counting (GoatCounter, no cookies)
   function track(name) { try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: name, title: name, event: true }); } catch (e) {} }
+
+  // ------------------------------------------------------------ Every mission ends in a real pull request
+  var UP = "CyberSecTober/Cybersectober";
+  function slugify(t) { return String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 50) || "contribution"; }
+  // What each mission becomes on GitHub: a tip on the shared list or a new page from a template
+  function prSpec(id) {
+    var m = MISSIONS.filter(function (x) { return x.id === id; })[0];
+    if (id.indexOf("decide-") === 0 || id === "password" || id === "help") {
+      var cm = m && COMMS.filter(function (x) { return x.id === m.comm; })[0], k = cm ? (COMM_TIPS[cm.id] || ["otp"])[0] : "otp";
+      return { id: id, kind: "tip", name: "a safety tip", points: "3 points", path: "awareness/tips.md",
+        fields: [{ k: "title", l: "Tip title", v: id === "password" ? "Use a passphrase, not a password" : cm ? "Safety tip for " + cm.name.toLowerCase() + " communities" : "Never share your OTP" },
+                 { k: "text", l: "Your tip in one or two sentences", multi: 1, v: id === "password" ? "Join four random words into one passphrase. It is easier to remember and far harder to crack than a short password." : TIPS[k].en }] };
+    }
+    if (id.indexOf("teach-") === 0) return { id: id, kind: "report", name: "your session report", points: "5 points + Community Defender" };
+    var T = {
+      soc: { name: "a blue team walkthrough", folder: "awareness", track: "awareness", points: "10 points", title: "How a defender spots a suspicious login",
+        f: [["What attack does this catch?", "Someone logging in from a new country at 3am, right after many failed attempts."], ["Signs a defender looks for (fictional logs only)", "Many failed logins from one IP\nA success from the same IP\nA new device and location"], ["How to respond", "Lock the account, reset the password, check what was accessed, and tell the user."]] },
+      redteam: { name: "lessons from a practice lab", folder: "awareness", track: "awareness", points: "10 points", title: "Lessons from a practice web app",
+        f: [["The flaw you found (on a practice target)", "The login form told attackers whether a username existed."], ["Why it matters", "Attackers can build a list of real accounts to target."], ["How to fix it", "Show the same message for every failed login and limit attempts."]] },
+      grc: { name: "a security checklist", folder: "awareness", track: "awareness", points: "5 points", title: "Security checklist for a small church office", list: 1,
+        f: [["Who is it for?", "Volunteers who manage the church laptop, email and bank account."], ["Checklist items (one per line)", "Turn on two-factor authentication for the church email\nKeep the laptop updated\nUse a separate passphrase for the bank account\nConfirm payment requests by phone\nBack up important files every month"]] },
+      ai: { name: "an AI threat model", folder: "ai-security", track: "ai-security", points: "10 points", title: "Threat model for a customer service chatbot",
+        f: [["The AI system", "A chatbot that answers questions using the company's help articles."], ["Threats (one per line)", "Prompt injection hidden in a help article\nLeaking customer data in answers\nGiving confident but wrong advice"], ["Defences", "Treat retrieved text as data, limit what the bot can access, and add human review for refunds."]] },
+      api: { name: "an API security explainer", folder: "api-security", track: "api-security", points: "10 points", title: "Broken object level authorization, explained",
+        f: [["The risk", "An API returns any order when you change the order number in the URL."], ["What goes wrong (describe, no live targets)", "The server checks that you are logged in, but not that the order is yours."], ["The fix", "Check ownership on every request before returning data."]] },
+      vdp: { name: "a responsible disclosure guide", folder: "awareness", track: "awareness", points: "10 points", title: "How I reported a bug responsibly",
+        f: [["What you found (no exploit steps)", "A form that showed other users' email addresses."], ["How you reported it", "I found the security contact in security.txt and emailed them privately with safe steps to reproduce."], ["Lessons", "Stop once you confirm the issue, report privately, and give the team time to fix it."]] }
+    }[id];
+    if (!T) return null;
+    return { id: id, kind: "page", name: T.name, points: T.points, folder: T.folder, track: T.track, list: T.list,
+      fields: [{ k: "title", l: "Title", v: T.title }].concat(T.f.map(function (f, i) { return { k: "s" + i, l: f[0], v: f[1], multi: 1 }; })) };
+  }
+  function prBuild(sp, vals, u) {
+    if (sp.kind === "tip") return { path: sp.path, line: "- **" + vals.title.replace(/\*/g, "") + "** " + vals.text.replace(/\s+/g, " ").trim() + " (@" + u + ")", prTitle: "Add tip: " + vals.title };
+    var secs = sp.fields.slice(1).map(function (f) {
+      var lines = vals[f.k].split("\n").map(function (x) { return x.trim(); }).filter(Boolean);
+      var body = lines.length > 1 ? lines.map(function (x) { return (sp.list ? "- [ ] " : "- ") + x; }).join("\n") : lines.join(" ");
+      return "## " + f.l.replace(/\s*\(.*\)$/, "").replace(/\?$/, "") + "\n\n" + body;
+    }).join("\n\n");
+    var desc = vals[sp.fields[1].k].split("\n")[0].slice(0, 140);
+    var md = "---\ntitle: " + vals.title + "\nauthor: " + u + "\ntrack: " + sp.track + "\ndifficulty: beginner\nlanguage: en\ndescription: " + desc + "\n---\n\n# " + vals.title + "\n\n" + secs + "\n\n---\n\nMade in Shield Up, the CyberSecTOBER game. Uses fictional examples only.\n";
+    return { path: sp.folder + "/" + u.toLowerCase() + "-" + slugify(vals.title) + ".md", content: md, prTitle: "Add " + sp.name + ": " + vals.title };
+  }
+  function prState(id) { S.pr = S.pr || {}; return S.pr[id] || (S.pr[id] = { step: 0 }); }
+  // The guided flow: prepare, fork, add your file, open the pull request, check it
+  function prFlow(id, custom) {
+    var sp = custom || prSpec(id); if (!sp) return;
+    if (sp.kind === "report" && !custom) return reportFlow(MISSIONS.filter(function (x) { return x.id === id; })[0].comm);
+    var st = prState(id); st.vals = st.vals || {}; (sp.fields || []).forEach(function (f) { if (st.vals[f.k] == null) st.vals[f.k] = f.v; });
+    stage("Your pull request", sp.name.charAt(0).toUpperCase() + sp.name.slice(1) + " · " + sp.points);
+    function built() { return custom ? custom.built(S.github) : prBuild(sp, st.vals, S.github); }
+    function stepCard(n, title, body, done) { var on = st.step === n; return '<div class="prs' + (done ? " done" : "") + (on ? " now" : "") + '"><span class="n">' + (done ? "✓" : n + 1) + '</span><div class="b"><b>' + title + "</b>" + (on || done ? body : "") + "</div></div>"; }
+    function draw() {
+      prog(st.step * 25);
+      var u = S.github, b = u ? built() : null, fork = "https://github.com/" + (u || "") + "/Cybersectober";
+      var html = '<div class="prhead">' + ic("git", "#10B981", 28) + '<div><b>Every mission ends in a real pull request</b><span>It goes on your GitHub profile and earns verified points and badges.</span></div></div>';
+      if (!u) html += '<div class="glass pad"><label class="lbl" for="pu" style="margin-top:0">Your GitHub username</label><div class="row"><input id="pu" placeholder="your-username" autocapitalize="off" spellcheck="false"><button class="btn" id="pus" style="flex:0 0 auto">Save</button></div><p class="small muted" style="margin:8px 0 0">No account? <a href="https://github.com/signup" target="_blank" rel="noopener">Create one free</a>, then come back.</p></div>';
+      else {
+        html += stepCard(0, "Prepare your contribution", (custom ? '<p class="small muted">Your report is written and ready.</p>' : sp.fields.map(function (f) { return '<label class="lbl" for="pf-' + f.k + '">' + esc(f.l) + "</label>" + (f.multi ? '<textarea id="pf-' + f.k + '" rows="3">' + esc(st.vals[f.k]) + "</textarea>" : '<input id="pf-' + f.k + '" value="' + esc(st.vals[f.k]) + '">'); }).join("") + '<p class="small muted" style="margin:8px 0 0">Use fictional names and example.com. No real victims or live targets.</p>') + '<button class="btn block" data-s="1" style="margin-top:12px">Looks good</button>', st.step > 0);
+        html += stepCard(1, "Fork the repository", '<p class="small muted">A fork is your own copy of the CyberSecTOBER repository. You only do this once.</p><div class="row"><a class="btn" target="_blank" rel="noopener" href="https://github.com/' + UP + '/fork" data-act="1">' + ic("git", "#fff", 18) + 'Fork on GitHub</a><button class="btn ghost" id="chkfork">I\'ve forked it</button></div><div class="small muted" id="forkmsg" style="margin-top:8px"></div>', st.step > 1);
+        html += stepCard(2, sp.kind === "tip" ? "Add your tip in your fork" : "Add your file in your fork", (sp.kind === "tip" ? '<pre class="prline" id="pline">' + esc(b.line) + '</pre><div class="row"><button class="btn ghost" id="cpline">Copy tip</button><a class="btn" target="_blank" rel="noopener" data-act="1" href="' + fork + '/edit/main/' + sp.path + '">Open tips.md</a></div><p class="small muted" style="margin:8px 0 0">Paste your line at the very bottom, then press <b>Commit changes</b>.</p>'
+          : '<p class="small muted">GitHub opens in your fork with <b>' + esc(b.path) + '</b> already written.</p><a class="btn block" target="_blank" rel="noopener" data-act="1" href="' + fork + "/new/main?filename=" + encodeURIComponent(b.path) + "&value=" + encodeURIComponent(b.content) + '">' + ic("git", "#fff", 18) + 'Open my file on GitHub</a><p class="small muted" style="margin:8px 0 0">Check it, then press <b>Commit changes</b> and commit to main.</p>') + '<button class="btn ghost block" data-s="3" style="margin-top:10px">Done, it\'s committed</button>', st.step > 2);
+        html += stepCard(3, "Open the pull request", '<p class="small muted">This asks the mentors to add your work to CyberSecTOBER.</p><a class="btn block" target="_blank" rel="noopener" data-act="1" href="https://github.com/' + UP + "/compare/main..." + encodeURIComponent(u) + ":Cybersectober:main?expand=1&title=" + encodeURIComponent(b.prTitle) + "&body=" + encodeURIComponent("Made in Shield Up.\n\n- [x] Fictional examples only\n- [x] My own work") + '">' + ic("git", "#fff", 18) + 'Create pull request</a><button class="btn ghost block" id="chkpr" style="margin-top:10px">Check my pull request</button><div class="small muted" id="prmsg" style="margin-top:8px"></div>', st.step > 3);
+        if (st.n) html += '<div class="ghcard" style="margin-top:14px">' + tile("trophy", "#10B981") + '<span style="flex:1"><b style="display:block">Pull request #' + st.n + " is open</b><span class=\"small muted\">A mentor reviews it. Once merged, your points and badge arrive automatically.</span></span></div><a class=\"btn ghost block\" style=\"margin-top:10px\" target=\"_blank\" rel=\"noopener\" href=\"" + esc(st.url) + '">See it on GitHub</a>';
+        html += '<p class="small muted" style="text-align:center;margin-top:14px">Signed in as @' + esc(u) + ' · <a href="#" id="chgu">change</a></p>';
+      }
+      $("stBody").innerHTML = html;
+      if ($("pus")) $("pus").onclick = function () { var v = cleanUser($("pu").value); if (!validUser(v)) return toast("That's not a GitHub username"); S.github = v; save(); draw(); };
+      if ($("chgu")) $("chgu").onclick = function (e) { e.preventDefault(); S.github = ""; save(); draw(); };
+      (sp.fields || []).forEach(function (f) { var el = $("pf-" + f.k); if (el) el.oninput = function () { st.vals[f.k] = el.value; save(); }; });
+      $("stBody").querySelectorAll("[data-s]").forEach(function (x) { x.onclick = function () { if (st.step === 0 && sp.fields && sp.fields.some(function (f) { return !String(st.vals[f.k] || "").trim(); })) return toast("Fill in every box first"); st.step = +x.dataset.s === 1 ? Math.max(st.step, S.forked ? 2 : 1) : Math.max(st.step, +x.dataset.s); markAct("p"); save(); draw(); }; });
+      $("stBody").querySelectorAll("[data-act]").forEach(function (x) { x.addEventListener("click", function () { S.clickedCreate = 1; markAct("p"); track("pr-step-" + id); save(); }); });
+      if ($("cpline")) $("cpline").onclick = function () { var t = $("pline").textContent; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function () { toast("Tip copied"); }, function () { prompt("Copy your tip", t); }); };
+      if ($("chkfork")) $("chkfork").onclick = function () {
+        $("forkmsg").textContent = "Checking GitHub…";
+        fetch("https://api.github.com/repos/" + encodeURIComponent(S.github) + "/Cybersectober").then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+          if (j && j.fork) { S.forked = 1; st.step = Math.max(st.step, 2); markAct("p"); save(); toast("Fork found"); draw(); }
+          else $("forkmsg").textContent = "We couldn't see a fork at github.com/" + S.github + "/Cybersectober yet. Press Fork on GitHub, then try again.";
+        }).catch(function () { S.forked = 1; st.step = Math.max(st.step, 2); save(); draw(); });
+      };
+      if ($("chkpr")) $("chkpr").onclick = function () {
+        $("prmsg").textContent = "Looking for your pull request…";
+        fetch("https://api.github.com/search/issues?q=" + encodeURIComponent("repo:" + UP + " is:pr author:" + S.github) + "&sort=created&order=desc&per_page=5").then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+          var it = j && j.items && j.items[0];
+          if (!it) { $("prmsg").textContent = "No pull request from @" + S.github + " yet. Press Create pull request on GitHub, then check again."; return; }
+          var first = !st.n; st.n = it.number; st.url = it.html_url; st.step = 4; S.prDays = S.prDays || {}; S.prDays[today()] = 1; markAct("p");
+          if (first) { S.xp += 150; confetti(); track("pr-opened"); }
+          save(); toast(first ? "+150 XP · pull request found!" : "Pull request #" + it.number); draw();
+        }).catch(function () { $("prmsg").textContent = "Couldn't reach GitHub. Try again in a minute."; });
+      };
+    }
+    draw();
+  }
+
+  // ------------------------------------------------------------ Daily streak
+  function markAct(kind) {
+    S.act = S.act || {}; var d = today(), first = !S.act[d]; S.act[d] = S.act[d] || {}; S.act[d][kind] = 1;
+    if (first) { var n = streak(); S.xp += 10 * Math.min(n, 7); setTimeout(function () { toast("Day " + n + " streak! +" + 10 * Math.min(n, 7) + " XP"); if ([3, 7, 14, 21, 31].indexOf(n) !== -1) confetti(); }, 400); }
+    save();
+  }
+  function actDay(d) { return S.act && S.act[d]; }
+  function streakDays() { var out = [], d = new Date(); for (var i = 0; i < 7; i++) { out.unshift(d.toISOString().slice(0, 10)); d.setDate(d.getDate() - 1); } return out; }
+  function streakBar() {
+    var t = today(), a = actDay(t) || {}, n = streak();
+    return '<div class="sbar" id="sbar" role="button" aria-label="Your daily streak">' + streakDays().map(function (k) { var x = actDay(k); return '<i class="' + (x ? (x.p ? "p" : "m") : "") + (k === t ? " today" : "") + '"><em>' + "SMTWTFS".charAt(new Date(k + "T12:00:00").getDay()) + "</em></i>"; }).join("") +
+      '<span class="sgoal"><b>' + ((a.m ? 1 : 0) + (a.p ? 1 : 0)) + '/2</b> today</span></div>';
+  }
+  function streakSheet() {
+    var n = streak(), t = today(), a = actDay(t) || {}, best = 0, run = 0, keys = Object.keys(S.act || {}).sort(), prev = null;
+    keys.forEach(function (k) { var d = new Date(k + "T12:00:00"); run = prev && (d - prev) / 864e5 < 1.5 ? run + 1 : 1; prev = d; best = Math.max(best, run); });
+    var yr = new Date().getFullYear(), oct = []; for (var i = 1; i <= 31; i++) oct.push(yr + "-10-" + (i < 10 ? "0" : "") + i);
+    var pad = new Date(yr + "-10-01T12:00:00").getDay();
+    sheet('<div style="text-align:center"><div class="burst">' + ic("fire", "#F59E0B", 54) + '</div><h2>' + n + "-day streak</h2><p class=\"muted small\" style=\"margin:4px 0 0\">Best: " + best + " days</p></div>" +
+      '<div class="sec"><h3>Today\'s goal</h3><span class="muted small">' + ((a.m ? 1 : 0) + (a.p ? 1 : 0)) + "/2</span></div>" +
+      '<div class="goal' + (a.m ? " ok" : "") + '"><i>' + (a.m ? "✓" : "1") + "</i>Finish a mission</div><div class=\"goal" + (a.p ? " ok" : "") + '"><i>' + (a.p ? "✓" : "2") + "</i>Take a pull request step on GitHub</div>" +
+      '<div class="sec"><h3>CyberSecTOBER calendar</h3></div><div class="cal">' + "SMTWTFS".split("").map(function (c) { return "<b>" + c + "</b>"; }).join("") + new Array(pad + 1).join("<span></span>") +
+      oct.map(function (k) { var x = actDay(k); return '<span class="' + (x ? (x.p ? "p" : "m") : "") + (k === t ? " today" : "") + '">' + (+k.slice(8)) + "</span>"; }).join("") + "</div>" +
+      '<p class="small muted" style="margin-top:10px"><span class="key m"></span> practised &nbsp; <span class="key p"></span> contributed on GitHub</p>' +
+      '<div class="glass pad small" style="margin-top:12px">Do one mission a day to keep your streak. Each day adds bonus XP, up to +70. Milestones at 3, 7, 14, 21 and 31 days.</div>' +
+      '<button class="btn block" data-close style="margin-top:14px">Keep it going</button>');
+  }
 
   // ------------------------------------------------------------ Squad
   var DATA = null;
@@ -1227,7 +1529,7 @@ import * as THREE from "./vendor/three.module.min.js";
     save(); if (score === total) confetti();
     sheet('<div class="win"><div class="burst">' + ic(score === total ? "trophy" : "shield", "#10B981", 54) + "</div><h2>" + (score === total ? "Perfect!" : score / total >= .5 ? "Mission complete" : "Good effort") + '</h2><p class="muted">' + score + " of " + total + " correct</p>" + (gain ? '<div class="xp">+' + gain + " XP</div>" : '<p class="small muted">Beat your best score to earn more XP.</p>') +
       (level() > lvBefore ? '<p><span class="chip v">Level up: ' + LEVELS[level()] + "</span></p>" : "") + (extra || "") + ghCard(m.id) + '<button class="btn ghost block" data-close id="wclose" style="margin-top:10px">Continue</button></div>');
-    track("mission-" + m.id); bindGh($("sbox"));
+    track("mission-" + m.id); markAct("m"); bindGh($("sbox"));
     $("wclose").onclick = function () { closeSheet(); closeStage(); queueNudge(m.id); };
   }
 
@@ -1395,7 +1697,7 @@ import * as THREE from "./vendor/three.module.min.js";
       '<div class="row"><div><label class="lbl" for="rn">People reached</label><input id="rn" type="number" min="1" placeholder="25"></div><div><label class="lbl" for="rd">Date</label><input id="rd" type="date" value="' + today() + '"></div></div>' +
       '<label class="lbl" for="rq">What did people ask or share?</label><textarea id="rq" rows="3" placeholder="e.g. Two traders had received fake payment screenshots last month."></textarea>' +
       '<label class="lbl" for="ru">Your GitHub username</label><input id="ru" value="' + esc(S.github) + '" placeholder="your-username" autocapitalize="off">' +
-      '<button class="btn block" id="go" style="margin-top:16px">' + ic("git", "#04170E", 18) + "Open my report on GitHub</button><p class=\"small muted\" style=\"text-align:center\">Then press Commit changes → Propose changes → Create pull request.</p>");
+      '<button class="btn block" id="go" style="margin-top:16px">' + ic("git", "#fff", 18) + "Write my report</button><p class=\"small muted\" style=\"text-align:center\">Next: fork, commit and open a pull request. We guide every step.</p>");
     $("sbox").querySelectorAll("[data-rc]").forEach(function (b) { b.onclick = function () { c = COMMS.filter(function (x) { return x.id === b.dataset.rc; })[0]; k = S.kits[c.id]; $("sbox").querySelectorAll("[data-rc]").forEach(function (o) { o.classList.toggle("on", o === b); }); }; });
     $("go").onclick = function () {
       var u = cleanUser($("ru").value); if (!validUser(u)) return toast("Add your GitHub username first");
@@ -1404,9 +1706,8 @@ import * as THREE from "./vendor/three.module.min.js";
       var squadList = (S.squad.members.length ? S.squad.members : [u]).map(function (x) { return "@" + x; }).join(", ");
       var body = "---\ntitle: Cyber awareness session at " + place + "\nauthor: " + u + "\ntrack: community\ncommunity: " + c.id + "\ndate: " + d + "\nlanguage: " + (k && k.lang === "pcm" ? "pcm" : "en") + "\npeople_reached: " + n + "\n---\n\n# Cyber awareness session: " + place + "\n\n## Who we reached\n\n" + n + " people (" + c.who.toLowerCase() + ").\n\n## What we shared\n\n" + tips + "\n\n## What people asked\n\n" + ($("rq").value.trim() || "(Write what people asked or shared, without naming anyone.)") + "\n\n## What we learned\n\n(What worked, and what you would do differently next time.)\n\n## Squad\n\n" + squadList + "\n";
       var path = "community/sessions/" + u.toLowerCase() + "-" + c.id + "-" + d + ".md";
-      S.github = u; if (S.reported.indexOf(c.id) === -1) S.reported.push(c.id); S.xp += 100; save();
-      window.open(REPO + "/new/main?filename=" + encodeURIComponent(path) + "&value=" + encodeURIComponent(body), "_blank", "noopener");
-      closeSheet(); confetti(); toast("+100 XP · report opened on GitHub"); render();
+      S.github = u; if (S.reported.indexOf(c.id) === -1) { S.reported.push(c.id); S.xp += 100; } save(); closeSheet();
+      prFlow("teach-" + c.id, { name: "your session report", points: "5 points + Community Defender", kind: "page", built: function () { return { path: path, content: body, prTitle: "Add session report: " + place }; } });
     };
   }
 
