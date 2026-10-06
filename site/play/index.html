@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0A0F1E">
+<meta name="theme-color" content="#FFFFFF">
 <title>Shield Up</title>
 <meta name="description" content="Shield Up: the CyberSecTOBER awareness game. Practise real-life security decisions, protect your market, church, mosque, school or family with an awareness kit, build a squad and earn real badges by contributing.">
 <meta property="og:title" content="Shield Up · CyberSecTOBER">
@@ -11,14 +11,15 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/CyberSecTober/Cybersectober/main/badges/share-card-template.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script data-goatcounter="https://cybersectober.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <style>
-:root{--bg:#0A0F1E;--bg2:#0E1528;--glass:rgba(255,255,255,.045);--glass2:rgba(255,255,255,.08);--line:rgba(255,255,255,.09);--text:#F4F6FB;--muted:#8D96AE;--green:#3DDC97;--violet:#8B7CFF;--amber:#FFB547;--rose:#FF5D7A;--sky:#4CC9F0;--r:22px}
+:root{--bg:#FFFFFF;--bg2:#FFFFFF;--glass:#FFFFFF;--glass2:#FBF0F5;--line:#F2E2EB;--text:#241A33;--muted:#7A6E8A;--green:#10B981;--greend:#047857;--pink:#EC4899;--pinkd:#BE185D;--violet:#EC4899;--amber:#F59E0B;--rose:#F43F5E;--sky:#0EA5E9;--r:22px;--shadow:0 1px 2px rgba(36,26,51,.05),0 8px 24px rgba(190,24,93,.07)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;height:100%;background:#05070F;color:var(--text);font:500 15px/1.5 "Plus Jakarta Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+html,body{margin:0;height:100%;background:#F8EEF3;color:var(--text);font:500 15px/1.5 "Plus Jakarta Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 button{font:inherit;color:inherit;cursor:pointer}
 a{color:var(--green)}
-#app{position:relative;max-width:460px;height:100dvh;margin:0 auto;overflow:hidden;background:radial-gradient(900px 500px at 110% -10%,rgba(139,124,255,.22),transparent 60%),radial-gradient(700px 500px at -20% 30%,rgba(61,220,151,.12),transparent 60%),var(--bg)}
-@media(min-width:520px){#app{height:min(900px,96dvh);margin-top:2dvh;border-radius:34px;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.6)}}
+#app{position:relative;max-width:460px;height:100dvh;margin:0 auto;overflow:hidden;background:radial-gradient(700px 420px at 110% -10%,rgba(236,72,153,.10),transparent 60%),radial-gradient(600px 420px at -20% 35%,rgba(16,185,129,.08),transparent 60%),#FFFFFF}
+@media(min-width:520px){#app{height:min(900px,96dvh);margin-top:2dvh;border-radius:34px;border:1px solid var(--line);box-shadow:0 30px 80px rgba(190,24,93,.14)}}
 .scroll{position:absolute;inset:0 0 78px;overflow-y:auto;padding:calc(18px + env(safe-area-inset-top)) 18px 28px}
 .scroll::-webkit-scrollbar,.stagebody::-webkit-scrollbar{display:none}
 h1,h2,h3{margin:0;font-weight:800;letter-spacing:-.02em;line-height:1.15}
@@ -29,7 +30,7 @@ h1{font-size:28px}h2{font-size:21px}h3{font-size:16px}
 .sec{display:flex;justify-content:space-between;align-items:baseline;margin:26px 2px 12px}
 .sec button{font-size:13px;color:var(--muted);background:none;border:0}
 .chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;padding:4px 10px;border-radius:99px;background:var(--glass2);color:var(--text)}
-.chip.g{background:rgba(61,220,151,.14);color:var(--green)}.chip.v{background:rgba(139,124,255,.16);color:#B8AEFF}.chip.a{background:rgba(255,181,71,.15);color:var(--amber)}.chip.r{background:rgba(255,93,122,.14);color:#FF8DA3}.chip.s{background:rgba(76,201,240,.14);color:var(--sky)}
+.chip.g{background:#D1FAE5;color:#047857}.chip.v{background:#FCE7F3;color:#BE185D}.chip.a{background:#FEF3C7;color:#92400E}.chip.r{background:rgba(244,63,94,.14);color:#BE123C}.chip.s{background:#E0F2FE;color:#0369A1}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:16px;padding:14px 18px;font-weight:800;font-size:15px;background:var(--green);color:#04170E;text-decoration:none;transition:transform .12s}
 .btn:active{transform:scale(.97)}.btn.block{display:flex;width:100%}
 .btn.ghost{background:var(--glass2);color:var(--text)}.btn.violet{background:var(--violet);color:#fff}.btn.amber{background:var(--amber);color:#2A1A00}
@@ -37,13 +38,13 @@ h1{font-size:28px}h2{font-size:21px}h3{font-size:16px}
 .row{display:flex;gap:10px}.row>*{flex:1}
 .ico{width:22px;height:22px;flex:none}
 input,textarea{width:100%;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:14px;padding:13px 14px;color:var(--text);font:600 15px "Plus Jakarta Sans",sans-serif;outline:none}
-input:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(61,220,151,.15)}
+input:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(16,185,129,.15)}
 .lbl{display:block;font-size:13px;color:var(--muted);font-weight:700;margin:14px 2px 6px}
 /* Home */
 .hello{display:flex;align-items:center;gap:12px}
 .ava{width:46px;height:46px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:#04170E;background:linear-gradient(135deg,var(--green),var(--sky));flex:none}
 .hello .t{flex:1;min-width:0}.hello .t b{display:block;font-size:19px}.hello .t span{font-size:13px;color:var(--muted)}
-.streak{display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:14px;background:rgba(255,181,71,.12);color:var(--amber);font-weight:800}
+.streak{display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:14px;background:rgba(245,158,11,.12);color:var(--amber);font-weight:800}
 .levelcard{margin-top:18px;padding:18px;display:flex;align-items:center;gap:16px}
 .ring{position:relative;width:84px;height:84px;flex:none}
 .ring svg{width:100%;height:100%;transform:rotate(-90deg)}
@@ -51,7 +52,7 @@ input:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(6
 .ring b small{font-size:9px;color:var(--muted);letter-spacing:.14em;margin-top:4px}
 .levelcard .t b{display:block;font-size:18px}.levelcard .t span{font-size:13px;color:var(--muted)}
 .hero{position:relative;overflow:hidden;margin-top:14px;padding:20px;border-radius:26px;background:linear-gradient(135deg,#5B4BDB 0%,#2A1E7A 55%,#122a4a 100%);border:1px solid rgba(255,255,255,.12)}
-.hero:after{content:"";position:absolute;right:-50px;top:-50px;width:190px;height:190px;border-radius:50%;background:radial-gradient(circle,rgba(61,220,151,.5),transparent 65%)}
+.hero:after{content:"";position:absolute;right:-50px;top:-50px;width:190px;height:190px;border-radius:50%;background:radial-gradient(circle,rgba(16,185,129,.5),transparent 65%)}
 .hero .k{font-size:11px;font-weight:800;letter-spacing:.16em;color:#CFC8FF;position:relative;z-index:1}
 .hero h2{margin:6px 0;font-size:22px;position:relative;z-index:1}.hero p{margin:0 0 14px;color:#D9D4FF;font-size:14px;position:relative;z-index:1}
 .hero .btn{position:relative;z-index:1}
@@ -66,7 +67,7 @@ input:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(6
 .step:not(:last-child):before{content:"";position:absolute;left:15px;top:32px;bottom:2px;width:2px;background:var(--line)}
 .step .n{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;background:var(--glass2);flex:none;border:1px solid var(--line)}
 .step.done .n{background:var(--green);color:#04170E;border-color:var(--green)}
-.step.now .n{background:var(--violet);color:#fff;border-color:var(--violet);box-shadow:0 0 0 5px rgba(139,124,255,.2)}
+.step.now .n{background:var(--violet);color:#fff;border-color:var(--violet);box-shadow:0 0 0 5px rgba(236,72,153,.2)}
 .step b{display:block;font-size:15px}.step span{font-size:13px;color:var(--muted)}
 /* Missions */
 .filters{display:flex;gap:8px;overflow-x:auto;margin:16px -18px 4px;padding:0 18px}
@@ -80,7 +81,7 @@ input:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(6
 .mis.done .go{background:var(--green);color:#04170E}
 .cats{display:flex;gap:6px;flex-wrap:wrap}
 /* Tabs */
-.tabs{position:absolute;left:0;right:0;bottom:0;height:78px;display:grid;grid-template-columns:repeat(4,1fr);padding:8px 10px calc(8px + env(safe-area-inset-bottom));background:rgba(10,15,30,.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid var(--line);z-index:5}
+.tabs{position:absolute;left:0;right:0;bottom:0;height:78px;display:grid;grid-template-columns:repeat(4,1fr);padding:8px 10px calc(8px + env(safe-area-inset-bottom));background:rgba(255,255,255,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid var(--line);z-index:5}
 .tabs button{background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;font-weight:700;color:var(--muted);position:relative}
 .tabs button.on{color:var(--text)}.tabs button.on .ico{color:var(--green)}
 .tabs button.on:before{content:"";position:absolute;top:-8px;width:26px;height:3px;border-radius:0 0 4px 4px;background:var(--green)}
@@ -92,22 +93,22 @@ input:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(6
 .stagehead .t{flex:1;min-width:0}.stagehead .t b{display:block;font-size:16px}.stagehead .t span{font-size:12px;color:var(--muted)}
 .stagebody{flex:1;overflow-y:auto;padding:4px 18px 30px}
 .prog{height:6px;border-radius:99px;background:var(--glass2);overflow:hidden;margin:0 18px 12px}.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--sky));transition:width .4s;width:0}
-.scene{padding:18px;border-radius:24px;background:linear-gradient(160deg,rgba(139,124,255,.16),rgba(76,201,240,.06));border:1px solid var(--line)}
+.scene{padding:18px;border-radius:24px;background:linear-gradient(160deg,rgba(236,72,153,.16),rgba(14,165,233,.06));border:1px solid var(--line)}
 .scene .k{font-size:11px;font-weight:800;letter-spacing:.14em;color:var(--muted)}
 .scene p{font-size:17px;font-weight:700;margin:8px 0 0;line-height:1.45}
 .choice{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:14px;border-radius:18px;border:1px solid var(--line);background:var(--glass);margin-top:10px;font-weight:700;font-size:15px}
 .choice .l{width:30px;height:30px;border-radius:10px;background:var(--glass2);display:flex;align-items:center;justify-content:center;flex:none;font-weight:800}
-.choice.ok{border-color:var(--green);background:rgba(61,220,151,.1)}.choice.ok .l{background:var(--green);color:#04170E}
-.choice.bad{border-color:var(--rose);background:rgba(255,93,122,.1)}.choice.bad .l{background:var(--rose);color:#fff}
+.choice.ok{border-color:var(--green);background:rgba(16,185,129,.1)}.choice.ok .l{background:var(--green);color:#04170E}
+.choice.bad{border-color:var(--rose);background:rgba(244,63,94,.1)}.choice.bad .l{background:var(--rose);color:#fff}
 .explain{margin-top:12px;padding:14px;border-radius:18px;font-size:14px;animation:rise .3s}
-.explain.good{background:rgba(61,220,151,.1);border:1px solid rgba(61,220,151,.3)}.explain.bad{background:rgba(255,93,122,.1);border:1px solid rgba(255,93,122,.3)}
+.explain.good{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3)}.explain.bad{background:rgba(244,63,94,.1);border:1px solid rgba(244,63,94,.3)}
 @keyframes rise{from{opacity:0;transform:translateY(8px)}}
 /* SOC */
 .alert{display:flex;gap:12px;padding:14px;border-radius:18px;background:var(--glass);border:1px solid var(--line);margin-top:10px;animation:rise .3s}
 .sev{width:6px;border-radius:99px;flex:none}
 .alert .tx{flex:1}.alert b{display:block;font-size:14px}.alert .mono{font-size:12px;color:var(--muted)}
 .acts{display:flex;gap:8px;margin-top:10px}.acts .btn{padding:9px 12px;font-size:13px;border-radius:12px;flex:1}
-.alert.ok{border-color:rgba(61,220,151,.45)}.alert.bad{border-color:rgba(255,93,122,.45)}
+.alert.ok{border-color:rgba(16,185,129,.45)}.alert.bad{border-color:rgba(244,63,94,.45)}
 .timer{height:4px;border-radius:99px;background:var(--glass2);overflow:hidden;margin-top:10px}.timer i{display:block;height:100%;background:var(--amber);width:100%}
 /* Password lab */
 .meter{height:12px;border-radius:99px;background:var(--glass2);overflow:hidden;margin:14px 0 6px}.meter i{display:block;height:100%;border-radius:99px;transition:width .3s,background .3s;width:0}
@@ -118,11 +119,11 @@ input:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(6
 /* Teach */
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .opt{padding:14px;border-radius:18px;border:1px solid var(--line);background:var(--glass);text-align:left}
-.opt.on{border-color:var(--green);background:rgba(61,220,151,.08);box-shadow:0 0 0 3px rgba(61,220,151,.12)}
+.opt.on{border-color:var(--green);background:rgba(16,185,129,.08);box-shadow:0 0 0 3px rgba(16,185,129,.12)}
 .opt b{display:block;font-size:15px}.opt span{font-size:12px;color:var(--muted)}
 .tip{display:flex;gap:10px;align-items:flex-start;padding:12px;border-radius:16px;border:1px solid var(--line);background:var(--glass);margin-top:8px;text-align:left;width:100%;font-size:14px}
 .box{width:22px;height:22px;border-radius:7px;border:2px solid var(--muted);flex:none;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:12px;font-weight:800}
-.tip.on{border-color:rgba(61,220,151,.5)}.tip.on .box,.cl.on .box{background:var(--green);border-color:var(--green);color:#04170E}
+.tip.on{border-color:rgba(16,185,129,.5)}.tip.on .box,.cl.on .box{background:var(--green);border-color:var(--green);color:#04170E}
 .kit{border-radius:26px;padding:22px;background:linear-gradient(150deg,#3DDC97 0%,#1BA38A 45%,#1C3D6E 100%);color:#04170E}
 .kit .k{font-size:11px;font-weight:800;letter-spacing:.16em;opacity:.75}
 .kit h2{font-size:23px;margin:6px 0 12px;color:#04170E}
@@ -148,7 +149,7 @@ input:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(6
 @keyframes up{from{transform:translateY(100%)}}
 .grab{width:42px;height:5px;border-radius:99px;background:var(--line);margin:4px auto 16px}
 .win{text-align:center}
-.burst{width:110px;height:110px;margin:4px auto 10px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,rgba(61,220,151,.35),transparent 70%)}
+.burst{width:110px;height:110px;margin:4px auto 10px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,rgba(16,185,129,.35),transparent 70%)}
 .win .xp{font-size:40px;font-weight:800;color:var(--green);margin:4px 0}
 .toast{position:absolute;left:50%;top:calc(16px + env(safe-area-inset-top));transform:translateX(-50%);z-index:60;padding:10px 16px;border-radius:14px;background:var(--text);color:var(--bg);font-weight:800;font-size:14px;white-space:nowrap;animation:tin .3s, tout .3s 2.2s forwards;box-shadow:0 10px 30px rgba(0,0,0,.4)}
 @keyframes tin{from{opacity:0;transform:translate(-50%,-10px)}}@keyframes tout{to{opacity:0;transform:translate(-50%,-10px)}}
@@ -156,13 +157,13 @@ input:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(6
 .confetti i{position:absolute;top:-10px;width:8px;height:12px;border-radius:2px;animation:fall 1.7s ease-in forwards}
 @keyframes fall{to{transform:translateY(105vh) rotate(680deg)}}
 /* Onboarding */
-.onb{position:absolute;inset:0;z-index:50;background:radial-gradient(700px 500px at 100% 0%,rgba(139,124,255,.3),transparent 60%),radial-gradient(600px 500px at 0% 100%,rgba(61,220,151,.18),transparent 60%),var(--bg);display:none;flex-direction:column;padding:calc(22px + env(safe-area-inset-top)) 22px calc(22px + env(safe-area-inset-bottom));overflow-y:auto}
+.onb{position:absolute;inset:0;z-index:50;background:radial-gradient(700px 500px at 100% 0%,rgba(236,72,153,.3),transparent 60%),radial-gradient(600px 500px at 0% 100%,rgba(16,185,129,.18),transparent 60%),var(--bg);display:none;flex-direction:column;padding:calc(22px + env(safe-area-inset-top)) 22px calc(22px + env(safe-area-inset-bottom));overflow-y:auto}
 .onb.on{display:flex}
 .onb .art{flex:1;display:flex;align-items:center;justify-content:center;min-height:200px}
 .onb h1{font-size:30px}.onb p{color:var(--muted);font-size:16px;margin:10px 0 0}
 .dots{display:flex;gap:6px;justify-content:center;margin:18px 0}.dots i{width:8px;height:8px;border-radius:99px;background:var(--glass2);transition:width .3s}.dots i.on{width:24px;background:var(--green)}
 .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px;letter-spacing:.02em}
-.orb{width:220px;height:220px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.18),rgba(139,124,255,.18) 40%,rgba(61,220,151,.08) 70%,transparent 72%);position:relative}
+.orb{width:220px;height:220px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.18),rgba(236,72,153,.18) 40%,rgba(16,185,129,.08) 70%,transparent 72%);position:relative}
 .orb:before{content:"";position:absolute;inset:-14px;border-radius:50%;border:1px dashed rgba(255,255,255,.14);animation:spin 30s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
@@ -174,23 +175,98 @@ input:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(6
 .map.night{background:linear-gradient(180deg,#070B1C 0%,#13204A 45%,#1E2F5E 75%,#273E5E 100%)}
 .map canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .labels{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
-.lbl3{position:absolute;left:0;top:0;pointer-events:auto;display:flex;align-items:center;gap:6px;padding:5px 10px 5px 8px;border-radius:99px;border:1px solid rgba(255,255,255,.22);background:rgba(10,15,30,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;font:700 12px/1.1 "Plus Jakarta Sans",system-ui,sans-serif;white-space:nowrap;box-shadow:0 6px 16px rgba(0,0,0,.25);transform-origin:50% 100%}
+.lbl3{position:absolute;left:0;top:0;pointer-events:auto;display:flex;align-items:center;gap:6px;padding:5px 10px 5px 8px;border-radius:99px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.86);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;font:700 12px/1.1 "Plus Jakarta Sans",system-ui,sans-serif;white-space:nowrap;box-shadow:0 6px 16px rgba(0,0,0,.25);transform-origin:50% 100%}
 .lbl3 i{width:8px;height:8px;border-radius:99px;flex:none;box-shadow:0 0 8px currentColor}
 .lbl3.sp{background:linear-gradient(135deg,rgba(91,75,219,.95),rgba(42,30,122,.95));border-color:rgba(184,174,255,.5);font-size:13px}
-.lbl3:hover{background:rgba(30,40,70,.9)}
-.hud{position:absolute;left:14px;right:14px;top:calc(12px + env(safe-area-inset-top));display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:20px;background:rgba(10,15,30,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);pointer-events:none}
+.lbl3:hover{background:#FFF1F7}
+.hud{position:absolute;left:14px;right:14px;top:calc(12px + env(safe-area-inset-top));display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:20px;background:rgba(255,255,255,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);pointer-events:none}
 .hud .ava{width:40px;height:40px;border-radius:14px;font-size:16px}
 .hud .t{flex:1;min-width:0}.hud .t b{display:flex;align-items:center;font-size:15px;white-space:nowrap}
 .xpb{height:6px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden;margin-top:6px}.xpb i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--sky));border-radius:99px}
 .hud .streak{padding:6px 10px;border-radius:12px;font-size:14px}
 .hud2{position:absolute;left:14px;top:calc(82px + env(safe-area-inset-top));display:flex;gap:6px;pointer-events:none}
-.hud2 .chip{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);background:rgba(10,15,30,.7);border:1px solid var(--line)}
+.hud2 .chip{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);background:rgba(255,255,255,.86);border:1px solid var(--line)}
 .mapbtns{position:absolute;right:14px;bottom:92px;display:flex;flex-direction:column;gap:8px}
-.mapbtns button{width:42px;height:42px;border-radius:14px;border:1px solid var(--line);background:rgba(10,15,30,.75);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.mapbtns button{width:42px;height:42px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center}
 .nextpill{position:absolute;left:14px;right:70px;bottom:14px;display:flex;align-items:center;gap:12px;padding:10px 10px 10px 10px;border-radius:22px;border:1px solid rgba(255,255,255,.14);background:linear-gradient(135deg,rgba(91,75,219,.92),rgba(42,30,122,.92));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);text-align:left;box-shadow:0 12px 30px rgba(0,0,0,.35)}
 .nextpill .ni{width:42px;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex:none;background:rgba(255,255,255,.12)!important}
 .nextpill .tx{flex:1;min-width:0}.nextpill .k{display:block;font-size:10px;font-weight:800;letter-spacing:.14em;color:#CFC8FF}.nextpill b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .nextpill .gob{background:var(--green);color:#04170E;font-weight:800;border-radius:14px;padding:10px 16px;flex:none}
+
+/* Light theme: white first, pink and green accents */
+a{color:var(--pinkd)}
+.glass,.mis,.choice,.alert,.opt,.tip,.medal,.comm{box-shadow:var(--shadow)}
+.btn{background:linear-gradient(135deg,#F472B6,#EC4899 55%,#DB2777);color:#fff;box-shadow:0 8px 20px rgba(236,72,153,.28)}
+.btn.ghost{background:var(--glass2);color:var(--text);box-shadow:none}
+.btn.green{background:linear-gradient(135deg,#34D399,#10B981);color:#fff;box-shadow:0 8px 20px rgba(16,185,129,.25)}
+.btn.violet{background:linear-gradient(135deg,#F472B6,#DB2777);color:#fff}
+.btn.amber{background:#F59E0B;color:#fff}
+input,textarea{background:#fff;border:1.5px solid #EBD9E3;color:var(--text)}
+input:focus,textarea:focus{border-color:var(--pink);box-shadow:0 0 0 4px rgba(236,72,153,.14)}
+.ava{background:linear-gradient(135deg,#F472B6,#10B981);color:#fff;overflow:hidden}
+.ava img{width:100%;height:100%;object-fit:cover;display:block}
+.streak{background:#FEF3C7;color:#B45309}
+.hero{background:linear-gradient(135deg,#F9A8D4 0%,#EC4899 50%,#DB2777 100%);border:0;color:#fff;box-shadow:0 14px 34px rgba(219,39,119,.25)}
+.hero:after{background:radial-gradient(circle,rgba(167,243,208,.75),transparent 65%)}
+.hero .k{color:#FFE4F1}.hero p{color:#FFF1F7}
+.bar{background:var(--glass2)}
+.step.done .n,.mis.done .go,.checks div.ok i,.tip.on .box,.cl.on .box{color:#fff}
+.step.now .n{background:var(--pink);border-color:var(--pink);box-shadow:0 0 0 5px rgba(236,72,153,.18)}
+.filters button{background:#fff}
+.filters button.on{background:var(--pink);color:#fff;border-color:var(--pink)}
+.choice.ok .l{color:#fff}
+.tabs{background:rgba(255,255,255,.94);box-shadow:0 -6px 24px rgba(190,24,93,.06)}
+.tabs button.on{color:var(--pinkd)}.tabs button.on .ico{color:var(--pink)}.tabs button.on:before{background:var(--pink)}
+.stage{background:#fff}
+.prog i,.xpb i{background:linear-gradient(90deg,var(--pink),var(--green))}
+.scene{background:linear-gradient(160deg,#FFF1F7,#F0FDF8);border-color:#F6DCE8}
+.explain.good{background:#ECFDF5;border-color:#A7F3D0}.explain.bad{background:#FFF1F2;border-color:#FECDD3}
+.kit{background:linear-gradient(150deg,#D1FAE5 0%,#A7F3D0 45%,#FBCFE8 100%);color:#064E3B}.kit h2{color:#064E3B}
+.sheet{background:rgba(36,26,51,.32)}
+.sheet .sbox{background:#fff;border-top:0;box-shadow:0 -12px 40px rgba(36,26,51,.12)}
+.burst{background:radial-gradient(circle,rgba(236,72,153,.22),transparent 70%)}
+.win .xp{color:var(--pink)}
+.toast{background:#241A33;color:#fff;box-shadow:0 10px 30px rgba(36,26,51,.25)}
+.onb{background:radial-gradient(700px 500px at 100% 0%,rgba(236,72,153,.16),transparent 60%),radial-gradient(600px 500px at 0% 100%,rgba(16,185,129,.12),transparent 60%),#fff}
+.orb{background:radial-gradient(circle at 35% 30%,#fff,#FCE7F3 45%,#D1FAE5 70%,transparent 72%)}
+.orb:before{border-color:rgba(236,72,153,.25)}
+.dots i.on{background:var(--pink)}
+.map{background:linear-gradient(180deg,#FFFFFF 0%,#FFF3F8 38%,#FDE7F1 62%,#E3F8EE 100%)}
+.map.night{background:linear-gradient(180deg,#1A1030 0%,#2A1748 45%,#3A1F5A 75%,#21334A 100%)}
+.lbl3{background:rgba(255,255,255,.94);color:#241A33;border:1px solid #F6D3E3;box-shadow:0 6px 16px rgba(190,24,93,.12)}
+.lbl3.sp{background:linear-gradient(135deg,#F472B6,#DB2777);color:#fff;border-color:#fff}
+.lbl3.mine{box-shadow:0 0 0 2px #10B981,0 6px 16px rgba(16,185,129,.25)}
+.hud{background:rgba(255,255,255,.9);border-color:#F6DCE8;box-shadow:0 8px 24px rgba(190,24,93,.1);pointer-events:auto}
+.hud .ava{cursor:pointer}
+.hud2 .chip{background:rgba(255,255,255,.9);border-color:#F6DCE8}
+.mapbtns button{background:rgba(255,255,255,.94);border-color:#F6DCE8;color:#241A33;box-shadow:0 4px 14px rgba(190,24,93,.1)}
+.mapbtns button.pr{background:linear-gradient(135deg,#34D399,#10B981);color:#fff;border-color:#fff}
+.nextpill{background:linear-gradient(135deg,rgba(244,114,182,.97),rgba(219,39,119,.97));border-color:rgba(255,255,255,.6);color:#fff;box-shadow:0 12px 30px rgba(219,39,119,.3)}
+.nextpill .k{color:#FFE4F1}.nextpill .ni{background:rgba(255,255,255,.22)!important}
+.nextpill .gob{background:#fff;color:#BE185D}
+/* Contribute nudge */
+.nudge{position:absolute;left:12px;right:12px;top:calc(12px + env(safe-area-inset-top));z-index:45;display:flex;gap:12px;align-items:center;padding:12px;border-radius:20px;background:#fff;border:1px solid #F6DCE8;box-shadow:0 16px 40px rgba(190,24,93,.2);animation:ndrop .45s cubic-bezier(.2,.9,.2,1.2)}
+.nudge .gi{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex:none;background:linear-gradient(135deg,#34D399,#10B981);color:#fff}
+.nudge .tx{flex:1;min-width:0}.nudge .tx b{display:block;font-size:14px}.nudge .tx span{display:block;font-size:12px;color:var(--muted)}
+.nudge .btn{padding:10px 12px;font-size:13px;border-radius:12px;flex:none}
+.nudge .x{background:none;border:0;color:var(--muted);font-size:20px;padding:0 2px;flex:none}
+@keyframes ndrop{from{opacity:0;transform:translateY(-30px) scale(.96)}}
+.ghcard{display:flex;gap:12px;align-items:center;padding:14px;border-radius:20px;background:linear-gradient(135deg,#ECFDF5,#FFF1F7);border:1px solid #D9F2E6;margin-top:12px;text-align:left}
+/* Character studio */
+.studio{position:relative;height:290px;margin:0 -18px;background:radial-gradient(260px 150px at 50% 88%,rgba(236,72,153,.18),transparent 70%),linear-gradient(180deg,#FFF6FA,#FFFFFF 60%,#F0FDF8)}
+.studio canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab}
+.studio .badge{position:absolute;left:50%;top:12px;transform:translateX(-50%);padding:6px 14px;border-radius:99px;background:#fff;box-shadow:var(--shadow);font-weight:800;font-size:13px;white-space:nowrap}
+.roles{display:flex;gap:10px;overflow-x:auto;margin:0 -18px;padding:4px 18px 8px;scroll-snap-type:x mandatory}
+.roles::-webkit-scrollbar{display:none}
+.role{flex:0 0 132px;scroll-snap-align:start;padding:12px;border-radius:20px;border:1.5px solid var(--line);background:#fff;text-align:left;box-shadow:var(--shadow)}
+.role.on{border-color:var(--pink);box-shadow:0 0 0 4px rgba(236,72,153,.14)}
+.role b{display:block;font-size:14px;margin-top:8px}.role span{display:block;font-size:11px;color:var(--muted);line-height:1.35;margin-top:2px}
+.sw{display:flex;gap:10px;flex-wrap:wrap}
+.sw button{width:38px;height:38px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 1.5px var(--line)}
+.sw button.on{box-shadow:0 0 0 3px var(--pink)}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pills button{border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:8px 13px;font-weight:700;font-size:13px}
+.pills button.on{background:var(--pink);border-color:var(--pink);color:#fff}
 </style>
 </head>
 <body>
@@ -241,6 +317,7 @@ import * as THREE from "./vendor/three.module.min.js";
     trophy: '<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/>',
     download: '<path d="M12 3v12m-5-5 5 5 5-5M4 21h16"/>', plus: '<path d="M12 5v14M5 12h14"/>',
     book: '<path d="M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4zM20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z"/>',
+    search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>',
     sync: '<path d="M20 11a8 8 0 0 0-14-5l-2 2M4 13a8 8 0 0 0 14 5l2-2M4 4v4h4M20 20v-4h-4"/>'
   };
   function ic(n, col, sz) { return '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="' + (col || "currentColor") + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"' + (sz ? ' style="width:' + sz + "px;height:" + sz + 'px"' : "") + ">" + I[n] + "</svg>"; }
@@ -248,11 +325,11 @@ import * as THREE from "./vendor/three.module.min.js";
 
   // ------------------------------------------------------------ Content
   var COMMS = [
-    { id: "market", name: "Market", who: "Traders and market women", icon: "store", col: "#FFB547" },
-    { id: "faith", name: "Church & Mosque", who: "Congregations and fellowships", icon: "faith", col: "#8B7CFF" },
-    { id: "school", name: "Schools", who: "Students and teachers", icon: "school", col: "#4CC9F0" },
-    { id: "family", name: "Family group", who: "Parents, aunties and elders", icon: "family", col: "#FF5D7A" },
-    { id: "workplace", name: "Workplace", who: "Colleagues and staff", icon: "office", col: "#3DDC97" }
+    { id: "market", name: "Market", who: "Traders and market women", icon: "store", col: "#F59E0B" },
+    { id: "faith", name: "Church & Mosque", who: "Congregations and fellowships", icon: "faith", col: "#EC4899" },
+    { id: "school", name: "Schools", who: "Students and teachers", icon: "school", col: "#0EA5E9" },
+    { id: "family", name: "Family group", who: "Parents, aunties and elders", icon: "family", col: "#F43F5E" },
+    { id: "workplace", name: "Workplace", who: "Colleagues and staff", icon: "office", col: "#10B981" }
   ];
   var TIPS = {
     otp: { en: "Never share your OTP or PIN. Your bank will never ask for it.", pcm: "No ever give anybody your OTP or PIN. Your bank no go ever ask you for am." },
@@ -366,40 +443,41 @@ import * as THREE from "./vendor/three.module.min.js";
   COMMS.forEach(function (c) {
     MISSIONS.push({ id: "decide-" + c.id, cat: "practise", comm: c.id, title: { market: "Market day decisions", faith: "Fellowship decisions", school: "Campus decisions", family: "Family group decisions", workplace: "Office decisions" }[c.id], desc: "4 real-life situations. What would you do?", icon: "brain", col: c.col, xp: 40 });
   });
-  MISSIONS.push({ id: "soc", cat: "practise", title: "SOC console", desc: "Triage live alerts before the timer runs out.", icon: "radar", col: "#4CC9F0", xp: 60 });
-  MISSIONS.push({ id: "redteam", cat: "redteam", title: "Red team lab", desc: "Find the flaw on practice targets. Ethical hacking only.", icon: "bug", col: "#FF5D7A", xp: 60 });
+  MISSIONS.push({ id: "soc", cat: "practise", title: "SOC console", desc: "Triage live alerts before the timer runs out.", icon: "radar", col: "#0EA5E9", xp: 60 });
+  MISSIONS.push({ id: "redteam", cat: "redteam", title: "Red team lab", desc: "Find the flaw on practice targets. Ethical hacking only.", icon: "bug", col: "#F43F5E", xp: 60 });
   MISSIONS.push({ id: "grc", cat: "practise", title: "GRC decisions", desc: "Risk, compliance and data protection calls.", icon: "shield", col: "#C9C2B0", xp: 50, items: GRCQ, kick: "Advise the council" });
-  MISSIONS.push({ id: "ai", cat: "practise", title: "AI security decisions", desc: "Prompt injection, AI agents and secrets.", icon: "brain", col: "#B8AEFF", xp: 50, items: AIQ, kick: "Keep the AI safe" });
+  MISSIONS.push({ id: "ai", cat: "practise", title: "AI security decisions", desc: "Prompt injection, AI agents and secrets.", icon: "brain", col: "#F9A8D4", xp: 50, items: AIQ, kick: "Keep the AI safe" });
   MISSIONS.push({ id: "api", cat: "practise", title: "API gatekeeper", desc: "Which requests should never get through?", icon: "key", col: "#9AA4B2", xp: 50, items: APIQ, kick: "Guard the API" });
   MISSIONS.push({ id: "vdp", cat: "redteam", title: "Responsible disclosure", desc: "Found a bug? Learn to report it the right way.", icon: "bug", col: "#2EC4B6", xp: 60, items: VDPQ, kick: "Disclose responsibly" });
-  MISSIONS.push({ id: "password", cat: "practise", title: "Passphrase lab", desc: "Build a passphrase that would take centuries to crack.", icon: "key", col: "#FFB547", xp: 40 });
+  MISSIONS.push({ id: "password", cat: "practise", title: "Passphrase lab", desc: "Build a passphrase that would take centuries to crack.", icon: "key", col: "#F59E0B", xp: 40 });
   COMMS.forEach(function (c) {
     MISSIONS.push({ id: "teach-" + c.id, cat: "teach", comm: c.id, title: "Protect your " + c.name.toLowerCase(), desc: "Build an awareness kit for " + c.who.toLowerCase() + ", then run a session.", icon: "mega", col: c.col, xp: 100 });
   });
   var CREATE = [
-    { id: "c-report", title: "Report your awareness session", desc: "Ran a session? Report it as a squad. Community Defender badge.", icon: "mega", col: "#3DDC97", pts: "5 pts", action: "report" },
-    { id: "c-tip", title: "Add a security tip", desc: "5 minutes. Share something you learned.", icon: "pen", col: "#FFB547", pts: "3 pts", href: "join#tip" },
-    { id: "c-post", title: "Share a #CyberSecTOBER post", desc: "2 minutes. LinkedIn, X, Instagram or TikTok.", icon: "share", col: "#4CC9F0", pts: "Badge", href: "join#post" },
-    { id: "c-blog", title: "Turn your blog post into a guide", desc: "Have a security article? Bring it into the library.", icon: "book", col: "#8B7CFF", pts: "10 pts", href: REPO + "/issues?q=is%3Aopen+%22blog+post+into+a+guide%22" },
-    { id: "c-red", title: "Write a red team or blue team walkthrough", desc: "Practice labs, CTFs and log investigations.", icon: "bug", col: "#FF5D7A", pts: "10–15 pts", href: REPO + "/issues?q=is%3Aopen+label%3Aadvanced" },
-    { id: "c-quiz", title: "Write a quiz or scam story", desc: "We set the file up for you.", icon: "brain", col: "#3DDC97", pts: "5 pts", href: "join?kind=quiz#write" }
+    { id: "c-report", title: "Report your awareness session", desc: "Ran a session? Report it as a squad. Community Defender badge.", icon: "mega", col: "#10B981", pts: "5 pts", action: "report" },
+    { id: "c-tip", title: "Add a security tip", desc: "5 minutes. Share something you learned.", icon: "pen", col: "#F59E0B", pts: "3 pts", href: "join#tip" },
+    { id: "c-post", title: "Share a #CyberSecTOBER post", desc: "2 minutes. LinkedIn, X, Instagram or TikTok.", icon: "share", col: "#0EA5E9", pts: "Badge", href: "join#post" },
+    { id: "c-blog", title: "Turn your blog post into a guide", desc: "Have a security article? Bring it into the library.", icon: "book", col: "#EC4899", pts: "10 pts", href: REPO + "/issues?q=is%3Aopen+%22blog+post+into+a+guide%22" },
+    { id: "c-red", title: "Write a red team or blue team walkthrough", desc: "Practice labs, CTFs and log investigations.", icon: "bug", col: "#F43F5E", pts: "10–15 pts", href: REPO + "/issues?q=is%3Aopen+label%3Aadvanced" },
+    { id: "c-quiz", title: "Write a quiz or scam story", desc: "We set the file up for you.", icon: "brain", col: "#10B981", pts: "5 pts", href: "join?kind=quiz#write" }
   ];
   var LEVELS = ["Rookie", "Watcher", "Defender", "Guardian", "Champion", "Legend"];
   var MEDALS = [
-    { id: "first", name: "First mission", col: "#3DDC97", icon: "check", test: function () { return Object.keys(S.done).length >= 1; } },
-    { id: "decider", name: "Sharp decider", col: "#8B7CFF", icon: "brain", test: function () { return COMMS.filter(function (c) { return S.done["decide-" + c.id]; }).length >= 3; } },
-    { id: "soc", name: "SOC sentinel", col: "#4CC9F0", icon: "radar", test: function () { return !!S.done.soc; } },
-    { id: "red", name: "Ethical hacker", col: "#FF5D7A", icon: "bug", test: function () { return !!S.done.redteam; } },
-    { id: "key", name: "Passphrase pro", col: "#FFB547", icon: "key", test: function () { return !!S.done.password; } },
-    { id: "teach", name: "Community teacher", col: "#3DDC97", icon: "mega", test: function () { return COMMS.some(function (c) { return S.done["teach-" + c.id]; }); } },
-    { id: "squad", name: "Squad captain", col: "#8B7CFF", icon: "family", test: function () { return S.squad.members.length >= 3; } },
-    { id: "report", name: "Session reported", col: "#FFB547", icon: "git", test: function () { return S.reported.length >= 1; } },
-    { id: "real", name: "Verified contributor", col: "#3DDC97", icon: "trophy", test: function () { return !!(S.real && S.real.points); } }
+    { id: "first", name: "First mission", col: "#10B981", icon: "check", test: function () { return Object.keys(S.done).length >= 1; } },
+    { id: "decider", name: "Sharp decider", col: "#EC4899", icon: "brain", test: function () { return COMMS.filter(function (c) { return S.done["decide-" + c.id]; }).length >= 3; } },
+    { id: "soc", name: "SOC sentinel", col: "#0EA5E9", icon: "radar", test: function () { return !!S.done.soc; } },
+    { id: "red", name: "Ethical hacker", col: "#F43F5E", icon: "bug", test: function () { return !!S.done.redteam; } },
+    { id: "key", name: "Passphrase pro", col: "#F59E0B", icon: "key", test: function () { return !!S.done.password; } },
+    { id: "teach", name: "Community teacher", col: "#10B981", icon: "mega", test: function () { return COMMS.some(function (c) { return S.done["teach-" + c.id]; }); } },
+    { id: "squad", name: "Squad captain", col: "#EC4899", icon: "family", test: function () { return S.squad.members.length >= 3; } },
+    { id: "report", name: "Session reported", col: "#F59E0B", icon: "git", test: function () { return S.reported.length >= 1; } },
+    { id: "real", name: "Verified contributor", col: "#10B981", icon: "trophy", test: function () { return !!(S.real && S.real.points); } }
   ];
 
   // ------------------------------------------------------------ State
   var S = load() || null;
-  function blank(name, gh, comm) { return { v: 1, name: name, github: gh, focus: comm, xp: 0, done: {}, kits: {}, reported: [], squad: { name: "", members: gh ? [gh] : [] }, real: null, days: [today()] }; }
+  if (S && !S.nudged) S.nudged = {};
+  function blank(name, gh, comm) { return { v: 1, name: name, github: gh, focus: comm, xp: 0, done: {}, kits: {}, reported: [], nudged: {}, squad: { name: "", members: gh ? [gh] : [] }, real: null, days: [today()] }; }
   function load() { try { var s = JSON.parse(store.get(SAVE)); return s && s.v === 1 ? s : null; } catch (e) { return null; } }
   function save() { store.set(SAVE, JSON.stringify(S)); if (S.github) store.set("cybersectober-user", S.github); }
   function level() { return Math.min(LEVELS.length - 1, Math.floor(S.xp / 200)); }
@@ -409,11 +487,11 @@ import * as THREE from "./vendor/three.module.min.js";
 
   // ------------------------------------------------------------ UI helpers
   function toast(t) { document.querySelectorAll(".toast").forEach(function (x) { x.remove(); }); var d = document.createElement("div"); d.className = "toast"; d.textContent = t; $("app").appendChild(d); setTimeout(function () { d.remove(); }, 2600); }
-  function confetti() { var c = document.createElement("div"); c.className = "confetti"; var cols = ["#3DDC97", "#8B7CFF", "#FFB547", "#4CC9F0", "#FF5D7A"]; for (var i = 0; i < 70; i++) { var p = document.createElement("i"); p.style.left = Math.random() * 100 + "%"; p.style.background = cols[i % 5]; p.style.animationDelay = Math.random() * .4 + "s"; p.style.animationDuration = 1.2 + Math.random() * .9 + "s"; c.appendChild(p); } $("app").appendChild(c); setTimeout(function () { c.remove(); }, 2800); }
+  function confetti() { var c = document.createElement("div"); c.className = "confetti"; var cols = ["#10B981", "#EC4899", "#F59E0B", "#0EA5E9", "#F43F5E"]; for (var i = 0; i < 70; i++) { var p = document.createElement("i"); p.style.left = Math.random() * 100 + "%"; p.style.background = cols[i % 5]; p.style.animationDelay = Math.random() * .4 + "s"; p.style.animationDuration = 1.2 + Math.random() * .9 + "s"; c.appendChild(p); } $("app").appendChild(c); setTimeout(function () { c.remove(); }, 2800); }
   function sheet(html) { $("sbox").innerHTML = '<div class="grab"></div>' + html; $("sheet").classList.add("on"); }
   function closeSheet() { $("sheet").classList.remove("on"); }
   $("sheet").addEventListener("click", function (e) { if (e.target === this || e.target.closest("[data-close]")) closeSheet(); });
-  function ring(pct, size, stroke, col) { var r = (size - stroke) / 2, c = 2 * Math.PI * r; return '<svg viewBox="0 0 ' + size + " " + size + '"><circle cx="' + size / 2 + '" cy="' + size / 2 + '" r="' + r + '" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="' + stroke + '"/><circle cx="' + size / 2 + '" cy="' + size / 2 + '" r="' + r + '" fill="none" stroke="' + (col || "url(#rg)") + '" stroke-width="' + stroke + '" stroke-linecap="round" stroke-dasharray="' + c + '" stroke-dashoffset="' + c * (1 - pct / 100) + '"/><defs><linearGradient id="rg" x1="0" x2="1"><stop offset="0" stop-color="#3DDC97"/><stop offset="1" stop-color="#4CC9F0"/></linearGradient></defs></svg>'; }
+  function ring(pct, size, stroke, col) { var r = (size - stroke) / 2, c = 2 * Math.PI * r; return '<svg viewBox="0 0 ' + size + " " + size + '"><circle cx="' + size / 2 + '" cy="' + size / 2 + '" r="' + r + '" fill="none" stroke="#F6E3EC" stroke-width="' + stroke + '"/><circle cx="' + size / 2 + '" cy="' + size / 2 + '" r="' + r + '" fill="none" stroke="' + (col || "url(#rg)") + '" stroke-width="' + stroke + '" stroke-linecap="round" stroke-dasharray="' + c + '" stroke-dashoffset="' + c * (1 - pct / 100) + '"/><defs><linearGradient id="rg" x1="0" x2="1"><stop offset="0" stop-color="#10B981"/><stop offset="1" stop-color="#0EA5E9"/></linearGradient></defs></svg>'; }
 
   // ------------------------------------------------------------ Tabs
   var tab = "home", filter = "all";
@@ -428,29 +506,179 @@ import * as THREE from "./vendor/three.module.min.js";
   }
   function pathStage() { if (S.real && S.real.points) return 4; if (S.reported.length || S.clickedCreate) return 3; if (Object.keys(S.kits).length) return 2; if (Object.keys(S.done).length) return 1; return 0; }
 
+  // ------------------------------------------------------------ People: rigged humans with cyber roles and outfits
+  var SKINS = ["#4A2C1D", "#6B3F26", "#8D5A3B", "#B27A52", "#D9A47A", "#F1CDB0"];
+  var HAIRS = [["short", "Short"], ["afro", "Afro"], ["braids", "Braids"], ["locs", "Locs"], ["bun", "Bun"], ["gele", "Gele"], ["hijab", "Hijab"], ["cap", "Cap"], ["bald", "Clean cut"]];
+  var HAIR_COLS = ["#17110F", "#3B2416", "#6B4423", "#B9853A", "#D9D4CF", "#EC4899"];
+  var FABRICS = ["#EC4899", "#10B981", "#F59E0B", "#2563EB", "#7C3AED", "#FFFFFF"];
+  var ROLES = [
+    { id: "red", name: "Red Teamer", d: "Ethical hacker who finds the flaws first", district: "red", tops: ["#E11D48", "#1F2937", "#7C3AED"], bottom: "#1F2937", style: "hoodie", acc: "laptop", icon: ["bug", "#E11D48"] },
+    { id: "blue", name: "Blue Teamer", d: "SOC analyst who spots attacks in the logs", district: "soc", tops: ["#1D4ED8", "#0F766E", "#334155"], bottom: "#334155", style: "jacket", acc: "headset", icon: ["radar", "#1D4ED8"] },
+    { id: "grc", name: "GRC Analyst", d: "Risk, policy and compliance", district: "grc", tops: ["#334155", "#7C2D12", "#BE185D"], bottom: "#475569", style: "blazer", acc: "clipboard", icon: ["shield", "#334155"] },
+    { id: "ai", name: "AI Security", d: "Keeps AI assistants and agents safe", district: "ai", tops: ["#FFFFFF", "#FCE7F3", "#ECFDF5"], bottom: "#64748B", style: "labcoat", acc: "visor", icon: ["brain", "#EC4899"] },
+    { id: "api", name: "AppSec & API", d: "Secures apps and every request", district: "api", tops: ["#10B981", "#0EA5E9", "#F472B6"], bottom: "#1E293B", style: "hoodie", acc: "keycard", icon: ["key", "#10B981"] },
+    { id: "hunter", name: "Bug Hunter", d: "Finds bugs and reports them responsibly", district: "vdp", tops: ["#F97316", "#10B981", "#EC4899"], bottom: "#374151", style: "vest", acc: "magnifier", icon: ["bug", "#F97316"] },
+    { id: "dfir", name: "Forensics", d: "Investigates what happened after an attack", district: "soc", tops: ["#A16207", "#57534E", "#1E3A8A"], bottom: "#292524", style: "trench", acc: "magnifier", icon: ["search", "#A16207"] },
+    { id: "cloud", name: "Cloud Security", d: "Locks down cloud accounts and data", district: "tools", tops: ["#0EA5E9", "#FFFFFF", "#6366F1"], bottom: "#1E293B", style: "jacket", acc: "backpack", icon: ["sync", "#0EA5E9"] },
+    { id: "builder", name: "Security Builder", d: "Builds tools that defenders use", district: "tools", tops: ["#FACC15", "#F97316", "#10B981"], bottom: "#1F2937", style: "vest", acc: "wrench", icon: ["pen", "#CA8A04"] },
+    { id: "aware", name: "Awareness Champion", d: "Teaches people to spot scams", district: "aware", tops: ["#EC4899", "#10B981", "#FFFFFF"], bottom: "#1F2937", style: "tee", acc: "megaphone", icon: ["mega", "#EC4899"] }
+  ];
+  var ROLE_BY = {}; ROLES.forEach(function (r) { ROLE_BY[r.id] = r; });
+  function defaultChar() { return { role: "aware", skin: 2, hair: "afro", hc: 0, top: 0 }; }
+  function randomChar(i) { var r = ROLES[i % ROLES.length], hs = HAIRS[(i * 7 + 3) % HAIRS.length][0]; return { role: r.id, skin: (i * 5 + 1) % SKINS.length, hair: hs, hc: (i * 3) % 4, top: (i * 11) % 3 }; }
+
+  var HG = {}, HMAT = {};
+  function hgeo(k, fn) { return HG[k] || (HG[k] = fn()); }
+  function hmat(c, o) { var k = c + (o ? JSON.stringify(o) : ""); return HMAT[k] || (HMAT[k] = new THREE.MeshStandardMaterial(Object.assign({ color: c, roughness: .7, metalness: 0 }, o || {}))); }
+  function part(parent, geo, mat, x, y, z, shadow) { var m = new THREE.Mesh(geo, mat); m.position.set(x || 0, y || 0, z || 0); if (shadow) m.castShadow = true; parent.add(m); return m; }
+  function pivot(parent, x, y, z) { var g = new THREE.Group(); g.position.set(x, y, z); parent.add(g); return g; }
+  var torsoGeo = function () { return hgeo("torso", function () { var pts = [[.075, 0], [.088, .05], [.094, .12], [.108, .2], [.112, .245], [.09, .275], [.035, .292]].map(function (p) { return new THREE.Vector2(p[0], p[1]); }); var g = new THREE.LatheGeometry(pts, 20); g.scale(1, 1, .68); return g; }); };
+
+  // Height is about 1 unit at scale 1, feet at y = 0, facing +z
+  function makeHuman(c) {
+    c = c || defaultChar(); var role = ROLE_BY[c.role] || ROLES[0], skin = hmat(SKINS[c.skin] || SKINS[2], { roughness: .55 }), top = hmat(role.tops[c.top || 0] || role.tops[0]), bottom = hmat(role.bottom);
+    var wrapped = c.hair === "gele" || c.hair === "hijab", hcol = wrapped ? FABRICS[c.hc % FABRICS.length] : HAIR_COLS[c.hc % HAIR_COLS.length], hair = hmat(hcol, { roughness: wrapped ? .6 : .85 });
+    var h = new THREE.Group(), root = pivot(h, 0, 0, 0), rig = { root: root };
+    var longSleeve = role.style !== "tee" && role.style !== "vest";
+    // legs
+    ["L", "R"].forEach(function (sd, i) {
+      var sx = i ? -.056 : .056, hip = pivot(root, sx, .5, 0); rig["hip" + sd] = hip;
+      part(hip, hgeo("thigh", function () { return new THREE.CapsuleGeometry(.043, .17, 4, 10); }), bottom, 0, -.125, 0, true);
+      var knee = pivot(hip, 0, -.25, 0); rig["knee" + sd] = knee;
+      part(knee, hgeo("shin", function () { return new THREE.CapsuleGeometry(.036, .17, 4, 10); }), bottom, 0, -.12, 0, true);
+      part(knee, hgeo("shoe", function () { var g = new THREE.CapsuleGeometry(.036, .07, 4, 8); g.rotateX(Math.PI / 2); g.scale(1.05, .75, 1); return g; }), hmat("#FFFFFF"), 0, -.235, .028, true);
+      part(knee, hgeo("sole", function () { return new THREE.BoxGeometry(.075, .014, .15); }), hmat("#EC4899"), 0, -.255, .028);
+    });
+    part(root, hgeo("pelvis", function () { var g = new THREE.SphereGeometry(.1, 16, 10); g.scale(.92, .5, .66); return g; }), bottom, 0, .5, 0, true);
+    // torso and head
+    var spine = pivot(root, 0, .5, 0); rig.spine = spine;
+    part(spine, torsoGeo(), top, 0, .02, 0, true);
+    part(spine, hgeo("neck", function () { return new THREE.CylinderGeometry(.027, .03, .07, 12); }), skin, 0, .33, 0);
+    var head = pivot(spine, 0, .42, 0); rig.head = head;
+    part(head, hgeo("head", function () { var g = new THREE.SphereGeometry(.077, 24, 18); g.scale(.95, 1.1, 1); return g; }), skin, 0, 0, 0, true);
+    var eye = hmat("#1B1220", { roughness: .3 });
+    [-1, 1].forEach(function (s) {
+      part(head, hgeo("eye", function () { return new THREE.SphereGeometry(.0105, 10, 8); }), eye, s * .027, .008, .07);
+      part(head, hgeo("ear", function () { var g = new THREE.SphereGeometry(.018, 10, 8); g.scale(.6, 1, .8); return g; }), skin, s * .074, .0, 0);
+      part(head, hgeo("brow", function () { return new THREE.BoxGeometry(.024, .005, .006); }), hmat(HAIR_COLS[0]), s * .027, .03, .072);
+    });
+    part(head, hgeo("nose", function () { var g = new THREE.SphereGeometry(.012, 10, 8); g.scale(1, .9, 1.1); return g; }), skin, 0, -.012, .078);
+    part(head, hgeo("smile", function () { return new THREE.TorusGeometry(.016, .0035, 6, 12, Math.PI); }), hmat("#7A2E3A"), 0, -.03, .07).rotation.z = Math.PI;
+    hairFor(head, c.hair, hair, spine);
+    // arms
+    ["L", "R"].forEach(function (sd, i) {
+      var s = i ? -1 : 1, sh = pivot(spine, s * .128, .255, 0); rig["sh" + sd] = sh; sh.rotation.z = s * .08;
+      part(sh, hgeo("upper", function () { return new THREE.CapsuleGeometry(.033, .13, 4, 10); }), role.style === "vest" ? hmat("#FFFFFF") : top, 0, -.095, 0, true);
+      var el = pivot(sh, 0, -.2, 0); rig["el" + sd] = el;
+      part(el, hgeo("fore", function () { return new THREE.CapsuleGeometry(.028, .12, 4, 10); }), longSleeve ? top : skin, 0, -.085, 0, true);
+      var hand = pivot(el, 0, -.18, 0); rig["hand" + sd] = hand;
+      part(hand, hgeo("hand", function () { var g = new THREE.SphereGeometry(.03, 12, 10); g.scale(.85, 1.1, .7); return g; }), skin, 0, 0, 0);
+    });
+    outfitFor(spine, root, role, top, rig);
+    accessoryFor(rig, role.acc);
+    h.userData.rig = rig; h.userData.ph = Math.random() * 6;
+    return h;
+  }
+  function hairFor(head, style, mat, spine) {
+    var cap = hgeo("cap", function () { return new THREE.SphereGeometry(.083, 22, 14, 0, Math.PI * 2, 0, Math.PI * .5); });
+    if (style === "short") { var c1 = part(head, cap, mat, 0, .006, -.006); c1.scale.set(1, 1.05, 1.04); }
+    if (style === "afro") { part(head, hgeo("afro", function () { var g = new THREE.IcosahedronGeometry(.115, 2); g.scale(1.05, .95, 1); return g; }), hmat(mat.color.getStyle(), { flatShading: true, roughness: .95 }), 0, .045, -.02, true); }
+    if (style === "bun") { part(head, cap, mat, 0, .006, -.006); part(head, hgeo("bunb", function () { return new THREE.SphereGeometry(.045, 14, 10); }), mat, 0, .085, -.05); }
+    if (style === "braids" || style === "locs") {
+      part(head, cap, mat, 0, .006, -.006);
+      var n = style === "locs" ? 10 : 8, r = style === "locs" ? .016 : .011, len = style === "locs" ? .16 : .2;
+      var g = hgeo("strand" + style, function () { return new THREE.CapsuleGeometry(r, len, 3, 6); });
+      for (var i = 0; i < n; i++) { var a = Math.PI * (.15 + .7 * i / (n - 1)), st = part(head, g, mat, Math.cos(a) * .072, -.05, -Math.sin(a) * .06); st.rotation.x = -.18; st.rotation.z = (Math.cos(a)) * .25; }
+    }
+    if (style === "gele") {
+      var base = part(head, hgeo("gelebase", function () { var g = new THREE.CylinderGeometry(.088, .084, .06, 20); return g; }), mat, 0, .045, -.005);
+      var fan = part(head, hgeo("gelefan", function () { var g = new THREE.SphereGeometry(.12, 18, 10, 0, Math.PI * 2, 0, Math.PI * .5); g.scale(1.15, .9, .55); return g; }), hmat(mat.color.getStyle(), { flatShading: true, roughness: .5 }), 0, .07, -.03, true); fan.rotation.x = -.35;
+      part(head, hgeo("geleknot", function () { return new THREE.TorusKnotGeometry(.03, .012, 40, 6); }), mat, .05, .12, .01);
+    }
+    if (style === "hijab") {
+      part(head, hgeo("hijabh", function () { return new THREE.SphereGeometry(.092, 22, 16, Math.PI * .85, Math.PI * 1.3, 0, Math.PI * .78); }), hmat(mat.color.getStyle(), { side: THREE.DoubleSide }), 0, .006, -.004);
+      part(spine, hgeo("hijabd", function () { return new THREE.CylinderGeometry(.06, .14, .12, 20, 1, true); }), hmat(mat.color.getStyle(), { side: THREE.DoubleSide }), 0, .31, -.005, true);
+    }
+    if (style === "cap") {
+      part(head, cap, hmat("#EC4899"), 0, .012, -.004);
+      var br = part(head, hgeo("brim", function () { return new THREE.CylinderGeometry(.06, .06, .008, 18, 1, false, -Math.PI / 2, Math.PI); }), hmat("#BE185D"), 0, .028, .05); br.rotation.x = .1;
+      part(head, hgeo("short2", function () { return new THREE.SphereGeometry(.08, 16, 10, 0, Math.PI * 2, Math.PI * .45, Math.PI * .2); }), mat, 0, 0, -.004);
+    }
+  }
+  function outfitFor(spine, root, role, top, rig) {
+    var st = role.style;
+    if (st === "hoodie") {
+      var hood = part(spine, hgeo("hood", function () { return new THREE.TorusGeometry(.06, .028, 8, 18); }), top, 0, .3, -.045); hood.rotation.x = Math.PI / 2.4;
+      part(spine, hgeo("pocket", function () { return new THREE.BoxGeometry(.12, .055, .01); }), hmat(new THREE.Color(top.color).multiplyScalar(.82).getStyle()), 0, .09, .064);
+      [-1, 1].forEach(function (s) { part(spine, hgeo("string", function () { return new THREE.CylinderGeometry(.003, .003, .06, 4); }), hmat("#FFFFFF"), s * .018, .24, .07); });
+    }
+    if (st === "jacket") { part(spine, hgeo("zip", function () { return new THREE.BoxGeometry(.008, .26, .006); }), hmat("#E5E7EB"), 0, .14, .07); part(spine, hgeo("collar", function () { return new THREE.TorusGeometry(.045, .014, 6, 16); }), top, 0, .3, 0).rotation.x = Math.PI / 2; }
+    if (st === "blazer") {
+      var shirt = part(spine, hgeo("shirt", function () { var g = new THREE.ConeGeometry(.045, .13, 3); g.rotateZ(Math.PI); return g; }), hmat("#FFFFFF"), 0, .23, .062); shirt.scale.z = .3;
+      part(spine, hgeo("tie", function () { return new THREE.BoxGeometry(.016, .11, .006); }), hmat("#EC4899"), 0, .2, .071);
+    }
+    if (st === "labcoat" || st === "trench") {
+      part(spine, hgeo("coat", function () { var g = new THREE.CylinderGeometry(.1, .13, .3, 20, 1, true); g.scale(1, 1, .75); return g; }), hmat(top.color.getStyle(), { side: THREE.DoubleSide }), 0, -.13, 0, true);
+      if (st === "trench") part(spine, hgeo("belt", function () { var g = new THREE.TorusGeometry(.097, .01, 6, 24); g.rotateX(Math.PI / 2); g.scale(1, 1, .7); return g; }), hmat("#3F2A14"), 0, .03, 0);
+      else part(spine, hgeo("pen", function () { return new THREE.BoxGeometry(.008, .04, .006); }), hmat("#EC4899"), .05, .2, .07);
+    }
+    if (st === "vest") {
+      [.07, .16].forEach(function (y) { part(spine, hgeo("stripe", function () { var g = new THREE.CylinderGeometry(.106, .104, .016, 20, 1, true); g.scale(1, 1, .7); return g; }), hmat("#F1F5F9", { metalness: .4, roughness: .3 }), 0, y, 0); });
+    }
+    if (st === "tee") { var lg = part(spine, hgeo("logo", function () { return new THREE.CircleGeometry(.028, 6); }), hmat("#FFFFFF"), 0, .19, .075); }
+  }
+  function accessoryFor(rig, acc) {
+    var hR = rig.handR, hL = rig.handL;
+    if (acc === "laptop") { rig.holdL = 1; var lp = part(hL, hgeo("laptop", function () { return new THREE.BoxGeometry(.16, .012, .11); }), hmat("#CBD5E1", { metalness: .5, roughness: .3 }), -.02, .02, .04); lp.rotation.z = Math.PI / 2; lp.rotation.y = .2; }
+    if (acc === "headset") {
+      var hs = part(rig.head, hgeo("band", function () { return new THREE.TorusGeometry(.085, .007, 6, 20, Math.PI); }), hmat("#111827"), 0, .005, 0);
+      [-1, 1].forEach(function (s) { var cup = part(rig.head, hgeo("cup", function () { return new THREE.CylinderGeometry(.024, .024, .016, 14); }), hmat("#111827"), s * .085, -.005, 0); cup.rotation.z = Math.PI / 2; });
+      var mic = part(rig.head, hgeo("mic", function () { return new THREE.CylinderGeometry(.004, .004, .07, 5); }), hmat("#111827"), .07, -.04, .04); mic.rotation.x = 1.2; mic.rotation.z = .5;
+    }
+    if (acc === "clipboard") { rig.holdR = 1; var cb = part(hR, hgeo("clip", function () { return new THREE.BoxGeometry(.1, .13, .01); }), hmat("#A16207"), 0, .03, .04); cb.rotation.x = -1.1; part(cb, hgeo("paper", function () { return new THREE.BoxGeometry(.085, .1, .002); }), hmat("#FFFFFF"), 0, -.005, .006); }
+    if (acc === "visor") { var v = part(rig.head, hgeo("visor", function () { return new THREE.TorusGeometry(.079, .013, 6, 24, Math.PI * .7); }), hmat("#F472B6", { emissive: "#EC4899", emissiveIntensity: .9, roughness: .2 }), 0, .01, 0); v.rotation.x = Math.PI / 2; v.rotation.z = Math.PI * .15; }
+    if (acc === "keycard") { part(rig.spine, hgeo("card", function () { return new THREE.BoxGeometry(.04, .055, .006); }), hmat("#FFFFFF"), .03, .17, .078); part(rig.spine, hgeo("lanyard", function () { var g = new THREE.TorusGeometry(.05, .004, 4, 18, Math.PI); g.rotateZ(Math.PI); return g; }), hmat("#EC4899"), .0, .27, .06).rotation.x = -.5; }
+    if (acc === "magnifier") { rig.holdR = 1; var mg = new THREE.Group(); mg.position.set(0, .02, .05); hR.add(mg); part(mg, hgeo("lens", function () { return new THREE.TorusGeometry(.035, .007, 6, 20); }), hmat("#A16207"), 0, .07, 0); part(mg, hgeo("glass", function () { return new THREE.CircleGeometry(.033, 18); }), hmat("#BAE6FD", { transparent: true, opacity: .55, side: THREE.DoubleSide }), 0, .07, 0); part(mg, hgeo("handle", function () { return new THREE.CylinderGeometry(.008, .008, .06, 6); }), hmat("#3F2A14"), 0, .015, 0); }
+    if (acc === "backpack") { part(rig.spine, hgeo("pack", function () { var g = new THREE.CapsuleGeometry(.07, .1, 4, 10); g.scale(1, 1, .55); return g; }), hmat("#F472B6"), 0, .15, -.09, true); }
+    if (acc === "wrench") { rig.holdR = 1; var w = part(hR, hgeo("wrench", function () { return new THREE.BoxGeometry(.016, .12, .01); }), hmat("#94A3B8", { metalness: .7, roughness: .3 }), 0, .05, .03); part(w, hgeo("whead", function () { return new THREE.TorusGeometry(.016, .007, 6, 12, Math.PI * 1.5); }), hmat("#94A3B8", { metalness: .7, roughness: .3 }), 0, .065, 0); }
+    if (acc === "megaphone") { rig.holdR = 1; var mp = part(hR, hgeo("mega", function () { var g = new THREE.CylinderGeometry(.045, .015, .12, 16, 1, true); g.rotateX(Math.PI / 2); return g; }), hmat("#FFFFFF", { side: THREE.DoubleSide }), 0, .02, .07); part(mp, hgeo("megab", function () { var g = new THREE.TorusGeometry(.045, .006, 6, 18); return g; }), hmat("#EC4899"), 0, 0, .06); }
+  }
+  // Walk cycle and idle pose. sp is how fast the feet move.
+  function animateHuman(h, t, moving, sp) {
+    var r = h.userData.rig; if (!r) return; var ph = (h.userData.ph || 0) + t * (sp || 8), a = moving ? 1 : 0;
+    var sw = Math.sin(ph) * .55 * a;
+    r.hipL.rotation.x = -sw; r.hipR.rotation.x = sw;
+    r.kneeL.rotation.x = a * Math.max(0, Math.sin(ph + 1.6)) * .85; r.kneeR.rotation.x = a * Math.max(0, Math.sin(ph + 1.6 + Math.PI)) * .85;
+    var idle = Math.sin(t * 1.8 + (h.userData.ph || 0)) * .04;
+    r.shL.rotation.x = r.holdL ? -.35 : sw * .9 + idle; r.shR.rotation.x = r.holdR ? -.55 : -sw * .9 - idle;
+    r.elL.rotation.x = r.holdL ? -.9 : -.18 - Math.max(0, sw) * .4; r.elR.rotation.x = r.holdR ? -1.25 : -.18 - Math.max(0, -sw) * .4;
+    r.root.position.y = a * Math.abs(Math.cos(ph)) * .022; r.spine.rotation.y = a * Math.sin(ph) * .08; r.spine.rotation.x = a * .05;
+    r.spine.scale.y = 1 + (a ? 0 : Math.sin(t * 2.2 + (h.userData.ph || 0)) * .008); r.head.rotation.y = a ? 0 : Math.sin(t * .6 + (h.userData.ph || 0)) * .25;
+  }
+
   // ------------------------------------------------------------ The village: a real-time 3D world (Three.js)
   var N = 18, ROADS = [2, 7, 12, 17];
   function isRoad(x, y) { return x >= 0 && y >= 0 && x < N && y < N && (ROADS.indexOf(x) !== -1 || ROADS.indexOf(y) !== -1); }
   function isWater(x, y) { return y <= 1 && !isRoad(x, y); }
   var BUILDINGS = [
-    { id: "soc", name: "SOC Watchtower", fx: 3, fz: 3, w: 4, d: 2, mission: "soc", contrib: "soc", icon: ["radar", "#4CC9F0"], blurb: "Blue team HQ. Triage alerts, hunt attackers in logs." },
+    { id: "soc", name: "SOC Watchtower", fx: 3, fz: 3, w: 4, d: 2, mission: "soc", contrib: "soc", icon: ["radar", "#0EA5E9"], blurb: "Blue team HQ. Triage alerts, hunt attackers in logs." },
     { id: "grc", name: "GRC Hall", fx: 3, fz: 5, w: 4, d: 2, mission: "grc", contrib: "grc", icon: ["shield", "#C9C2B0"], blurb: "Governance, risk and compliance: the rules that keep everyone safe." },
-    { id: "office", name: "Workplace Tower", fx: 8, fz: 3, w: 4, d: 2, comm: "workplace", icon: ["office", "#3DDC97"] },
+    { id: "office", name: "Workplace Tower", fx: 8, fz: 3, w: 4, d: 2, comm: "workplace", icon: ["office", "#10B981"] },
     { id: "vdp", name: "Disclosure Office", fx: 8, fz: 5, w: 4, d: 2, mission: "vdp", contrib: "vdp", icon: ["bug", "#2EC4B6"], blurb: "Vulnerability disclosure: found a bug? Report it the right way." },
-    { id: "red", name: "Red Team Range", fx: 13, fz: 3, w: 4, d: 2, mission: "redteam", contrib: "red", icon: ["bug", "#FF5D7A"], blurb: "Ethical hacking on practice targets only." },
-    { id: "ai", name: "AI Security Lab", fx: 13, fz: 5, w: 4, d: 2, mission: "ai", contrib: "ai", icon: ["brain", "#B8AEFF"], blurb: "Keep AI assistants and agents safe." },
-    { id: "market", name: "The Market", fx: 3, fz: 8, w: 4, d: 2, comm: "market", icon: ["store", "#FFB547"] },
-    { id: "aware", name: "Awareness Studio", fx: 3, fz: 10, w: 4, d: 2, contrib: "aware", icon: ["mega", "#FFB547"], blurb: "Cyber awareness: tips, posts, quizzes and stories." },
-    { id: "hq", name: "Open Source HQ", fx: 8, fz: 8, w: 4, d: 4, special: 1, icon: ["git", "#8B7CFF"], blurb: "Where your work becomes real. Contribute and earn verified badges." },
+    { id: "red", name: "Red Team Range", fx: 13, fz: 3, w: 4, d: 2, mission: "redteam", contrib: "red", icon: ["bug", "#F43F5E"], blurb: "Ethical hacking on practice targets only." },
+    { id: "ai", name: "AI Security Lab", fx: 13, fz: 5, w: 4, d: 2, mission: "ai", contrib: "ai", icon: ["brain", "#F9A8D4"], blurb: "Keep AI assistants and agents safe." },
+    { id: "market", name: "The Market", fx: 3, fz: 8, w: 4, d: 2, comm: "market", icon: ["store", "#F59E0B"] },
+    { id: "aware", name: "Awareness Studio", fx: 3, fz: 10, w: 4, d: 2, contrib: "aware", icon: ["mega", "#F59E0B"], blurb: "Cyber awareness: tips, posts, quizzes and stories." },
+    { id: "hq", name: "Open Source HQ", fx: 8, fz: 8, w: 4, d: 4, special: 1, icon: ["git", "#EC4899"], blurb: "Where your work becomes real. Contribute and earn verified badges." },
     { id: "api", name: "API Gate", fx: 13, fz: 8, w: 4, d: 2, mission: "api", contrib: "api", icon: ["key", "#9AA4B2"], blurb: "Every request that enters the city gets checked here." },
     { id: "tools", name: "Tool Workshop", fx: 13, fz: 10, w: 4, d: 2, contrib: "tools", icon: ["pen", "#FF8A3D"], blurb: "Build defensive tools and share resources." },
-    { id: "faith", name: "Church & Mosque", fx: 3, fz: 13, w: 4, d: 2, comm: "faith", icon: ["faith", "#8B7CFF"] },
-    { id: "lang", name: "Translation House", fx: 3, fz: 15, w: 4, d: 2, contrib: "lang", icon: ["book", "#3DDC97"], blurb: "Bawo · Sannu · Ndewo · Hello. Safety in every language." },
-    { id: "family", name: "Family Homes", fx: 8, fz: 13, w: 4, d: 2, comm: "family", icon: ["family", "#FF5D7A"] },
-    { id: "school", name: "School", fx: 8, fz: 15, w: 4, d: 2, comm: "school", icon: ["school", "#4CC9F0"] },
-    { id: "hall", name: "Squad Hall", fx: 13, fz: 13, w: 4, d: 2, tab: "squad", icon: ["family", "#3DDC97"] },
-    { id: "trophy", name: "Hall of Badges", fx: 13, fz: 15, w: 2, d: 2, tab: "rewards", icon: ["trophy", "#FFB547"] },
-    { id: "vault", name: "Passphrase Vault", fx: 15, fz: 15, w: 2, d: 2, mission: "password", icon: ["key", "#FFB547"], blurb: "Build a passphrase that takes centuries to crack." }
+    { id: "faith", name: "Church & Mosque", fx: 3, fz: 13, w: 4, d: 2, comm: "faith", icon: ["faith", "#EC4899"] },
+    { id: "lang", name: "Translation House", fx: 3, fz: 15, w: 4, d: 2, contrib: "lang", icon: ["book", "#10B981"], blurb: "Bawo · Sannu · Ndewo · Hello. Safety in every language." },
+    { id: "family", name: "Family Homes", fx: 8, fz: 13, w: 4, d: 2, comm: "family", icon: ["family", "#F43F5E"] },
+    { id: "school", name: "School", fx: 8, fz: 15, w: 4, d: 2, comm: "school", icon: ["school", "#0EA5E9"] },
+    { id: "hall", name: "Squad Hall", fx: 13, fz: 13, w: 4, d: 2, tab: "squad", icon: ["family", "#10B981"] },
+    { id: "trophy", name: "Hall of Badges", fx: 13, fz: 15, w: 2, d: 2, tab: "rewards", icon: ["trophy", "#F59E0B"] },
+    { id: "vault", name: "Passphrase Vault", fx: 15, fz: 15, w: 2, d: 2, mission: "password", icon: ["key", "#F59E0B"], blurb: "Build a passphrase that takes centuries to crack." }
   ];
   var B_BY = {}; BUILDINGS.forEach(function (b) {
     B_BY[b.id] = b; b.cx = b.fx + b.w / 2; b.cz = b.fz + b.d / 2;
@@ -467,7 +695,7 @@ import * as THREE from "./vendor/three.module.min.js";
     R.setPixelRatio(Math.min(2, window.devicePixelRatio || 1)); R.shadowMap.enabled = true; R.shadowMap.type = THREE.PCFSoftShadowMap;
     R.toneMapping = THREE.ACESFilmicToneMapping; R.toneMappingExposure = 1.05;
     var scene = new THREE.Scene(), cam = new THREE.PerspectiveCamera(36, 1, .1, 300);
-    var hemi = new THREE.HemisphereLight(0xe3f2ff, 0x5b7a5f, 1.1), sun = new THREE.DirectionalLight(0xfff0d8, 2.6);
+    var hemi = new THREE.HemisphereLight(0xfff2f8, 0x6f8f72, 1.1), sun = new THREE.DirectionalLight(0xfff0d8, 2.6);
     sun.position.set(-6, 22, 4); sun.target.position.set(9, 0, 10); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048);
     var sc = sun.shadow.camera; sc.left = -15; sc.right = 15; sc.top = 15; sc.bottom = -15; sc.near = 1; sc.far = 70; sun.shadow.bias = -.0004; sun.shadow.normalBias = .03;
     scene.add(hemi, sun, sun.target);
@@ -478,7 +706,7 @@ import * as THREE from "./vendor/three.module.min.js";
     function cyl(g, r1, r2, h, c, x, y, z, seg, o) { return add(g, new THREE.CylinderGeometry(r1, r2, h, seg || 24), typeof c === "string" ? M(c, o) : c, x, y + h / 2, z); }
     function roof(g, w, h, d, c, x, y, z, alongX) { var sh = new THREE.Shape(); sh.moveTo(-d / 2, 0); sh.lineTo(d / 2, 0); sh.lineTo(0, h); sh.lineTo(-d / 2, 0); var geo = new THREE.ExtrudeGeometry(sh, { depth: w, bevelEnabled: false }); geo.translate(0, 0, -w / 2); var m = add(g, geo, M(c, { flatShading: true }), x, y, z); m.rotation.y = alongX ? Math.PI / 2 : 0; return m; }
     function win() { var m = new THREE.MeshStandardMaterial({ color: "#CFEFFF", emissive: "#FFD27A", emissiveIntensity: 0, roughness: .3, metalness: .1 }); winMats.push(m); return m; }
-    var WIN = win(), GLASS = M("#7FB3FF", { roughness: .12, metalness: .55 });
+    var WIN = win(), GLASS = M("#CDE8FF", { roughness: .15, metalness: .15 });
     function windows(g, cx, cz, w, d, y0, floors, gap, perRow) {
       var geo = new THREE.BoxGeometry(.22, .2, .04), mesh = new THREE.InstancedMesh(geo, WIN, floors * perRow * 4), mx = new THREE.Matrix4(), q = new THREE.Quaternion(), n = 0;
       for (var f = 0; f < floors; f++) for (var c = 0; c < perRow; c++) {
@@ -500,17 +728,14 @@ import * as THREE from "./vendor/three.module.min.js";
       var m = add(g, new THREE.PlaneGeometry(w, h), mat, x, y, z, true); m.rotation.y = rotY || 0; return m;
     }
     function tree(g, x, z, s, col) { s = s || 1; cyl(g, .06 * s, .08 * s, .45 * s, "#8A5A3B", x, 0, z, 6); var c = add(g, new THREE.IcosahedronGeometry(.42 * s, 0), M(col || "#3FB37A", { flatShading: true }), x, .75 * s, z); c.rotation.y = Math.random() * 3; return c; }
-    function person(col, hair) {
-      var p = new THREE.Group(); add(p, new THREE.CapsuleGeometry(.11, .22, 4, 10), M(col), 0, .24, 0); add(p, new THREE.SphereGeometry(.09, 14, 10), M("#B07A55"), 0, .5, 0); add(p, new THREE.SphereGeometry(.093, 14, 8, 0, Math.PI * 2, 0, Math.PI / 2), M(hair || "#1B1F3B"), 0, .51, 0); return p;
-    }
 
     // Island, tiles, water
     var island = new THREE.Group(); scene.add(island);
-    box(island, N + .4, 1.1, N + .4, "#7A5A43", N / 2, -1.16, N / 2); box(island, N - 1, 1.4, N - 1, "#5E4636", N / 2, -2.4, N / 2); box(island, N - 4, 1.4, N - 4, "#4B382B", N / 2, -3.7, N / 2);
+    box(island, N + .4, 1.1, N + .4, "#F9CFE0", N / 2, -1.16, N / 2); box(island, N - 1, 1.4, N - 1, "#F3B6CF", N / 2, -2.4, N / 2); box(island, N - 4, 1.4, N - 4, "#E99BBF", N / 2, -3.7, N / 2);
     var tileGeo = new THREE.BoxGeometry(.98, .12, .98), tiles = new THREE.InstancedMesh(tileGeo, M("#ffffff"), N * N), mx = new THREE.Matrix4(), col = new THREE.Color(), n = 0;
     for (var x = 0; x < N; x++) for (var z = 0; z < N; z++) {
       if (isWater(x, z)) continue; mx.makeTranslation(x + .5, -.06, z + .5); tiles.setMatrixAt(n, mx);
-      col.set(isRoad(x, z) ? ((x + z) % 2 ? "#EFE5D0" : "#E8DDC5") : ((x * 7 + z * 3) % 5 === 0 ? "#8BD49B" : (x + z) % 2 ? "#7FCB91" : "#78C58A")); tiles.setColorAt(n, col); n++;
+      col.set(isRoad(x, z) ? ((x + z) % 2 ? "#FFFFFF" : "#F8F1F5") : ((x * 7 + z * 3) % 5 === 0 ? "#8BD49B" : (x + z) % 2 ? "#7FCB91" : "#78C58A")); tiles.setColorAt(n, col); n++;
     }
     tiles.count = n; tiles.receiveShadow = true; scene.add(tiles);
     var wgeo = new THREE.PlaneGeometry(N, 2, 36, 6); wgeo.rotateX(-Math.PI / 2);
@@ -529,37 +754,37 @@ import * as THREE from "./vendor/three.module.min.js";
     var B = {};
     function group(b) { var g = new THREE.Group(); g.userData.bid = b.id; scene.add(g); B[b.id] = g; return g; }
     var D = {
-      soc: function (g, b) { box(g, 3.4, .3, 1.6, "#5A6585", b.cx, 0, b.cz); cyl(g, .42, .5, 3.1, "#3A4566", b.cx, .3, b.cz, 20); for (var f = 0; f < 6; f++) cyl(g, .51, .51, .06, "#9FE7FF", b.cx, .7 + f * .42, b.cz, 20, { emissive: "#4CC9F0", emissiveIntensity: .35 });
-        cyl(g, 1.05, .8, .7, "#1F2A44", b.cx, 3.4, b.cz, 24); cyl(g, 1.07, 1.07, .32, "#4CC9F0", b.cx, 3.55, b.cz, 24, { emissive: "#4CC9F0", emissiveIntensity: .9, roughness: .2 }); cyl(g, 1.15, 1.15, .1, "#C9D3E6", b.cx, 4.1, b.cz, 24);
+      soc: function (g, b) { box(g, 3.4, .3, 1.6, "#5A6585", b.cx, 0, b.cz); cyl(g, .42, .5, 3.1, "#3A4566", b.cx, .3, b.cz, 20); for (var f = 0; f < 6; f++) cyl(g, .51, .51, .06, "#9FE7FF", b.cx, .7 + f * .42, b.cz, 20, { emissive: "#0EA5E9", emissiveIntensity: .35 });
+        cyl(g, 1.05, .8, .7, "#1F2A44", b.cx, 3.4, b.cz, 24); cyl(g, 1.07, 1.07, .32, "#0EA5E9", b.cx, 3.55, b.cz, 24, { emissive: "#0EA5E9", emissiveIntensity: .9, roughness: .2 }); cyl(g, 1.15, 1.15, .1, "#C9D3E6", b.cx, 4.1, b.cz, 24);
         var dish = new THREE.Group(); dish.position.set(b.cx, 4.2, b.cz); g.add(dish); cyl(dish, .04, .04, .5, "#C9D3E6", 0, 0, 0, 8); var d2 = add(dish, new THREE.SphereGeometry(.32, 18, 10, 0, Math.PI * 2, 0, Math.PI / 3), M("#E8ECF5", { side: THREE.DoubleSide }), 0, .6, .12); d2.rotation.x = -1.1;
-        var bl = add(g, new THREE.SphereGeometry(.07, 10, 8), new THREE.MeshStandardMaterial({ color: "#FF5D7A", emissive: "#FF5D7A", emissiveIntensity: 2 }), b.cx, 4.95, b.cz, true);
+        var bl = add(g, new THREE.SphereGeometry(.07, 10, 8), new THREE.MeshStandardMaterial({ color: "#F43F5E", emissive: "#F43F5E", emissiveIntensity: 2 }), b.cx, 4.95, b.cz, true);
         anim.push(function (t) { dish.rotation.y = t * .9; bl.visible = Math.sin(t * 4) > 0; }); b.top = 5.2; },
       grc: function (g, b) { box(g, 3.6, .18, 1.8, "#D8D2C2", b.cx, 0, b.cz); box(g, 3.3, .18, 1.6, "#E4DFD2", b.cx, .18, b.cz); box(g, 3, 1.45, 1.25, "#F3EFE6", b.cx, .36, b.cz - .1);
         for (var i = 0; i < 6; i++) cyl(g, .09, .1, 1.45, "#FFFFFF", b.cx - 1.25 + i * .5, .36, b.cz + .62, 14); box(g, 3.3, .16, 1.6, "#E9E4D8", b.cx, 1.81, b.cz); roof(g, 3.3, .55, 1.6, "#D7CFBD", b.cx, 1.97, b.cz, true);
         sign(g, [{ t: "GRC HALL", s: 64 }], "#2A2F45", "#F3EFE6", 1.3, .32, b.cx, 1.62, b.cz + .83, 0); windows(g, b.cx, b.cz - .1, 3, 1.25, .95, 1, .5, 5); b.top = 2.7; },
       office: function (g, b) { box(g, 2.5, 5.6, 1.7, GLASS, b.cx, 0, b.cz); for (var f = 1; f < 11; f++) box(g, 2.54, .05, 1.74, "#E7F0FF", b.cx, f * .5, b.cz, { roughness: .4 });
-        box(g, 1.8, .4, 1.2, "#4E86E8", b.cx, 5.6, b.cz); cyl(g, .03, .03, .9, "#C9D3E6", b.cx + .5, 6, b.cz, 6); windows(g, b.cx, b.cz, 2.5, 1.7, .3, 10, .5, 4); b.top = 6.6; },
+        box(g, 1.8, .4, 1.2, "#F472B6", b.cx, 5.6, b.cz); cyl(g, .03, .03, .9, "#C9D3E6", b.cx + .5, 6, b.cz, 6); windows(g, b.cx, b.cz, 2.5, 1.7, .3, 10, .5, 4); b.top = 6.6; },
       vdp: function (g, b) { box(g, 3.2, 1.9, 1.4, "#2EC4B6", b.cx - .1, 0, b.cz - .1); box(g, 3.4, .14, 1.6, "#1B8F85", b.cx - .1, 1.9, b.cz - .1); box(g, 1.1, 1.3, .2, GLASS, b.cx - .9, 0, b.cz + .65);
         sign(g, [{ t: "REPORT", s: 54 }, { t: "responsibly", s: 34, w: 600 }], "#0F3D3A", "#7FF5D8", 1.3, .42, b.cx + .6, 1.35, b.cz + .62, 0, true);
         box(g, .3, .55, .3, "#E76F51", b.cx + 1.55, 0, b.cz + .85); box(g, .34, .08, .34, "#C2573C", b.cx + 1.55, .55, b.cz + .85); windows(g, b.cx - .1, b.cz - .1, 3.2, 1.4, .7, 2, .6, 5); b.top = 2.6; },
-      red: function (g, b) { box(g, 3.2, 1.7, 1.5, "#2B2D42", b.cx, 0, b.cz); box(g, 3.24, .08, 1.54, "#FF5D7A", b.cx, 1.25, b.cz, { emissive: "#FF5D7A", emissiveIntensity: 1.4 });
-        var tg = sign(g, [{ t: "◎", s: 130 }], "#2B2D42", "#FF5D7A", .7, .7, b.cx - .9, .75, b.cz + .76, 0, true); box(g, .8, .3, .8, "#45496E", b.cx + .8, 1.7, b.cz - .2);
+      red: function (g, b) { box(g, 3.2, 1.7, 1.5, "#2B2D42", b.cx, 0, b.cz); box(g, 3.24, .08, 1.54, "#F43F5E", b.cx, 1.25, b.cz, { emissive: "#F43F5E", emissiveIntensity: 1.4 });
+        var tg = sign(g, [{ t: "◎", s: 130 }], "#2B2D42", "#F43F5E", .7, .7, b.cx - .9, .75, b.cz + .76, 0, true); box(g, .8, .3, .8, "#45496E", b.cx + .8, 1.7, b.cz - .2);
         var d = add(g, new THREE.SphereGeometry(.4, 18, 10, 0, Math.PI * 2, 0, Math.PI / 3), M("#D7DCEB", { side: THREE.DoubleSide }), b.cx + .8, 2.3, b.cz - .2); d.rotation.x = -.9; d.rotation.z = .3; b.top = 2.8; },
       ai: function (g, b) { box(g, 3, .7, 1.5, "#F4F5FB", b.cx, 0, b.cz); var dm = add(g, new THREE.SphereGeometry(1.05, 32, 18, 0, Math.PI * 2, 0, Math.PI / 2), new THREE.MeshPhysicalMaterial({ color: "#9A8DFF", roughness: .1, metalness: .1, transmission: .3, transparent: true, opacity: .8 }), b.cx, .7, b.cz);
-        var orb = new THREE.Group(); orb.position.set(b.cx, 1.2, b.cz); g.add(orb); for (var i = 0; i < 6; i++) { var a = i / 6 * Math.PI * 2; add(orb, new THREE.SphereGeometry(.07, 10, 8), new THREE.MeshStandardMaterial({ color: "#E7E1FF", emissive: "#B8AEFF", emissiveIntensity: 1.6 }), Math.cos(a) * .55, Math.sin(a * 2) * .15, Math.sin(a) * .55, true); }
+        var orb = new THREE.Group(); orb.position.set(b.cx, 1.2, b.cz); g.add(orb); for (var i = 0; i < 6; i++) { var a = i / 6 * Math.PI * 2; add(orb, new THREE.SphereGeometry(.07, 10, 8), new THREE.MeshStandardMaterial({ color: "#E7E1FF", emissive: "#F9A8D4", emissiveIntensity: 1.6 }), Math.cos(a) * .55, Math.sin(a * 2) * .15, Math.sin(a) * .55, true); }
         anim.push(function (t) { orb.rotation.y = t * .7; }); sign(g, [{ t: "AI LAB", s: 70 }], "#3A2A7A", "#FFFFFF", .9, .25, b.cx, .45, b.cz + .76, 0, true); b.top = 2.2; },
-      market: function (g, b) { box(g, 3.7, .06, 1.8, "#F6E7C8", b.cx, 0, b.cz); [["#FF8A3D", "#FFFFFF"], ["#FF5D7A", "#FFF1D6"], ["#3DDC97", "#FFFFFF"], ["#8B7CFF", "#FFF1D6"]].forEach(function (cl, i) {
-          var x = b.cx - 1.35 + i * .9; box(g, .7, .45, .6, "#C68B59", x, .06, b.cz + .1); [[-.2, "#FFB547"], [0, "#FF5D7A"], [.2, "#3DDC97"]].forEach(function (f) { add(g, new THREE.SphereGeometry(.08, 10, 8), M(f[1]), x + f[0], .58, b.cz + .25); });
+      market: function (g, b) { box(g, 3.7, .06, 1.8, "#F6E7C8", b.cx, 0, b.cz); [["#FF8A3D", "#FFFFFF"], ["#F43F5E", "#FFF1D6"], ["#10B981", "#FFFFFF"], ["#EC4899", "#FFF1D6"]].forEach(function (cl, i) {
+          var x = b.cx - 1.35 + i * .9; box(g, .7, .45, .6, "#C68B59", x, .06, b.cz + .1); [[-.2, "#F59E0B"], [0, "#F43F5E"], [.2, "#10B981"]].forEach(function (f) { add(g, new THREE.SphereGeometry(.08, 10, 8), M(f[1]), x + f[0], .58, b.cz + .25); });
           cyl(g, .025, .025, .9, "#7A5235", x - .32, .06, b.cz - .25, 6); cyl(g, .025, .025, .9, "#7A5235", x + .32, .06, b.cz - .25, 6);
           for (var k = 0; k < 4; k++) { var aw = box(g, .2, .05, .8, cl[k % 2], x - .3 + k * .2, .96, b.cz + .05); aw.rotation.x = .25; } });
         b.top = 1.6; },
-      aware: function (g, b) { box(g, 3, 1.5, 1.4, "#FFB547", b.cx - .1, 0, b.cz - .1); box(g, 3.2, .12, 1.6, "#E59A2E", b.cx - .1, 1.5, b.cz - .1); box(g, .9, 1, .2, GLASS, b.cx - .9, 0, b.cz + .65);
+      aware: function (g, b) { box(g, 3, 1.5, 1.4, "#F59E0B", b.cx - .1, 0, b.cz - .1); box(g, 3.2, .12, 1.6, "#E59A2E", b.cx - .1, 1.5, b.cz - .1); box(g, .9, 1, .2, GLASS, b.cx - .9, 0, b.cz + .65);
         box(g, .08, 1.1, .08, "#3A3F55", b.cx + .55, 1.62, b.cz); box(g, .08, 1.1, .08, "#3A3F55", b.cx + 1.35, 1.62, b.cz);
         sign(g, [{ t: "STOP. CHECK.", s: 50 }, { t: "then act", s: 36, w: 600 }], "#1B1F3B", "#FFD27A", 1, .45, b.cx + .95, 2.35, b.cz + .05, 0, true); windows(g, b.cx - .1, b.cz - .1, 3, 1.4, .8, 1, .5, 5); b.top = 3; },
-      hq: function (g, b) { box(g, 3.7, .08, 3.7, "#E9E4F7", b.cx, 0, b.cz); box(g, 3, 1.6, 2.6, "#7B6CF6", b.cx, .08, b.cz - .2); box(g, 2.4, 1.2, 2, "#9A8DFF", b.cx, 1.68, b.cz - .3); box(g, 1.6, .9, 1.4, GLASS, b.cx, 2.88, b.cz - .35); box(g, 3.1, .08, 2.7, "#5B4BDB", b.cx, 1.68, b.cz - .2);
-        windows(g, b.cx, b.cz - .2, 3, 2.6, .5, 2, .55, 6); sign(g, [{ t: "OPEN SOURCE HQ", s: 46 }], "#2A1E7A", "#3DDC97", 1.8, .4, b.cx, 1.25, b.cz + 1.11, 0, true); sign(g, [{ t: "⑂ CONTRIBUTE", s: 52 }], "#2A1E7A", "#FFFFFF", 1.6, .35, b.cx + 1.51, 1.25, b.cz - .2, Math.PI / 2, true);
-        tree(g, b.cx - .7, b.cz - .5 + 0, .45, "#3DDC97").position.y += 2.88 - 0; tree(g, b.cx + .8, b.cz - .9, .5);
-        cyl(g, .55, .6, .2, "#C9D3E6", b.cx, .08, b.cz + 1.4, 24); var fw = cyl(g, .45, .45, .05, "#7AD7F5", b.cx, .28, b.cz + 1.4, 24, { emissive: "#4CC9F0", emissiveIntensity: .4 }); var jet = cyl(g, .05, .1, .5, "#BFF0FF", b.cx, .3, b.cz + 1.4, 10, { transparent: true, opacity: .8, emissive: "#9FE7FF", emissiveIntensity: .5 });
+      hq: function (g, b) { box(g, 3.7, .08, 3.7, "#FFF1F7", b.cx, 0, b.cz); box(g, 3, 1.6, 2.6, "#FFFFFF", b.cx, .08, b.cz - .2); box(g, 2.4, 1.2, 2, "#F9A8D4", b.cx, 1.68, b.cz - .3); box(g, 1.6, .9, 1.4, GLASS, b.cx, 2.88, b.cz - .35); box(g, 3.1, .08, 2.7, "#EC4899", b.cx, 1.68, b.cz - .2);
+        windows(g, b.cx, b.cz - .2, 3, 2.6, .5, 2, .55, 6); sign(g, [{ t: "OPEN SOURCE HQ", s: 46 }], "#BE185D", "#FFFFFF", 1.8, .4, b.cx, 1.25, b.cz + 1.11, 0, true); sign(g, [{ t: "⑂ CONTRIBUTE", s: 52 }], "#10B981", "#FFFFFF", 1.6, .35, b.cx + 1.51, 1.25, b.cz - .2, Math.PI / 2, true);
+        tree(g, b.cx - .7, b.cz - .5 + 0, .45, "#10B981").position.y += 2.88 - 0; tree(g, b.cx + .8, b.cz - .9, .5);
+        cyl(g, .55, .6, .2, "#C9D3E6", b.cx, .08, b.cz + 1.4, 24); var fw = cyl(g, .45, .45, .05, "#7AD7F5", b.cx, .28, b.cz + 1.4, 24, { emissive: "#0EA5E9", emissiveIntensity: .4 }); var jet = cyl(g, .05, .1, .5, "#BFF0FF", b.cx, .3, b.cz + 1.4, 10, { transparent: true, opacity: .8, emissive: "#9FE7FF", emissiveIntensity: .5 });
         anim.push(function (t) { jet.scale.y = 1 + Math.sin(t * 5) * .25; }); b.top = 4.2; },
       api: function (g, b) { [-1.2, 1.2].forEach(function (o) { box(g, .5, 2.2, .5, "#5D6B7A", b.cx + o, 0, b.cz + .3); }); box(g, 3, .45, .55, "#8A98A8", b.cx, 2.2, b.cz + .3); sign(g, [{ t: "API GATE", s: 66 }], "#2A3140", "#FFD27A", 1.6, .32, b.cx, 2.42, b.cz + .59, 0, true);
         var arm = new THREE.Group(); arm.position.set(b.cx - .95, .9, b.cz + .3); g.add(arm); for (var k = 0; k < 6; k++) box(arm, .3, .08, .08, k % 2 ? "#1B1F3B" : "#FFD23F", .15 + k * .3, -.04, 0);
@@ -567,9 +792,9 @@ import * as THREE from "./vendor/three.module.min.js";
       tools: function (g, b) { box(g, 3.2, 1.3, 1.5, "#B5523B", b.cx, 0, b.cz); for (var k = 0; k < 4; k++) roof(g, 1.5, .45, .8, "#8C3B2A", b.cx - 1.2 + k * .8, 1.3, b.cz, true);
         cyl(g, .16, .2, 1.3, "#6B4A3A", b.cx + 1.25, 1.3, b.cz - .4, 10); var smoke = []; for (var s2 = 0; s2 < 4; s2++) smoke.push(add(g, new THREE.SphereGeometry(.14, 10, 8), new THREE.MeshStandardMaterial({ color: "#D9DEE8", transparent: true, opacity: .6 }), b.cx + 1.25, 2.7, b.cz - .4, true));
         anim.push(function (t) { smoke.forEach(function (m, i) { var p = (t * .35 + i / 4) % 1; m.position.y = 2.7 + p * 1.3; m.position.x = b.cx + 1.25 + p * .3; m.scale.setScalar(.6 + p); m.material.opacity = .65 * (1 - p); }); });
-        sign(g, [{ t: "TOOL WORKSHOP", s: 46 }], "#3A1A12", "#FFB547", 1.4, .3, b.cx - .4, .95, b.cz + .76, 0, true); box(g, .9, 1, .1, "#3A2A20", b.cx + .6, 0, b.cz + .76); b.top = 3.2; },
+        sign(g, [{ t: "TOOL WORKSHOP", s: 46 }], "#3A1A12", "#F59E0B", 1.4, .3, b.cx - .4, .95, b.cz + .76, 0, true); box(g, .9, 1, .1, "#3A2A20", b.cx + .6, 0, b.cz + .76); b.top = 3.2; },
       faith: function (g, b) { box(g, 1.6, 1.3, 1.6, "#FFFFFF", b.cx - 1, 0, b.cz); roof(g, 1.7, .7, 1.7, "#6C7FD8", b.cx - 1, 1.3, b.cz, false); box(g, .5, 2.4, .5, "#F4F5FB", b.cx - 1, 0, b.cz + .95); add(g, new THREE.ConeGeometry(.36, .8, 4), M("#6C7FD8", { flatShading: true }), b.cx - 1, 2.8, b.cz + .95).rotation.y = Math.PI / 4;
-        box(g, .05, .45, .05, "#FFB547", b.cx - 1, 3.2, b.cz + .95); box(g, .26, .05, .05, "#FFB547", b.cx - 1, 3.48, b.cz + .95); box(g, .45, .7, .05, "#8A5A3B", b.cx - 1, 0, b.cz + .81);
+        box(g, .05, .45, .05, "#F59E0B", b.cx - 1, 3.2, b.cz + .95); box(g, .26, .05, .05, "#F59E0B", b.cx - 1, 3.48, b.cz + .95); box(g, .45, .7, .05, "#8A5A3B", b.cx - 1, 0, b.cz + .81);
         box(g, 1.4, 1.1, 1.3, "#FFFFFF", b.cx + .9, 0, b.cz); add(g, new THREE.SphereGeometry(.55, 24, 14, 0, Math.PI * 2, 0, Math.PI / 2), M("#2BB673", { roughness: .4 }), b.cx + .9, 1.1, b.cz); cyl(g, .12, .14, 2.6, "#F4F5FB", b.cx + 1.6, 0, b.cz + .7, 12); add(g, new THREE.SphereGeometry(.15, 14, 10, 0, Math.PI * 2, 0, Math.PI / 2), M("#2BB673"), b.cx + 1.6, 2.6, b.cz + .7);
         box(g, .4, .6, .05, "#2BB673", b.cx + .9, 0, b.cz + .66); b.top = 3.7; },
       lang: function (g, b) { box(g, 2.6, 1.4, 1.4, "#F7D6E0", b.cx - .3, 0, b.cz - .1); roof(g, 2.8, .7, 1.6, "#9B5DE5", b.cx - .3, 1.4, b.cz - .1, true); windows(g, b.cx - .3, b.cz - .1, 2.6, 1.4, .8, 1, .5, 4);
@@ -579,14 +804,14 @@ import * as THREE from "./vendor/three.module.min.js";
         for (var i = 0; i < 9; i++) box(g, .05, .3, .05, "#FFFFFF", b.cx - 1.8 + i * .45, 0, b.cz + .92); box(g, 3.7, .04, .03, "#FFFFFF", b.cx, .22, b.cz + .92); b.top = 2; },
       school: function (g, b) { box(g, 3.2, 1.3, 1.3, "#FFF1D6", b.cx, 0, b.cz - .15); roof(g, 3.4, .7, 1.5, "#E76F51", b.cx, 1.3, b.cz - .15, true); windows(g, b.cx, b.cz - .15, 3.2, 1.3, .75, 1, .5, 6);
         var cl = add(g, new THREE.CylinderGeometry(.2, .2, .05, 24), M("#FFFFFF"), b.cx + 1.61, 1.15, b.cz - .15); cl.rotation.z = Math.PI / 2; cyl(g, .025, .025, 2.4, "#C9D3E6", b.cx - 1.75, 0, b.cz + .7, 8);
-        var flag = add(g, new THREE.PlaneGeometry(.55, .32, 6, 1), M("#3DDC97", { side: THREE.DoubleSide }), b.cx - 1.47, 2.2, b.cz + .7, true); var fb = flag.geometry.attributes.position.array.slice();
+        var flag = add(g, new THREE.PlaneGeometry(.55, .32, 6, 1), M("#10B981", { side: THREE.DoubleSide }), b.cx - 1.47, 2.2, b.cz + .7, true); var fb = flag.geometry.attributes.position.array.slice();
         anim.push(function (t) { var a = flag.geometry.attributes.position.array; for (var i = 0; i < a.length; i += 3) a[i + 2] = Math.sin(t * 4 + fb[i] * 8) * .05 * (fb[i] + .28); flag.geometry.attributes.position.needsUpdate = true; });
         box(g, 1, .45, .45, "#FFC93C", b.cx + .9, 0, b.cz + .8); b.top = 2.6; },
       hall: function (g, b) { box(g, 3, 1.3, 1.4, "#2EC4B6", b.cx, 0, b.cz - .1); roof(g, 3.2, .7, 1.6, "#1B8F85", b.cx, 1.3, b.cz - .1, true); box(g, .8, .9, .05, "#0F5A54", b.cx, 0, b.cz + .61);
-        sign(g, [{ t: "SQUAD HALL", s: 56 }], "#0F5A54", "#FFFFFF", 1.2, .28, b.cx, 1.05, b.cz + .62, 0); [-1.3, 1.3].forEach(function (o) { cyl(g, .025, .025, 2.2, "#C9D3E6", b.cx + o, 0, b.cz + .8, 8); add(g, new THREE.PlaneGeometry(.4, .26), M(o < 0 ? "#FFB547" : "#8B7CFF", { side: THREE.DoubleSide }), b.cx + o + .2, 2.05, b.cz + .8, true); }); b.top = 2.6; },
+        sign(g, [{ t: "SQUAD HALL", s: 56 }], "#0F5A54", "#FFFFFF", 1.2, .28, b.cx, 1.05, b.cz + .62, 0); [-1.3, 1.3].forEach(function (o) { cyl(g, .025, .025, 2.2, "#C9D3E6", b.cx + o, 0, b.cz + .8, 8); add(g, new THREE.PlaneGeometry(.4, .26), M(o < 0 ? "#F59E0B" : "#EC4899", { side: THREE.DoubleSide }), b.cx + o + .2, 2.05, b.cz + .8, true); }); b.top = 2.6; },
       trophy: function (g, b) { cyl(g, .75, .85, .3, "#E8EAF0", b.cx, 0, b.cz, 6); cyl(g, .35, .4, .5, "#D9DEE8", b.cx, .3, b.cz, 6); var cup = new THREE.Group(); cup.position.set(b.cx, .8, b.cz); g.add(cup);
         var gold = M("#FFC94A", { metalness: .7, roughness: .25, emissive: "#7A5200", emissiveIntensity: .25 }); cyl(cup, .05, .2, .12, gold, 0, 0, 0, 16); cyl(cup, .04, .04, .25, gold, 0, .12, 0, 8); cyl(cup, .32, .14, .45, gold, 0, .37, 0, 20); [-1, 1].forEach(function (sd) { var h = add(cup, new THREE.TorusGeometry(.12, .03, 8, 16, Math.PI), gold, sd * .3, .65, 0); h.rotation.z = sd * Math.PI / 2; });
-        var badges = new THREE.Group(); badges.position.set(b.cx, 1.6, b.cz); g.add(badges); ["#3DDC97", "#8B7CFF", "#4CC9F0"].forEach(function (c, i) { var a = i / 3 * Math.PI * 2, h2 = add(badges, new THREE.CylinderGeometry(.18, .18, .04, 6), new THREE.MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: .5 }), Math.cos(a) * .55, 0, Math.sin(a) * .55, true); h2.rotation.x = Math.PI / 2; });
+        var badges = new THREE.Group(); badges.position.set(b.cx, 1.6, b.cz); g.add(badges); ["#10B981", "#EC4899", "#0EA5E9"].forEach(function (c, i) { var a = i / 3 * Math.PI * 2, h2 = add(badges, new THREE.CylinderGeometry(.18, .18, .04, 6), new THREE.MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: .5 }), Math.cos(a) * .55, 0, Math.sin(a) * .55, true); h2.rotation.x = Math.PI / 2; });
         anim.push(function (t) { cup.rotation.y = t * .8; badges.rotation.y = -t * .5; badges.position.y = 1.6 + Math.sin(t * 2) * .08; }); b.top = 2.2; },
       vault: function (g, b) { box(g, 1.7, .15, 1.7, "#D9DEE8", b.cx, 0, b.cz); box(g, 1.4, 1.2, 1.3, "#C3CAD9", b.cx, .15, b.cz - .1); for (var i = 0; i < 4; i++) cyl(g, .06, .06, 1.2, "#EEF1F7", b.cx - .55 + i * .37, .15, b.cz + .6, 10);
         box(g, 1.6, .12, 1.5, "#D9DEE8", b.cx, 1.35, b.cz - .05); add(g, new THREE.ConeGeometry(1.05, .45, 4), M("#AEB6C8", { flatShading: true }), b.cx, 1.7, b.cz - .05).rotation.y = Math.PI / 4;
@@ -600,35 +825,51 @@ import * as THREE from "./vendor/three.module.min.js";
       if (!b.comm) return;
       var cg = new THREE.Group(); cg.position.set(b.cx, b.top + 1.1, b.cz); scene.add(cg);
       var dark = M("#3E3A5C", { flatShading: true }); [[0, 0, 0, .45], [-.4, -.05, .1, .32], [.42, -.05, -.05, .35], [.15, .2, .15, .3], [-.2, .18, -.2, .28]].forEach(function (c) { add(cg, new THREE.IcosahedronGeometry(c[3], 1), dark, c[0], c[1], c[2], true); });
-      var eye = new THREE.MeshStandardMaterial({ color: "#FF5D7A", emissive: "#FF5D7A", emissiveIntensity: 2.2 }); add(cg, new THREE.SphereGeometry(.06, 10, 8), eye, -.12, 0, .44, true); add(cg, new THREE.SphereGeometry(.06, 10, 8), eye, .12, 0, .44, true);
-      var bolt = add(cg, new THREE.ConeGeometry(.06, .45, 4), new THREE.MeshStandardMaterial({ color: "#FFB547", emissive: "#FFB547", emissiveIntensity: 1.5 }), .1, -.55, .1, true); bolt.rotation.z = .3;
+      var eye = new THREE.MeshStandardMaterial({ color: "#F43F5E", emissive: "#F43F5E", emissiveIntensity: 2.2 }); add(cg, new THREE.SphereGeometry(.06, 10, 8), eye, -.12, 0, .44, true); add(cg, new THREE.SphereGeometry(.06, 10, 8), eye, .12, 0, .44, true);
+      var bolt = add(cg, new THREE.ConeGeometry(.06, .45, 4), new THREE.MeshStandardMaterial({ color: "#F59E0B", emissive: "#F59E0B", emissiveIntensity: 1.5 }), .1, -.55, .1, true); bolt.rotation.z = .3;
       var ph = b.cx * .7; anim.push(function (t) { cg.position.y = b.top + 1.1 + Math.sin(t * 1.4 + ph) * .12; cg.rotation.y = Math.sin(t * .5 + ph) * .3; bolt.visible = Math.sin(t * 3 + ph) > .3; });
       clouds[b.comm] = cg;
       var dg = new THREE.Group(); dg.position.set(b.cx, 0, b.cz); scene.add(dg);
-      var r = 2.15, sh = add(dg, new THREE.SphereGeometry(r, 40, 20, 0, Math.PI * 2, 0, Math.PI / 2), new THREE.MeshPhysicalMaterial({ color: "#3DDC97", emissive: "#3DDC97", emissiveIntensity: .45, transparent: true, opacity: .22, roughness: .1, side: THREE.DoubleSide, depthWrite: false }), 0, 0, 0, true);
-      sh.scale.y = Math.max(.9, (b.top + .8) / r); var ring = add(dg, new THREE.TorusGeometry(r, .04, 8, 64), new THREE.MeshStandardMaterial({ color: "#3DDC97", emissive: "#3DDC97", emissiveIntensity: 1.5 }), 0, .05, 0, true); ring.rotation.x = Math.PI / 2;
+      var r = 2.15, sh = add(dg, new THREE.SphereGeometry(r, 40, 20, 0, Math.PI * 2, 0, Math.PI / 2), new THREE.MeshPhysicalMaterial({ color: "#10B981", emissive: "#10B981", emissiveIntensity: .45, transparent: true, opacity: .22, roughness: .1, side: THREE.DoubleSide, depthWrite: false }), 0, 0, 0, true);
+      sh.scale.y = Math.max(.9, (b.top + .8) / r); var ring = add(dg, new THREE.TorusGeometry(r, .04, 8, 64), new THREE.MeshStandardMaterial({ color: "#10B981", emissive: "#10B981", emissiveIntensity: 1.5 }), 0, .05, 0, true); ring.rotation.x = Math.PI / 2;
       anim.push(function (t) { sh.material.opacity = .22 + Math.sin(t * 2 + b.cx) * .06; }); domes[b.comm] = dg;
     });
 
+    // A green ring around the district that matches your role
+    var mineRing = new THREE.Mesh(new THREE.TorusGeometry(2.25, .05, 8, 72), new THREE.MeshStandardMaterial({ color: "#10B981", emissive: "#10B981", emissiveIntensity: 1.2 })); mineRing.rotation.x = Math.PI / 2; mineRing.scale.y = .55; mineRing.visible = false; scene.add(mineRing);
+    anim.push(function (t) { mineRing.material.emissiveIntensity = .8 + Math.sin(t * 2.5) * .4; });
+
     // People walking around the streets
     var people = [], roadCells = []; for (var rx = 0; rx < N; rx++) for (var rz = 2; rz < N; rz++) if (isRoad(rx, rz)) roadCells.push([rx, rz]);
-    var shirts = ["#FF8A3D", "#4CC9F0", "#FF5D7A", "#FFC93C", "#8B7CFF", "#2BB673", "#E76F51", "#F4F5FB", "#6C7FD8", "#2EC4B6", "#FFB547", "#C77DFF", "#90BE6D", "#F94144"];
-    shirts.forEach(function (c, i) { var p = person(c, i % 3 ? "#1B1F3B" : "#3B2416"), cell = roadCells[(i * 37) % roadCells.length]; p.position.set(cell[0] + .5, 0, cell[1] + .5); p.scale.setScalar(.85); scene.add(p); people.push({ m: p, from: cell, to: cell, t: 1, sp: .5 + (i % 4) * .12, off: (i % 3 - 1) * .22 }); });
+    for (var i = 0; i < 16; i++) (function (i) {
+      var p = makeHuman(randomChar(i + 3)), cell = roadCells[(i * 37) % roadCells.length]; p.position.set(cell[0] + .5, 0, cell[1] + .5); p.scale.setScalar(.6); scene.add(p);
+      people.push({ m: p, from: cell, to: cell, t: 1, sp: .45 + (i % 4) * .1, off: (i % 3 - 1) * .2 });
+    })(i);
+    // Small groups chatting outside buildings
+    var idlers = [];
+    [[[5.2, 7.35], [5.75, 7.6]], [[10.4, 12.35], [10.9, 12.6], [10.6, 12.95]], [[14.6, 7.4], [15.1, 7.55]], [[4.4, 12.4], [4.9, 12.65]]].forEach(function (grp, gi) {
+      var cx = 0, cz = 0; grp.forEach(function (q) { cx += q[0] / grp.length; cz += q[1] / grp.length; });
+      grp.forEach(function (q, k) { var p = makeHuman(randomChar(gi * 3 + k + 30)); p.position.set(q[0], 0, q[1]); p.rotation.y = Math.atan2(cx - q[0], cz - q[1]); p.scale.setScalar(.6); scene.add(p); idlers.push(p); });
+    });
     function nextCell(c, prev) { var ns = [[1, 0], [-1, 0], [0, 1], [0, -1]].map(function (d) { return [c[0] + d[0], c[1] + d[1]]; }).filter(function (n2) { return isRoad(n2[0], n2[1]) && n2[1] >= 2; }); var fw = ns.filter(function (n2) { return !prev || n2[0] !== prev[0] || n2[1] !== prev[1]; }); var pool = fw.length ? fw : ns; return pool[Math.floor(Math.random() * pool.length)]; }
-    anim.push(function (t, dt) { people.forEach(function (p) { p.t += dt * p.sp; if (p.t >= 1) { var prev = p.from; p.from = p.to; p.to = nextCell(p.from, prev); p.t = 0; } var x = p.from[0] + (p.to[0] - p.from[0]) * p.t + .5 + p.off, z = p.from[1] + (p.to[1] - p.from[1]) * p.t + .5 + p.off; p.m.position.set(x, Math.abs(Math.sin(t * 8 + p.sp * 10)) * .03, z); p.m.rotation.y = Math.atan2(p.to[0] - p.from[0], p.to[1] - p.from[1]); }); });
+    anim.push(function (t, dt) {
+      people.forEach(function (p) { p.t += dt * p.sp; if (p.t >= 1) { var prev = p.from; p.from = p.to; p.to = nextCell(p.from, prev); p.t = 0; } var x = p.from[0] + (p.to[0] - p.from[0]) * p.t + .5 + p.off, z = p.from[1] + (p.to[1] - p.from[1]) * p.t + .5 + p.off; p.m.position.set(x, 0, z); p.m.rotation.y = Math.atan2(p.to[0] - p.from[0], p.to[1] - p.from[1]); animateHuman(p.m, t, true, p.sp * 13); });
+      idlers.forEach(function (p) { animateHuman(p, t, false); });
+    });
 
-    // The player
-    var hero = person("#3DDC97", "#1B1F3B"); hero.scale.setScalar(1.25); scene.add(hero);
-    var halo = add(hero, new THREE.RingGeometry(.2, .28, 32), new THREE.MeshBasicMaterial({ color: "#3DDC97", transparent: true, opacity: .85, side: THREE.DoubleSide }), 0, .02, 0, true); halo.rotation.x = -Math.PI / 2;
-    var marker = add(hero, new THREE.ConeGeometry(.1, .2, 4), new THREE.MeshStandardMaterial({ color: "#3DDC97", emissive: "#3DDC97", emissiveIntensity: 1.2 }), 0, 1, 0, true); marker.rotation.x = Math.PI;
-    anim.push(function (t) { marker.position.y = 1 + Math.sin(t * 3) * .06; marker.rotation.y = t * 2; halo.scale.setScalar(1 + Math.sin(t * 3) * .1); });
+    // The player: your own character, with a glowing ring and a marker
+    var hero = new THREE.Group(); scene.add(hero);
+    var halo = add(hero, new THREE.RingGeometry(.2, .28, 32), new THREE.MeshBasicMaterial({ color: "#EC4899", transparent: true, opacity: .9, side: THREE.DoubleSide }), 0, .02, 0, true); halo.rotation.x = -Math.PI / 2;
+    var marker = add(hero, new THREE.ConeGeometry(.08, .16, 4), new THREE.MeshStandardMaterial({ color: "#EC4899", emissive: "#EC4899", emissiveIntensity: 1.2 }), 0, 1.05, 0, true); marker.rotation.x = Math.PI;
+    anim.push(function (t) { marker.position.y = 1.05 + Math.sin(t * 3) * .05; marker.rotation.y = t * 2; halo.scale.setScalar(1 + Math.sin(t * 3) * .1); if (hero.userData.body) animateHuman(hero.userData.body, t, !!walkPath, 11); });
 
-    return { R: R, scene: scene, cam: cam, hemi: hemi, sun: sun, anim: anim, pick: pick, clouds: clouds, domes: domes, hero: hero, winMats: winMats, lampMats: lampMats, canvas: canvas, cam3: { tx: 9.5, tz: 12.5, dist: 25, th: Math.PI / 4, ph: .95 } };
+    return { R: R, scene: scene, cam: cam, hemi: hemi, sun: sun, anim: anim, pick: pick, clouds: clouds, domes: domes, hero: hero, mineRing: mineRing, winMats: winMats, lampMats: lampMats, canvas: canvas, cam3: { tx: 9.5, tz: 12.5, dist: 25, th: Math.PI / 4, ph: .95 } };
   }
 
+  function setHero(c) { if (!W3) return; var h = W3.hero; if (h.userData.body) h.remove(h.userData.body); var b = makeHuman(c || S.char || defaultChar()); b.scale.setScalar(.82); h.add(b); h.userData.body = b; }
   function applyDayNight() {
     if (!W3) return; var nt = night;
-    W3.hemi.intensity = nt ? .35 : 1.1; W3.hemi.color.set(nt ? "#7A8CC8" : "#E3F2FF"); W3.sun.intensity = nt ? .55 : 2.6; W3.sun.color.set(nt ? "#9FB4FF" : "#FFF0D8");
+    W3.hemi.intensity = nt ? .35 : 1.1; W3.hemi.color.set(nt ? "#8A7CC8" : "#FFF2F8"); W3.sun.intensity = nt ? .55 : 2.6; W3.sun.color.set(nt ? "#9FB4FF" : "#FFF0D8");
     W3.winMats.forEach(function (m) { m.emissiveIntensity = nt ? 1.3 : 0; }); W3.lampMats.forEach(function (m) { m.emissiveIntensity = nt ? 2.5 : 0; });
     var mp = $("map"); if (mp) mp.classList.toggle("night", !!nt);
   }
@@ -664,8 +905,8 @@ import * as THREE from "./vendor/three.module.min.js";
     });
   }
   function labelStatus(b) {
-    if (b.comm) return S.done["teach-" + b.comm] ? "#3DDC97" : S.done["decide-" + b.comm] ? "#FFB547" : "#FF5D7A";
-    if (b.mission) return S.done[b.mission] ? "#3DDC97" : "#8D96AE";
+    if (b.comm) return S.done["teach-" + b.comm] ? "#10B981" : S.done["decide-" + b.comm] ? "#F59E0B" : "#F43F5E";
+    if (b.mission) return S.done[b.mission] ? "#10B981" : "#8D96AE";
     return "";
   }
 
@@ -680,8 +921,7 @@ import * as THREE from "./vendor/three.module.min.js";
   function stepWalk(dt) {
     var h = W3.hero, nx = walkPath[0], tx = nx[0] + .5, tz = nx[1] + .5, dx = tx - h.position.x, dz = tz - h.position.z, d = Math.hypot(dx, dz), sp = 4.2 * dt;
     if (d > .001) h.rotation.y = Math.atan2(dx, dz);
-    h.position.y = Math.abs(Math.sin(performance.now() / 70)) * .05;
-    if (d <= sp) { h.position.x = tx; h.position.z = tz; heroCell = nx; walkPath.shift(); if (!walkPath.length) { walkPath = null; walking = false; follow = false; h.position.y = 0; S.pos = heroCell; save(); var b = walkTarget; setTimeout(function () { openBuilding(b); }, 150); } }
+    if (d <= sp) { h.position.x = tx; h.position.z = tz; heroCell = nx; walkPath.shift(); if (!walkPath.length) { walkPath = null; walking = false; follow = false; S.pos = heroCell; save(); var b = walkTarget; setTimeout(function () { openBuilding(b); }, 150); } }
     else { h.position.x += dx / d * sp; h.position.z += dz / d * sp; }
   }
   function visit(id) {
@@ -724,7 +964,7 @@ import * as THREE from "./vendor/three.module.min.js";
       var c = COMMS.filter(function (x) { return x.id === b.comm; })[0], p = commPct(c.id);
       sheet(bHead(b, c.who + " · " + (p >= 100 ? "Protected" : p + "% protected")) + '<div class="bar" style="margin:0 0 6px"><i style="width:' + p + "%;background:" + c.col + '"></i></div>' +
         misCard(MISSIONS.filter(function (m) { return m.id === "decide-" + c.id; })[0]) + misCard(MISSIONS.filter(function (m) { return m.id === "teach-" + c.id; })[0]) +
-        '<button class="mis" data-report="' + c.id + '">' + tile("mega", "#3DDC97") + '<span class="tx"><b>Report your session</b><span>Ran a session here? Report it as a squad for a real badge.</span><span class="cats"><span class="chip a">5 real pts</span></span></span><span class="go">' + ic("arrow", null, 18) + "</span></button>");
+        '<button class="mis" data-report="' + c.id + '">' + tile("mega", "#10B981") + '<span class="tx"><b>Report your session</b><span>Ran a session here? Report it as a squad for a real badge.</span><span class="cats"><span class="chip a">5 real pts</span></span></span><span class="go">' + ic("arrow", null, 18) + "</span></button>");
       return bindSheet();
     }
     var html = head;
@@ -732,8 +972,8 @@ import * as THREE from "./vendor/three.module.min.js";
     if (b.contrib) { html += '<div class="sec"><h3>Contribute here</h3><span class="muted small">real badges</span></div>' + CONTRIB[b.contrib].map(contribCard).join(""); }
     sheet(html); bindSheet();
   }
-  function contribCard(c) { var href = c.h.indexOf("http") === 0 ? c.h : joinHref(c.h); return '<a class="mis" href="' + href + '" target="_blank" rel="noopener" data-create="1">' + tile("git", "#8B7CFF") + '<span class="tx"><b>' + esc(c.t) + "</b><span>" + esc(c.d) + '</span><span class="cats"><span class="chip a">' + esc(c.p) + '</span></span></span><span class="go">' + ic("arrow", null, 18) + "</span></a>"; }
-  function bHead(b, sub) { var bi = B_ICON[b.id] || ["shield", "#3DDC97"]; return '<div style="display:flex;gap:12px;align-items:center;margin-bottom:12px">' + tile(bi[0], bi[1], 24) + "<div><h2>" + esc(b.name) + '</h2><div class="muted small">' + esc(sub) + "</div></div></div>"; }
+  function contribCard(c) { var href = c.h.indexOf("http") === 0 ? c.h : joinHref(c.h); return '<a class="mis" href="' + href + '" target="_blank" rel="noopener" data-create="1">' + tile("git", "#EC4899") + '<span class="tx"><b>' + esc(c.t) + "</b><span>" + esc(c.d) + '</span><span class="cats"><span class="chip a">' + esc(c.p) + '</span></span></span><span class="go">' + ic("arrow", null, 18) + "</span></a>"; }
+  function bHead(b, sub) { var bi = B_ICON[b.id] || ["shield", "#10B981"]; return '<div style="display:flex;gap:12px;align-items:center;margin-bottom:12px">' + tile(bi[0], bi[1], 24) + "<div><h2>" + esc(b.name) + '</h2><div class="muted small">' + esc(sub) + "</div></div></div>"; }
   function createCard(c) {
     var href = c.href ? (c.href.indexOf("http") === 0 ? c.href : joinHref(c.href)) : "";
     return (c.action ? '<button class="mis" data-report="1">' : '<a class="mis" href="' + href + '" target="_blank" rel="noopener" data-create="1">') + tile(c.icon, c.col) + '<span class="tx"><b>' + esc(c.title) + "</b><span>" + esc(c.desc) + '</span><span class="cats"><span class="chip a">' + c.pts + '</span></span></span><span class="go">' + ic("arrow", null, 18) + "</span>" + (c.action ? "</button>" : "</a>");
@@ -751,21 +991,23 @@ import * as THREE from "./vendor/three.module.min.js";
     if (night === null) { var hr = new Date().getHours(); night = hr >= 19 || hr < 6; }
     $("view").classList.add("mapmode");
     $("view").innerHTML = '<div class="map" id="map"><div class="labels" id="labels"></div></div>' +
-      '<div class="hud"><div class="ava">' + esc((S.name || "?").charAt(0).toUpperCase()) + '</div><div class="t"><b>' + esc(S.name) + ' <span class="chip v" style="margin-left:4px">Lv ' + (lv + 1) + " · " + LEVELS[lv] + '</span></b><div class="xpb"><i style="width:' + into / 2 + '%"></i></div></div><div class="streak">' + ic("fire", "#FFB547", 16) + streak() + "</div></div>" +
-      '<div class="hud2"><span class="chip ' + (prot === 5 ? "g" : "r") + '">' + (5 - prot) + " scam cloud" + (5 - prot === 1 ? "" : "s") + ' left</span><span class="chip g">' + COMMS.filter(function (c) { return S.done["teach-" + c.id]; }).length + '/5 shielded</span></div>' +
-      '<div class="mapbtns"><button id="dn" aria-label="Day or night">' + (night ? "☀" : "☾") + '</button><button id="rl" aria-label="Rotate left">⟲</button><button id="rr" aria-label="Rotate right">⟳</button><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="zme" aria-label="Find me">' + ic("radar", null, 18) + "</button></div>" +
+      '<div class="hud"><div class="ava" id="me" role="button" aria-label="Edit your character">' + (S.charImg ? '<img src="' + S.charImg + '" alt="">' : esc((S.name || "?").charAt(0).toUpperCase())) + '</div><div class="t"><b>' + esc(S.name) + ' <span class="chip v" style="margin-left:4px">Lv ' + (lv + 1) + " · " + LEVELS[lv] + '</span></b><div class="xpb"><i style="width:' + into / 2 + '%"></i></div></div><div class="streak">' + ic("fire", "#F59E0B", 16) + streak() + "</div></div>" +
+      '<div class="hud2">' + (S.github ? "" : '<button class="chip v" id="linkgh" style="pointer-events:auto;border:0">' + ic("git", "#BE185D", 14) + " Link GitHub</button>") + '<span class="chip ' + (prot === 5 ? "g" : "r") + '">' + (5 - prot) + " scam cloud" + (5 - prot === 1 ? "" : "s") + ' left</span><span class="chip g">' + COMMS.filter(function (c) { return S.done["teach-" + c.id]; }).length + '/5 shielded</span></div>' +
+      '<div class="mapbtns"><button id="prb" class="pr" aria-label="Contribute on GitHub">' + ic("git", "#fff", 20) + '</button><button id="dn" aria-label="Day or night">' + (night ? "☀" : "☾") + '</button><button id="rl" aria-label="Rotate left">⟲</button><button id="rr" aria-label="Rotate right">⟳</button><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="zme" aria-label="Find me">' + ic("radar", null, 18) + "</button></div>" +
       (nm ? '<button class="nextpill" id="nextp">' + tile(nm.icon, nm.col, 22, "ni") + '<span class="tx"><span class="k">NEXT MISSION · +' + nm.xp + ' XP</span><b>' + esc(nm.title) + '</b></span><span class="gob">Go</span></button>'
-          : '<button class="nextpill" id="nextp">' + tile("trophy", "#3DDC97", 22, "ni") + '<span class="tx"><span class="k">EVERY CLOUD CLEARED</span><b>Visit Open Source HQ</b></span><span class="gob">Go</span></button>');
+          : '<button class="nextpill" id="nextp">' + tile("trophy", "#10B981", 22, "ni") + '<span class="tx"><span class="k">EVERY CLOUD CLEARED</span><b>Visit Open Source HQ</b></span><span class="gob">Go</span></button>');
     if (!W3) W3 = buildWorld();
     var map = $("map");
     if (!W3) { map.innerHTML = '<div class="glass pad" style="margin:150px 18px 0"><h3>Your device can\'t show the 3D city</h3><p class="muted small">Pick a place instead:</p>' + BUILDINGS.map(function (b) { return '<button class="mis" data-b="' + b.id + '">' + tile(b.icon[0], b.icon[1]) + '<span class="tx"><b>' + esc(b.name) + "</b></span></button>"; }).join("") + "</div>"; map.style.overflow = "auto"; map.querySelectorAll("[data-b]").forEach(function (x) { x.onclick = function () { openBuilding(B_BY[x.dataset.b]); }; }); }
     else {
       map.insertBefore(W3.canvas, map.firstChild); labelsEl = $("labels");
-      labelsEl.innerHTML = BUILDINGS.map(function (b) { var st2 = labelStatus(b); return '<button class="lbl3' + (b.special ? " sp" : "") + '" data-b="' + b.id + '">' + (st2 ? '<i style="background:' + st2 + '"></i>' : "") + esc(b.name) + "</button>"; }).join("");
+      labelsEl.innerHTML = BUILDINGS.map(function (b) { var st2 = labelStatus(b); return '<button class="lbl3' + (b.special ? " sp" : "") + (S.char && ROLE_BY[S.char.role] && ROLE_BY[S.char.role].district === b.id ? " mine" : "") + '" data-b="' + b.id + '">' + (st2 ? '<i style="background:' + st2 + '"></i>' : "") + esc(b.name) + "</button>"; }).join("");
       BUILDINGS.forEach(function (b) { b.lbl = labelsEl.querySelector('[data-b="' + b.id + '"]'); });
       labelsEl.querySelectorAll("[data-b]").forEach(function (x) { x.addEventListener("pointerdown", function (e) { e.stopPropagation(); }); x.onclick = function () { visit(x.dataset.b); }; });
       if (!W3.ctrl) { initControls(W3.canvas); W3.ctrl = 1; }
       W3.hero.position.set(heroCell[0] + .5, 0, heroCell[1] + .5); W3.cam3.tx = heroCell[0] + .5; W3.cam3.tz = heroCell[1] + .5;
+      var ck = JSON.stringify(S.char || {}); if (W3.heroKey !== ck) { setHero(S.char); W3.heroKey = ck; }
+      var mine = S.char && ROLE_BY[S.char.role] && B_BY[ROLE_BY[S.char.role].district]; W3.mineRing.visible = !!mine; if (mine) W3.mineRing.position.set(mine.cx, .06, mine.cz);
       refreshWorld(); applyDayNight(); resize();
       if (!loopOn) { loopOn = true; lastT = 0; requestAnimationFrame(loop); }
     }
@@ -775,7 +1017,8 @@ import * as THREE from "./vendor/three.module.min.js";
     $("rl").onclick = cam(function (c) { c.th -= Math.PI / 4; }); $("rr").onclick = cam(function (c) { c.th += Math.PI / 4; });
     $("zme").onclick = function () { if (W3) follow = true; setTimeout(function () { follow = false; }, 1200); };
     $("dn").onclick = function () { night = !night; this.textContent = night ? "☀" : "☾"; applyDayNight(); };
-    ["zin", "zout", "zme", "nextp", "rl", "rr", "dn"].forEach(function (id) { $(id).addEventListener("pointerdown", function (e) { e.stopPropagation(); }); });
+    $("prb").onclick = function () { contributeSheet(); }; $("me").onclick = function () { studio(false); }; if ($("linkgh")) $("linkgh").onclick = function () { contributeSheet(); };
+    ["zin", "zout", "zme", "nextp", "rl", "rr", "dn", "prb", "me"].concat($("linkgh") ? ["linkgh"] : []).forEach(function (id) { $(id).addEventListener("pointerdown", function (e) { e.stopPropagation(); }); });
   }
 
   function missions() {
@@ -797,6 +1040,122 @@ import * as THREE from "./vendor/three.module.min.js";
     return '<button class="mis' + (done ? " done" : "") + '" data-m="' + m.id + '">' + tile(m.icon, m.col) + '<span class="tx"><b>' + esc(m.title) + "</b><span>" + esc(m.desc) + '</span><span class="cats">' + (c ? '<span class="chip" style="color:' + c.col + '">' + esc(c.name) + "</span>" : "") + '<span class="chip g">+' + m.xp + " XP</span>" + (done ? '<span class="chip">Best ' + done + "</span>" : "") + '</span></span><span class="go">' + ic(done ? "check" : "arrow", null, 18) + "</span></button>";
   }
 
+  // ------------------------------------------------------------ Character studio
+  var ST = null;
+  function studioRenderer() {
+    if (ST) return ST; var canvas = document.createElement("canvas"), R;
+    try { R = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true, preserveDrawingBuffer: true }); } catch (e) { return null; }
+    if (!R.getContext()) return null;
+    R.setPixelRatio(Math.min(2, window.devicePixelRatio || 1)); R.toneMapping = THREE.ACESFilmicToneMapping; R.shadowMap.enabled = true; R.shadowMap.type = THREE.PCFSoftShadowMap;
+    var scene = new THREE.Scene(), cam = new THREE.PerspectiveCamera(30, 1, .05, 20);
+    scene.add(new THREE.HemisphereLight(0xfff4fa, 0xd9f5e8, 1.4));
+    var key = new THREE.DirectionalLight(0xffffff, 2.2); key.position.set(1.5, 3, 2.5); key.castShadow = true; key.shadow.mapSize.set(1024, 1024); scene.add(key);
+    var rim = new THREE.DirectionalLight(0xf9a8d4, 1.4); rim.position.set(-2, 1.5, -2); scene.add(rim);
+    var podium = new THREE.Mesh(new THREE.CylinderGeometry(.42, .46, .08, 48), new THREE.MeshStandardMaterial({ color: "#FFFFFF", roughness: .4 })); podium.position.y = -.04; podium.receiveShadow = true; scene.add(podium);
+    var ring = new THREE.Mesh(new THREE.TorusGeometry(.44, .012, 8, 64), new THREE.MeshStandardMaterial({ color: "#EC4899", emissive: "#EC4899", emissiveIntensity: .6 })); ring.rotation.x = Math.PI / 2; ring.position.y = .001; scene.add(ring);
+    var turn = new THREE.Group(); scene.add(turn);
+    ST = { R: R, scene: scene, cam: cam, canvas: canvas, turn: turn, body: null, rot: .5, drag: false };
+    canvas.addEventListener("pointerdown", function (e) { ST.drag = e.clientX; canvas.setPointerCapture(e.pointerId); });
+    canvas.addEventListener("pointermove", function (e) { if (ST.drag === false) return; ST.rot += (e.clientX - ST.drag) * .012; ST.drag = e.clientX; });
+    canvas.addEventListener("pointerup", function () { ST.drag = false; });
+    return ST;
+  }
+  function studioLoop(now) {
+    if (!ST || !ST.on) return; var t = now / 1000, el = ST.canvas.parentNode; if (!el) return;
+    var w = el.clientWidth, h = el.clientHeight; if (ST.w !== w || ST.h !== h) { ST.R.setSize(w, h, false); ST.cam.aspect = w / h; ST.cam.updateProjectionMatrix(); ST.w = w; ST.h = h; }
+    if (ST.drag === false) ST.rot += .006; ST.turn.rotation.y = ST.rot;
+    if (ST.body) animateHuman(ST.body, t, false);
+    ST.cam.position.set(0, .8, 2.75); ST.cam.lookAt(0, .6, 0); ST.R.render(ST.scene, ST.cam);
+    requestAnimationFrame(studioLoop);
+  }
+  function studioShow(c) { if (!ST) return; if (ST.body) ST.turn.remove(ST.body); ST.body = makeHuman(c); ST.body.traverse(function (o) { if (o.isMesh) o.castShadow = true; }); ST.turn.add(ST.body); }
+  // A small portrait of the character for the HUD and squad lists
+  function headshot() {
+    if (!ST || !ST.body) return ""; var R = ST.R, old = R.getSize(new THREE.Vector2()), rot = ST.turn.rotation.y;
+    try {
+      R.setSize(160, 160, false); ST.cam.aspect = 1; ST.cam.updateProjectionMatrix(); ST.turn.rotation.y = .35;
+      ST.cam.position.set(0, .93, .62); ST.cam.lookAt(0, .88, 0); R.setClearColor(0xfce7f3, 1); R.render(ST.scene, ST.cam);
+      var url = ST.canvas.toDataURL("image/jpeg", .82); R.setClearColor(0x000000, 0); R.setSize(old.x, old.y, false); ST.w = 0; ST.turn.rotation.y = rot; return url;
+    } catch (e) { return ""; }
+  }
+  function studio(first, done) {
+    var c = Object.assign(defaultChar(), S.char || {});
+    stage(first ? "Create your character" : "Your character", "Who are you in cyber security?");
+    var gl = studioRenderer();
+    function draw() {
+      var r = ROLE_BY[c.role], wrapped = c.hair === "gele" || c.hair === "hijab";
+      $("stBody").innerHTML = '<div class="studio" id="studio">' + (gl ? "" : '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">' + tile(r.icon[0], r.icon[1], 64) + "</div>") + '<span class="badge">' + esc(S.name || "You") + " · " + esc(r.name) + "</span></div>" +
+        '<div class="lbl">Your role</div><div class="roles">' + ROLES.map(function (x) { return '<button class="role' + (x.id === c.role ? " on" : "") + '" data-role="' + x.id + '">' + tile(x.icon[0], x.icon[1], 22) + "<b>" + esc(x.name) + "</b><span>" + esc(x.d) + "</span></button>"; }).join("") + "</div>" +
+        '<div class="lbl">Outfit colour</div><div class="sw">' + r.tops.map(function (col, i) { return '<button aria-label="Outfit colour ' + (i + 1) + '" data-top="' + i + '" class="' + (i === (c.top || 0) ? "on" : "") + '" style="background:' + col + '"></button>'; }).join("") + "</div>" +
+        '<div class="lbl">Skin tone</div><div class="sw">' + SKINS.map(function (col, i) { return '<button aria-label="Skin tone ' + (i + 1) + '" data-skin="' + i + '" class="' + (i === c.skin ? "on" : "") + '" style="background:' + col + '"></button>'; }).join("") + "</div>" +
+        '<div class="lbl">Hair or head wrap</div><div class="pills">' + HAIRS.map(function (x) { return '<button data-hair="' + x[0] + '" class="' + (x[0] === c.hair ? "on" : "") + '">' + x[1] + "</button>"; }).join("") + "</div>" +
+        (c.hair === "bald" ? "" : '<div class="lbl">' + (wrapped ? "Wrap colour" : "Hair colour") + '</div><div class="sw">' + (wrapped ? FABRICS : HAIR_COLS).map(function (col, i) { return '<button aria-label="Colour ' + (i + 1) + '" data-hc="' + i + '" class="' + (i === c.hc ? "on" : "") + '" style="background:' + col + '"></button>'; }).join("") + "</div>") +
+        '<div class="glass pad small" style="margin-top:16px">' + ic("radar", "#EC4899", 18) + " Your district is <b>" + esc(B_BY[r.district].name) + "</b>. It's marked in the city with a green ring.</div>" +
+        '<button class="btn block" id="stsave" style="margin-top:16px">' + (first ? "This is me" : "Save character") + "</button>";
+      var host = $("studio"); if (gl) { host.insertBefore(gl.canvas, host.firstChild); studioShow(c); if (!ST.on) { ST.on = true; requestAnimationFrame(studioLoop); } }
+      $("stBody").querySelectorAll("[data-role]").forEach(function (b) { b.onclick = function () { var sc = $("stBody").querySelector(".roles").scrollLeft; c.role = b.dataset.role; c.top = 0; draw(); $("stBody").querySelector(".roles").scrollLeft = sc; }; });
+      [["top", "top"], ["skin", "skin"], ["hc", "hc"]].forEach(function (k) { $("stBody").querySelectorAll("[data-" + k[0] + "]").forEach(function (b) { b.onclick = function () { c[k[1]] = +b.dataset[k[0]]; keep(draw); }; }); });
+      $("stBody").querySelectorAll("[data-hair]").forEach(function (b) { b.onclick = function () { c.hair = b.dataset.hair; keep(draw); }; });
+      $("stsave").onclick = function () {
+        S.char = c; S.charImg = headshot(); save(); track("character-" + c.role); if (ST) ST.on = false;
+        $("stage").classList.remove("on"); toast(first ? "Welcome to the city, " + r.name + "!" : "Character saved"); if (done) done(); else render();
+      };
+    }
+    function keep(fn) { var b = $("stBody"), y = b.scrollTop, sc = b.querySelector(".roles").scrollLeft; fn(); b.scrollTop = y; b.querySelector(".roles").scrollLeft = sc; }
+    draw();
+  }
+
+  // ------------------------------------------------------------ Contribute on GitHub from inside the game
+  // What each finished mission can become on GitHub
+  function contribFor(id) {
+    var m = MISSIONS.filter(function (x) { return x.id === id; })[0]; if (!m) return null;
+    if (id.indexOf("decide-") === 0) { var k = (COMM_TIPS[m.comm] || ["otp"])[0], tip = TIPS[k].en, cm = COMMS.filter(function (x) { return x.id === m.comm; })[0];
+      return { t: "Share the tip you just practised", d: "Add it to the public tips list for " + cm.name.toLowerCase() + " communities. 3 points.", h: joinHref("join?tip_title=" + encodeURIComponent("Safety tip for " + cm.name.toLowerCase() + " communities") + "&tip=" + encodeURIComponent(tip) + "#tip") }; }
+    if (id.indexOf("teach-") === 0) return { t: "Report your awareness session", d: "Ran it with real people? Report it for a real badge.", report: m.comm };
+    if (id === "password") return { t: "Share a passphrase tip", d: "Teach others the trick you just learned. 3 points.", h: joinHref("join?tip_title=" + encodeURIComponent("Use a passphrase, not a password") + "&tip=" + encodeURIComponent("Join four random words into one passphrase. It is easier to remember and far harder to crack than a short password.") + "#tip") };
+    var key = { soc: "soc", redteam: "red", grc: "grc", ai: "ai", api: "api", vdp: "vdp" }[id], c = key && CONTRIB[key] && CONTRIB[key][0];
+    if (c) return { t: c.t, d: c.d + " " + c.p + ".", h: c.h.indexOf("http") === 0 ? c.h : joinHref(c.h) };
+    return null;
+  }
+  function ghCard(id) {
+    var c = contribFor(id); if (!c) return "";
+    return '<div class="ghcard"><span class="gi" style="width:42px;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex:none;background:linear-gradient(135deg,#34D399,#10B981)">' + ic("git", "#fff", 22) + '</span><span style="flex:1;min-width:0"><b style="display:block;font-size:14px">Contribute this on GitHub?</b><span class="small muted">' + esc(c.t) + "</span></span></div>" +
+      (c.report ? '<button class="btn green block" style="margin-top:10px" data-ghreport="' + c.report + '">' + ic("git", "#fff", 18) + " Open pull request</button>" : '<a class="btn green block" style="margin-top:10px" target="_blank" rel="noopener" data-ghgo="' + id + '" href="' + c.h + '">' + ic("git", "#fff", 18) + " Open pull request</a>");
+  }
+  function bindGh(root) {
+    root.querySelectorAll("[data-ghgo]").forEach(function (a) { a.addEventListener("click", function () { S.clickedCreate = 1; S.nudged[a.dataset.ghgo] = 2; save(); track("contribute-" + a.dataset.ghgo); }); });
+    root.querySelectorAll("[data-ghreport]").forEach(function (b) { b.onclick = function () { closeSheet(); dismissNudge(); reportFlow(b.dataset.ghreport); }; });
+  }
+  // A notification that slides in three seconds after you finish something
+  var nudgeTimer = null;
+  function queueNudge(id) { if (!contribFor(id) || (S.nudged[id] || 0) >= 2) return; clearTimeout(nudgeTimer); nudgeTimer = setTimeout(function () { showNudge(id); }, 3000); }
+  function dismissNudge() { var n = document.querySelector(".nudge"); if (n) n.remove(); }
+  function showNudge(id) {
+    if ($("stage").classList.contains("on") || $("sheet").classList.contains("on") || $("onb").classList.contains("on")) { nudgeTimer = setTimeout(function () { showNudge(id); }, 3000); return; }
+    var c = contribFor(id); if (!c) return; dismissNudge(); S.nudged[id] = (S.nudged[id] || 0) + 1; save();
+    var d = document.createElement("div"); d.className = "nudge"; d.setAttribute("role", "status");
+    d.innerHTML = '<span class="gi">' + ic("git", "#fff", 22) + '</span><span class="tx"><b>Contribute this on GitHub?</b><span>' + esc(c.t) + '</span></span><button class="btn green" id="nyes">Yes</button><button class="x" id="nno" aria-label="Not now">×</button>';
+    $("app").appendChild(d);
+    $("nno").onclick = dismissNudge;
+    $("nyes").onclick = function () { dismissNudge(); contributeSheet(id); };
+    setTimeout(function () { if (d.parentNode) d.remove(); }, 12000);
+  }
+  // The pull request sheet: your GitHub username and everything you can contribute right now
+  function contributeSheet(focus) {
+    var ids = Object.keys(S.done).filter(function (k) { return contribFor(k); }); if (focus && ids.indexOf(focus) === -1) ids.unshift(focus); if (focus) ids = [focus].concat(ids.filter(function (k) { return k !== focus; }));
+    sheet('<div style="display:flex;gap:12px;align-items:center;margin-bottom:12px">' + tile("git", "#10B981", 24) + '<div><h2>Contribute on GitHub</h2><div class="muted small">Real points and badges on the leaderboard</div></div></div>' +
+      '<label class="lbl" for="ghq">Your GitHub username</label><div class="row"><input id="ghq" value="' + esc(S.github) + '" placeholder="your-username" autocapitalize="off" spellcheck="false"><button class="btn ghost" id="ghqs" style="flex:0 0 auto">Save</button></div>' +
+      '<p class="small muted" style="margin:8px 2px 0">No account yet? <a href="https://github.com/signup" target="_blank" rel="noopener">Create one free</a>, it takes two minutes.</p>' +
+      (ids.length ? '<div class="sec"><h3>From what you just did</h3></div>' + ids.slice(0, 6).map(function (id) { var c = contribFor(id); return c.report ? '<button class="mis" data-ghreport="' + c.report + '">' + tile("git", "#10B981") + '<span class="tx"><b>' + esc(c.t) + "</b><span>" + esc(c.d) + '</span></span><span class="go">' + ic("arrow", null, 18) + "</span></button>" : '<a class="mis" target="_blank" rel="noopener" data-ghgo="' + id + '" href="' + c.h + '">' + tile("git", "#10B981") + '<span class="tx"><b>' + esc(c.t) + "</b><span>" + esc(c.d) + '</span></span><span class="go">' + ic("arrow", null, 18) + "</span></a>"; }).join("") : '<p class="muted small">Finish a mission in the city and it shows up here, ready to contribute.</p>') +
+      '<div class="sec"><h3>What happens on GitHub</h3></div><div class="glass pad small"><ol style="margin:0;padding-left:18px;line-height:1.7"><li>GitHub opens with your file or tip ready.</li><li>Press <b>Commit changes</b>, then <b>Propose changes</b>.</li><li>Press <b>Create pull request</b>. That\'s it.</li><li>A mentor reviews it. Once merged, your points and badge arrive automatically.</li></ol></div>' +
+      '<a class="btn ghost block" style="margin-top:12px" target="_blank" rel="noopener" href="' + joinHref("join#user") + '">More ways to contribute</a>');
+    $("ghqs").onclick = function () { var u = cleanUser($("ghq").value); if (!validUser(u)) return toast("That's not a GitHub username"); S.github = u; save(); toast("Saved @" + u); contributeSheet(focus); };
+    bindGh($("sbox"));
+  }
+
+  // ------------------------------------------------------------ Anonymous visit counting (GoatCounter, no cookies)
+  function track(name) { try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: name, title: name, event: true }); } catch (e) {} }
+
   // ------------------------------------------------------------ Squad
   var DATA = null;
   function loadData(cb) { fetch("../data.json", { cache: "no-store" }).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) { DATA = d; cb(); }).catch(function () { DATA = { contributors: [], offline: true }; cb(); }); }
@@ -808,12 +1167,12 @@ import * as THREE from "./vendor/three.module.min.js";
     var invite = location.href.split("?")[0].split("#")[0] + "?squad=" + encodeURIComponent(sq.name || "") + "&m=" + encodeURIComponent(sq.members.join(","));
     $("view").innerHTML = "<h1>Squad</h1><p class=\"muted\" style=\"margin:4px 0 16px\">Run awareness sessions together and grow your squad's real points.</p>" +
       (!sq.name ? '<div class="glass pad"><h3>Start a squad</h3><p class="muted small" style="margin:6px 0 0">Your fellowship, class, market association or friends.</p><label class="lbl" for="sqn">Squad name</label><input id="sqn" placeholder="e.g. Yaba Market Defenders"><div style="margin-top:12px"><button class="btn block" id="mk">Create squad</button></div></div>' :
-      '<div class="hero"><div class="k">SQUAD</div><h2>' + esc(sq.name) + '</h2><p>' + total + " of " + goal + ' real points this month</p><div class="bar" style="background:rgba(255,255,255,.15)"><i style="width:' + Math.min(100, total / goal * 100) + '%;background:#3DDC97"></i></div></div>' +
+      '<div class="hero"><div class="k">SQUAD</div><h2>' + esc(sq.name) + '</h2><p>' + total + " of " + goal + ' real points this month</p><div class="bar" style="background:rgba(255,255,255,.15)"><i style="width:' + Math.min(100, total / goal * 100) + '%;background:#10B981"></i></div></div>' +
       '<div class="sec"><h3>Members</h3><span class="muted small">' + (DATA && DATA.offline ? "points sync when online" : "real points") + "</span></div>" +
       '<div class="glass pad" style="padding-top:4px;padding-bottom:4px">' + (sq.members.length ? sq.members.map(function (m) { var r = realOf(m); return '<div class="member"><img src="https://github.com/' + encodeURIComponent(m) + '.png?size=80" alt="" onerror="this.style.visibility=\'hidden\'"><b>@' + esc(m) + '</b><span class="pts">' + (r ? r.points + " pts" : '<span class="muted small">0 pts</span>') + '</span><button class="x" data-rm="' + esc(m) + '" aria-label="Remove">×</button></div>'; }).join("") : '<p class="muted small">Add your squad by GitHub username.</p>') + "</div>" +
       '<div class="row" style="margin-top:10px"><input id="addm" placeholder="Add GitHub username"><button class="btn ghost" id="add" style="flex:0 0 auto">' + ic("plus", null, 18) + "</button></div>" +
       '<div class="sec"><h3>Invite people</h3></div><div class="glass pad"><p class="small muted" style="margin:0 0 12px">Send this to your group. When they open it, they join your squad in the game.</p><div class="row"><a class="btn" target="_blank" rel="noopener" href="https://wa.me/?text=' + encodeURIComponent("Join my CyberSecTOBER squad \"" + sq.name + "\" in Shield Up. Let's protect our people from scams and earn real badges: " + invite) + '">WhatsApp</a><button class="btn ghost" id="copyinv">Copy link</button></div></div>' +
-      '<div class="sec"><h3>Squad missions</h3></div>' + misCard(MISSIONS.filter(function (m) { return m.id === "teach-" + S.focus; })[0]) + '<button class="mis" data-report="1">' + tile("mega", "#3DDC97") + '<span class="tx"><b>Report a session as a squad</b><span>Everyone who helped gets listed. Community Defender badge.</span><span class="chip a">5 real pts</span></span><span class="go">' + ic("arrow", null, 18) + "</span></button>");
+      '<div class="sec"><h3>Squad missions</h3></div>' + misCard(MISSIONS.filter(function (m) { return m.id === "teach-" + S.focus; })[0]) + '<button class="mis" data-report="1">' + tile("mega", "#10B981") + '<span class="tx"><b>Report a session as a squad</b><span>Everyone who helped gets listed. Community Defender badge.</span><span class="chip a">5 real pts</span></span><span class="go">' + ic("arrow", null, 18) + "</span></button>");
     if ($("mk")) $("mk").onclick = function () { var n = $("sqn").value.trim(); if (!n) return toast("Give your squad a name"); S.squad.name = n.slice(0, 40); if (S.github && S.squad.members.indexOf(S.github) === -1) S.squad.members.unshift(S.github); toast("Squad created!"); render(); };
     if ($("add")) $("add").onclick = function () { var u = cleanUser($("addm").value); if (!validUser(u)) return toast("That's not a GitHub username"); if (S.squad.members.map(function (x) { return x.toLowerCase(); }).indexOf(u.toLowerCase()) === -1) S.squad.members.push(u); render(); };
     if ($("copyinv")) $("copyinv").onclick = function () { (navigator.clipboard ? navigator.clipboard.writeText(invite) : Promise.reject()).then(function () { toast("Invite link copied"); }, function () { prompt("Copy this link", invite); }); };
@@ -840,7 +1199,7 @@ import * as THREE from "./vendor/three.module.min.js";
         var r = realOf(u);
         if (!r) { $("syncmsg").innerHTML = "No merged contributions for @" + esc(u) + " yet. Pick one in Missions → Contribute. Once a mentor merges it, sync again."; return; }
         var first = !(S.real && S.real.points); S.real = r; if (first) { S.xp += 300; confetti(); }
-        sheet('<div class="win"><div class="burst">' + ic("trophy", "#3DDC97", 54) + '</div><h2>' + (first ? "Verified contributor!" : "Synced") + '</h2><p class="muted">@' + esc(r.login) + " · " + r.points + " real points · rank #" + r.rank + "</p>" + (first ? '<div class="xp">+300 XP</div>' : "") + '<div class="realbadges" style="margin:12px 0">' + r.badges.map(function (b) { return '<img src="../badges/cards/' + b + '.jpg" alt="">'; }).join("") + '</div><button class="btn block" data-close>Amazing</button></div>');
+        sheet('<div class="win"><div class="burst">' + ic("trophy", "#10B981", 54) + '</div><h2>' + (first ? "Verified contributor!" : "Synced") + '</h2><p class="muted">@' + esc(r.login) + " · " + r.points + " real points · rank #" + r.rank + "</p>" + (first ? '<div class="xp">+300 XP</div>' : "") + '<div class="realbadges" style="margin:12px 0">' + r.badges.map(function (b) { return '<img src="../badges/cards/' + b + '.jpg" alt="">'; }).join("") + '</div><button class="btn block" data-close>Amazing</button></div>');
         render();
       });
     };
@@ -866,9 +1225,10 @@ import * as THREE from "./vendor/three.module.min.js";
     if (S.days.indexOf(today()) === -1) S.days.push(today());
     var lvBefore = level() - (Math.floor((S.xp - gain) / 200) < level() ? 1 : 0);
     save(); if (score === total) confetti();
-    sheet('<div class="win"><div class="burst">' + ic(score === total ? "trophy" : "shield", "#3DDC97", 54) + "</div><h2>" + (score === total ? "Perfect!" : score / total >= .5 ? "Mission complete" : "Good effort") + '</h2><p class="muted">' + score + " of " + total + " correct</p>" + (gain ? '<div class="xp">+' + gain + " XP</div>" : '<p class="small muted">Beat your best score to earn more XP.</p>') +
-      (level() > lvBefore ? '<p><span class="chip v">Level up: ' + LEVELS[level()] + "</span></p>" : "") + (extra || "") + '<button class="btn block" data-close id="wclose">Continue</button></div>');
-    $("wclose").onclick = function () { closeSheet(); closeStage(); };
+    sheet('<div class="win"><div class="burst">' + ic(score === total ? "trophy" : "shield", "#10B981", 54) + "</div><h2>" + (score === total ? "Perfect!" : score / total >= .5 ? "Mission complete" : "Good effort") + '</h2><p class="muted">' + score + " of " + total + " correct</p>" + (gain ? '<div class="xp">+' + gain + " XP</div>" : '<p class="small muted">Beat your best score to earn more XP.</p>') +
+      (level() > lvBefore ? '<p><span class="chip v">Level up: ' + LEVELS[level()] + "</span></p>" : "") + (extra || "") + ghCard(m.id) + '<button class="btn ghost block" data-close id="wclose" style="margin-top:10px">Continue</button></div>');
+    track("mission-" + m.id); bindGh($("sbox"));
+    $("wclose").onclick = function () { closeSheet(); closeStage(); queueNudge(m.id); };
   }
 
   function start(id) {
@@ -922,7 +1282,7 @@ import * as THREE from "./vendor/three.module.min.js";
     q();
   }
   function decide(m) { quiz(m, shuffle(DECIDE[m.comm]), "What would you do?"); }
-  function redteam(m) { quiz(m, shuffle(REDTEAM).slice(0, 4), "Find the flaw", '<div class="glass pad small" style="margin-bottom:12px;color:var(--muted)">' + ic("shield", "#3DDC97", 16) + " Practice targets only. Real ethical hackers test only systems they own or have written permission to test.</div>"); }
+  function redteam(m) { quiz(m, shuffle(REDTEAM).slice(0, 4), "Find the flaw", '<div class="glass pad small" style="margin-bottom:12px;color:var(--muted)">' + ic("shield", "#10B981", 16) + " Practice targets only. Real ethical hackers test only systems they own or have written permission to test.</div>"); }
 
   function soc(m) {
     stage(m.title, "Escalate real threats, close the noise");
@@ -932,7 +1292,7 @@ import * as THREE from "./vendor/three.module.min.js";
       prog(i / items.length * 100);
       if (i >= items.length) { prog(100); return setTimeout(function () { win(m, right, items.length); }, 500); }
       var it = items[i], el = document.createElement("div"); el.className = "alert";
-      el.innerHTML = '<span class="sev" style="background:' + ["#FFB547", "#FF5D7A", "#4CC9F0"][i % 3] + '"></span><div class="tx"><span class="mono">ALERT #' + (1042 + i) + " · " + new Date().toTimeString().slice(0, 5) + "</span><b>" + esc(it.s) + '</b><div class="timer"><i></i></div><div class="acts"><button class="btn" style="background:#FF5D7A;color:#fff" data-v="1">Escalate</button><button class="btn ghost" data-v="0">Close</button></div></div>';
+      el.innerHTML = '<span class="sev" style="background:' + ["#F59E0B", "#F43F5E", "#0EA5E9"][i % 3] + '"></span><div class="tx"><span class="mono">ALERT #' + (1042 + i) + " · " + new Date().toTimeString().slice(0, 5) + "</span><b>" + esc(it.s) + '</b><div class="timer"><i></i></div><div class="acts"><button class="btn" style="background:#F43F5E;color:#fff" data-v="1">Escalate</button><button class="btn ghost" data-v="0">Close</button></div></div>';
       $("feed").prepend(el);
       var t0 = performance.now(), bar = el.querySelector(".timer i");
       (function tick() { var p = 1 - (performance.now() - t0) / 8000; bar.style.width = Math.max(0, p * 100) + "%"; if (p <= 0) answer(-1); else raf = requestAnimationFrame(tick); })();
@@ -964,7 +1324,7 @@ import * as THREE from "./vendor/three.module.min.js";
     }
     function human(bits) { var s = Math.pow(2, bits) / 1e10; if (s < 1) return "Instantly"; var u = [[31536000 * 1000, "thousand years"], [31536000 * 100, "centuries"], [31536000, "years"], [2592000, "months"], [86400, "days"], [3600, "hours"], [60, "minutes"], [1, "seconds"]]; for (var i = 0; i < u.length; i++) if (s >= u[i][0]) { var n = Math.round(s / u[i][0]); return (u[i][1] === "centuries" || u[i][1] === "thousand years") && n > 999 ? "Longer than history" : n + " " + u[i][1]; } return "Seconds"; }
     $("pw").oninput = function () {
-      var p = this.value, e = est(p), pct = Math.min(100, e.bits / 80 * 100), col = pct < 35 ? "#FF5D7A" : pct < 70 ? "#FFB547" : "#3DDC97";
+      var p = this.value, e = est(p), pct = Math.min(100, e.bits / 80 * 100), col = pct < 35 ? "#F43F5E" : pct < 70 ? "#F59E0B" : "#10B981";
       $("pm").style.width = pct + "%"; $("pm").style.background = col; $("pc").textContent = p ? human(e.bits) : "-"; $("pc").style.color = col;
       var low = p.toLowerCase(), checks = [[p.length >= 14, "14 characters or more"], [e.words >= 4 || /[^A-Za-z0-9]/.test(p), "4+ words, or a mix of symbols"], [p && !COMMON.some(function (w) { return low.indexOf(w) !== -1; }), "No common words like password, naija or 123456"], [p && !/(.)\1\1/.test(p), "No repeated characters like aaa"]];
       $("pk").innerHTML = checks.map(function (c) { return '<div class="' + (c[0] ? "ok" : "") + '"><i>' + (c[0] ? "✓" : "") + "</i>" + c[1] + "</div>"; }).join("");
@@ -1016,7 +1376,7 @@ import * as THREE from "./vendor/three.module.min.js";
   }
   function downloadKit(c, k) {
     var W = 1080, H = 1350, cv = document.createElement("canvas"); cv.width = W; cv.height = H; var g = cv.getContext("2d");
-    var gr = g.createLinearGradient(0, 0, W, H); gr.addColorStop(0, "#3DDC97"); gr.addColorStop(.45, "#1BA38A"); gr.addColorStop(1, "#1C3D6E"); g.fillStyle = gr; g.fillRect(0, 0, W, H);
+    var gr = g.createLinearGradient(0, 0, W, H); gr.addColorStop(0, "#10B981"); gr.addColorStop(.45, "#1BA38A"); gr.addColorStop(1, "#1C3D6E"); g.fillStyle = gr; g.fillRect(0, 0, W, H);
     g.fillStyle = "rgba(4,23,14,.75)"; g.font = "800 34px 'Plus Jakarta Sans', sans-serif"; g.fillText("CYBERSECTOBER · " + c.name.toUpperCase(), 90, 150);
     g.fillStyle = "#04170E"; g.font = "800 84px 'Plus Jakarta Sans', sans-serif"; wrap(g, k.lang === "pcm" ? "Make you stay safe from scam" : "Stay safe from scams", 90, 270, W - 180, 96);
     var y = 520; g.font = "700 46px 'Plus Jakarta Sans', sans-serif";
@@ -1054,17 +1414,17 @@ import * as THREE from "./vendor/three.module.min.js";
   function onboarding() {
     var slide = 0, comm = "market";
     var slides = [
-      { art: "shield", col: "#3DDC97", t: "Scams spread fast in our communities", p: "At the market, in church and mosque groups, in schools and on family WhatsApp. One message can empty someone's account." },
-      { art: "brain", col: "#8B7CFF", t: "Practise the moments that matter", p: "Make real-life security decisions, triage alerts in a SOC console, find flaws in a red team lab and build an uncrackable passphrase." },
-      { art: "mega", col: "#FFB547", t: "Protect your people. Earn real badges.", p: "Build an awareness kit, run a session with your squad, then contribute it to the CyberSecTOBER library for verified badges." }
+      { art: "shield", col: "#10B981", t: "Scams spread fast in our communities", p: "At the market, in church and mosque groups, in schools and on family WhatsApp. One message can empty someone's account." },
+      { art: "brain", col: "#EC4899", t: "Practise the moments that matter", p: "Make real-life security decisions, triage alerts in a SOC console, find flaws in a red team lab and build an uncrackable passphrase." },
+      { art: "mega", col: "#F59E0B", t: "Protect your people. Earn real badges.", p: "Build an awareness kit, run a session with your squad, then contribute it to the CyberSecTOBER library for verified badges." }
     ];
     function draw() {
       if (slide < slides.length) {
         var s = slides[slide];
-        $("onb").innerHTML = '<div class="logo">' + ic("shield", "#3DDC97", 24) + 'SHIELD UP <span class="chip" style="margin-left:auto">CyberSecTOBER</span></div><div class="art"><div class="orb">' + ic(s.art, s.col, 96) + "</div></div><h1>" + s.t + "</h1><p>" + s.p + '</p><div class="dots">' + slides.map(function (_, i) { return '<i class="' + (i === slide ? "on" : "") + '"></i>'; }).join("") + '<i></i></div><button class="btn block" id="nx">' + (slide === slides.length - 1 ? "Get started" : "Next") + '</button><button class="btn ghost block" id="skip" style="margin-top:8px;background:none">Skip</button>';
+        $("onb").innerHTML = '<div class="logo">' + ic("shield", "#10B981", 24) + 'SHIELD UP <span class="chip" style="margin-left:auto">CyberSecTOBER</span></div><div class="art"><div class="orb">' + ic(s.art, s.col, 96) + "</div></div><h1>" + s.t + "</h1><p>" + s.p + '</p><div class="dots">' + slides.map(function (_, i) { return '<i class="' + (i === slide ? "on" : "") + '"></i>'; }).join("") + '<i></i></div><button class="btn block" id="nx">' + (slide === slides.length - 1 ? "Get started" : "Next") + '</button><button class="btn ghost block" id="skip" style="margin-top:8px;background:none">Skip</button>';
         $("nx").onclick = function () { slide++; draw(); }; $("skip").onclick = function () { slide = slides.length; draw(); };
       } else {
-        $("onb").innerHTML = '<div class="logo">' + ic("shield", "#3DDC97", 24) + "SHIELD UP</div><h1 style=\"margin-top:26px\">Let's set you up</h1>" +
+        $("onb").innerHTML = '<div class="logo">' + ic("shield", "#10B981", 24) + "SHIELD UP</div><h1 style=\"margin-top:26px\">Let's set you up</h1>" +
           '<label class="lbl" for="on">Your first name</label><input id="on" maxlength="20" placeholder="e.g. Tolu">' +
           '<label class="lbl" for="og">GitHub username <span style="font-weight:500">(optional, for real badges)</span></label><input id="og" placeholder="you can add it later" autocapitalize="off" spellcheck="false" value="' + esc(store.get("cybersectober-user") || "") + '">' +
           '<div class="lbl">Who do you want to protect first?</div><div class="opts">' + COMMS.map(function (c) { return '<button class="opt' + (c.id === comm ? " on" : "") + '" data-c="' + c.id + '">' + ic(c.icon, c.col, 22) + "<b style=\"margin-top:6px\">" + esc(c.name) + "</b><span>" + esc(c.who) + "</span></button>"; }).join("") + "</div>" +
@@ -1072,7 +1432,7 @@ import * as THREE from "./vendor/three.module.min.js";
         $("onb").querySelectorAll("[data-c]").forEach(function (b) { b.onclick = function () { comm = b.dataset.c; var n = $("on").value, g = $("og").value; draw(); $("on").value = n; $("og").value = g; }; });
         $("go").onclick = function () {
           var n = $("on").value.trim() || "Friend", g = cleanUser($("og").value);
-          S = blank(n, validUser(g) ? g : "", comm); joinSquadFromLink(); save(); $("onb").classList.remove("on"); go("home"); toast("Welcome, " + n + "!");
+          S = blank(n, validUser(g) ? g : "", comm); joinSquadFromLink(); save(); track("signup"); $("onb").classList.remove("on"); go("home"); studio(true, function () { go("home"); });
         };
       }
     }
@@ -1090,6 +1450,7 @@ import * as THREE from "./vendor/three.module.min.js";
     if (S.days.indexOf(today()) === -1) S.days.push(today());
     if (new URLSearchParams(location.search).get("squad") && confirm("Join the squad \"" + new URLSearchParams(location.search).get("squad") + "\"?")) joinSquadFromLink();
     go("home");
+    if (!S.char) setTimeout(function () { studio(true, function () { go("home"); }); }, 500);
   } else onboarding();
 })();
 </script>

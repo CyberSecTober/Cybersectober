@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>CyberSecTOBER stats</title>
+<script data-goatcounter="https://cybersectober.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFFFFF;--card:#FFFFFF;--soft:#FFF6FA;--line:#F2E2EB;--grid:#F1E9EE;--text:#241A33;--muted:#6F6480;--mark:#DB2777;--good:#047857;--shadow:0 1px 2px rgba(36,26,51,.05),0 8px 24px rgba(190,24,93,.07)}
+@media (prefers-color-scheme:dark){:root{--bg:#160F20;--card:#1F172B;--soft:#241A33;--line:#33274A;--grid:#2C2240;--text:#F6F1FA;--muted:#B5A9C6;--mark:#F472B6;--good:#34D399;--shadow:none}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:500 15px/1.5 "Plus Jakarta Sans",system-ui,sans-serif}
+main{max-width:1040px;margin:0 auto;padding:28px 16px 60px}
+h1{margin:0;font-size:28px;letter-spacing:-.02em}h2{margin:0 0 4px;font-size:17px}
+.sub{color:var(--muted);margin:4px 0 0}
+a{color:var(--mark)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:22px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow)}
+.tile b{display:block;font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1.1;font-variant-numeric:tabular-nums}
+.tile span{display:block;font-size:13px;color:var(--muted);margin-top:4px}
+.tile .src{font-size:11px;margin-top:8px;opacity:.8}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:14px;margin-top:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow);min-width:0}
+.card .note{color:var(--muted);font-size:13px;margin:0 0 12px}
+.cols{position:relative;height:200px;display:flex;align-items:flex-end;gap:2px;border-bottom:1px solid var(--grid);padding-top:18px}
+.cols .c{flex:1;display:flex;justify-content:center;align-items:flex-end;height:100%;cursor:default}
+.cols .c i{display:block;width:100%;max-width:24px;background:var(--mark);border-radius:4px 4px 0 0;min-height:0}
+.cols .c:hover i{filter:brightness(1.12)}
+.axis{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:6px}
+.hb{display:grid;grid-template-columns:minmax(90px,170px) 1fr;gap:8px 12px;align-items:center;font-size:13px}
+.hb .k{color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hb .v{display:flex;align-items:center;gap:8px}
+.hb .v i{display:block;height:16px;background:var(--mark);border-radius:0 4px 4px 0;min-width:2px}
+.hb .v span{color:var(--muted);font-variant-numeric:tabular-nums}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:12px;color:var(--muted);font-weight:700;padding:6px 8px;border-bottom:1px solid var(--line)}
+td{padding:8px;border-bottom:1px solid var(--grid)}td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+td img{width:24px;height:24px;border-radius:7px;vertical-align:middle;margin-right:8px}
+.tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);padding:6px 10px;border-radius:10px;font-size:13px;font-weight:700;transform:translate(-50%,-120%);display:none;white-space:nowrap;z-index:9}
+.setup{background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:14px 16px;font-size:14px;margin-top:14px}
+.setup ol{margin:6px 0 0;padding-left:20px}
+.empty{color:var(--muted);font-size:14px;padding:20px 0}
+</style>
+</head>
+<body>
+<main>
+  <h1>CyberSecTOBER stats</h1>
+  <p class="sub">Organizer dashboard. Contribution numbers update every hour from merged pull requests. Visitor numbers come from GoatCounter, which counts visits without cookies or personal data. <span id="upd"></span></p>
+
+  <div class="tiles">
+    <div class="tile"><b id="t-visits">…</b><span>Site visits</span><div class="src">GoatCounter</div></div>
+    <div class="tile"><b id="t-play">…</b><span>Shield Up visits</span><div class="src">GoatCounter</div></div>
+    <div class="tile"><b id="t-signup">…</b><span>Game sign-ups</span><div class="src">GoatCounter</div></div>
+    <div class="tile"><b id="t-click">…</b><span>Pull requests started from the game</span><div class="src">GoatCounter</div></div>
+    <div class="tile"><b id="t-people">…</b><span>Contributors</span><div class="src">Merged pull requests</div></div>
+    <div class="tile"><b id="t-prs">…</b><span>Merged contributions</span><div class="src">Merged pull requests</div></div>
+    <div class="tile"><b id="t-points">…</b><span>Points awarded</span><div class="src">Merged pull requests</div></div>
+    <div class="tile"><b id="t-countries">…</b><span>Countries</span><div class="src">GitHub profile locations</div></div>
+  </div>
+  <div class="setup" id="gcsetup" hidden>
+    <b>Visitor numbers are not switched on yet.</b>
+    <ol>
+      <li>Sign up free at <a href="https://www.goatcounter.com/signup" target="_blank" rel="noopener">goatcounter.com</a> with the code <b>cybersectober</b>.</li>
+      <li>In GoatCounter, open Settings and tick <b>Allow adding visitor counts on your website</b>.</li>
+      <li>Reload this page. Your full visitor dashboard is at <a href="https://cybersectober.goatcounter.com" target="_blank" rel="noopener">cybersectober.goatcounter.com</a>.</li>
+    </ol>
+  </div>
+
+  <div class="grid">
+    <section class="card"><h2>Contributions merged per day</h2><p class="note">Last 30 days</p><div class="cols" id="daily" role="img" aria-label="Contributions merged per day for the last 30 days"></div><div class="axis"><span id="ax0"></span><span id="ax1"></span></div></section>
+    <section class="card"><h2>Badges awarded</h2><p class="note">How many people hold each badge</p><div class="hb" id="badges"></div></section>
+    <section class="card"><h2>Contributors by country</h2><p class="note">From the location on each GitHub profile</p><div class="hb" id="countries"></div></section>
+    <section class="card"><h2>Top contributors</h2><p class="note">By points</p><table><thead><tr><th>Contributor</th><th class="n">Contributions</th><th class="n">Points</th></tr></thead><tbody id="top"></tbody></table></section>
+  </div>
+  <p class="sub" style="margin-top:22px"><a href="../">Leaderboard</a> · <a href="../play/">Shield Up</a> · <a href="https://cybersectober.goatcounter.com" target="_blank" rel="noopener">Full visitor dashboard</a></p>
+</main>
+<div class="tip" id="tip"></div>
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function fmt(n) { return Number(n).toLocaleString("en"); }
+  function title(slug) { return slug.replace(/-/g, " ").replace(/\b\w/g, function (c) { return c.toUpperCase(); }).replace(/\bApi\b/g, "API").replace(/\bAi\b/g, "AI"); }
+  var tip = $("tip");
+  function hover(el, text) { el.addEventListener("mousemove", function (e) { tip.textContent = text; tip.style.display = "block"; tip.style.left = e.clientX + "px"; tip.style.top = e.clientY + "px"; }); el.addEventListener("mouseleave", function () { tip.style.display = "none"; }); el.title = text; }
+  function bars(el, rows) {
+    if (!rows.length) { el.innerHTML = '<div class="empty" style="grid-column:1/-1">Nothing yet.</div>'; return; }
+    var max = Math.max.apply(null, rows.map(function (r) { return r[1]; }));
+    el.innerHTML = rows.map(function (r) { return '<span class="k">' + esc(r[0]) + '</span><span class="v"><i style="width:' + (r[1] / max * 85) + '%"></i><span>' + fmt(r[1]) + "</span></span>"; }).join("");
+  }
+
+  fetch("../data.json", { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (d) {
+    var people = d.contributors || [];
+    $("upd").textContent = d.updated ? "Last update " + d.updated.replace("T", " ") + " UTC." : "";
+    $("t-people").textContent = fmt(people.length);
+    $("t-prs").textContent = fmt(people.reduce(function (a, u) { return a + (u.contributions || 0); }, 0));
+    $("t-points").textContent = fmt(people.reduce(function (a, u) { return a + (u.points || 0); }, 0));
+    var cc = {}; people.forEach(function (u) { if (u.country) cc[u.country] = (cc[u.country] || 0) + 1; });
+    $("t-countries").textContent = fmt(Object.keys(cc).length);
+    bars($("countries"), Object.keys(cc).map(function (k) { return [k, cc[k]]; }).sort(function (a, b) { return b[1] - a[1]; }).slice(0, 12).concat(people.some(function (u) { return !u.country; }) ? [["No location set", people.filter(function (u) { return !u.country; }).length]] : []));
+    var bc = {}; people.forEach(function (u) { (u.badges || []).forEach(function (b) { bc[b] = (bc[b] || 0) + 1; }); });
+    bars($("badges"), Object.keys(bc).map(function (k) { return [title(k), bc[k]]; }).sort(function (a, b) { return b[1] - a[1]; }));
+    // Daily columns for the last 30 days
+    var days = [], counts = {}, today = new Date(); people.forEach(function (u) { (u.merged || []).forEach(function (m) { counts[m] = (counts[m] || 0) + 1; }); });
+    for (var i = 29; i >= 0; i--) { var dt = new Date(today); dt.setUTCDate(dt.getUTCDate() - i); days.push(dt.toISOString().slice(0, 10)); }
+    var max = Math.max(1, Math.max.apply(null, days.map(function (k) { return counts[k] || 0; })));
+    $("daily").innerHTML = days.map(function (k) { var n = counts[k] || 0; return '<div class="c" data-k="' + k + '" data-n="' + n + '"><i style="height:' + (n / max * 100) + '%"></i></div>'; }).join("");
+    $("daily").querySelectorAll(".c").forEach(function (c) { var n = +c.dataset.n; hover(c, new Date(c.dataset.k + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" }) + ": " + n + " contribution" + (n === 1 ? "" : "s")); });
+    $("ax0").textContent = new Date(days[0] + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" }); $("ax1").textContent = "Today";
+    $("top").innerHTML = people.slice(0, 10).map(function (u) { return '<tr><td><a href="../u/' + encodeURIComponent(u.login.toLowerCase()) + '/"><img src="https://github.com/' + encodeURIComponent(u.login) + '.png?size=48" alt="">' + esc(u.login) + '</a></td><td class="n">' + fmt(u.contributions) + '</td><td class="n">' + fmt(u.points) + "</td></tr>"; }).join("") || '<tr><td colspan="3" class="empty">No merged contributions yet.</td></tr>';
+  }).catch(function () { ["t-people", "t-prs", "t-points", "t-countries"].forEach(function (id) { $(id).textContent = "–"; }); });
+
+  // Visitor counts from GoatCounter (needs "Allow adding visitor counts" switched on in GoatCounter settings)
+  var GC = "https://cybersectober.goatcounter.com/counter/", base = location.pathname.replace(/stats\/?$/, "");
+  function count(path, id) {
+    return fetch(GC + encodeURIComponent(path) + ".json").then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (j) { $(id).textContent = j.count; return true; }).catch(function () { $(id).textContent = "–"; return false; });
+  }
+  Promise.all([count("TOTAL", "t-visits"), count(base + "play/", "t-play"), count("signup", "t-signup")]).then(function (ok) { if (!ok[0]) $("gcsetup").hidden = false; });
+  var clicks = ["decide-market", "decide-faith", "decide-school", "decide-family", "decide-workplace", "soc", "redteam", "password", "grc", "ai", "api", "vdp"], total = 0, done = 0;
+  clicks.forEach(function (k) { fetch(GC + encodeURIComponent("contribute-" + k) + ".json").then(function (r) { return r.ok ? r.json() : { count: "0" }; }).then(function (j) { total += +String(j.count).replace(/\D/g, "") || 0; }).catch(function () {}).then(function () { if (++done === clicks.length) $("t-click").textContent = fmt(total); }); });
+})();
+</script>
+</body>
+</html>

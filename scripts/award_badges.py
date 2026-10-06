@@ -671,6 +671,7 @@ def page(title, body, depth):
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(title)}</title>
+<script data-goatcounter="https://cybersectober.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -783,7 +784,9 @@ def build_site(ranked):
     with open(os.path.join(OUT_DIR, "data.json"), "w") as f:
         json.dump({"updated": NOW.isoformat(timespec="minutes"),
                    "contributors": [{"login": u["login"], "points": u["points"], "rank": u["rank"],
-                                     "badges": [s for s in BADGES if s in u["badges"]], "contributions": len(u["prs"])}
+                                     "badges": [s for s in BADGES if s in u["badges"]], "contributions": len(u["prs"]),
+                                     "country": u["country"][1] if u.get("country") else None,
+                                     "merged": sorted(p["merged_at"][:10] for p in u["prs"])}
                                     for u in ranked]}, f, indent=1)
 
     for u, p in contributions:
