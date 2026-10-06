@@ -312,6 +312,15 @@ input:focus,textarea:focus{border-color:var(--pink);box-shadow:0 0 0 4px rgba(23
 .alertb{background:#DC2626!important;font-size:13px!important;padding:8px 13px 8px 8px!important;box-shadow:0 0 0 3px #fff,0 10px 26px rgba(220,38,38,.55)!important}
 .alertb i{color:#DC2626!important}
 @keyframes apulse{50%{transform-origin:center;box-shadow:0 0 0 3px #fff,0 0 0 12px rgba(220,38,38,0),0 10px 26px rgba(220,38,38,.55)}}
+
+/* Progress through contribution */
+.mis.locked{opacity:.62}
+.nbadge{display:flex;gap:12px;align-items:center;padding:12px;border-radius:18px;background:linear-gradient(135deg,#FFF1F7,#ECFDF5);border:1px solid #F6DCE8;margin:12px 0 4px}
+.nbadge img{width:58px;height:58px;border-radius:12px;object-fit:cover;flex:none}
+.nbadge .k{display:block;font-size:10px;font-weight:800;letter-spacing:.14em;color:#BE185D}.nbadge b{display:block;font-size:15px}.nbadge span span:last-child{display:block;font-size:12px;color:var(--muted)}
+.sbar i.m{background:#FCE7F3}.sbar i.m em{color:#BE185D}
+.cal span.m{background:#FCE7F3;color:#BE185D}
+.onerr{color:#BE123C;font-size:13px;font-weight:700;margin:6px 2px 0;min-height:18px}
 </style>
 </head>
 <body>
@@ -508,6 +517,9 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
     { id: "c-red", title: "Write a red team or blue team walkthrough", desc: "Practice labs, CTFs and log investigations.", icon: "bug", col: "#F43F5E", pts: "10–15 pts", href: REPO + "/issues?q=is%3Aopen+label%3Aadvanced" },
     { id: "c-quiz", title: "Write a quiz or scam story", desc: "We set the file up for you.", icon: "brain", col: "#10B981", pts: "5 pts", href: "join?kind=quiz#write" }
   ];
+  // Practice earns a little XP; real pull requests earn most of it
+  MISSIONS.forEach(function (m) { m.xp = Math.round(m.xp / 2 / 5) * 5; });
+  var PR_XP = 300, MERGE_XP = 500;
   var LEVELS = ["Rookie", "Watcher", "Defender", "Guardian", "Champion", "Legend"];
   var MEDALS = [
     { id: "first", name: "First mission", col: "#10B981", icon: "check", test: function () { return Object.keys(S.done).length >= 1; } },
@@ -529,7 +541,8 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
   function load() { try { var s = JSON.parse(store.get(SAVE)); return s && s.v === 1 ? s : null; } catch (e) { return null; } }
   function save() { store.set(SAVE, JSON.stringify(S)); if (S.github) store.set("cybersectober-user", S.github); }
   function level() { return Math.min(LEVELS.length - 1, Math.floor(S.xp / 200)); }
-  function streak() { var n = 0, d = new Date(); if (!(S.act && S.act[today()])) d.setDate(d.getDate() - 1); for (;;) { var k = d.toISOString().slice(0, 10); if (!(S.act && S.act[k])) return n; n++; d.setDate(d.getDate() - 1); } }
+  function prDay(k) { return !!(S.act && S.act[k] && S.act[k].p); }
+  function streak() { var n = 0, d = new Date(); if (!prDay(today())) d.setDate(d.getDate() - 1); for (;;) { var k = d.toISOString().slice(0, 10); if (!prDay(k)) return n; n++; d.setDate(d.getDate() - 1); } }
   function commPct(c) { var p = 0; if (S.done["decide-" + c]) p += 34; if (S.done["teach-" + c]) p += 33; if (S.reported.indexOf(c) !== -1) p += 33; return Math.min(100, p); }
   function joinHref(h) { var parts = h.split("#"), base = parts[0].replace(/^join\??/, ""), q = []; if (S.github) q.push("user=" + encodeURIComponent(S.github)); if (base) q.push(base); return "../join/" + (q.length ? "?" + q.join("&") : "") + "#" + parts[1]; }
 
@@ -987,6 +1000,31 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
     BUILDINGS.forEach(function (b) { var g = group(b); D[b.id](g, b); g.traverse(function (o) { if (o.isMesh) pick.push(o); }); });
     var RP = { vdp: [2.04, ["tank", "ac", "ac"], -.3], red: [1.7, ["tank", "ac"], -.9], aware: [1.62, ["ac", "tank"], -.8], office: [6, ["ac", "ac"], 0], hq: [2.88, ["solar", "solar"], 1.1], ai: [.7, ["ac"], -1.25] };
     Object.keys(RP).forEach(function (id) { var b = B_BY[id], r = RP[id]; if (id === "hq") { roofProps(B.hq, b.cx, r[0], b.cz + .45, r[1]); return; } roofProps(B[id], b.cx + r[2], r[0], b.cz - .2, r[1]); });
+    // Building names painted on the walls, like real shop signs
+    function plaqueTex(name) {
+      var c = document.createElement("canvas"); c.width = 1024; c.height = 220; var x = c.getContext("2d");
+      x.fillStyle = "#FFFFFF"; x.beginPath(); if (x.roundRect) x.roundRect(8, 8, 1008, 204, 46); else x.rect(8, 8, 1008, 204); x.fill(); x.lineWidth = 12; x.strokeStyle = "#EC4899"; x.stroke();
+      var fs = 120; x.font = "800 " + fs + "px 'Plus Jakarta Sans', system-ui, sans-serif"; while (x.measureText(name).width > 900 && fs > 50) { fs -= 4; x.font = "800 " + fs + "px 'Plus Jakarta Sans', system-ui, sans-serif"; }
+      x.fillStyle = "#241A33"; x.textAlign = "center"; x.textBaseline = "middle"; x.fillText(name, 512, 116);
+      var t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t;
+    }
+    var OWN_SIGN = { grc: 1, hq: 1, api: 1, tools: 1, hall: 1, ai: 1 };
+    BUILDINGS.forEach(function (b) {
+      var g = B[b.id], tex = plaqueTex(b.name), mat = new THREE.MeshStandardMaterial({ map: tex, emissive: "#ffffff", emissiveMap: tex, emissiveIntensity: .25, roughness: .5, transparent: true });
+      var best = null, bb = new THREE.Box3(), size = new THREE.Vector3();
+      g.updateMatrixWorld(true);
+      g.children.forEach(function (m) { if (!m.isMesh || m.isInstancedMesh) return; bb.setFromObject(m); bb.getSize(size); if (size.y < .5) return; var v = size.x * size.y * size.z; if (!best || v > best.v) best = { v: v, box: bb.clone() }; });
+      function plaque(w, x, y, z, ry) { var h = Math.min(.5, w / 4.6), m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat); m.position.set(x, y, z); m.rotation.y = ry; g.add(m); pick.push(m); }
+      if (!best || b.id === "market" || b.id === "trophy") { // open-air places get a signboard on two posts
+        var fz = b.fz + b.d - .15, w0 = Math.min(b.w * .7, 2.2); [-1, 1].forEach(function (s2) { cyl(g, .025, .025, 1.25, "#9CA3AF", b.cx + s2 * w0 * .45, 0, fz, 8); }); plaque(w0, b.cx, 1.12, fz + .03, 0); return;
+      }
+      var bx = best.box, fw = bx.max.x - bx.min.x, fd = bx.max.z - bx.min.z, y = bx.min.y + Math.min(.78, (bx.max.y - bx.min.y) * .55);
+      if (!OWN_SIGN[b.id]) plaque(Math.min(fw * .88, 3.1), (bx.min.x + bx.max.x) / 2, y, bx.max.z + .012, 0);
+      plaque(Math.min(fd * .88, 3.1), bx.max.x + .012, y, (bx.min.z + bx.max.z) / 2, Math.PI / 2);
+    });
+    // A bouncing marker over the place your next mission is
+    var focusMark = new THREE.Mesh(new THREE.OctahedronGeometry(.22, 0), new THREE.MeshStandardMaterial({ color: "#EC4899", emissive: "#EC4899", emissiveIntensity: .8 })); focusMark.visible = false; focusMark.userData.y = 3; scene.add(focusMark);
+    anim.push(function (t) { focusMark.rotation.y = t * 1.8; focusMark.position.y = focusMark.userData.y + Math.sin(t * 3) * .15; });
     // A water tank tower beside the family homes, a common sight in our cities
     (function () { var b = B_BY.family, g = B.family; [[-.12, -.12], [.12, .12], [-.12, .12], [.12, -.12]].forEach(function (o) { cyl(g, .02, .02, 1.2, "#6B7280", b.cx + 1.75 + o[0], 0, b.cz - .55 + o[1], 6); }); cyl(g, .2, .2, .38, "#1F2937", b.cx + 1.75, 1.2, b.cz - .55, 20, { roughness: .45 }); })();
 
@@ -1074,7 +1112,7 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
     var marker = add(hero, new THREE.ConeGeometry(.08, .16, 4), new THREE.MeshStandardMaterial({ color: "#EC4899", emissive: "#EC4899", emissiveIntensity: 1.2 }), 0, 1.05, 0, true); marker.rotation.x = Math.PI;
     anim.push(function (t) { marker.position.y = 1.05 + Math.sin(t * 3) * .05; marker.rotation.y = t * 2; halo.scale.setScalar(1 + Math.sin(t * 3) * .1); if (hero.userData.body) animateHuman(hero.userData.body, t, !!walkPath, 11); });
 
-    return { people: people, idlers: idlers, R: R, scene: scene, cam: cam, hemi: hemi, sun: sun, anim: anim, pick: pick, clouds: clouds, domes: domes, hero: hero, alertRing: alertRing, mineRing: mineRing, winMats: winMats, lampMats: lampMats, canvas: canvas, cam3: { tx: 9.5, tz: 12.5, dist: 25, th: Math.PI / 4, ph: .95 } };
+    return { people: people, idlers: idlers, R: R, scene: scene, cam: cam, hemi: hemi, sun: sun, anim: anim, pick: pick, clouds: clouds, domes: domes, hero: hero, focusMark: focusMark, alertRing: alertRing, mineRing: mineRing, winMats: winMats, lampMats: lampMats, canvas: canvas, cam3: { tx: 9.5, tz: 12.5, dist: 25, th: Math.PI / 4, ph: .95 } };
   }
 
   function setHero(c) { if (!W3) return; var h = W3.hero; if (h.userData.body) h.remove(h.userData.body); var b = makeHuman(c || S.char || defaultChar()); b.scale.setScalar(.82); h.add(b); h.userData.body = b; }
@@ -1273,17 +1311,17 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
       '<div class="hud"><div class="ava" id="me" role="button" aria-label="Edit your character">' + (S.charImg ? '<img src="' + S.charImg + '" alt="">' : esc((S.name || "?").charAt(0).toUpperCase())) + '</div><div class="t"><b>' + esc(S.name) + ' <span class="chip v" style="margin-left:4px">Lv ' + (lv + 1) + " · " + LEVELS[lv] + '</span></b><div class="xpb"><i style="width:' + into / 2 + '%"></i></div></div><div class="streak">' + ic("fire", "#F59E0B", 16) + streak() + "</div></div>" +
       streakBar() +
       '<div class="mapbtns"><button id="prb" class="pr" aria-label="Contribute on GitHub">' + ic("git", "#fff", 20) + '</button><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="zme" aria-label="Find me">' + ic("radar", null, 18) + "</button></div>" +
-      (nm ? '<button class="nextpill" id="nextp">' + tile(nm.icon, nm.col, 22, "ni") + '<span class="tx"><span class="k">NEXT MISSION · +' + nm.xp + ' XP</span><b>' + esc(nm.title) + '</b></span><span class="gob">Go</span></button>'
-          : '<button class="nextpill" id="nextp">' + tile("trophy", "#10B981", 22, "ni") + '<span class="tx"><span class="k">EVERY CLOUD CLEARED</span><b>Visit Open Source HQ</b></span><span class="gob">Go</span></button>');
+      (nm && locked(nm.id) ? '<button class="nextpill" id="nextp">' + tile("git", "#fff", 22, "ni") + '<span class="tx"><span class="k">UNLOCK MORE MISSIONS</span><b>Open a pull request</b></span><span class="gob">Go</span></button>' : "") +
+      (nm && !locked(nm.id) ? '<button class="nextpill" id="nextp">' + tile(nm.icon, nm.col, 22, "ni") + '<span class="tx"><span class="k">NEXT MISSION · +' + nm.xp + ' XP</span><b>' + esc(nm.title) + '</b></span><span class="gob">Go</span></button>'
+          : nm ? "" : '<button class="nextpill" id="nextp">' + tile("trophy", "#10B981", 22, "ni") + '<span class="tx"><span class="k">EVERY CLOUD CLEARED</span><b>Visit Open Source HQ</b></span><span class="gob">Go</span></button>');
     if (!W3) W3 = buildWorld();
     var map = $("map");
     if (!W3) { map.innerHTML = '<div class="glass pad" style="margin:150px 18px 0"><h3>Your device can\'t show the 3D city</h3><p class="muted small">Pick a place instead:</p>' + BUILDINGS.map(function (b) { return '<button class="mis" data-b="' + b.id + '">' + tile(b.icon[0], b.icon[1]) + '<span class="tx"><b>' + esc(b.name) + "</b></span></button>"; }).join("") + "</div>"; map.style.overflow = "auto"; map.querySelectorAll("[data-b]").forEach(function (x) { x.onclick = function () { openBuilding(B_BY[x.dataset.b]); }; }); }
     else {
       map.insertBefore(W3.canvas, map.firstChild); labelsEl = $("labels");
       focusBid = (nm ? (buildingFor(nm.id) || {}).id : "hq") || ""; mineBid = S.char && ROLE_BY[S.char.role] ? ROLE_BY[S.char.role].district : "";
-      labelsEl.innerHTML = BUILDINGS.map(function (b) { var st2 = labelStatus(b), bi = B_ICON[b.id]; return '<button class="lbl3' + (b.special ? " sp" : "") + (b.id === mineBid ? " mine" : "") + (b.id === focusBid ? " focus" : "") + '" data-b="' + b.id + '" aria-label="' + esc(b.name) + '"><span class="pin">' + ic(bi[0], b.special ? "#fff" : bi[1], 15) + (st2 ? '<i style="background:' + st2 + '"></i>' : "") + '</span><span class="nm">' + esc(b.name) + "</span></button>"; }).join("");
-      BUILDINGS.forEach(function (b) { b.lbl = labelsEl.querySelector('[data-b="' + b.id + '"]'); });
-      labelsEl.querySelectorAll("[data-b]").forEach(function (x) { x.addEventListener("pointerdown", function (e) { e.stopPropagation(); }); x.onclick = function () { visit(x.dataset.b); }; });
+      labelsEl.innerHTML = ""; BUILDINGS.forEach(function (b) { b.lbl = null; });
+      var fb = B_BY[focusBid]; W3.focusMark.visible = !!fb; if (fb) { W3.focusMark.position.set(fb.cx, 0, fb.cz); W3.focusMark.userData.y = fb.top + (fb.comm && !S.done["decide-" + fb.comm] ? 2.1 : .7); }
       if (!W3.ctrl) { initControls(W3.canvas); W3.ctrl = 1; }
       W3.hero.position.set(heroCell[0] + .5, 0, heroCell[1] + .5); W3.cam3.tx = heroCell[0] + .5; W3.cam3.tz = heroCell[1] + .5;
       var ck = JSON.stringify(S.char || {}); if (W3.heroKey !== ck) { setHero(S.char); W3.heroKey = ck; }
@@ -1291,7 +1329,7 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
       refreshWorld(); applyDayNight(); resize();
       if (!loopOn) { loopOn = true; lastT = 0; requestAnimationFrame(loop); }
     }
-    $("nextp").onclick = function () { var b = nm ? buildingFor(nm.id) : B_BY.hq; if (b) visit(b.id); else if (nm) start(nm.id); };
+    $("nextp").onclick = function () { if (nm && locked(nm.id)) return contributeSheet(); var b = nm ? buildingFor(nm.id) : B_BY.hq; if (b) visit(b.id); else if (nm) start(nm.id); };
     function cam(fn) { return function () { if (W3) { fn(W3.cam3); follow = false; } }; }
     $("zin").onclick = cam(function (c) { c.dist *= .8; }); $("zout").onclick = cam(function (c) { c.dist *= 1.25; });
     $("zme").onclick = function () { if (W3) follow = true; setTimeout(function () { follow = false; }, 1200); };
@@ -1315,7 +1353,8 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
   }
   function misCard(m) {
     var done = S.done[m.id], c = m.comm && COMMS.filter(function (x) { return x.id === m.comm; })[0];
-    return '<button class="mis' + (done ? " done" : "") + '" data-m="' + m.id + '">' + tile(m.icon, m.col) + '<span class="tx"><b>' + esc(m.title) + "</b><span>" + esc(m.desc) + '</span><span class="cats">' + (c ? '<span class="chip" style="color:' + c.col + '">' + esc(c.name) + "</span>" : "") + '<span class="chip g">+' + m.xp + " XP</span>" + (done ? '<span class="chip">Best ' + done + "</span>" : "") + (prSpec(m.id) ? (S.pr && S.pr[m.id] && S.pr[m.id].n ? '<span class="chip g">' + ic("git", "#047857", 12) + " PR #" + S.pr[m.id].n + "</span>" : '<span class="chip v">' + ic("git", "#BE185D", 12) + " Ends in a pull request</span>") : "") + '</span></span><span class="go">' + ic(done ? "check" : "arrow", null, 18) + "</span></button>";
+    var lk = locked(m.id);
+    return '<button class="mis' + (done ? " done" : "") + (lk ? " locked" : "") + '" data-m="' + m.id + '">' + tile(lk ? "key" : m.icon, lk ? "#9C8FAA" : m.col) + '<span class="tx"><b>' + esc(m.title) + "</b><span>" + esc(m.desc) + '</span><span class="cats">' + (c ? '<span class="chip" style="color:' + c.col + '">' + esc(c.name) + "</span>" : "") + '<span class="chip g">+' + m.xp + " XP</span>" + (done ? '<span class="chip">Best ' + done + "</span>" : "") + (lk ? '<span class="chip">' + ic("git", "#7A6E8A", 12) + " Open a pull request to unlock</span>" : prSpec(m.id) ? (S.pr && S.pr[m.id] && S.pr[m.id].n ? '<span class="chip g">' + ic("git", "#047857", 12) + " PR #" + S.pr[m.id].n + "</span>" : '<span class="chip v">' + ic("git", "#BE185D", 12) + " Ends in a pull request</span>") : "") + '</span></span><span class="go">' + ic(done ? "check" : "arrow", null, 18) + "</span></button>";
   }
 
   // ------------------------------------------------------------ Character studio
@@ -1421,9 +1460,12 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
     setTimeout(function () { if (d.parentNode) d.remove(); }, 12000);
   }
   // The pull request sheet: your GitHub username and everything you can contribute right now
+  var NEXT_BADGES = [["first-contribution", "First Contribution", "Get any pull request merged"], ["awareness-advocate", "Awareness Advocate", "Share an awareness post or tip"], ["community-defender", "Community Defender", "Report a community session or write a local guide"], ["security-contributor", "Security Contributor", "Reach 25 real points"], ["ai-security-pioneer", "AI Security Pioneer", "Contribute to the AI security track"], ["api-defender", "API Defender", "Contribute to the API security track"], ["lab-builder", "Lab Builder", "Build a practice lab"]];
+  function nextBadge() { var have = (S.real && S.real.badges) || []; return NEXT_BADGES.filter(function (b) { return have.indexOf(b[0]) === -1; })[0]; }
+  function badgeCard() { var b = nextBadge(); if (!b) return ""; return '<div class="nbadge"><img src="../badges/cards/' + b[0] + '.jpg" alt=""><span><span class="k">YOUR NEXT REAL BADGE</span><b>' + esc(b[1]) + "</b><span>" + esc(b[2]) + "</span></span></div>"; }
   function contributeSheet(focus) {
     var ids = Object.keys(S.done).filter(function (k) { return contribFor(k); }); if (focus && ids.indexOf(focus) === -1) ids.unshift(focus); if (focus) ids = [focus].concat(ids.filter(function (k) { return k !== focus; }));
-    sheet('<div style="display:flex;gap:12px;align-items:center;margin-bottom:12px">' + tile("git", "#10B981", 24) + '<div><h2>Contribute on GitHub</h2><div class="muted small">Real points and badges on the leaderboard</div></div></div>' +
+    sheet('<div style="display:flex;gap:12px;align-items:center;margin-bottom:12px">' + tile("git", "#10B981", 24) + '<div><h2>Contribute on GitHub</h2><div class="muted small">Real points and badges on the leaderboard</div></div></div>' + badgeCard() +
       '<label class="lbl" for="ghq">Your GitHub username</label><div class="row"><input id="ghq" value="' + esc(S.github) + '" placeholder="your-username" autocapitalize="off" spellcheck="false"><button class="btn ghost" id="ghqs" style="flex:0 0 auto">Save</button></div>' +
       '<p class="small muted" style="margin:8px 2px 0">No account yet? <a href="https://github.com/signup" target="_blank" rel="noopener">Create one free</a>, it takes two minutes.</p>' +
       (ids.length ? '<div class="sec"><h3>From what you just did</h3></div>' + ids.slice(0, 8).map(function (id) { var c = contribFor(id), n = S.pr && S.pr[id] && S.pr[id].n; return '<button class="mis" data-pr="' + id + '">' + tile("git", "#10B981") + '<span class="tx"><b>' + esc(c.t) + "</b><span>" + esc(c.d) + '</span><span class="cats">' + (n ? '<span class="chip g">PR #' + n + "</span>" : '<span class="chip v">Fork · commit · pull request</span>') + '</span></span><span class="go">' + ic("arrow", null, 18) + "</span></button>"; }).join("") : '<p class="muted small">Finish a mission in the city and it shows up here, ready to contribute.</p>') +
@@ -1520,9 +1562,10 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
         fetch("https://api.github.com/search/issues?q=" + encodeURIComponent("repo:" + UP + " is:pr author:" + S.github) + "&sort=created&order=desc&per_page=5").then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
           var it = j && j.items && j.items[0];
           if (!it) { $("prmsg").textContent = "No pull request from @" + S.github + " yet. Press Create pull request on GitHub, then check again."; return; }
-          var first = !st.n; st.n = it.number; st.url = it.html_url; st.step = 4; S.prDays = S.prDays || {}; S.prDays[today()] = 1; markAct("p");
-          if (first) { S.xp += 150; confetti(); track("pr-opened"); }
-          save(); toast(first ? "+150 XP · pull request found!" : "Pull request #" + it.number); draw();
+          var first = !st.n, merged = it.pull_request && it.pull_request.merged_at, firstMerge = merged && !st.merged; st.n = it.number; st.url = it.html_url; st.step = 4; S.prDays = S.prDays || {}; S.prDays[today()] = 1; markAct("p");
+          if (first) { S.xp += PR_XP; confetti(); track("pr-opened"); }
+          if (firstMerge) { st.merged = 1; S.xp += MERGE_XP; confetti(); track("pr-merged"); }
+          save(); toast(firstMerge ? "+" + MERGE_XP + " XP · merged! Your badge is on its way" : first ? "+" + PR_XP + " XP · pull request found!" : "Pull request #" + it.number + (merged ? " is merged" : " is open")); draw();
         }).catch(function () { $("prmsg").textContent = "Couldn't reach GitHub. Try again in a minute."; });
       };
     }
@@ -1531,7 +1574,7 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
 
   // ------------------------------------------------------------ Daily streak
   function markAct(kind) {
-    S.act = S.act || {}; var d = today(), first = !S.act[d]; S.act[d] = S.act[d] || {}; S.act[d][kind] = 1;
+    S.act = S.act || {}; var d = today(), first = kind === "p" && !prDay(d); S.act[d] = S.act[d] || {}; S.act[d][kind] = 1;
     if (first) { var n = streak(); S.xp += 10 * Math.min(n, 7); setTimeout(function () { toast("Day " + n + " streak! +" + 10 * Math.min(n, 7) + " XP"); if ([3, 7, 14, 21, 31].indexOf(n) !== -1) confetti(); }, 400); }
     save();
   }
@@ -1544,7 +1587,7 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
   }
   function streakSheet() {
     var n = streak(), t = today(), a = actDay(t) || {}, best = 0, run = 0, keys = Object.keys(S.act || {}).sort(), prev = null;
-    keys.forEach(function (k) { var d = new Date(k + "T12:00:00"); run = prev && (d - prev) / 864e5 < 1.5 ? run + 1 : 1; prev = d; best = Math.max(best, run); });
+    keys = keys.filter(prDay); keys.forEach(function (k) { var d = new Date(k + "T12:00:00"); run = prev && (d - prev) / 864e5 < 1.5 ? run + 1 : 1; prev = d; best = Math.max(best, run); });
     var yr = new Date().getFullYear(), oct = []; for (var i = 1; i <= 31; i++) oct.push(yr + "-10-" + (i < 10 ? "0" : "") + i);
     var pad = new Date(yr + "-10-01T12:00:00").getDay();
     sheet('<div style="text-align:center"><div class="burst">' + ic("fire", "#F59E0B", 54) + '</div><h2>' + n + "-day streak</h2><p class=\"muted small\" style=\"margin:4px 0 0\">Best: " + best + (best === 1 ? " day" : " days") + "</p></div>" +
@@ -1552,8 +1595,8 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
       '<div class="goal' + (a.m ? " ok" : "") + '"><i>' + (a.m ? "✓" : "1") + "</i>Finish a mission</div><div class=\"goal" + (a.p ? " ok" : "") + '"><i>' + (a.p ? "✓" : "2") + "</i>Take a pull request step on GitHub</div>" +
       '<div class="sec"><h3>CyberSecTOBER calendar</h3></div><div class="cal">' + "SMTWTFS".split("").map(function (c) { return "<b>" + c + "</b>"; }).join("") + new Array(pad + 1).join("<span></span>") +
       oct.map(function (k) { var x = actDay(k); return '<span class="' + (x ? (x.p ? "p" : "m") : "") + (k === t ? " today" : "") + '">' + (+k.slice(8)) + "</span>"; }).join("") + "</div>" +
-      '<p class="small muted" style="margin-top:10px"><span class="key m"></span> practised &nbsp; <span class="key p"></span> contributed on GitHub</p>' +
-      '<div class="glass pad small" style="margin-top:12px">Do one mission a day to keep your streak. Each day adds bonus XP, up to +70. Milestones at 3, 7, 14, 21 and 31 days.</div>' +
+      '<p class="small muted" style="margin-top:10px"><span class="key m"></span> practised only &nbsp; <span class="key p"></span> pull request step (counts for your streak)</p>' +
+      '<div class="glass pad small" style="margin-top:12px">Take at least one pull request step a day to keep your streak. Practising alone does not count. Each streak day adds bonus XP, up to +70. Milestones at 3, 7, 14, 21 and 31 days.</div>' +
       '<button class="btn block" data-close style="margin-top:14px">Keep it going</button>');
   }
 
@@ -1583,7 +1626,7 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
 
   // ------------------------------------------------------------ Rewards
   function rewards() {
-    $("view").innerHTML = "<h1>Rewards</h1><p class=\"muted\" style=\"margin:4px 0 0\">Game medals for practising. Real badges for contributing.</p>" +
+    $("view").innerHTML = "<h1>Rewards</h1><p class=\"muted\" style=\"margin:4px 0 0\">Game medals for practising. Real badges for contributing.</p>" + badgeCard() +
       '<div class="sec"><h3>Your real CyberSecTOBER badges</h3></div><div class="glass pad">' +
       (S.real && S.real.badges && S.real.badges.length ? '<div class="realbadges">' + S.real.badges.map(function (b) { return '<img src="../badges/cards/' + b + '.jpg" alt="' + esc(b) + '">'; }).join("") + '</div><p class="small muted" style="margin:12px 0 0">@' + esc(S.github) + " · " + S.real.points + " real points · rank #" + S.real.rank + '</p>' :
         '<p class="muted small" style="margin:0 0 12px">Real badges come from contributions that a mentor merges. Link your GitHub and sync after your first one.</p>') +
@@ -1632,8 +1675,17 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
     $("wclose").onclick = function () { closeSheet(); closeStage(); queueNudge(m.id); };
   }
 
+  function prCount() { return Object.keys(S.pr || {}).filter(function (k) { return S.pr[k].n; }).length; }
+  function missionsAllowed() { return 2 + 2 * prCount(); }
+  function locked(id) { return !S.done[id] && Object.keys(S.done).length >= missionsAllowed(); }
+  function lockSheet() {
+    sheet('<div class="win"><div class="burst">' + ic("git", "#10B981", 54) + '</div><h2>Open a pull request to unlock more</h2><p class="muted">Every pull request you open unlocks two new missions. Turn something you already practised into a real contribution.</p>' +
+      '<button class="btn green block" id="unl" style="margin-top:12px">' + ic("git", "#fff", 18) + ' Choose what to contribute</button><button class="btn ghost block" data-close style="margin-top:10px">Not now</button></div>');
+    $("unl").onclick = function () { closeSheet(); contributeSheet(); };
+  }
   function start(id) {
     var m = MISSIONS.filter(function (x) { return x.id === id; })[0]; if (!m) return;
+    if (locked(id)) return lockSheet();
     if (id.indexOf("decide-") === 0) return decide(m);
     if (id === "soc") return soc(m);
     if (id === "redteam") return redteam(m);
@@ -1826,17 +1878,40 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
       } else {
         $("onb").innerHTML = '<div class="logo">' + ic("shield", "#10B981", 24) + "SHIELD UP</div><h1 style=\"margin-top:26px\">Let's set you up</h1>" +
           '<label class="lbl" for="on">Your first name</label><input id="on" maxlength="20" placeholder="e.g. Tolu">' +
-          '<label class="lbl" for="og">GitHub username <span style="font-weight:500">(optional, for real badges)</span></label><input id="og" placeholder="you can add it later" autocapitalize="off" spellcheck="false" value="' + esc(store.get("cybersectober-user") || "") + '">' +
+          '<label class="lbl" for="og">Pick your GitHub username</label><input id="og" placeholder="your-github-username" autocapitalize="off" autocomplete="username" spellcheck="false" value="' + esc(store.get("cybersectober-user") || "") + '">' +
+          '<p class="small muted" style="margin:6px 2px 0">Your real badges are linked to this username. No account yet? <a href="https://github.com/signup" target="_blank" rel="noopener">Create one free</a>, then come back.</p>' +
           '<div class="lbl">Who do you want to protect first?</div><div class="opts">' + COMMS.map(function (c) { return '<button class="opt' + (c.id === comm ? " on" : "") + '" data-c="' + c.id + '">' + ic(c.icon, c.col, 22) + "<b style=\"margin-top:6px\">" + esc(c.name) + "</b><span>" + esc(c.who) + "</span></button>"; }).join("") + "</div>" +
-          '<button class="btn block" id="go" style="margin-top:20px">Start protecting</button>';
+          '<div class="onerr" id="oerr"></div><button class="btn block" id="go" style="margin-top:8px">Start protecting</button>';
         $("onb").querySelectorAll("[data-c]").forEach(function (b) { b.onclick = function () { comm = b.dataset.c; var n = $("on").value, g = $("og").value; draw(); $("on").value = n; $("og").value = g; }; });
         $("go").onclick = function () {
-          var n = $("on").value.trim() || "Friend", g = cleanUser($("og").value);
-          S = blank(n, validUser(g) ? g : "", comm); joinSquadFromLink(); save(); track("signup"); $("onb").classList.remove("on"); go("home"); studio(true, function () { go("home"); });
+          var n = $("on").value.trim(), g = cleanUser($("og").value);
+          if (!n) { $("oerr").textContent = "Add your first name."; return $("on").focus(); }
+          checkUser(g, $("oerr"), $("go"), function (u) {
+            S = blank(n, u, comm); joinSquadFromLink(); save(); track("signup"); $("onb").classList.remove("on"); go("home"); studio(true, function () { go("home"); });
+          });
         };
       }
     }
     $("onb").classList.add("on"); draw();
+  }
+  // A GitHub username is required: it's how real badges find you. We check it exists on GitHub.
+  function checkUser(raw, err, btn, ok) {
+    var u = cleanUser(raw);
+    if (!u) { err.textContent = "Pick your GitHub username to continue."; return; }
+    if (!validUser(u)) { err.textContent = "That doesn't look like a GitHub username. Use the name from your profile link, without spaces."; return; }
+    err.textContent = ""; var label = btn.textContent; btn.disabled = true; btn.textContent = "Checking GitHub…";
+    fetch("https://api.github.com/users/" + encodeURIComponent(u)).then(function (r) { return r.status; }).catch(function () { return 0; }).then(function (st) {
+      btn.disabled = false; btn.textContent = label;
+      if (st === 404) { err.textContent = "We couldn't find @" + u + " on GitHub. Check the spelling, or create a free account first."; return; }
+      ok(u);
+    });
+  }
+  function askUsername(done) {
+    $("onb").innerHTML = '<div class="logo">' + ic("shield", "#10B981", 24) + 'SHIELD UP</div><h1 style="margin-top:26px">Pick your GitHub username</h1><p>Your missions now end in real pull requests, and your badges are linked to this username.</p>' +
+      '<label class="lbl" for="og">GitHub username</label><input id="og" placeholder="your-github-username" autocapitalize="off" autocomplete="username" spellcheck="false">' +
+      '<p class="small muted" style="margin:6px 2px 0">No account yet? <a href="https://github.com/signup" target="_blank" rel="noopener">Create one free</a>, then come back.</p><div class="onerr" id="oerr"></div><button class="btn block" id="go" style="margin-top:8px">Continue</button>';
+    $("onb").classList.add("on");
+    $("go").onclick = function () { checkUser($("og").value, $("oerr"), $("go"), function (u) { S.github = u; if (S.squad.members.indexOf(u) === -1) S.squad.members.unshift(u); save(); $("onb").classList.remove("on"); toast("Welcome, @" + u); if (done) done(); }); };
   }
   function joinSquadFromLink() {
     var q = new URLSearchParams(location.search), name = q.get("squad"), m = (q.get("m") || "").split(",").map(cleanUser).filter(validUser);
@@ -1850,7 +1925,8 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
     if (S.days.indexOf(today()) === -1) S.days.push(today());
     if (new URLSearchParams(location.search).get("squad") && confirm("Join the squad \"" + new URLSearchParams(location.search).get("squad") + "\"?")) joinSquadFromLink();
     go("home");
-    if (!S.char) setTimeout(function () { studio(true, function () { go("home"); }); }, 500);
+    var needChar = function () { if (!S.char) setTimeout(function () { studio(true, function () { go("home"); }); }, 300); };
+    if (!S.github) askUsername(needChar); else needChar();
   } else onboarding();
 })();
 </script>
