@@ -300,6 +300,18 @@ input:focus,textarea:focus{border-color:var(--pink);box-shadow:0 0 0 4px rgba(23
 .alertb{position:absolute;left:0;top:0;display:flex;align-items:center;gap:6px;padding:6px 11px 6px 6px;border-radius:99px;border:0;background:#F43F5E;color:#fff;font:800 12px/1 "Plus Jakarta Sans",system-ui,sans-serif;box-shadow:0 8px 20px rgba(244,63,94,.4);pointer-events:auto;z-index:1600;animation:apulse 1.2s ease-in-out infinite}
 .alertb i{width:20px;height:20px;border-radius:50%;background:#fff;color:#F43F5E;display:flex;align-items:center;justify-content:center;font-style:normal}
 @keyframes apulse{50%{box-shadow:0 0 0 8px rgba(244,63,94,0),0 8px 20px rgba(244,63,94,.4)}}
+
+/* Calmer map: icon pins, names only where they matter, a bold red alert */
+.lbl3 .pin{width:26px;height:26px;border-radius:50%;display:none;align-items:center;justify-content:center;background:#fff;box-shadow:0 3px 10px rgba(36,26,51,.18);position:relative}
+.lbl3 .pin i{position:absolute;right:-2px;top:-2px;width:9px;height:9px;border:2px solid #fff;box-shadow:none}
+.lbl3.mini{padding:0;border:0;background:none;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.lbl3.mini .pin{display:flex}.lbl3.mini .nm{display:none}
+.lbl3.sp.mini .pin{background:linear-gradient(135deg,#F472B6,#DB2777)}
+.lbl3:not(.mini) .pin{display:none}
+.lbl3.focus:not(.mini){background:#241A33;color:#fff;border-color:#241A33}
+.alertb{background:#DC2626!important;font-size:13px!important;padding:8px 13px 8px 8px!important;box-shadow:0 0 0 3px #fff,0 10px 26px rgba(220,38,38,.55)!important}
+.alertb i{color:#DC2626!important}
+@keyframes apulse{50%{transform-origin:center;box-shadow:0 0 0 3px #fff,0 0 0 12px rgba(220,38,38,0),0 10px 26px rgba(220,38,38,.55)}}
 </style>
 </head>
 <body>
@@ -542,35 +554,50 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
   }
   function pathStage() { if (S.real && S.real.points) return 4; if (S.reported.length || S.clickedCreate) return 3; if (Object.keys(S.kits).length) return 2; if (Object.keys(S.done).length) return 1; return 0; }
 
-  // ------------------------------------------------------------ People: rigged humans with cyber roles and outfits
+  // ------------------------------------------------------------ People: rigged humans with roles, bodies and outfits you can change
   var SKINS = ["#4A2C1D", "#6B3F26", "#8D5A3B", "#B27A52", "#D9A47A", "#F1CDB0"];
-  var HAIRS = [["short", "Short"], ["afro", "Afro"], ["braids", "Braids"], ["locs", "Locs"], ["bun", "Bun"], ["gele", "Gele"], ["hijab", "Hijab"], ["cap", "Cap"], ["bald", "Clean cut"]];
+  var HAIRS = [["short", "Short"], ["afro", "Afro"], ["braids", "Braids"], ["locs", "Locs"], ["bun", "Bun"], ["ponytail", "Ponytail"], ["long", "Long"], ["gele", "Gele"], ["hijab", "Hijab"], ["hood", "Hood up"], ["cap", "Cap"], ["bald", "Clean cut"]];
   var HAIR_COLS = ["#17110F", "#3B2416", "#6B4423", "#B9853A", "#D9D4CF", "#EC4899"];
   var FABRICS = ["#EC4899", "#10B981", "#F59E0B", "#2563EB", "#7C3AED", "#FFFFFF"];
+  var STYLES = [["hoodie", "Hoodie"], ["tactical", "Tactical gear"], ["jacket", "Jacket"], ["blazer", "Blazer"], ["labcoat", "Lab coat"], ["trench", "Trench coat"], ["vest", "Hi-vis vest"], ["tee", "T-shirt"], ["kaftan", "Kaftan"], ["dress", "Dress"]];
+  var BOTTOMS = [["trousers", "Trousers"], ["cargo", "Cargo"], ["skirt", "Skirt"]];
+  var MASKS = [["none", "No mask"], ["balaclava", "Balaclava"], ["tactical", "Tactical mask"], ["bandana", "Bandana"]];
+  var EXTRAS = [["none", "None"], ["glasses", "Glasses"], ["shades", "Shades"], ["beard", "Beard"], ["moustache", "Moustache"], ["earrings", "Earrings"]];
+  var COLOURS = ["#111827", "#FFFFFF", "#EC4899", "#10B981", "#1D4ED8", "#E11D48", "#F59E0B", "#7C3AED", "#64748B", "#A16207"];
   var ROLES = [
-    { id: "red", name: "Red Teamer", d: "Ethical hacker who finds the flaws first", district: "red", tops: ["#0F1115", "#1F2937", "#3B0A12"], bottom: "#0B0F14", style: "hoodie", hood: 1, acc: "laptop", icon: ["bug", "#E11D48"] },
-    { id: "blue", name: "Blue Teamer", d: "SOC analyst who spots attacks in the logs", district: "soc", tops: ["#1D4ED8", "#0F766E", "#334155"], bottom: "#334155", style: "jacket", acc: "headset", icon: ["radar", "#1D4ED8"] },
-    { id: "grc", name: "GRC Analyst", d: "Risk, policy and compliance", district: "grc", tops: ["#334155", "#7C2D12", "#BE185D"], bottom: "#475569", style: "blazer", acc: "clipboard", icon: ["shield", "#334155"] },
-    { id: "ai", name: "AI Security", d: "Keeps AI assistants and agents safe", district: "ai", tops: ["#FFFFFF", "#FCE7F3", "#ECFDF5"], bottom: "#64748B", style: "labcoat", acc: "visor", icon: ["brain", "#EC4899"] },
-    { id: "api", name: "AppSec & API", d: "Secures apps and every request", district: "api", tops: ["#10B981", "#0EA5E9", "#F472B6"], bottom: "#1E293B", style: "hoodie", acc: "keycard", icon: ["key", "#10B981"] },
-    { id: "hunter", name: "Bug Hunter", d: "Finds bugs and reports them responsibly", district: "vdp", tops: ["#F97316", "#10B981", "#EC4899"], bottom: "#374151", style: "vest", acc: "magnifier", icon: ["bug", "#F97316"] },
-    { id: "dfir", name: "Forensics", d: "Investigates what happened after an attack", district: "soc", tops: ["#A16207", "#57534E", "#1E3A8A"], bottom: "#292524", style: "trench", acc: "magnifier", icon: ["search", "#A16207"] },
-    { id: "cloud", name: "Cloud Security", d: "Locks down cloud accounts and data", district: "tools", tops: ["#0EA5E9", "#FFFFFF", "#6366F1"], bottom: "#1E293B", style: "jacket", acc: "backpack", icon: ["sync", "#0EA5E9"] },
-    { id: "builder", name: "Security Builder", d: "Builds tools that defenders use", district: "tools", tops: ["#FACC15", "#F97316", "#10B981"], bottom: "#1F2937", style: "vest", acc: "wrench", icon: ["pen", "#CA8A04"] },
-    { id: "aware", name: "Awareness Champion", d: "Teaches people to spot scams", district: "aware", tops: ["#EC4899", "#10B981", "#FFFFFF"], bottom: "#1F2937", style: "tee", acc: "megaphone", icon: ["mega", "#EC4899"] }
+    { id: "red", name: "Red Teamer", d: "Ethical hacker who finds the flaws first", district: "red", col: "#111827", pants: "#1F2937", style: "tactical", btype: "cargo", mask: "balaclava", hair: "hood", accent: "#E11D48", acc: "laptop", icon: ["bug", "#E11D48"] },
+    { id: "blue", name: "Blue Teamer", d: "SOC analyst who spots attacks in the logs", district: "soc", col: "#1D4ED8", pants: "#334155", style: "jacket", acc: "headset", icon: ["radar", "#1D4ED8"] },
+    { id: "grc", name: "GRC Analyst", d: "Risk, policy and compliance", district: "grc", col: "#334155", pants: "#475569", style: "blazer", acc: "clipboard", icon: ["shield", "#334155"] },
+    { id: "ai", name: "AI Security", d: "Keeps AI assistants and agents safe", district: "ai", col: "#FFFFFF", pants: "#64748B", style: "labcoat", acc: "visor", icon: ["brain", "#EC4899"] },
+    { id: "api", name: "AppSec & API", d: "Secures apps and every request", district: "api", col: "#10B981", pants: "#1E293B", style: "hoodie", acc: "keycard", icon: ["key", "#10B981"] },
+    { id: "hunter", name: "Bug Hunter", d: "Finds bugs and reports them responsibly", district: "vdp", col: "#F97316", pants: "#374151", style: "vest", btype: "cargo", acc: "magnifier", icon: ["bug", "#F97316"] },
+    { id: "dfir", name: "Forensics", d: "Investigates what happened after an attack", district: "soc", col: "#A16207", pants: "#292524", style: "trench", acc: "magnifier", icon: ["search", "#A16207"] },
+    { id: "cloud", name: "Cloud Security", d: "Locks down cloud accounts and data", district: "tools", col: "#0EA5E9", pants: "#1E293B", style: "jacket", acc: "backpack", icon: ["sync", "#0EA5E9"] },
+    { id: "builder", name: "Security Builder", d: "Builds tools that defenders use", district: "tools", col: "#FACC15", pants: "#1F2937", style: "vest", btype: "cargo", acc: "wrench", icon: ["pen", "#CA8A04"] },
+    { id: "aware", name: "Awareness Champion", d: "Teaches people to spot scams", district: "aware", col: "#EC4899", pants: "#1F2937", style: "tee", acc: "megaphone", icon: ["mega", "#EC4899"] }
   ];
   var ROLE_BY = {}; ROLES.forEach(function (r) { ROLE_BY[r.id] = r; });
-  function defaultChar() { return { role: "aware", skin: 2, hair: "afro", hc: 0, top: 0 }; }
-  function randomChar(i) { var r = ROLES[i % ROLES.length], hs = HAIRS[(i * 7 + 3) % HAIRS.length][0]; return { role: r.id, skin: (i * 5 + 1) % SKINS.length, hair: hs, hc: (i * 3) % 4, top: (i * 11) % 3 }; }
+  // Fill in anything a saved character doesn't have yet from its role's defaults
+  function roleLook(r) { return { style: r.style, col: r.col, btype: r.btype || "trousers", mask: r.mask || "none" }; }
+  function completeChar(c) {
+    c = Object.assign({}, c || {}); var r = ROLE_BY[c.role] || ROLE_BY.aware; c.role = r.id;
+    if (!c.body) c.body = "f"; if (c.skin == null) c.skin = 2; if (!c.hair) c.hair = r.hair || "afro"; if (c.hc == null) c.hc = 0; if (!c.extra) c.extra = "none";
+    var look = roleLook(r); Object.keys(look).forEach(function (k) { if (!c[k]) c[k] = look[k]; });
+    return c;
+  }
+  function defaultChar() { return completeChar({ role: "aware", body: "f", skin: 2, hair: "braids", hc: 0 }); }
+  function randomChar(i) {
+    var r = ROLES[i % ROLES.length], f = i % 2 === 0, hf = ["braids", "bun", "ponytail", "long", "gele", "hijab", "afro", "locs"], hm = ["short", "afro", "locs", "bald", "cap", "short"];
+    return completeChar({ role: r.id, body: f ? "f" : "m", skin: (i * 5 + 1) % SKINS.length, hair: f ? hf[(i * 3) % hf.length] : hm[(i * 3) % hm.length], hc: (i * 3) % 4,
+      extra: f ? ["none", "earrings", "glasses", "none"][i % 4] : ["none", "beard", "moustache", "glasses", "none"][i % 5], btype: f && i % 3 === 0 ? "skirt" : null, mask: "none", hairOk: 1 });
+  }
 
   var HG = {}, HMAT = {};
   function hgeo(k, fn) { return HG[k] || (HG[k] = fn()); }
   function hmat(c, o) { var k = c + (o ? JSON.stringify(o) : ""); return HMAT[k] || (HMAT[k] = new THREE.MeshStandardMaterial(Object.assign({ color: c, roughness: .7, metalness: 0 }, o || {}))); }
   function part(parent, geo, mat, x, y, z, shadow) { var m = new THREE.Mesh(geo, mat); m.position.set(x || 0, y || 0, z || 0); if (shadow) m.castShadow = true; parent.add(m); return m; }
   function pivot(parent, x, y, z) { var g = new THREE.Group(); g.position.set(x, y, z); parent.add(g); return g; }
-  var torsoGeo = function () { return hgeo("torso", function () { var pts = [[.075, 0], [.088, .05], [.094, .12], [.108, .2], [.112, .245], [.09, .275], [.035, .292]].map(function (p) { return new THREE.Vector2(p[0], p[1]); }); var g = new THREE.LatheGeometry(pts, 20); g.scale(1, 1, .68); return g; }); };
-
-  // Height is about 1 unit at scale 1, feet at y = 0, facing +z
+  function lathe(key, pts, zs) { return hgeo(key, function () { var g = new THREE.LatheGeometry(pts.map(function (q) { return new THREE.Vector2(q[0], q[1]); }), 24); g.scale(1, 1, zs); return g; }); }
   function skinShade(hex, k) { var c = new THREE.Color(hex); c.lerp(new THREE.Color("#5A1F2A"), k); return c.getStyle(); }
   function canvasTex(w, h, draw) { var c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h); var t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; }
   var TERM_TEX = null, CODE_TEX = null;
@@ -578,111 +605,163 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
   function codeTex() { return CODE_TEX || (CODE_TEX = canvasTex(128, 96, function (x, w, h) { x.fillStyle = "#04140A"; x.fillRect(0, 0, w, h); x.font = "600 9px monospace"; for (var i = 0; i < 9; i++) { x.fillStyle = i % 3 ? "#39FF88" : "#A7F3D0"; var line = ""; for (var k = 0; k < 16; k++) line += "01{}<>/=;$#"[Math.floor(Math.random() * 11)]; x.fillText(line.slice(0, 6 + (i * 5) % 11), 6, 12 + i * 10); } })); }
 
   // Height is about 1 unit at scale 1, feet at y = 0, facing +z
-  function makeHuman(c) {
-    c = c || defaultChar(); var role = ROLE_BY[c.role] || ROLES[0], skinHex = SKINS[c.skin] || SKINS[2], skin = hmat(skinHex, { roughness: .52 }), top = hmat(role.tops[c.top || 0] || role.tops[0], { roughness: .8 }), bottom = hmat(role.bottom, { roughness: .85 });
-    var wrapped = c.hair === "gele" || c.hair === "hijab", hcol = wrapped ? FABRICS[c.hc % FABRICS.length] : HAIR_COLS[c.hc % HAIR_COLS.length], hair = hmat(hcol, { roughness: wrapped ? .6 : .9 });
-    var h = new THREE.Group(), root = pivot(h, 0, 0, 0), rig = { root: root };
-    var longSleeve = role.style !== "tee" && role.style !== "vest", shoeCol = role.id === "red" ? "#0B0F14" : "#FFFFFF", soleCol = role.id === "red" ? "#39FF88" : "#EC4899";
-    // Legs: tapered thigh and shin with rounded knee and ankle joints
+  function makeHuman(c0) {
+    var c = completeChar(c0), role = ROLE_BY[c.role], F = c.body === "f", B = F ? "f" : "m", st = c.style;
+    var skinHex = SKINS[c.skin] || SKINS[2], skin = hmat(skinHex, { roughness: .52 }), top = hmat(c.col, { roughness: .8 });
+    var bare = c.btype === "skirt" || st === "dress", bottomCol = st === "dress" ? c.col : (role.pants || "#1F2937"), bottom = hmat(bottomCol, { roughness: .85 });
+    var wrapped = c.hair === "gele" || c.hair === "hijab", hair = hmat(wrapped ? FABRICS[c.hc % FABRICS.length] : HAIR_COLS[c.hc % HAIR_COLS.length], { roughness: wrapped ? .6 : .9 });
+    var hairDark = hmat(HAIR_COLS[c.hc % HAIR_COLS.length], { roughness: .95 });
+    var h = new THREE.Group(), root = pivot(h, 0, 0, 0), rig = { root: root }, tact = st === "tactical", gloves = tact ? hmat("#111317", { roughness: .7 }) : skin;
+    var shoeCol = role.id === "red" ? "#0B0F14" : "#FFFFFF", soleCol = role.id === "red" ? role.accent : "#EC4899";
+    var longSleeve = ["tee", "vest", "dress"].indexOf(st) === -1;
+    // Legs
     ["L", "R"].forEach(function (sd, i) {
-      var sx = i ? -.055 : .055, hip = pivot(root, sx, .53, 0); rig["hip" + sd] = hip;
+      var sx = (i ? -1 : 1) * (F ? .06 : .055), hip = pivot(root, sx, .53, 0); rig["hip" + sd] = hip;
+      var legTop = bare ? skin : bottom;
       part(hip, hgeo("hipj", function () { return new THREE.SphereGeometry(.05, 14, 10); }), bottom, 0, 0, 0);
-      part(hip, hgeo("thigh2", function () { return new THREE.CylinderGeometry(.05, .039, .24, 14); }), bottom, 0, -.12, 0, true);
+      part(hip, hgeo("thigh" + B, function () { return new THREE.CylinderGeometry(F ? .052 : .05, .039, .24, 14); }), legTop, 0, -.12, 0, true);
+      if (c.btype === "cargo" && !bare) part(hip, hgeo("cpocket", function () { return new THREE.BoxGeometry(.012, .06, .05); }), hmat(new THREE.Color(bottomCol).multiplyScalar(.8).getStyle()), (i ? -1 : 1) * .046, -.13, 0);
       var knee = pivot(hip, 0, -.24, 0); rig["knee" + sd] = knee;
-      part(knee, hgeo("kneej", function () { return new THREE.SphereGeometry(.039, 12, 10); }), bottom, 0, 0, 0);
-      part(knee, hgeo("shin2", function () { return new THREE.CylinderGeometry(.038, .029, .24, 14); }), bottom, 0, -.12, 0, true);
+      part(knee, hgeo("kneej", function () { return new THREE.SphereGeometry(.039, 12, 10); }), bare ? skin : bottom, 0, 0, 0);
+      if (tact && c.btype === "cargo") part(knee, hgeo("kpad", function () { var g = new THREE.SphereGeometry(.03, 10, 8); g.scale(1, 1.2, .6); return g; }), hmat("#111317"), 0, -.01, .03);
+      part(knee, hgeo("shin2", function () { return new THREE.CylinderGeometry(.038, .029, .24, 14); }), bare ? skin : bottom, 0, -.12, 0, true);
       part(knee, hgeo("shoe2", function () { var g = new THREE.CapsuleGeometry(.034, .085, 4, 10); g.rotateX(Math.PI / 2); g.scale(1.1, .72, 1); return g; }), hmat(shoeCol, { roughness: .5 }), 0, -.262, .03, true);
       part(knee, hgeo("sole2", function () { var g = new THREE.CapsuleGeometry(.036, .085, 2, 10); g.rotateX(Math.PI / 2); g.scale(1.12, .25, 1.02); return g; }), hmat(soleCol), 0, -.28, .03);
     });
-    part(root, hgeo("pelvis2", function () { var pts = [[.0, 0], [.09, .005], [.1, .04], [.096, .085], [.088, .1]].map(function (q) { return new THREE.Vector2(q[0], q[1]); }); var g = new THREE.LatheGeometry(pts, 20); g.scale(1, 1, .68); return g; }), bottom, 0, .5, 0, true);
-    // Torso shaped like a real chest and waist
+    part(root, lathe("pelvis" + B, F ? [[0, 0], [.1, .005], [.11, .04], [.1, .085], [.084, .1]] : [[0, 0], [.09, .005], [.1, .04], [.096, .085], [.088, .1]], F ? .7 : .68), bottom, 0, .5, 0, true);
+    if (c.btype === "skirt" && st !== "dress") part(root, hgeo("skirt", function () { var g = new THREE.CylinderGeometry(.088, .15, .23, 24, 1, true); g.scale(1, 1, .8); return g; }), hmat(bottomCol, { side: THREE.DoubleSide }), 0, .49, 0, true);
+    // Torso
     var spine = pivot(root, 0, .6, 0); rig.spine = spine;
-    part(spine, hgeo("torso2", function () { var pts = [[.087, 0], [.083, .05], [.092, .11], [.104, .17], [.112, .205], [.108, .23], [.075, .25], [.036, .262]].map(function (q) { return new THREE.Vector2(q[0], q[1]); }); var g = new THREE.LatheGeometry(pts, 24); g.scale(1, 1, .64); return g; }), top, 0, 0, 0, true);
-    part(spine, hgeo("neck2", function () { return new THREE.CylinderGeometry(.03, .034, .07, 14); }), skin, 0, .275, 0);
+    part(spine, lathe("torso" + B, F ? [[.082, 0], [.074, .05], [.08, .1], [.094, .15], [.098, .19], [.094, .22], [.066, .244], [.034, .256]] : [[.087, 0], [.083, .05], [.092, .11], [.104, .17], [.112, .205], [.108, .23], [.075, .25], [.036, .262]], .64), top, 0, 0, 0, true);
+    if (F) part(spine, hgeo("bust", function () { var g = new THREE.SphereGeometry(.06, 18, 12); g.scale(1.4, .7, .75); return g; }), top, 0, .168, .028);
+    part(spine, hgeo("neck" + B, function () { return new THREE.CylinderGeometry(F ? .027 : .031, F ? .031 : .035, .07, 14); }), skin, 0, .275, 0);
+    // Head and face
     var head = pivot(spine, 0, .35, 0); rig.head = head;
     part(head, hgeo("skull", function () { var g = new THREE.SphereGeometry(.071, 28, 20); g.scale(.92, 1.06, 1); return g; }), skin, 0, .005, -.004, true);
-    part(head, hgeo("jaw", function () { var g = new THREE.SphereGeometry(.058, 22, 16); g.scale(.86, .78, .92); return g; }), skin, 0, -.03, .01);
-    var white = hmat("#F8FAFC", { roughness: .25 }), iris = hmat("#2A1A12", { roughness: .2 }), lip = hmat(skinShade(skinHex, .35), { roughness: .45 });
+    part(head, hgeo("jaw" + B, function () { var g = new THREE.SphereGeometry(.058, 22, 16); g.scale(F ? .8 : .88, F ? .74 : .8, .92); return g; }), skin, 0, -.03, .01);
+    var white = hmat("#F8FAFC", { roughness: .25 }), iris = hmat("#2A1A12", { roughness: .2 }), lip = hmat(skinShade(skinHex, F ? .45 : .32), { roughness: .4 });
     [-1, 1].forEach(function (s2) {
       part(head, hgeo("sclera", function () { var g = new THREE.SphereGeometry(.0125, 12, 10); g.scale(1.15, .8, .6); return g; }), white, s2 * .025, .008, .061);
       part(head, hgeo("iris", function () { return new THREE.SphereGeometry(.0072, 10, 8); }), iris, s2 * .025, .008, .068);
-      part(head, hgeo("ear2", function () { var g = new THREE.SphereGeometry(.017, 10, 8); g.scale(.55, 1, .8); return g; }), skin, s2 * .066, .0, -.004);
-      var br = part(head, hgeo("brow2", function () { return new THREE.CapsuleGeometry(.0035, .02, 2, 6); }), hmat("#1B1412"), s2 * .026, .029, .066); br.rotation.z = Math.PI / 2 + s2 * .12;
+      part(head, hgeo("ear2", function () { var g = new THREE.SphereGeometry(.017, 10, 8); g.scale(.55, 1, .8); return g; }), skin, s2 * .066, 0, -.004);
+      var br = part(head, hgeo("brow" + B, function () { return new THREE.CapsuleGeometry(F ? .0025 : .004, .02, 2, 6); }), hmat("#1B1412"), s2 * .026, .029, .066); br.rotation.z = Math.PI / 2 + s2 * (F ? .2 : .1);
+      if (F) part(head, hgeo("lash", function () { return new THREE.BoxGeometry(.022, .003, .004); }), hmat("#0B0B0B"), s2 * .025, .016, .07);
     });
-    var nose = part(head, hgeo("nose2", function () { var g = new THREE.ConeGeometry(.013, .032, 10); g.rotateX(-Math.PI / 2.3); return g; }), skin, 0, -.008, .072);
-    part(head, hgeo("lips", function () { var g = new THREE.SphereGeometry(.015, 14, 8); g.scale(1.35, .42, .55); return g; }), lip, 0, -.036, .062);
-    hairFor(head, role.hood && ["short", "bald", "braids", "locs"].indexOf(c.hair) === -1 ? "short" : c.hair, hair, spine);
-    // Arms: shoulder, tapered upper arm, elbow, forearm, hand with thumb
+    part(head, hgeo("nose2", function () { var g = new THREE.ConeGeometry(.013, .032, 10); g.rotateX(-Math.PI / 2.3); return g; }), skin, 0, -.008, .072);
+    part(head, hgeo("lips" + B, function () { var g = new THREE.SphereGeometry(.015, 14, 8); g.scale(1.35, F ? .5 : .4, .55); return g; }), lip, 0, -.036, .062);
+    hairFor(head, c.hair, hair, spine, top);
+    maskFor(head, spine, c.mask, role);
+    extraFor(head, c.extra, hairDark);
+    // Arms
     ["L", "R"].forEach(function (sd, i) {
-      var s2 = i ? -1 : 1, sh = pivot(spine, s2 * .118, .225, 0); rig["sh" + sd] = sh; sh.rotation.z = s2 * .1;
-      var sleeve = role.style === "vest" ? hmat("#FFFFFF") : top;
-      part(sh, hgeo("shj", function () { return new THREE.SphereGeometry(.043, 14, 12); }), sleeve, 0, 0, 0);
-      part(sh, hgeo("upper2", function () { return new THREE.CylinderGeometry(.037, .03, .2, 14); }), sleeve, 0, -.1, 0, true);
+      var s2 = i ? -1 : 1, sh = pivot(spine, s2 * (F ? .106 : .122), .225, 0); rig["sh" + sd] = sh; sh.rotation.z = s2 * .1;
+      var sleeve = st === "vest" ? hmat("#FFFFFF") : st === "dress" ? skin : top;
+      part(sh, hgeo("shj" + B, function () { return new THREE.SphereGeometry(F ? .038 : .044, 14, 12); }), st === "dress" ? top : sleeve, 0, 0, 0);
+      part(sh, hgeo("upper" + B, function () { return new THREE.CylinderGeometry(F ? .032 : .038, F ? .027 : .031, .2, 14); }), sleeve, 0, -.1, 0, true);
       var el = pivot(sh, 0, -.2, 0); rig["el" + sd] = el;
       part(el, hgeo("elj", function () { return new THREE.SphereGeometry(.03, 12, 10); }), longSleeve ? top : skin, 0, 0, 0);
       part(el, hgeo("fore2", function () { return new THREE.CylinderGeometry(.029, .022, .18, 14); }), longSleeve ? top : skin, 0, -.09, 0, true);
-      if (longSleeve) part(el, hgeo("cuff", function () { return new THREE.CylinderGeometry(.024, .024, .02, 12); }), skin, 0, -.185, 0);
+      if (longSleeve) part(el, hgeo("cuff", function () { return new THREE.CylinderGeometry(.024, .024, .02, 12); }), tact ? gloves : skin, 0, -.185, 0);
       var hand = pivot(el, 0, -.205, 0); rig["hand" + sd] = hand;
-      part(hand, hgeo("palm", function () { var g = new THREE.SphereGeometry(.026, 12, 10); g.scale(.75, 1.25, .5); return g; }), skin, 0, -.01, 0);
-      var th = part(hand, hgeo("thumb", function () { return new THREE.CapsuleGeometry(.008, .02, 2, 6); }), skin, s2 * -.014, .0, .012); th.rotation.z = s2 * .6;
+      part(hand, hgeo("palm", function () { var g = new THREE.SphereGeometry(.026, 12, 10); g.scale(.75, 1.25, .5); return g; }), gloves, 0, -.01, 0);
+      var th = part(hand, hgeo("thumb", function () { return new THREE.CapsuleGeometry(.008, .02, 2, 6); }), gloves, s2 * -.014, 0, .012); th.rotation.z = s2 * .6;
     });
-    outfitFor(spine, root, role, top, rig);
+    outfitFor(spine, root, st, top, rig, role, c, F);
     accessoryFor(rig, role.acc);
     h.userData.rig = rig; h.userData.ph = Math.random() * 6;
     return h;
   }
-  function hairFor(head, style, mat, spine) {
+  function hairFor(head, style, mat, spine, top) {
     var cap = hgeo("cap2", function () { return new THREE.SphereGeometry(.076, 24, 14, 0, Math.PI * 2, 0, Math.PI * .52); });
     function capOn(m) { var c1 = part(head, cap, m || mat, 0, .01, -.008); c1.scale.set(.97, 1.04, 1.04); return c1; }
     if (style === "short") capOn();
     if (style === "afro") part(head, hgeo("afro2", function () { var g = new THREE.IcosahedronGeometry(.1, 3); g.scale(1.06, .92, 1.02); return g; }), hmat(mat.color.getStyle(), { roughness: 1 }), 0, .04, -.02, true);
     if (style === "bun") { capOn(); part(head, hgeo("bun2", function () { return new THREE.SphereGeometry(.04, 14, 10); }), mat, 0, .085, -.045); }
+    if (style === "ponytail") { capOn(); var pt = part(head, hgeo("tail", function () { return new THREE.CapsuleGeometry(.022, .12, 4, 10); }), mat, 0, -.035, -.09); pt.rotation.x = .35; part(head, hgeo("tband", function () { return new THREE.TorusGeometry(.02, .006, 6, 12); }), hmat("#EC4899"), 0, .03, -.075).rotation.x = Math.PI / 2.5; }
+    if (style === "long") { capOn(); part(head, hgeo("longback", function () { return new THREE.CylinderGeometry(.074, .088, .19, 22, 1, true, Math.PI * .55, Math.PI * .9); }), hmat(mat.color.getStyle(), { side: THREE.DoubleSide, roughness: .9 }), 0, -.07, -.008, true); }
     if (style === "braids" || style === "locs") {
       capOn();
       var n = style === "locs" ? 12 : 10, r = style === "locs" ? .013 : .009, len = style === "locs" ? .15 : .19;
       var g = hgeo("strand2" + style, function () { return new THREE.CapsuleGeometry(r, len, 3, 6); });
-      for (var i = 0; i < n; i++) { var a = Math.PI * (.08 + .84 * i / (n - 1)), st = part(head, g, mat, Math.cos(a) * .066, -.06, -Math.sin(a) * .058 - .004); st.rotation.x = -.15; st.rotation.z = Math.cos(a) * .22; }
+      for (var i = 0; i < n; i++) { var a = Math.PI * (.08 + .84 * i / (n - 1)), s1 = part(head, g, mat, Math.cos(a) * .066, -.06, -Math.sin(a) * .058 - .004); s1.rotation.x = -.15; s1.rotation.z = Math.cos(a) * .22; }
     }
     if (style === "gele") {
       part(head, hgeo("gelebase2", function () { return new THREE.CylinderGeometry(.08, .076, .055, 22); }), mat, 0, .045, -.006);
-      var fan = part(head, hgeo("gelefan2", function () { var g = new THREE.SphereGeometry(.11, 20, 10, 0, Math.PI * 2, 0, Math.PI * .5); g.scale(1.25, .8, .55); return g; }), hmat(mat.color.getStyle(), { flatShading: true, roughness: .45, metalness: .1 }), 0, .07, -.03, true); fan.rotation.x = -.3;
+      var fan = part(head, hgeo("gelefan2", function () { var g2 = new THREE.SphereGeometry(.11, 20, 10, 0, Math.PI * 2, 0, Math.PI * .5); g2.scale(1.25, .8, .55); return g2; }), hmat(mat.color.getStyle(), { flatShading: true, roughness: .45, metalness: .1 }), 0, .07, -.03, true); fan.rotation.x = -.3;
       part(head, hgeo("geleknot2", function () { return new THREE.TorusKnotGeometry(.026, .011, 40, 6); }), mat, .045, .105, .01);
     }
     if (style === "hijab") {
       part(head, hgeo("hijabh2", function () { return new THREE.SphereGeometry(.084, 24, 18, Math.PI * .85, Math.PI * 1.3, 0, Math.PI * .8); }), hmat(mat.color.getStyle(), { side: THREE.DoubleSide }), 0, .006, -.004);
       part(spine, hgeo("hijabd2", function () { return new THREE.CylinderGeometry(.055, .13, .11, 22, 1, true); }), hmat(mat.color.getStyle(), { side: THREE.DoubleSide }), 0, .245, -.004, true);
     }
+    if (style === "hood") {
+      // A full hood with a peak and a shadowed opening
+      part(head, hgeo("hoodup2", function () { return new THREE.SphereGeometry(.09, 26, 18, Math.PI * .78, Math.PI * 1.44, 0, Math.PI * .8); }), hmat(top.color.getStyle(), { side: THREE.DoubleSide, roughness: .85 }), 0, .012, -.01, true);
+      part(head, hgeo("hoodrim", function () { var g3 = new THREE.TorusGeometry(.072, .011, 8, 28, Math.PI * 1.25); g3.rotateZ(-Math.PI * .125); return g3; }), hmat(top.color.getStyle(), { roughness: .85 }), 0, -.004, .042).rotation.x = -.18;
+      part(head, hgeo("hoodpeak", function () { var g4 = new THREE.ConeGeometry(.03, .06, 8); g4.rotateX(-.6); return g4; }), hmat(top.color.getStyle(), { roughness: .85 }), 0, .1, -.02);
+      part(spine, hgeo("hoodback", function () { var g5 = new THREE.SphereGeometry(.07, 16, 10, 0, Math.PI * 2, 0, Math.PI / 2); g5.scale(1.2, .6, 1); return g5; }), top, 0, .245, -.035);
+    }
     if (style === "cap") {
       capOn(hmat("#EC4899"));
-      var br = part(head, hgeo("brim2", function () { return new THREE.CylinderGeometry(.058, .058, .008, 18, 1, false, -Math.PI / 2, Math.PI); }), hmat("#BE185D"), 0, .03, .045); br.rotation.x = .1;
+      var bm = part(head, hgeo("brim2", function () { return new THREE.CylinderGeometry(.058, .058, .008, 18, 1, false, -Math.PI / 2, Math.PI); }), hmat("#BE185D"), 0, .03, .045); bm.rotation.x = .1;
     }
   }
-  function outfitFor(spine, root, role, top, rig) {
-    var st = role.style, darker = hmat(new THREE.Color(top.color).multiplyScalar(.8).getStyle());
-    if (st === "hoodie") {
+  function maskFor(head, spine, mask, role) {
+    var dark = hmat("#0D0F12", { roughness: .95 }), acc = role.accent || "#10B981";
+    if (mask === "balaclava") {
+      var up = part(head, hgeo("balaUp", function () { return new THREE.SphereGeometry(.079, 26, 14, 0, Math.PI * 2, 0, Math.PI * .44); }), dark, 0, .007, -.004); up.scale.set(.97, 1.06, 1.05);
+      part(head, hgeo("balaLow", function () { var g = new THREE.CylinderGeometry(.069, .064, .078, 26, 1, false); g.scale(.95, 1, 1.03); return g; }), dark, 0, -.034, .006);
+      part(head, hgeo("balaNose", function () { var g = new THREE.SphereGeometry(.018, 10, 8); g.scale(.9, 1, 1); return g; }), dark, 0, -.01, .07);
+      part(spine, hgeo("balaNeck", function () { return new THREE.CylinderGeometry(.04, .046, .075, 18); }), dark, 0, .28, 0);
+      [-1, 1].forEach(function (s) { part(head, hgeo("balaSide", function () { return new THREE.BoxGeometry(.012, .016, .03); }), dark, s * .062, .008, .04); });
+    }
+    if (mask === "tactical") {
+      part(head, hgeo("tacMask", function () { var g = new THREE.CylinderGeometry(.07, .064, .06, 22, 1, false, -Math.PI * .55, Math.PI * 1.1); return g; }), hmat("#2B2F36", { roughness: .5, metalness: .3 }), 0, -.032, .006);
+      [-1, 1].forEach(function (s) { var v = part(head, hgeo("vent", function () { return new THREE.CylinderGeometry(.013, .013, .012, 16); }), hmat("#0B0F14", { emissive: acc, emissiveIntensity: .9 }), s * .042, -.036, .056); v.rotation.x = Math.PI / 2; v.rotation.z = s * -.6; });
+      part(head, hgeo("tacStrap", function () { var g = new THREE.TorusGeometry(.073, .004, 4, 28); g.rotateX(Math.PI / 2); return g; }), hmat("#111317"), 0, -.012, -.004);
+    }
+    if (mask === "bandana") {
+      part(head, hgeo("band1", function () { return new THREE.CylinderGeometry(.068, .064, .05, 22, 1, false, -Math.PI * .6, Math.PI * 1.2); }), hmat("#E11D48", { roughness: .8 }), 0, -.028, .006);
+      part(head, hgeo("band2", function () { var g = new THREE.ConeGeometry(.045, .055, 3); g.rotateX(Math.PI); g.scale(1, 1, .4); return g; }), hmat("#E11D48", { roughness: .8 }), 0, -.075, .052);
+    }
+  }
+  function extraFor(head, extra, hairMat) {
+    if (extra === "glasses") { var fr = hmat("#111827", { metalness: .5, roughness: .3 }); [-1, 1].forEach(function (s) { part(head, hgeo("rim", function () { return new THREE.TorusGeometry(.014, .0025, 6, 16); }), fr, s * .025, .009, .074); }); part(head, hgeo("bridge2", function () { return new THREE.BoxGeometry(.022, .003, .003); }), fr, 0, .011, .075); }
+    if (extra === "shades") { var gl = hmat("#05070A", { roughness: .05, metalness: .6 }); [-1, 1].forEach(function (s) { part(head, hgeo("lens2", function () { return new THREE.BoxGeometry(.03, .016, .004); }), gl, s * .025, .009, .074); }); part(head, hgeo("bridge", function () { return new THREE.BoxGeometry(.074, .004, .004); }), gl, 0, .014, .074); }
+    if (extra === "beard") { var b = part(head, hgeo("beard", function () { var g = new THREE.SphereGeometry(.063, 22, 12, 0, Math.PI * 2, Math.PI * .58, Math.PI * .42); g.scale(.92, .9, .98); return g; }), hairMat, 0, -.028, .012); part(head, hgeo("must", function () { var g = new THREE.CapsuleGeometry(.006, .03, 2, 8); g.rotateZ(Math.PI / 2); return g; }), hairMat, 0, -.025, .068); }
+    if (extra === "moustache") part(head, hgeo("must", function () { var g = new THREE.CapsuleGeometry(.006, .03, 2, 8); g.rotateZ(Math.PI / 2); return g; }), hairMat, 0, -.025, .068);
+    if (extra === "earrings") [-1, 1].forEach(function (s) { part(head, hgeo("hoop", function () { return new THREE.TorusGeometry(.009, .0022, 6, 14); }), hmat("#F5C542", { metalness: .9, roughness: .2 }), s * .067, -.022, 0).rotation.y = Math.PI / 2; });
+  }
+  function outfitFor(spine, root, st, top, rig, role, c, F) {
+    var darker = hmat(new THREE.Color(top.color).multiplyScalar(.8).getStyle());
+    if (st === "hoodie" || st === "tactical") {
       part(spine, hgeo("pocket2", function () { return new THREE.BoxGeometry(.11, .05, .008); }), darker, 0, .06, .056);
-      [-1, 1].forEach(function (s2) { part(spine, hgeo("string2", function () { return new THREE.CylinderGeometry(.003, .003, .06, 4); }), hmat(role.hood ? "#39FF88" : "#FFFFFF", role.hood ? { emissive: "#39FF88", emissiveIntensity: .6 } : null), s2 * .016, .2, .068); });
-      if (role.hood) {
-        // Hood up, dark glasses and a glowing terminal print: the hacker look
-        part(rig.head, hgeo("hoodup", function () { return new THREE.SphereGeometry(.088, 24, 18, Math.PI * .8, Math.PI * 1.4, 0, Math.PI * .78); }), hmat(top.color.getStyle(), { side: THREE.DoubleSide, roughness: .85 }), 0, .012, -.008, true);
-        part(spine, hgeo("hoodback", function () { var g = new THREE.SphereGeometry(.07, 16, 10, 0, Math.PI * 2, 0, Math.PI / 2); g.scale(1.2, .6, 1); return g; }), top, 0, .245, -.035);
-        var glass = hmat("#05070A", { roughness: .05, metalness: .6 });
-        [-1, 1].forEach(function (s2) { part(rig.head, hgeo("lens2", function () { var g = new THREE.BoxGeometry(.03, .016, .004); return g; }), glass, s2 * .025, .009, .074); });
-        part(rig.head, hgeo("bridge", function () { return new THREE.BoxGeometry(.074, .004, .004); }), glass, 0, .014, .074);
-        part(rig.head, hgeo("gaiter", function () { return new THREE.CylinderGeometry(.06, .058, .05, 22, 1, true); }), hmat("#0B0F14", { side: THREE.DoubleSide, roughness: .9 }), 0, -.03, .004);
-        var pr = part(spine, hgeo("print", function () { return new THREE.PlaneGeometry(.07, .035); }), new THREE.MeshStandardMaterial({ map: termTex(), emissive: "#ffffff", emissiveMap: termTex(), emissiveIntensity: .7 }), 0, .155, .071);
-      } else { var hood = part(spine, hgeo("hood2", function () { return new THREE.TorusGeometry(.055, .026, 8, 18); }), top, 0, .255, -.04); hood.rotation.x = Math.PI / 2.4; }
+      [-1, 1].forEach(function (s2) { part(spine, hgeo("string2", function () { return new THREE.CylinderGeometry(.003, .003, .06, 4); }), hmat(role.accent || "#FFFFFF"), s2 * .016, .2, .068); });
+      if (c.hair !== "hood") { var hd = part(spine, hgeo("hood2", function () { return new THREE.TorusGeometry(.055, .026, 8, 18); }), top, 0, .255, -.04); hd.rotation.x = Math.PI / 2.4; }
+    }
+    if (st === "tactical") {
+      // A chest rig with pouches over the hoodie, the operator look
+      var rigCol = hmat("#1C2026", { roughness: .6 }), acc = role.accent || "#10B981";
+      part(spine, hgeo("plate" + (F ? "f" : "m"), function () { var g = new THREE.BoxGeometry(.17, .13, .034); return g; }), rigCol, 0, .15, F ? .074 : .068, true);
+      part(spine, hgeo("plateB", function () { return new THREE.BoxGeometry(.16, .12, .025); }), rigCol, 0, .15, -.07);
+      [-1, 1].forEach(function (s) { part(spine, hgeo("strap", function () { return new THREE.BoxGeometry(.026, .018, .15); }), rigCol, s * .055, .238, 0); });
+      [-.055, 0, .055].forEach(function (x) { part(spine, hgeo("pouch", function () { return new THREE.BoxGeometry(.042, .045, .022); }), hmat("#262B33", { roughness: .7 }), x, .1, F ? .1 : .094); });
+      part(spine, hgeo("rigStripe", function () { return new THREE.BoxGeometry(.15, .008, .004); }), hmat(acc, { emissive: acc, emissiveIntensity: .7 }), 0, .2, F ? .092 : .086);
+      if (role.id === "red") part(spine, hgeo("print", function () { return new THREE.PlaneGeometry(.06, .03); }), new THREE.MeshStandardMaterial({ map: termTex(), emissive: "#ffffff", emissiveMap: termTex(), emissiveIntensity: .7 }), 0, .165, F ? .092 : .086);
+      part(spine, hgeo("belt3", function () { var g = new THREE.TorusGeometry(.088, .01, 6, 24); g.rotateX(Math.PI / 2); g.scale(1, 1, .68); return g; }), rigCol, 0, .01, 0);
     }
     if (st === "jacket") { part(spine, hgeo("zip2", function () { return new THREE.BoxGeometry(.007, .23, .005); }), hmat("#E5E7EB", { metalness: .6, roughness: .3 }), 0, .12, .062); part(spine, hgeo("collar2", function () { return new THREE.TorusGeometry(.042, .013, 6, 16); }), top, 0, .255, 0).rotation.x = Math.PI / 2; }
     if (st === "blazer") {
-      var shirt = part(spine, hgeo("shirt2", function () { var g = new THREE.ConeGeometry(.042, .12, 3); g.rotateZ(Math.PI); return g; }), hmat("#FFFFFF"), 0, .2, .064); shirt.scale.z = .3;
+      var sh = part(spine, hgeo("shirt2", function () { var g = new THREE.ConeGeometry(.042, .12, 3); g.rotateZ(Math.PI); return g; }), hmat("#FFFFFF"), 0, .2, .064); sh.scale.z = .3;
       part(spine, hgeo("tie2", function () { return new THREE.BoxGeometry(.015, .1, .005); }), hmat("#EC4899"), 0, .17, .07);
-      [-1, 1].forEach(function (s2) { part(spine, hgeo("btn", function () { return new THREE.SphereGeometry(.005, 6, 6); }), hmat("#111827"), s2 * .012, .07, .058); });
     }
-    if (st === "labcoat" || st === "trench") {
-      part(spine, hgeo("coat2", function () { var g = new THREE.CylinderGeometry(.09, .125, .32, 22, 1, true); g.scale(1, 1, .72); return g; }), hmat(top.color.getStyle(), { side: THREE.DoubleSide }), 0, -.16, 0, true);
+    if (st === "labcoat" || st === "trench" || st === "kaftan" || st === "dress") {
+      var flare = st === "dress" ? .17 : st === "kaftan" ? .12 : .125, len = st === "kaftan" ? .38 : st === "dress" ? .3 : .32;
+      part(spine, hgeo("coat" + st, function () { var g = new THREE.CylinderGeometry(.106, flare + .01, len, 24, 1, st !== "kaftan"); g.scale(1, 1, st === "dress" ? .85 : .72); return g; }), hmat(top.color.getStyle(), { side: THREE.DoubleSide }), 0, -len / 2, 0, true);
       if (st === "trench") part(spine, hgeo("belt2", function () { var g = new THREE.TorusGeometry(.086, .009, 6, 24); g.rotateX(Math.PI / 2); g.scale(1, 1, .66); return g; }), hmat("#3F2A14"), 0, .02, 0);
-      else part(spine, hgeo("pen2", function () { return new THREE.BoxGeometry(.007, .035, .005); }), hmat("#EC4899"), .045, .18, .066);
+      if (st === "labcoat") part(spine, hgeo("pen2", function () { return new THREE.BoxGeometry(.007, .035, .005); }), hmat("#EC4899"), .045, .18, .066);
+      if (st === "kaftan") { var gold = hmat("#F5C542", { metalness: .6, roughness: .3 }); part(spine, hgeo("kneck", function () { var g = new THREE.TorusGeometry(.036, .006, 6, 20); g.rotateX(Math.PI / 2.2); return g; }), gold, 0, .248, .012); part(spine, hgeo("kline", function () { return new THREE.BoxGeometry(.008, .2, .004); }), gold, 0, .13, .066); }
+      if (st === "dress") part(spine, hgeo("dbelt", function () { var g = new THREE.TorusGeometry(.078, .007, 6, 24); g.rotateX(Math.PI / 2); g.scale(1, 1, .7); return g; }), hmat("#FFFFFF"), 0, .03, 0);
     }
     if (st === "vest") [.06, .15].forEach(function (y) { part(spine, hgeo("stripe2", function () { var g = new THREE.CylinderGeometry(.1, .096, .014, 22, 1, true); g.scale(1, 1, .66); return g; }), hmat("#F1F5F9", { metalness: .5, roughness: .25 }), 0, y, 0); });
     if (st === "tee") part(spine, hgeo("logo2", function () { return new THREE.CircleGeometry(.025, 6); }), hmat("#FFFFFF"), 0, .16, .071);
@@ -927,6 +1006,8 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
       anim.push(function (t) { sh.material.opacity = .22 + Math.sin(t * 2 + b.cx) * .06; }); domes[b.comm] = dg;
     });
 
+    // A pulsing red ring under anyone who needs your help
+    var alertRing = new THREE.Mesh(new THREE.RingGeometry(.22, .32, 40), new THREE.MeshBasicMaterial({ color: "#DC2626", transparent: true, opacity: .9, side: THREE.DoubleSide })); alertRing.rotation.x = -Math.PI / 2; alertRing.visible = false; scene.add(alertRing);
     // A green ring around the district that matches your role
     var mineRing = new THREE.Mesh(new THREE.TorusGeometry(2.25, .05, 8, 72), new THREE.MeshStandardMaterial({ color: "#10B981", emissive: "#10B981", emissiveIntensity: 1.2 })); mineRing.rotation.x = Math.PI / 2; mineRing.scale.y = .55; mineRing.visible = false; scene.add(mineRing);
     anim.push(function (t) { mineRing.material.emissiveIntensity = .8 + Math.sin(t * 2.5) * .4; });
@@ -943,7 +1024,7 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
       [-1, 1].forEach(function (sd) { add(g, new THREE.BoxGeometry(.02, .04, .06), hl, L / 2, .13, sd * (W / 2 - .06), true); add(g, new THREE.BoxGeometry(.02, .04, .06), M("#EF4444", { emissive: "#EF4444", emissiveIntensity: .6 }), -L / 2, .13, sd * (W / 2 - .06), true); });
       scene.add(g); return g;
     }
-    [["car", "#EC4899", 0, 0], ["bus", "#FACC15", 0, .5], ["car", "#FFFFFF", 1, .1], ["car", "#10B981", 2, .3], ["bus", "#FACC15", 2, .8], ["car", "#2563EB", 0, .75]].forEach(function (v) {
+    [["car", "#EC4899", 0, 0], ["bus", "#FACC15", 0, .55], ["car", "#10B981", 2, .3]].forEach(function (v) {
       var pts = LOOPS[v[2]], segs = [], tot = 0; for (var i = 0; i < pts.length; i++) { var p0 = pts[i], p1 = pts[(i + 1) % pts.length], len = Math.abs(p1[0] - p0[0]) + Math.abs(p1[1] - p0[1]); segs.push([p0, p1, len, tot]); tot += len; }
       cars.push({ m: vehicle(v[0], v[1]), segs: segs, tot: tot, d: v[3] * tot, sp: v[0] === "bus" ? 1.1 : 1.5 });
     });
@@ -959,14 +1040,14 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
     var doors = BUILDINGS.map(function (b) { return b; });
     function npcPos(n) { var c = n.cell, nx = n.next || c, dx = nx[0] - c[0], dz = nx[1] - c[1]; return [c[0] + .5 + dx * n.t - dz * .36 * n.side, c[1] + .5 + dz * n.t + dx * .36 * n.side]; }
     function plan(n) { var tgt = doors[Math.floor(Math.random() * doors.length)]; n.goal = tgt; n.path = route(n.cell, tgt.door); n.state = n.path.length ? "walk" : "pause"; n.next = n.path[0]; n.t = 0; n.timer = 1 + Math.random() * 2; }
-    for (var i = 0; i < 14; i++) (function (i) {
+    for (var i = 0; i < 8; i++) (function (i) {
       var ch = randomChar(i + 3), p = makeHuman(ch), cell = roadCells[(i * 37) % roadCells.length]; p.scale.setScalar(.6); scene.add(p);
       var n = { m: p, name: NAMES[i % NAMES.length], cell: cell, side: i % 2 ? 1 : -1, sp: 1.1 + (i % 4) * .15, t: 0, state: "pause", timer: Math.random() * 3 };
       p.userData.npc = n; p.traverse(function (o) { if (o.isMesh) pick.push(o); }); people.push(n);
       var ph = new THREE.Mesh(new THREE.BoxGeometry(.035, .065, .008), new THREE.MeshStandardMaterial({ color: "#111827", emissive: "#9FE7FF", emissiveIntensity: 1.2 })); ph.position.set(0, .03, .02); ph.visible = false; p.userData.rig.handR.add(ph); n.phone = ph;
     })(i);
     var idlers = [];
-    [[[5.2, 7.35], [5.75, 7.6]], [[10.4, 12.35], [10.9, 12.6], [10.6, 12.95]], [[14.6, 7.4], [15.1, 7.55]], [[4.4, 12.4], [4.9, 12.65]]].forEach(function (grp, gi) {
+    [[[10.4, 12.35], [10.9, 12.6]], [[14.6, 7.4], [15.1, 7.55]]].forEach(function (grp, gi) {
       var cx = 0, cz = 0; grp.forEach(function (q) { cx += q[0] / grp.length; cz += q[1] / grp.length; });
       grp.forEach(function (q, k) { var p = makeHuman(randomChar(gi * 3 + k + 30)); p.position.set(q[0], 0, q[1]); p.rotation.y = Math.atan2(cx - q[0], cz - q[1]); p.scale.setScalar(.6); scene.add(p); idlers.push({ m: p, name: NAMES[(gi * 3 + k + 5) % NAMES.length], talk: k === 0 }); });
     });
@@ -993,7 +1074,7 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
     var marker = add(hero, new THREE.ConeGeometry(.08, .16, 4), new THREE.MeshStandardMaterial({ color: "#EC4899", emissive: "#EC4899", emissiveIntensity: 1.2 }), 0, 1.05, 0, true); marker.rotation.x = Math.PI;
     anim.push(function (t) { marker.position.y = 1.05 + Math.sin(t * 3) * .05; marker.rotation.y = t * 2; halo.scale.setScalar(1 + Math.sin(t * 3) * .1); if (hero.userData.body) animateHuman(hero.userData.body, t, !!walkPath, 11); });
 
-    return { people: people, idlers: idlers, R: R, scene: scene, cam: cam, hemi: hemi, sun: sun, anim: anim, pick: pick, clouds: clouds, domes: domes, hero: hero, mineRing: mineRing, winMats: winMats, lampMats: lampMats, canvas: canvas, cam3: { tx: 9.5, tz: 12.5, dist: 25, th: Math.PI / 4, ph: .95 } };
+    return { people: people, idlers: idlers, R: R, scene: scene, cam: cam, hemi: hemi, sun: sun, anim: anim, pick: pick, clouds: clouds, domes: domes, hero: hero, alertRing: alertRing, mineRing: mineRing, winMats: winMats, lampMats: lampMats, canvas: canvas, cam3: { tx: 9.5, tz: 12.5, dist: 25, th: Math.PI / 4, ph: .95 } };
   }
 
   function setHero(c) { if (!W3) return; var h = W3.hero; if (h.userData.body) h.remove(h.userData.body); var b = makeHuman(c || S.char || defaultChar()); b.scale.setScalar(.82); h.add(b); h.userData.body = b; }
@@ -1016,22 +1097,24 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
     simTick(t, dt); camUpdate(); if (!$("stage").classList.contains("on")) { W3.R.render(W3.scene, W3.cam); placeLabels(); placeBubbles(); }
     requestAnimationFrame(loop);
   }
+  var focusBid = "", mineBid = "";
+  // Buildings show as small icons; names appear for your next mission, your district, or when you zoom in
   function placeLabels() {
-    if (!labelsEl) return; var w = labelsEl.clientWidth, h = labelsEl.clientHeight, v = new THREE.Vector3(), items = [], sc = Math.max(.7, Math.min(1.05, 20 / W3.cam3.dist));
+    if (!labelsEl) return; var w = labelsEl.clientWidth, h = labelsEl.clientHeight, v = new THREE.Vector3(), items = [], close = W3.cam3.dist < 15;
     BUILDINGS.forEach(function (b) {
       if (!b.lbl) return; v.set(b.cx, b.top + .35, b.cz).project(W3.cam);
       var x = (v.x + 1) / 2 * w, y = (1 - v.y) / 2 * h;
-      if (v.z < 1 && x > -40 && x < w + 40 && y > 200 && y < h - 70) items.push({ b: b, x: x, y: y, z: v.z }); else b.lbl.style.display = "none";
+      if (v.z < 1 && x > -40 && x < w + 40 && y > 140 && y < h - 70) items.push({ b: b, x: x, y: y, z: v.z, full: close || b.id === focusBid || b.id === mineBid }); else b.lbl.style.display = "none";
     });
-    // Nearest labels win; one that would overlap a nearer label is hidden until you move closer
-    items.sort(function (a, c) { return (a.b.special ? -1 : 0) - (c.b.special ? -1 : 0) || a.z - c.z; });
+    items.sort(function (a, c) { return (c.full ? 1 : 0) - (a.full ? 1 : 0) || a.z - c.z; });
     var placed = [];
     items.forEach(function (it) {
-      var el = it.b.lbl; if (!it.b.lw) { el.style.display = ""; it.b.lw = el.offsetWidth || 110; }
-      var bw = it.b.lw * sc, r = { l: it.x - bw / 2, r: it.x + bw / 2, t: it.y - 28 * sc, b: it.y };
-      var hit = placed.some(function (p) { return r.l < p.r + 4 && r.r > p.l - 4 && r.t < p.b + 2 && r.b > p.t - 2; });
+      var el = it.b.lbl; el.classList.toggle("mini", !it.full);
+      if (it.full && !it.b.lw) { el.style.display = ""; it.b.lw = el.offsetWidth || 110; }
+      var bw = it.full ? it.b.lw : 30, r = { l: it.x - bw / 2, r: it.x + bw / 2, t: it.y - 30, b: it.y };
+      var hit = placed.some(function (p) { return r.l < p.r + 3 && r.r > p.l - 3 && r.t < p.b + 2 && r.b > p.t - 2; });
       el.style.display = hit ? "none" : ""; if (hit) return; placed.push(r);
-      el.style.transform = "translate(" + it.x + "px," + it.y + "px) translate(-50%,-100%) scale(" + sc + ")"; el.style.zIndex = String(1000 - Math.round(it.z * 500));
+      el.style.transform = "translate(" + it.x + "px," + it.y + "px) translate(-50%,-100%)"; el.style.zIndex = String(1000 - Math.round(it.z * 500));
     });
   }
   function labelStatus(b) {
@@ -1051,21 +1134,27 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
     { s: "got a call from someone saying they're customer care, asking for their card PIN.", o: ["Hang up. Real staff never ask for your PIN.", "Read it out, they said they're customer care.", "Give only the first two digits."] },
     { s: "uses the same password for email, bank and social media.", o: ["Use a different passphrase for each, with a password manager.", "It's fine as long as the password is long.", "Write it on a note stuck to the screen."] }
   ];
-  var sim = { alert: 6, chat: 3 }, bubbles = [];
+  var sim = { alert: 25, chat: 10 }, bubbles = [];
+  function uiBusy() { return $("stage").classList.contains("on") || $("sheet").classList.contains("on") || $("onb").classList.contains("on") || !!document.querySelector(".nudge"); }
   function simTick(t, dt) {
     if (!W3 || !W3.people) return;
-    sim.alert -= dt;
-    if (sim.alert <= 0 && !W3.people.some(function (n) { return n.alert; })) {
+    var alerting = W3.people.some(function (n) { return n.alert; });
+    if (!uiBusy()) sim.alert -= dt;
+    if (sim.alert <= 0 && !alerting) {
       var c = W3.people.filter(function (n) { return n.state !== "inside" && n.m.visible; }); var n = c[Math.floor(Math.random() * c.length)];
-      if (n) { n.alert = HELP[Math.floor(Math.random() * HELP.length)]; n.alertAt = t; n.state = "phone"; n.timer = 99; }
-      sim.alert = 40 + Math.random() * 25;
+      if (n) { n.alert = HELP[Math.floor(Math.random() * HELP.length)]; n.alertAt = t; n.state = "phone"; n.timer = 99; bubbles.forEach(function (bb) { bb.until = 0; }); alerting = true; }
+      sim.alert = 60 + Math.random() * 30;
     }
-    W3.people.forEach(function (n) { if (n.alert && t - n.alertAt > 45) { n.alert = null; n.timer = 1; } });
+    W3.people.forEach(function (p) { if (p.alert && t - p.alertAt > 60 && !uiBusy()) { p.alert = null; p.timer = 1; } });
+    var ring = W3.alertRing, an = W3.people.filter(function (p) { return p.alert; })[0];
+    ring.visible = !!an; if (an) { ring.position.set(an.m.position.x, .02, an.m.position.z); ring.scale.setScalar(1 + Math.sin(t * 5) * .15); }
+    // Street chatter only when nobody needs help and nothing else is on screen
+    if (alerting || uiBusy()) return;
     sim.chat -= dt;
-    if (sim.chat <= 0 && bubbles.length < 2) {
-      var pool = W3.idlers.concat(W3.people.filter(function (n) { return n.state !== "inside" && !n.alert; })), who = pool[Math.floor(Math.random() * pool.length)], keys = Object.keys(TIPS), tip = TIPS[keys[Math.floor(Math.random() * keys.length)]];
-      if (who) say(who, Math.random() < .35 ? tip.pcm : tip.en, 5);
-      sim.chat = 4 + Math.random() * 4;
+    if (sim.chat <= 0 && !bubbles.length) {
+      var pool = W3.idlers.concat(W3.people.filter(function (p) { return p.state !== "inside"; })), who = pool[Math.floor(Math.random() * pool.length)], keys = Object.keys(TIPS), tip = TIPS[keys[Math.floor(Math.random() * keys.length)]];
+      if (who) say(who, Math.random() < .35 ? tip.pcm : tip.en, 4.5);
+      sim.chat = 20 + Math.random() * 15;
     }
   }
   function say(who, text, secs, cls) {
@@ -1076,12 +1165,12 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
   function placeBubbles() {
     if (!labelsEl) return; var w = labelsEl.clientWidth, h = labelsEl.clientHeight, v = new THREE.Vector3(), now = performance.now() / 1000;
     bubbles = bubbles.filter(function (b) { if (now > b.until || !b.el.isConnected) { b.el.remove(); return false; } return true; });
-    bubbles.forEach(function (b) { var m = b.who.m; v.set(m.position.x, .78, m.position.z).project(W3.cam); var x = (v.x + 1) / 2 * w, y = (1 - v.y) / 2 * h, on = v.z < 1 && y > 200 && y < h - 80 && m.visible; b.el.style.display = on ? "" : "none"; if (on) b.el.style.transform = "translate(" + x + "px," + y + "px) translate(-50%,-100%)"; });
+    bubbles.forEach(function (b) { var m = b.who.m; v.set(m.position.x, .78, m.position.z).project(W3.cam); var x = (v.x + 1) / 2 * w, y = (1 - v.y) / 2 * h, on = v.z < 1 && y > 140 && y < h - 80 && m.visible; b.el.style.display = on ? "" : "none"; if (on) b.el.style.transform = "translate(" + x + "px," + y + "px) translate(-50%,-100%)"; });
     W3.people.forEach(function (n) {
       if (n.alertEl && !n.alertEl.isConnected) n.alertEl = null;
       if (!n.alert) { if (n.alertEl) { n.alertEl.remove(); n.alertEl = null; } return; }
-      if (!n.alertEl) { n.alertEl = document.createElement("button"); n.alertEl.className = "alertb"; n.alertEl.innerHTML = '<i>!</i>' + esc(n.name) + " needs help"; n.alertEl.addEventListener("pointerdown", function (e) { e.stopPropagation(); }); n.alertEl.onclick = function () { helpSheet(n); }; labelsEl.appendChild(n.alertEl); }
-      v.set(n.m.position.x, .85, n.m.position.z).project(W3.cam); var x = (v.x + 1) / 2 * w, y = (1 - v.y) / 2 * h, on = v.z < 1 && y > 200 && y < h - 80;
+      if (!n.alertEl) { n.alertEl = document.createElement("button"); n.alertEl.className = "alertb"; n.alertEl.innerHTML = '<i>!</i>' + esc(n.name) + " needs help · tap"; n.alertEl.addEventListener("pointerdown", function (e) { e.stopPropagation(); }); n.alertEl.onclick = function () { helpSheet(n); }; labelsEl.appendChild(n.alertEl); }
+      v.set(n.m.position.x, .85, n.m.position.z).project(W3.cam); var x = (v.x + 1) / 2 * w, y = (1 - v.y) / 2 * h, on = v.z < 1 && y > 140 && y < h - 80;
       n.alertEl.style.display = on ? "" : "none"; if (on) n.alertEl.style.transform = "translate(" + x + "px," + y + "px) translate(-50%,-100%)";
     });
   }
@@ -1182,8 +1271,8 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
     $("view").classList.add("mapmode");
     $("view").innerHTML = '<div class="map" id="map"><div class="labels" id="labels"></div></div>' +
       '<div class="hud"><div class="ava" id="me" role="button" aria-label="Edit your character">' + (S.charImg ? '<img src="' + S.charImg + '" alt="">' : esc((S.name || "?").charAt(0).toUpperCase())) + '</div><div class="t"><b>' + esc(S.name) + ' <span class="chip v" style="margin-left:4px">Lv ' + (lv + 1) + " · " + LEVELS[lv] + '</span></b><div class="xpb"><i style="width:' + into / 2 + '%"></i></div></div><div class="streak">' + ic("fire", "#F59E0B", 16) + streak() + "</div></div>" +
-      streakBar() + '<div class="hud2">' + (S.github ? "" : '<button class="chip v" id="linkgh" style="pointer-events:auto;border:0">' + ic("git", "#BE185D", 14) + " Link GitHub</button>") + '<span class="chip ' + (prot === 5 ? "g" : "r") + '">' + (5 - prot) + " scam cloud" + (5 - prot === 1 ? "" : "s") + ' left</span><span class="chip g">' + COMMS.filter(function (c) { return S.done["teach-" + c.id]; }).length + '/5 shielded</span></div>' +
-      '<div class="mapbtns"><button id="prb" class="pr" aria-label="Contribute on GitHub">' + ic("git", "#fff", 20) + '</button><button id="dn" aria-label="Day or night">' + (night ? "☀" : "☾") + '</button><button id="rl" aria-label="Rotate left">⟲</button><button id="rr" aria-label="Rotate right">⟳</button><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="zme" aria-label="Find me">' + ic("radar", null, 18) + "</button></div>" +
+      streakBar() +
+      '<div class="mapbtns"><button id="prb" class="pr" aria-label="Contribute on GitHub">' + ic("git", "#fff", 20) + '</button><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="zme" aria-label="Find me">' + ic("radar", null, 18) + "</button></div>" +
       (nm ? '<button class="nextpill" id="nextp">' + tile(nm.icon, nm.col, 22, "ni") + '<span class="tx"><span class="k">NEXT MISSION · +' + nm.xp + ' XP</span><b>' + esc(nm.title) + '</b></span><span class="gob">Go</span></button>'
           : '<button class="nextpill" id="nextp">' + tile("trophy", "#10B981", 22, "ni") + '<span class="tx"><span class="k">EVERY CLOUD CLEARED</span><b>Visit Open Source HQ</b></span><span class="gob">Go</span></button>');
     if (!W3) W3 = buildWorld();
@@ -1191,7 +1280,8 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
     if (!W3) { map.innerHTML = '<div class="glass pad" style="margin:150px 18px 0"><h3>Your device can\'t show the 3D city</h3><p class="muted small">Pick a place instead:</p>' + BUILDINGS.map(function (b) { return '<button class="mis" data-b="' + b.id + '">' + tile(b.icon[0], b.icon[1]) + '<span class="tx"><b>' + esc(b.name) + "</b></span></button>"; }).join("") + "</div>"; map.style.overflow = "auto"; map.querySelectorAll("[data-b]").forEach(function (x) { x.onclick = function () { openBuilding(B_BY[x.dataset.b]); }; }); }
     else {
       map.insertBefore(W3.canvas, map.firstChild); labelsEl = $("labels");
-      labelsEl.innerHTML = BUILDINGS.map(function (b) { var st2 = labelStatus(b); return '<button class="lbl3' + (b.special ? " sp" : "") + (S.char && ROLE_BY[S.char.role] && ROLE_BY[S.char.role].district === b.id ? " mine" : "") + '" data-b="' + b.id + '">' + (st2 ? '<i style="background:' + st2 + '"></i>' : "") + esc(b.name) + "</button>"; }).join("");
+      focusBid = (nm ? (buildingFor(nm.id) || {}).id : "hq") || ""; mineBid = S.char && ROLE_BY[S.char.role] ? ROLE_BY[S.char.role].district : "";
+      labelsEl.innerHTML = BUILDINGS.map(function (b) { var st2 = labelStatus(b), bi = B_ICON[b.id]; return '<button class="lbl3' + (b.special ? " sp" : "") + (b.id === mineBid ? " mine" : "") + (b.id === focusBid ? " focus" : "") + '" data-b="' + b.id + '" aria-label="' + esc(b.name) + '"><span class="pin">' + ic(bi[0], b.special ? "#fff" : bi[1], 15) + (st2 ? '<i style="background:' + st2 + '"></i>' : "") + '</span><span class="nm">' + esc(b.name) + "</span></button>"; }).join("");
       BUILDINGS.forEach(function (b) { b.lbl = labelsEl.querySelector('[data-b="' + b.id + '"]'); });
       labelsEl.querySelectorAll("[data-b]").forEach(function (x) { x.addEventListener("pointerdown", function (e) { e.stopPropagation(); }); x.onclick = function () { visit(x.dataset.b); }; });
       if (!W3.ctrl) { initControls(W3.canvas); W3.ctrl = 1; }
@@ -1204,11 +1294,9 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
     $("nextp").onclick = function () { var b = nm ? buildingFor(nm.id) : B_BY.hq; if (b) visit(b.id); else if (nm) start(nm.id); };
     function cam(fn) { return function () { if (W3) { fn(W3.cam3); follow = false; } }; }
     $("zin").onclick = cam(function (c) { c.dist *= .8; }); $("zout").onclick = cam(function (c) { c.dist *= 1.25; });
-    $("rl").onclick = cam(function (c) { c.th -= Math.PI / 4; }); $("rr").onclick = cam(function (c) { c.th += Math.PI / 4; });
     $("zme").onclick = function () { if (W3) follow = true; setTimeout(function () { follow = false; }, 1200); };
-    $("dn").onclick = function () { night = !night; this.textContent = night ? "☀" : "☾"; applyDayNight(); };
-    $("prb").onclick = function () { contributeSheet(); }; $("sbar").onclick = streakSheet; $("sbar").addEventListener("pointerdown", function (e) { e.stopPropagation(); }); $("me").onclick = function () { studio(false); }; if ($("linkgh")) $("linkgh").onclick = function () { contributeSheet(); };
-    ["zin", "zout", "zme", "nextp", "rl", "rr", "dn", "prb", "me"].concat($("linkgh") ? ["linkgh"] : []).forEach(function (id) { $(id).addEventListener("pointerdown", function (e) { e.stopPropagation(); }); });
+    $("prb").onclick = function () { contributeSheet(); }; $("sbar").onclick = streakSheet; $("sbar").addEventListener("pointerdown", function (e) { e.stopPropagation(); }); $("me").onclick = function () { studio(false); };
+    ["zin", "zout", "zme", "nextp", "prb", "me"].forEach(function (id) { $(id).addEventListener("pointerdown", function (e) { e.stopPropagation(); }); });
   }
 
   function missions() {
@@ -1269,23 +1357,33 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
     } catch (e) { return ""; }
   }
   function studio(first, done) {
-    var c = Object.assign(defaultChar(), S.char || {});
+    var c = completeChar(S.char || defaultChar());
     stage(first ? "Create your character" : "Your character", "Who are you in cyber security?");
     var gl = studioRenderer();
+    function pills(key, list) { return '<div class="pills">' + list.map(function (x) { return '<button data-k="' + key + '" data-v="' + x[0] + '" class="' + (c[key] === x[0] ? "on" : "") + '">' + x[1] + "</button>"; }).join("") + "</div>"; }
+    function swatches(key, list, label) { return '<div class="sw">' + list.map(function (col, i) { var v = typeof c[key] === "number" ? i : col; return '<button aria-label="' + label + " " + (i + 1) + '" data-k="' + key + '" data-v="' + v + '" class="' + (c[key] === v ? "on" : "") + '" style="background:' + col + '"></button>'; }).join("") + "</div>"; }
     function draw() {
       var r = ROLE_BY[c.role], wrapped = c.hair === "gele" || c.hair === "hijab";
       $("stBody").innerHTML = '<div class="studio" id="studio">' + (gl ? "" : '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">' + tile(r.icon[0], r.icon[1], 64) + "</div>") + '<span class="badge">' + esc(S.name || "You") + " · " + esc(r.name) + "</span></div>" +
         '<div class="lbl">Your role</div><div class="roles">' + ROLES.map(function (x) { return '<button class="role' + (x.id === c.role ? " on" : "") + '" data-role="' + x.id + '">' + tile(x.icon[0], x.icon[1], 22) + "<b>" + esc(x.name) + "</b><span>" + esc(x.d) + "</span></button>"; }).join("") + "</div>" +
-        '<div class="lbl">Outfit colour</div><div class="sw">' + r.tops.map(function (col, i) { return '<button aria-label="Outfit colour ' + (i + 1) + '" data-top="' + i + '" class="' + (i === (c.top || 0) ? "on" : "") + '" style="background:' + col + '"></button>'; }).join("") + "</div>" +
-        '<div class="lbl">Skin tone</div><div class="sw">' + SKINS.map(function (col, i) { return '<button aria-label="Skin tone ' + (i + 1) + '" data-skin="' + i + '" class="' + (i === c.skin ? "on" : "") + '" style="background:' + col + '"></button>'; }).join("") + "</div>" +
-        '<div class="lbl">Hair or head wrap</div><div class="pills">' + HAIRS.map(function (x) { return '<button data-hair="' + x[0] + '" class="' + (x[0] === c.hair ? "on" : "") + '">' + x[1] + "</button>"; }).join("") + "</div>" +
-        (c.hair === "bald" ? "" : '<div class="lbl">' + (wrapped ? "Wrap colour" : "Hair colour") + '</div><div class="sw">' + (wrapped ? FABRICS : HAIR_COLS).map(function (col, i) { return '<button aria-label="Colour ' + (i + 1) + '" data-hc="' + i + '" class="' + (i === c.hc ? "on" : "") + '" style="background:' + col + '"></button>'; }).join("") + "</div>") +
+        '<div class="lbl">Body</div>' + pills("body", [["f", "Woman"], ["m", "Man"]]) +
+        '<div class="lbl">Skin tone</div>' + swatches("skin", SKINS, "Skin tone") +
+        '<div class="lbl">Hair or head wrap</div>' + pills("hair", HAIRS) +
+        (c.hair === "bald" || c.hair === "hood" ? "" : '<div class="lbl">' + (wrapped ? "Wrap colour" : "Hair colour") + "</div>" + swatches("hc", wrapped ? FABRICS : HAIR_COLS, "Colour")) +
+        '<div class="lbl">Outfit</div>' + pills("style", STYLES) +
+        '<div class="lbl">Outfit colour</div>' + swatches("col", COLOURS, "Outfit colour") +
+        (c.style === "dress" ? "" : '<div class="lbl">Bottoms</div>' + pills("btype", BOTTOMS)) +
+        '<div class="lbl">Mask</div>' + pills("mask", MASKS) +
+        '<div class="lbl">Extras</div>' + pills("extra", EXTRAS) +
         '<div class="glass pad small" style="margin-top:16px">' + ic("radar", "#EC4899", 18) + " Your district is <b>" + esc(B_BY[r.district].name) + "</b>. It's marked in the city with a green ring.</div>" +
         '<button class="btn block" id="stsave" style="margin-top:16px">' + (first ? "This is me" : "Save character") + "</button>";
       var host = $("studio"); if (gl) { host.insertBefore(gl.canvas, host.firstChild); studioShow(c); if (!ST.on) { ST.on = true; requestAnimationFrame(studioLoop); } }
-      $("stBody").querySelectorAll("[data-role]").forEach(function (b) { b.onclick = function () { var sc = $("stBody").querySelector(".roles").scrollLeft; c.role = b.dataset.role; c.top = 0; draw(); $("stBody").querySelector(".roles").scrollLeft = sc; }; });
-      [["top", "top"], ["skin", "skin"], ["hc", "hc"]].forEach(function (k) { $("stBody").querySelectorAll("[data-" + k[0] + "]").forEach(function (b) { b.onclick = function () { c[k[1]] = +b.dataset[k[0]]; keep(draw); }; }); });
-      $("stBody").querySelectorAll("[data-hair]").forEach(function (b) { b.onclick = function () { c.hair = b.dataset.hair; keep(draw); }; });
+      $("stBody").querySelectorAll("[data-role]").forEach(function (b) { b.onclick = function () {
+        c.role = b.dataset.role; var rr = ROLE_BY[c.role]; Object.assign(c, roleLook(rr));
+        if (rr.hair) c.hair = rr.hair; else if (c.hair === "hood") c.hair = "short";
+        keep(draw);
+      }; });
+      $("stBody").querySelectorAll("[data-k]").forEach(function (b) { b.onclick = function () { var k = b.dataset.k; c[k] = k === "skin" || k === "hc" ? +b.dataset.v : b.dataset.v; keep(draw); }; });
       $("stsave").onclick = function () {
         S.char = c; S.charImg = headshot(); save(); track("character-" + c.role); if (ST) ST.on = false;
         $("stage").classList.remove("on"); toast(first ? "Welcome to the city, " + r.name + "!" : "Character saved"); if (done) done(); else render();
@@ -1294,6 +1392,7 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
     function keep(fn) { var b = $("stBody"), y = b.scrollTop, sc = b.querySelector(".roles").scrollLeft; fn(); b.scrollTop = y; b.querySelector(".roles").scrollLeft = sc; }
     draw();
   }
+
 
   // ------------------------------------------------------------ Contribute on GitHub from inside the game
   // What each finished mission can become on GitHub
@@ -1312,7 +1411,7 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
   function queueNudge(id) { if (!contribFor(id) || (S.nudged[id] || 0) >= 2 || (S.pr && S.pr[id] && S.pr[id].n)) return; clearTimeout(nudgeTimer); nudgeTimer = setTimeout(function () { showNudge(id); }, 3000); }
   function dismissNudge() { var n = document.querySelector(".nudge"); if (n) n.remove(); }
   function showNudge(id) {
-    if ($("stage").classList.contains("on") || $("sheet").classList.contains("on") || $("onb").classList.contains("on")) { nudgeTimer = setTimeout(function () { showNudge(id); }, 3000); return; }
+    if (uiBusy() || (W3 && W3.people && W3.people.some(function (n) { return n.alert; }))) { nudgeTimer = setTimeout(function () { showNudge(id); }, 3000); return; }
     var c = contribFor(id); if (!c) return; dismissNudge(); S.nudged[id] = (S.nudged[id] || 0) + 1; save();
     var d = document.createElement("div"); d.className = "nudge"; d.setAttribute("role", "status");
     d.innerHTML = '<span class="gi">' + ic("git", "#fff", 22) + '</span><span class="tx"><b>Contribute this on GitHub?</b><span>' + esc(c.t) + '</span></span><button class="btn green" id="nyes">Yes</button><button class="x" id="nno" aria-label="Not now">×</button>';
