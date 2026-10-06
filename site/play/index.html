@@ -321,6 +321,38 @@ input:focus,textarea:focus{border-color:var(--pink);box-shadow:0 0 0 4px rgba(23
 .sbar i.m{background:#FCE7F3}.sbar i.m em{color:#BE185D}
 .cal span.m{background:#FCE7F3;color:#BE185D}
 .onerr{color:#BE123C;font-size:13px;font-weight:700;margin:6px 2px 0;min-height:18px}
+
+/* Black theme */
+html[data-theme="dark"]{--bg:#0A0A0D;--bg2:#121217;--glass:#15151B;--glass2:#20202A;--line:#2B2B36;--text:#F5F3F8;--muted:#A79FB4;--pinkd:#F472B6;--greend:#34D399;--shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.35)}
+html[data-theme="dark"] body{background:#000}
+html[data-theme="dark"] #app{background:radial-gradient(700px 420px at 110% -10%,rgba(236,72,153,.16),transparent 60%),radial-gradient(600px 420px at -20% 35%,rgba(16,185,129,.1),transparent 60%),#0A0A0D;border-color:#1E1E26}
+html[data-theme="dark"] a{color:#F472B6}
+html[data-theme="dark"] .chip.g{background:rgba(16,185,129,.16);color:#34D399}html[data-theme="dark"] .chip.v{background:rgba(236,72,153,.18);color:#F9A8D4}html[data-theme="dark"] .chip.a{background:rgba(245,158,11,.16);color:#FBBF24}html[data-theme="dark"] .chip.s{background:rgba(14,165,233,.16);color:#7DD3FC}html[data-theme="dark"] .chip.r{background:rgba(244,63,94,.16);color:#FDA4AF}
+html[data-theme="dark"] input,html[data-theme="dark"] textarea{background:#15151B;border-color:#2B2B36;color:#F5F3F8}
+html[data-theme="dark"] .streak{background:rgba(245,158,11,.14);color:#FBBF24}
+html[data-theme="dark"] .filters button,html[data-theme="dark"] .role,html[data-theme="dark"] .pills button,html[data-theme="dark"] .prs,html[data-theme="dark"] .goal i,html[data-theme="dark"] .studio .badge{background:#15151B;color:#F5F3F8;border-color:#2B2B36}
+html[data-theme="dark"] .filters button.on,html[data-theme="dark"] .pills button.on{background:var(--pink);border-color:var(--pink);color:#fff}
+html[data-theme="dark"] .tabs{background:rgba(10,10,13,.94);border-top-color:#1E1E26;box-shadow:none}
+html[data-theme="dark"] .stage,html[data-theme="dark"] .sheet .sbox{background:#0F0F14}
+html[data-theme="dark"] .sheet{background:rgba(0,0,0,.6)}
+html[data-theme="dark"] .scene{background:linear-gradient(160deg,rgba(236,72,153,.14),rgba(16,185,129,.08));border-color:#2B2B36}
+html[data-theme="dark"] .explain.good{background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.35)}html[data-theme="dark"] .explain.bad{background:rgba(244,63,94,.12);border-color:rgba(244,63,94,.35)}
+html[data-theme="dark"] .kit{background:linear-gradient(150deg,#065F46 0%,#047857 45%,#9D174D 100%);color:#ECFDF5}html[data-theme="dark"] .kit h2{color:#fff}
+html[data-theme="dark"] .onb{background:radial-gradient(700px 500px at 100% 0%,rgba(236,72,153,.22),transparent 60%),radial-gradient(600px 500px at 0% 100%,rgba(16,185,129,.14),transparent 60%),#0A0A0D}
+html[data-theme="dark"] .orb{background:radial-gradient(circle at 35% 30%,#2A2A35,rgba(236,72,153,.25) 45%,rgba(16,185,129,.15) 70%,transparent 72%)}
+html[data-theme="dark"] .map{background:linear-gradient(180deg,#05050A 0%,#120A1C 45%,#1B0F28 75%,#10202A 100%)}
+html[data-theme="dark"] .hud,html[data-theme="dark"] .sbar,html[data-theme="dark"] .mapbtns button{background:rgba(18,18,23,.9);border-color:#2B2B36;color:#F5F3F8;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+html[data-theme="dark"] .mapbtns button.pr{background:linear-gradient(135deg,#34D399,#10B981);color:#fff}
+html[data-theme="dark"] .sbar i{background:#20202A}html[data-theme="dark"] .sbar i.m{background:rgba(236,72,153,.22)}html[data-theme="dark"] .sbar i.m em{color:#F9A8D4}html[data-theme="dark"] .sbar i.today{box-shadow:0 0 0 2px #0A0A0D,0 0 0 3.5px #EC4899}
+html[data-theme="dark"] .cal span.m{background:rgba(236,72,153,.22);color:#F9A8D4}html[data-theme="dark"] .cal span.today{box-shadow:0 0 0 2px #0F0F14,0 0 0 3.5px #F5F3F8}
+html[data-theme="dark"] .nudge{background:#15151B;border-color:#2B2B36;box-shadow:0 16px 40px rgba(0,0,0,.5)}
+html[data-theme="dark"] .ghcard,html[data-theme="dark"] .prhead,html[data-theme="dark"] .nbadge{background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(236,72,153,.12));border-color:#2B2B36}
+html[data-theme="dark"] .studio{background:radial-gradient(260px 150px at 50% 88%,rgba(236,72,153,.25),transparent 70%),linear-gradient(180deg,#121217,#0A0A0D 60%,#0C1A16)}
+html[data-theme="dark"] .bub{background:#15151B;color:#F5F3F8}html[data-theme="dark"] .bub b{color:#F9A8D4}html[data-theme="dark"] .bub.good{background:#0F2A20}
+html[data-theme="dark"] .toast{background:#F5F3F8;color:#0A0A0D}
+html[data-theme="dark"] .prline{background:#000}
+.themes{display:flex;gap:8px;margin-top:10px}.themes button{flex:1;padding:12px;border-radius:14px;border:1.5px solid var(--line);background:var(--glass);font-weight:800}
+.themes button.on{border-color:var(--pink);box-shadow:0 0 0 3px rgba(236,72,153,.15)}
 </style>
 </head>
 <body>
@@ -545,6 +577,12 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
   function streak() { var n = 0, d = new Date(); if (!prDay(today())) d.setDate(d.getDate() - 1); for (;;) { var k = d.toISOString().slice(0, 10); if (!prDay(k)) return n; n++; d.setDate(d.getDate() - 1); } }
   function commPct(c) { var p = 0; if (S.done["decide-" + c]) p += 34; if (S.done["teach-" + c]) p += 33; if (S.reported.indexOf(c) !== -1) p += 33; return Math.min(100, p); }
   function joinHref(h) { var parts = h.split("#"), base = parts[0].replace(/^join\??/, ""), q = []; if (S.github) q.push("user=" + encodeURIComponent(S.github)); if (base) q.push(base); return "../join/" + (q.length ? "?" + q.join("&") : "") + "#" + parts[1]; }
+
+  // ------------------------------------------------------------ Theme: light (default) or black
+  function theme() { return store.get("shield-up-theme") === "dark" ? "dark" : "light"; }
+  function applyTheme() { var t = theme(); document.documentElement.dataset.theme = t; var mc = document.querySelector('meta[name="theme-color"]'); if (mc) mc.content = t === "dark" ? "#0A0A0D" : "#FFFFFF"; }
+  function setTheme(t) { store.set("shield-up-theme", t); applyTheme(); track("theme-" + t); }
+  applyTheme();
 
   // ------------------------------------------------------------ UI helpers
   function toast(t) { document.querySelectorAll(".toast").forEach(function (x) { x.remove(); }); var d = document.createElement("div"); d.className = "toast"; d.textContent = t; $("app").appendChild(d); setTimeout(function () { d.remove(); }, 2600); }
@@ -827,7 +865,7 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
     { id: "ai", name: "AI Security Lab", fx: 13, fz: 5, w: 4, d: 2, mission: "ai", contrib: "ai", icon: ["brain", "#F9A8D4"], blurb: "Keep AI assistants and agents safe." },
     { id: "market", name: "The Market", fx: 3, fz: 8, w: 4, d: 2, comm: "market", icon: ["store", "#F59E0B"] },
     { id: "aware", name: "Awareness Studio", fx: 3, fz: 10, w: 4, d: 2, contrib: "aware", icon: ["mega", "#F59E0B"], blurb: "Cyber awareness: tips, posts, quizzes and stories." },
-    { id: "hq", name: "Open Source HQ", fx: 8, fz: 8, w: 4, d: 4, special: 1, icon: ["git", "#EC4899"], blurb: "Where your work becomes real. Contribute and earn verified badges." },
+    { id: "hq", name: "CyberSecTOBER HQ", fx: 8, fz: 8, w: 4, d: 4, special: 1, icon: ["git", "#EC4899"], blurb: "Where your work becomes real. Contribute and earn verified badges." },
     { id: "api", name: "API Gate", fx: 13, fz: 8, w: 4, d: 2, mission: "api", contrib: "api", icon: ["key", "#9AA4B2"], blurb: "Every request that enters the city gets checked here." },
     { id: "tools", name: "Tool Workshop", fx: 13, fz: 10, w: 4, d: 2, contrib: "tools", icon: ["pen", "#FF8A3D"], blurb: "Build defensive tools and share resources." },
     { id: "faith", name: "Church & Mosque", fx: 3, fz: 13, w: 4, d: 2, comm: "faith", icon: ["faith", "#EC4899"] },
@@ -962,7 +1000,7 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
         box(g, .08, 1.1, .08, "#3A3F55", b.cx + .55, 1.62, b.cz); box(g, .08, 1.1, .08, "#3A3F55", b.cx + 1.35, 1.62, b.cz);
         sign(g, [{ t: "STOP. CHECK.", s: 50 }, { t: "then act", s: 36, w: 600 }], "#1B1F3B", "#FFD27A", 1, .45, b.cx + .95, 2.35, b.cz + .05, 0, true); windows(g, b.cx - .1, b.cz - .1, 3, 1.4, .8, 1, .5, 5); b.top = 3; },
       hq: function (g, b) { box(g, 3.7, .08, 3.7, "#FFF1F7", b.cx, 0, b.cz); box(g, 3, 1.6, 2.6, "#FFFFFF", b.cx, .08, b.cz - .2); box(g, 2.4, 1.2, 2, "#F9A8D4", b.cx, 1.68, b.cz - .3); box(g, 1.6, .9, 1.4, GLASS, b.cx, 2.88, b.cz - .35); box(g, 3.1, .08, 2.7, "#EC4899", b.cx, 1.68, b.cz - .2);
-        windows(g, b.cx, b.cz - .2, 3, 2.6, .5, 2, .55, 6); sign(g, [{ t: "OPEN SOURCE HQ", s: 46 }], "#BE185D", "#FFFFFF", 1.8, .4, b.cx, 1.25, b.cz + 1.11, 0, true); sign(g, [{ t: "⑂ CONTRIBUTE", s: 52 }], "#10B981", "#FFFFFF", 1.6, .35, b.cx + 1.51, 1.25, b.cz - .2, Math.PI / 2, true);
+        windows(g, b.cx, b.cz - .2, 3, 2.6, .5, 2, .55, 6); sign(g, [{ t: "CYBERSECTOBER HQ", s: 44 }], "#BE185D", "#FFFFFF", 1.8, .4, b.cx, 1.25, b.cz + 1.11, 0, true); sign(g, [{ t: "⑂ CONTRIBUTE", s: 52 }], "#10B981", "#FFFFFF", 1.6, .35, b.cx + 1.51, 1.25, b.cz - .2, Math.PI / 2, true);
         tree(g, b.cx - .7, b.cz - .5 + 0, .45, "#10B981").position.y += 2.88 - 0; tree(g, b.cx + .8, b.cz - .9, .5);
         cyl(g, .55, .6, .2, "#C9D3E6", b.cx, .08, b.cz + 1.4, 24); var fw = cyl(g, .45, .45, .05, "#7AD7F5", b.cx, .28, b.cz + 1.4, 24, { emissive: "#0EA5E9", emissiveIntensity: .4 }); var jet = cyl(g, .05, .1, .5, "#BFF0FF", b.cx, .3, b.cz + 1.4, 10, { transparent: true, opacity: .8, emissive: "#9FE7FF", emissiveIntensity: .5 });
         anim.push(function (t) { jet.scale.y = 1 + Math.sin(t * 5) * .25; }); b.top = 4.2; },
@@ -1313,7 +1351,7 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
       '<div class="mapbtns"><button id="prb" class="pr" aria-label="Contribute on GitHub">' + ic("git", "#fff", 20) + '</button><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="zme" aria-label="Find me">' + ic("radar", null, 18) + "</button></div>" +
       (nm && locked(nm.id) ? '<button class="nextpill" id="nextp">' + tile("git", "#fff", 22, "ni") + '<span class="tx"><span class="k">UNLOCK MORE MISSIONS</span><b>Open a pull request</b></span><span class="gob">Go</span></button>' : "") +
       (nm && !locked(nm.id) ? '<button class="nextpill" id="nextp">' + tile(nm.icon, nm.col, 22, "ni") + '<span class="tx"><span class="k">NEXT MISSION · +' + nm.xp + ' XP</span><b>' + esc(nm.title) + '</b></span><span class="gob">Go</span></button>'
-          : nm ? "" : '<button class="nextpill" id="nextp">' + tile("trophy", "#10B981", 22, "ni") + '<span class="tx"><span class="k">EVERY CLOUD CLEARED</span><b>Visit Open Source HQ</b></span><span class="gob">Go</span></button>');
+          : nm ? "" : '<button class="nextpill" id="nextp">' + tile("trophy", "#10B981", 22, "ni") + '<span class="tx"><span class="k">EVERY CLOUD CLEARED</span><b>Visit CyberSecTOBER HQ</b></span><span class="gob">Go</span></button>');
     if (!W3) W3 = buildWorld();
     var map = $("map");
     if (!W3) { map.innerHTML = '<div class="glass pad" style="margin:150px 18px 0"><h3>Your device can\'t show the 3D city</h3><p class="muted small">Pick a place instead:</p>' + BUILDINGS.map(function (b) { return '<button class="mis" data-b="' + b.id + '">' + tile(b.icon[0], b.icon[1]) + '<span class="tx"><b>' + esc(b.name) + "</b></span></button>"; }).join("") + "</div>"; map.style.overflow = "auto"; map.querySelectorAll("[data-b]").forEach(function (x) { x.onclick = function () { openBuilding(B_BY[x.dataset.b]); }; }); }
@@ -1634,7 +1672,7 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
       '<a class="btn ghost block" style="margin-top:12px" href="../" target="_blank" rel="noopener">See the leaderboard</a></div>' +
       '<div class="sec"><h3>Game medals</h3><span class="muted small">' + MEDALS.filter(function (m) { return m.test(); }).length + " / " + MEDALS.length + "</span></div>" +
       '<div class="medals">' + MEDALS.map(function (m) { var on = m.test(); return '<div class="medal' + (on ? "" : " off") + '"><div class="m" style="background:' + m.col + '22;box-shadow:inset 0 0 0 2px ' + m.col + '55">' + ic(m.icon, m.col, 24) + "</div><b>" + esc(m.name) + "</b></div>"; }).join("") + "</div>" +
-      '<div class="sec"><h3>Settings</h3></div><div class="glass pad"><p class="small muted" style="margin:0">Progress is saved on this device only.</p><button class="btn ghost block" id="reset" style="margin-top:12px">Start over</button></div>';
+      '<div class="sec"><h3>Settings</h3></div><div class="glass pad"><b>Theme</b><div class="themes"><button data-theme-set="light" class="' + (theme() === "light" ? "on" : "") + '">Light</button><button data-theme-set="dark" class="' + (theme() === "dark" ? "on" : "") + '">Black</button></div><p class="small muted" style="margin:14px 0 0">Progress is saved on this device only.</p><button class="btn ghost block" id="reset" style="margin-top:12px">Start over</button></div>';
     $("sync").onclick = function () {
       var u = cleanUser($("ghu").value); if (!validUser(u)) return toast("Enter your GitHub username");
       S.github = u; save(); $("syncmsg").textContent = "Checking the official record…";
@@ -1647,6 +1685,7 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
         render();
       });
     };
+    document.querySelectorAll("[data-theme-set]").forEach(function (b) { b.onclick = function () { setTheme(b.dataset.themeSet); rewards(); }; });
     $("reset").onclick = function () { if (confirm("Start over? Your progress on this device will be cleared.")) { store.del(SAVE); location.href = location.pathname; } };
   }
 
