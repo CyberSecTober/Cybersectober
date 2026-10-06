@@ -353,6 +353,8 @@ html[data-theme="dark"] .toast{background:#F5F3F8;color:#0A0A0D}
 html[data-theme="dark"] .prline{background:#000}
 .themes{display:flex;gap:8px;margin-top:10px}.themes button{flex:1;padding:12px;border-radius:14px;border:1.5px solid var(--line);background:var(--glass);font-weight:800}
 .themes button.on{border-color:var(--pink);box-shadow:0 0 0 3px rgba(236,72,153,.15)}
+
+.hud .thm{width:36px;height:36px;border-radius:12px;border:1px solid var(--line);background:var(--glass2);font-size:17px;display:flex;align-items:center;justify-content:center;flex:none;color:var(--text)}
 </style>
 </head>
 <body>
@@ -571,7 +573,9 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
   if (S && !S.act) { S.act = {}; (S.days || []).forEach(function (d) { S.act[d] = { m: 1 }; }); delete S.act[today()]; }
   function blank(name, gh, comm) { return { v: 1, name: name, github: gh, focus: comm, xp: 0, done: {}, kits: {}, reported: [], nudged: {}, act: {}, pr: {}, squad: { name: "", members: gh ? [gh] : [] }, real: null, days: [today()] }; }
   function load() { try { var s = JSON.parse(store.get(SAVE)); return s && s.v === 1 ? s : null; } catch (e) { return null; } }
-  function save() { store.set(SAVE, JSON.stringify(S)); if (S.github) store.set("cybersectober-user", S.github); }
+  function profiles() { try { return JSON.parse(store.get("shield-up-profiles")) || {}; } catch (e) { return {}; } }
+  function save() { store.set(SAVE, JSON.stringify(S)); if (S.github) { store.set("cybersectober-user", S.github); var p = profiles(); p[S.github.toLowerCase()] = S; store.set("shield-up-profiles", JSON.stringify(p)); } }
+  function logout() { save(); store.del(SAVE); store.del("cybersectober-user"); location.href = location.pathname; }
   function level() { return Math.min(LEVELS.length - 1, Math.floor(S.xp / 200)); }
   function prDay(k) { return !!(S.act && S.act[k] && S.act[k].p); }
   function streak() { var n = 0, d = new Date(); if (!prDay(today())) d.setDate(d.getDate() - 1); for (;;) { var k = d.toISOString().slice(0, 10); if (!prDay(k)) return n; n++; d.setDate(d.getDate() - 1); } }
@@ -1038,28 +1042,6 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
     BUILDINGS.forEach(function (b) { var g = group(b); D[b.id](g, b); g.traverse(function (o) { if (o.isMesh) pick.push(o); }); });
     var RP = { vdp: [2.04, ["tank", "ac", "ac"], -.3], red: [1.7, ["tank", "ac"], -.9], aware: [1.62, ["ac", "tank"], -.8], office: [6, ["ac", "ac"], 0], hq: [2.88, ["solar", "solar"], 1.1], ai: [.7, ["ac"], -1.25] };
     Object.keys(RP).forEach(function (id) { var b = B_BY[id], r = RP[id]; if (id === "hq") { roofProps(B.hq, b.cx, r[0], b.cz + .45, r[1]); return; } roofProps(B[id], b.cx + r[2], r[0], b.cz - .2, r[1]); });
-    // Building names painted on the walls, like real shop signs
-    function plaqueTex(name) {
-      var c = document.createElement("canvas"); c.width = 1024; c.height = 220; var x = c.getContext("2d");
-      x.fillStyle = "#FFFFFF"; x.beginPath(); if (x.roundRect) x.roundRect(8, 8, 1008, 204, 46); else x.rect(8, 8, 1008, 204); x.fill(); x.lineWidth = 12; x.strokeStyle = "#EC4899"; x.stroke();
-      var fs = 120; x.font = "800 " + fs + "px 'Plus Jakarta Sans', system-ui, sans-serif"; while (x.measureText(name).width > 900 && fs > 50) { fs -= 4; x.font = "800 " + fs + "px 'Plus Jakarta Sans', system-ui, sans-serif"; }
-      x.fillStyle = "#241A33"; x.textAlign = "center"; x.textBaseline = "middle"; x.fillText(name, 512, 116);
-      var t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t;
-    }
-    var OWN_SIGN = { grc: 1, hq: 1, api: 1, tools: 1, hall: 1, ai: 1 };
-    BUILDINGS.forEach(function (b) {
-      var g = B[b.id], tex = plaqueTex(b.name), mat = new THREE.MeshStandardMaterial({ map: tex, emissive: "#ffffff", emissiveMap: tex, emissiveIntensity: .25, roughness: .5, transparent: true });
-      var best = null, bb = new THREE.Box3(), size = new THREE.Vector3();
-      g.updateMatrixWorld(true);
-      g.children.forEach(function (m) { if (!m.isMesh || m.isInstancedMesh) return; bb.setFromObject(m); bb.getSize(size); if (size.y < .5) return; var v = size.x * size.y * size.z; if (!best || v > best.v) best = { v: v, box: bb.clone() }; });
-      function plaque(w, x, y, z, ry) { var h = Math.min(.5, w / 4.6), m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat); m.position.set(x, y, z); m.rotation.y = ry; g.add(m); pick.push(m); }
-      if (!best || b.id === "market" || b.id === "trophy") { // open-air places get a signboard on two posts
-        var fz = b.fz + b.d - .15, w0 = Math.min(b.w * .7, 2.2); [-1, 1].forEach(function (s2) { cyl(g, .025, .025, 1.25, "#9CA3AF", b.cx + s2 * w0 * .45, 0, fz, 8); }); plaque(w0, b.cx, 1.12, fz + .03, 0); return;
-      }
-      var bx = best.box, fw = bx.max.x - bx.min.x, fd = bx.max.z - bx.min.z, y = bx.min.y + Math.min(.78, (bx.max.y - bx.min.y) * .55);
-      if (!OWN_SIGN[b.id]) plaque(Math.min(fw * .88, 3.1), (bx.min.x + bx.max.x) / 2, y, bx.max.z + .012, 0);
-      plaque(Math.min(fd * .88, 3.1), bx.max.x + .012, y, (bx.min.z + bx.max.z) / 2, Math.PI / 2);
-    });
     // A bouncing marker over the place your next mission is
     var focusMark = new THREE.Mesh(new THREE.OctahedronGeometry(.22, 0), new THREE.MeshStandardMaterial({ color: "#EC4899", emissive: "#EC4899", emissiveIntensity: .8 })); focusMark.visible = false; focusMark.userData.y = 3; scene.add(focusMark);
     anim.push(function (t) { focusMark.rotation.y = t * 1.8; focusMark.position.y = focusMark.userData.y + Math.sin(t * 3) * .15; });
@@ -1176,7 +1158,7 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
   var focusBid = "", mineBid = "";
   // Buildings show as small icons; names appear for your next mission, your district, or when you zoom in
   function placeLabels() {
-    if (!labelsEl) return; var w = labelsEl.clientWidth, h = labelsEl.clientHeight, v = new THREE.Vector3(), items = [], close = W3.cam3.dist < 15;
+    if (!labelsEl) return; var w = labelsEl.clientWidth, h = labelsEl.clientHeight, v = new THREE.Vector3(), items = [], close = W3.cam3.dist < 21;
     BUILDINGS.forEach(function (b) {
       if (!b.lbl) return; v.set(b.cx, b.top + .35, b.cz).project(W3.cam);
       var x = (v.x + 1) / 2 * w, y = (1 - v.y) / 2 * h;
@@ -1346,7 +1328,7 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
     if (night === null) { var hr = new Date().getHours(); night = hr >= 19 || hr < 6; }
     $("view").classList.add("mapmode");
     $("view").innerHTML = '<div class="map" id="map"><div class="labels" id="labels"></div></div>' +
-      '<div class="hud"><div class="ava" id="me" role="button" aria-label="Edit your character">' + (S.charImg ? '<img src="' + S.charImg + '" alt="">' : esc((S.name || "?").charAt(0).toUpperCase())) + '</div><div class="t"><b>' + esc(S.name) + ' <span class="chip v" style="margin-left:4px">Lv ' + (lv + 1) + " · " + LEVELS[lv] + '</span></b><div class="xpb"><i style="width:' + into / 2 + '%"></i></div></div><div class="streak">' + ic("fire", "#F59E0B", 16) + streak() + "</div></div>" +
+      '<div class="hud"><div class="ava" id="me" role="button" aria-label="Your profile">' + (S.charImg ? '<img src="' + S.charImg + '" alt="">' : esc((S.name || "?").charAt(0).toUpperCase())) + '</div><div class="t"><b>' + esc(S.name) + ' <span class="chip v" style="margin-left:4px">Lv ' + (lv + 1) + " · " + LEVELS[lv] + '</span></b><div class="xpb"><i style="width:' + into / 2 + '%"></i></div></div><button class="thm" id="thm" aria-label="Switch theme">' + (theme() === "dark" ? "☀" : "☾") + '</button><div class="streak">' + ic("fire", "#F59E0B", 16) + streak() + "</div></div>" +
       streakBar() +
       '<div class="mapbtns"><button id="prb" class="pr" aria-label="Contribute on GitHub">' + ic("git", "#fff", 20) + '</button><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="zme" aria-label="Find me">' + ic("radar", null, 18) + "</button></div>" +
       (nm && locked(nm.id) ? '<button class="nextpill" id="nextp">' + tile("git", "#fff", 22, "ni") + '<span class="tx"><span class="k">UNLOCK MORE MISSIONS</span><b>Open a pull request</b></span><span class="gob">Go</span></button>' : "") +
@@ -1358,7 +1340,9 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
     else {
       map.insertBefore(W3.canvas, map.firstChild); labelsEl = $("labels");
       focusBid = (nm ? (buildingFor(nm.id) || {}).id : "hq") || ""; mineBid = S.char && ROLE_BY[S.char.role] ? ROLE_BY[S.char.role].district : "";
-      labelsEl.innerHTML = ""; BUILDINGS.forEach(function (b) { b.lbl = null; });
+      labelsEl.innerHTML = BUILDINGS.map(function (b) { var st2 = labelStatus(b), bi = B_ICON[b.id]; return '<button class="lbl3' + (b.special ? " sp" : "") + (b.id === mineBid ? " mine" : "") + (b.id === focusBid ? " focus" : "") + '" data-b="' + b.id + '" aria-label="' + esc(b.name) + '"><span class="pin">' + ic(bi[0], b.special ? "#fff" : bi[1], 15) + (st2 ? '<i style="background:' + st2 + '"></i>' : "") + '</span><span class="nm">' + esc(b.name) + "</span></button>"; }).join("");
+      BUILDINGS.forEach(function (b) { b.lbl = labelsEl.querySelector('[data-b="' + b.id + '"]'); b.lw = 0; });
+      labelsEl.querySelectorAll("[data-b]").forEach(function (x) { x.addEventListener("pointerdown", function (e) { e.stopPropagation(); }); x.onclick = function () { toast(B_BY[x.dataset.b].name); visit(x.dataset.b); }; });
       var fb = B_BY[focusBid]; W3.focusMark.visible = !!fb; if (fb) { W3.focusMark.position.set(fb.cx, 0, fb.cz); W3.focusMark.userData.y = fb.top + (fb.comm && !S.done["decide-" + fb.comm] ? 2.1 : .7); }
       if (!W3.ctrl) { initControls(W3.canvas); W3.ctrl = 1; }
       W3.hero.position.set(heroCell[0] + .5, 0, heroCell[1] + .5); W3.cam3.tx = heroCell[0] + .5; W3.cam3.tz = heroCell[1] + .5;
@@ -1371,8 +1355,8 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
     function cam(fn) { return function () { if (W3) { fn(W3.cam3); follow = false; } }; }
     $("zin").onclick = cam(function (c) { c.dist *= .8; }); $("zout").onclick = cam(function (c) { c.dist *= 1.25; });
     $("zme").onclick = function () { if (W3) follow = true; setTimeout(function () { follow = false; }, 1200); };
-    $("prb").onclick = function () { contributeSheet(); }; $("sbar").onclick = streakSheet; $("sbar").addEventListener("pointerdown", function (e) { e.stopPropagation(); }); $("me").onclick = function () { studio(false); };
-    ["zin", "zout", "zme", "nextp", "prb", "me"].forEach(function (id) { $(id).addEventListener("pointerdown", function (e) { e.stopPropagation(); }); });
+    $("prb").onclick = function () { contributeSheet(); }; $("sbar").onclick = streakSheet; $("sbar").addEventListener("pointerdown", function (e) { e.stopPropagation(); }); $("me").onclick = profileSheet; $("thm").onclick = function () { setTheme(theme() === "dark" ? "light" : "dark"); this.textContent = theme() === "dark" ? "☀" : "☾"; };
+    ["zin", "zout", "zme", "nextp", "prb", "me", "thm"].forEach(function (id) { $(id).addEventListener("pointerdown", function (e) { e.stopPropagation(); }); });
   }
 
   function missions() {
@@ -1638,6 +1622,18 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
       '<button class="btn block" data-close style="margin-top:14px">Keep it going</button>');
   }
 
+  // ------------------------------------------------------------ Your profile: character, theme, username, log out
+  function profileSheet() {
+    sheet('<div style="display:flex;gap:14px;align-items:center;margin-bottom:14px"><div class="ava" style="width:64px;height:64px;border-radius:20px">' + (S.charImg ? '<img src="' + S.charImg + '" alt="">' : esc((S.name || "?").charAt(0).toUpperCase())) + '</div><div><h2>' + esc(S.name) + '</h2><div class="muted small">@' + esc(S.github || "no username") + " · Level " + (level() + 1) + "</div></div></div>" +
+      '<button class="mis" id="pfchar">' + tile("family", "#EC4899") + '<span class="tx"><b>Edit my character</b><span>Role, outfit, hair, mask and more</span></span><span class="go">' + ic("arrow", null, 18) + "</span></button>" +
+      '<div class="sec"><h3>Theme</h3></div><div class="themes" style="margin-top:0"><button data-theme-set="light" class="' + (theme() === "light" ? "on" : "") + '">☀ Light</button><button data-theme-set="dark" class="' + (theme() === "dark" ? "on" : "") + '">☾ Black</button></div>' +
+      '<div class="sec"><h3>GitHub</h3></div><div class="glass pad small">Your real badges and pull requests are linked to <b>@' + esc(S.github) + '</b>.</div>' +
+      '<button class="btn ghost block" id="logout" style="margin-top:16px">Log out</button><p class="small muted" style="text-align:center;margin:8px 0 0">Your progress stays on this phone. Log back in with the same GitHub username to continue.</p>');
+    $("pfchar").onclick = function () { closeSheet(); studio(false); };
+    $("sbox").querySelectorAll("[data-theme-set]").forEach(function (b) { b.onclick = function () { setTheme(b.dataset.themeSet); profileSheet(); if (tab === "home" && $("thm")) $("thm").textContent = theme() === "dark" ? "☀" : "☾"; }; });
+    $("logout").onclick = function () { if (confirm("Log out of Shield Up on this phone?")) logout(); };
+  }
+
   // ------------------------------------------------------------ Squad
   var DATA = null;
   function loadData(cb) { fetch("../data.json", { cache: "no-store" }).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) { DATA = d; cb(); }).catch(function () { DATA = { contributors: [], offline: true }; cb(); }); }
@@ -1672,7 +1668,7 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
       '<a class="btn ghost block" style="margin-top:12px" href="../" target="_blank" rel="noopener">See the leaderboard</a></div>' +
       '<div class="sec"><h3>Game medals</h3><span class="muted small">' + MEDALS.filter(function (m) { return m.test(); }).length + " / " + MEDALS.length + "</span></div>" +
       '<div class="medals">' + MEDALS.map(function (m) { var on = m.test(); return '<div class="medal' + (on ? "" : " off") + '"><div class="m" style="background:' + m.col + '22;box-shadow:inset 0 0 0 2px ' + m.col + '55">' + ic(m.icon, m.col, 24) + "</div><b>" + esc(m.name) + "</b></div>"; }).join("") + "</div>" +
-      '<div class="sec"><h3>Settings</h3></div><div class="glass pad"><b>Theme</b><div class="themes"><button data-theme-set="light" class="' + (theme() === "light" ? "on" : "") + '">Light</button><button data-theme-set="dark" class="' + (theme() === "dark" ? "on" : "") + '">Black</button></div><p class="small muted" style="margin:14px 0 0">Progress is saved on this device only.</p><button class="btn ghost block" id="reset" style="margin-top:12px">Start over</button></div>';
+      '<div class="sec"><h3>Settings</h3></div><div class="glass pad"><b>Theme</b><div class="themes"><button data-theme-set="light" class="' + (theme() === "light" ? "on" : "") + '">Light</button><button data-theme-set="dark" class="' + (theme() === "dark" ? "on" : "") + '">Black</button></div><p class="small muted" style="margin:14px 0 0">Progress is saved on this device only.</p><button class="btn ghost block" id="rlogout" style="margin-top:12px">Log out</button><button class="btn ghost block" id="reset" style="margin-top:10px">Start over</button></div>';
     $("sync").onclick = function () {
       var u = cleanUser($("ghu").value); if (!validUser(u)) return toast("Enter your GitHub username");
       S.github = u; save(); $("syncmsg").textContent = "Checking the official record…";
@@ -1686,6 +1682,7 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
       });
     };
     document.querySelectorAll("[data-theme-set]").forEach(function (b) { b.onclick = function () { setTheme(b.dataset.themeSet); rewards(); }; });
+    $("rlogout").onclick = function () { if (confirm("Log out of Shield Up on this phone?")) logout(); };
     $("reset").onclick = function () { if (confirm("Start over? Your progress on this device will be cleared.")) { store.del(SAVE); location.href = location.pathname; } };
   }
 
@@ -1918,14 +1915,16 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
         $("onb").innerHTML = '<div class="logo">' + ic("shield", "#10B981", 24) + "SHIELD UP</div><h1 style=\"margin-top:26px\">Let's set you up</h1>" +
           '<label class="lbl" for="on">Your first name</label><input id="on" maxlength="20" placeholder="e.g. Tolu">' +
           '<label class="lbl" for="og">Pick your GitHub username</label><input id="og" placeholder="your-github-username" autocapitalize="off" autocomplete="username" spellcheck="false" value="' + esc(store.get("cybersectober-user") || "") + '">' +
-          '<p class="small muted" style="margin:6px 2px 0">Your real badges are linked to this username. No account yet? <a href="https://github.com/signup" target="_blank" rel="noopener">Create one free</a>, then come back.</p>' +
+          '<p class="small muted" style="margin:6px 2px 0">Your real badges are linked to this username. No account yet? <a href="https://github.com/signup" target="_blank" rel="noopener">Create one free</a>, then come back. Played before on this phone? Enter the same username to continue where you left off.</p>' +
           '<div class="lbl">Who do you want to protect first?</div><div class="opts">' + COMMS.map(function (c) { return '<button class="opt' + (c.id === comm ? " on" : "") + '" data-c="' + c.id + '">' + ic(c.icon, c.col, 22) + "<b style=\"margin-top:6px\">" + esc(c.name) + "</b><span>" + esc(c.who) + "</span></button>"; }).join("") + "</div>" +
           '<div class="onerr" id="oerr"></div><button class="btn block" id="go" style="margin-top:8px">Start protecting</button>';
         $("onb").querySelectorAll("[data-c]").forEach(function (b) { b.onclick = function () { comm = b.dataset.c; var n = $("on").value, g = $("og").value; draw(); $("on").value = n; $("og").value = g; }; });
         $("go").onclick = function () {
-          var n = $("on").value.trim(), g = cleanUser($("og").value);
-          if (!n) { $("oerr").textContent = "Add your first name."; return $("on").focus(); }
+          var n = $("on").value.trim(), g = cleanUser($("og").value), back = g && profiles()[g.toLowerCase()];
+          if (!n && !back) { $("oerr").textContent = "Add your first name."; return $("on").focus(); }
           checkUser(g, $("oerr"), $("go"), function (u) {
+            var old = profiles()[u.toLowerCase()];
+            if (old) { S = old; S.github = u; if (S.days.indexOf(today()) === -1) S.days.push(today()); save(); $("onb").classList.remove("on"); go("home"); toast("Welcome back, " + S.name + "!"); if (!S.char) studio(true, function () { go("home"); }); return; }
             S = blank(n, u, comm); joinSquadFromLink(); save(); track("signup"); $("onb").classList.remove("on"); go("home"); studio(true, function () { go("home"); });
           });
         };
