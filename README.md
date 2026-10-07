@@ -14,7 +14,7 @@ New to GitHub? [Create a free account](https://github.com/signup), sign in, and 
 
 ### 1. Share a post (2 minutes)
 
-1. Post one security tip on LinkedIn, X, Instagram, Facebook, TikTok, Threads or Medium with **#CyberSecTOBER**.
+1. Post one security tip on LinkedIn, X, Instagram, Facebook, TikTok, Threads, Medium or Substack with **#CyberSecTOBER**.
 2. Copy the link to your post.
 3. **[Open the posts file for editing](https://github.com/CyberSecTober/Cybersectober/edit/main/awareness/posts.md)**, then click **Fork this repository** if GitHub asks.
 4. Add one line at the bottom: `- [What your post is about](your-post-link) (@your-github-username)`

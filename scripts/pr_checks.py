@@ -21,7 +21,7 @@ MAX_OPEN_PRS = 3
 TRUSTED = {"OWNER", "MEMBER", "COLLABORATOR"}
 POSTS_FILE, TIPS_FILE = "awareness/posts.md", "awareness/tips.md"
 SOCIAL_DOMAINS = {"linkedin.com", "x.com", "twitter.com", "instagram.com", "facebook.com", "fb.com",
-                  "tiktok.com", "threads.net", "threads.com", "youtube.com", "youtu.be", "medium.com", "bsky.app"}
+                  "tiktok.com", "threads.net", "threads.com", "youtube.com", "youtu.be", "medium.com", "bsky.app", "substack.com"}
 TRACKING = re.compile(r"^(utm_|fbclid$|igsh$|igshid$|si$|s$|t$|ref$|rcm$|trk$|lipi$)")
 SIMILAR = 0.85
 
@@ -105,7 +105,7 @@ def check(pr, files, open_prs):
             url = urls[0]
             if not domain_ok(url):
                 problems.append(f"`{url}` is not a social media post. Share a link to your public post on LinkedIn, X, "
-                                "Instagram, Facebook, TikTok, Threads, YouTube, Medium or Bluesky.")
+                                "Instagram, Facebook, TikTok, Threads, YouTube, Medium, Substack or Bluesky.")
             if normalize_url(url) in known:
                 problems.append(f"This post has already been submitted: `{url}`. Each post can only be counted once.")
             known.add(normalize_url(url))
