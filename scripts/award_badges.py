@@ -307,6 +307,15 @@ def merged_prs():
     return sorted(prs, key=lambda p: p["merged_at"])
 
 
+def split_excluded(prs):
+    """Contributions that were reverted (GitHub's Revert button names the branch revert-<number>-...) or labelled
+    `invalid` earn nothing, and neither do the revert pull requests themselves. Returns (counted, excluded)."""
+    reverts = {p["number"]: int(m.group(1)) for p in prs if (m := re.match(r"revert-(\d+)-", p["head"]["ref"]))}
+    gone = set(reverts.values()) | {p["number"] for p in prs if any(l["name"] == "invalid" for l in p["labels"])}
+    return ([p for p in prs if p["number"] not in gone and p["number"] not in reverts],
+            [p for p in prs if p["number"] in gone])
+
+
 CONTENT_DIRS = ("awareness/", "api-security/", "ai-security/", "community/")
 MAINTENANCE_DIRS = ("scripts/", ".github/", "data/")
 
@@ -583,6 +592,27 @@ def post_comment(pr_number, body):
         api(f"/repos/{REPO}/issues/comments/{existing[0]['id']}", "PATCH", {"body": body})
     else:
         api(f"/repos/{REPO}/issues/{pr_number}/comments", "POST", {"body": body})
+
+
+def withdraw_comments(excluded):
+    """Replace the award comment on recently merged contributions that no longer count."""
+    cutoff = NOW - timedelta(days=CATCH_UP_DAYS)
+    for p in excluded:
+        if datetime.fromisoformat(p["merged_at"].replace("Z", "+00:00")) < cutoff:
+            continue
+        comments = award_comments(p["number"])
+        if not comments or "### Contribution not counted" in comments[0]["body"]:
+            continue
+        body = "\n".join([MARKER, "### Contribution not counted", "",
+                           f"Hi @{p['user']['login']}, this contribution has been withdrawn, so it no "
+                           "longer counts towards points or badges, and the badge announced here has been withdrawn.", "",
+                           "You are very welcome to open a new pull request with the finished contribution. "
+                           f"Your record is at {SITE_URL}.", "", "The CyberSecTOBER team"])
+        print(f"PR #{p['number']} no longer counts; updating its award comment.")
+        if DRY_RUN:
+            print(f"--- DRY RUN: comment for PR #{p['number']} ---\n{body}\n---")
+        else:
+            api(f"/repos/{REPO}/issues/comments/{comments[0]['id']}", "PATCH", {"body": body})
 
 
 def catch_up(ranked):
@@ -892,7 +922,8 @@ def build_site(ranked):
 
 def main():
     manual = json.load(open("data/manual-awards.json")) if os.path.exists("data/manual-awards.json") else {}
-    ranked = compute(merged_prs(), manual, load_organizers())
+    counted, excluded = split_excluded(merged_prs())
+    ranked = compute(counted, manual, load_organizers())
     add_countries(ranked)
     build_site(ranked)
     print(f"Built site for {len(ranked)} contributor(s) at {OUT_DIR}/")
@@ -904,6 +935,7 @@ def main():
         else:
             print(f"PR #{n} is not a merged contribution (not merged into main, or maintenance only); no comment posted.")
     catch_up(ranked)
+    withdraw_comments(excluded)
 
 
 if __name__ == "__main__":
