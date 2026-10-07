@@ -421,6 +421,8 @@ def compute(prs, manual, organizers=frozenset()):
     ranked = sorted(users.values(), key=lambda u: (-u["points"], min((p["merged_at"] for p in u["prs"]), default="9")))
     for i, u in enumerate(ranked, 1):
         u["rank"] = i
+        # Points needed to overtake the person one place above (ties go to whoever merged first).
+        u["to_pass"] = ranked[i - 2]["points"] - u["points"] + 1 if i > 1 else None
     return ranked
 
 
@@ -506,6 +508,19 @@ def next_tier(points):
     return None
 
 
+def standing(u):
+    """One sentence on where the contributor sits and what it takes to move up."""
+    if u["to_pass"] is None:
+        return "You are **#1** on the leaderboard. Keep contributing to stay on top."
+    n = u["to_pass"]
+    return (f"You are **#{u['rank']}** on the leaderboard. **{n} more point{'' if n == 1 else 's'}** "
+            f"moves you up to #{u['rank'] - 1}.")
+
+
+def md_bold(text):
+    return re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", html.escape(text))
+
+
 def comment_body(u, pr_number):
     pr = next(p for p in u["prs"] if p["number"] == pr_number)
     new = [s for s, b in u["badges"].items() if b["pr"] == pr_number]
@@ -521,8 +536,7 @@ def comment_body(u, pr_number):
                  f"Hi @{login}, thank you for contributing to CyberSecTOBER 2026. "
                  "Your pull request has been merged and added to your record.", "",
                  f"- Points for this contribution: **{pr['points']}**",
-                 f"- Total points: **{u['points']}**",
-                 f"- Leaderboard rank: **{u['rank']}**", ""]
+                 f"- Total points: **{u['points']}**", ""]
     if pr["capped"]:
         lines += [f"Your tip has been merged. Only your first {MAX_TIPS_FOR_POINTS} tips earn points, so this one is "
                   "recorded without points. Guides, translations, checklists, labs and tools are the way to keep earning.", ""]
@@ -542,6 +556,9 @@ def comment_body(u, pr_number):
         nt = next_tier(u["points"])
         if nt:
             lines += [f"**Next milestone:** {nt[0]} more points to reach {nt[1]}.", ""]
+    lines += [f"**Leaderboard:** {standing(u)} [See the leaderboard]({SITE_URL})", ""]
+    if pr["post"]:
+        lines += ["Posts earn badges. Tips, guides, translations, checklists, labs and tools earn points.", ""]
     lines += [f"**Verification:** your badges and contributions can be verified publicly at {verify_url(login)}. "
               "Use this link as the Credential URL when adding a badge to LinkedIn. To display your badges on your GitHub "
               "profile, copy the ready-made snippet from your verification page.", "",
@@ -857,6 +874,7 @@ def build_site(ranked):
                 f'<div class="stats"><div><b>{u["points"]}</b><span>points</span></div><div><b>{len(u["badges"])}</b><span>badges</span></div>'
                 f'<div><b>#{u["rank"]}</b><span>leaderboard rank</span></div><div><b>{len(u["prs"])}</b><span>merged contributions</span></div></div>'
                 f'{progress}'
+                f'<p class="muted" style="margin:12px 0 0">{md_bold(standing(u))} <a href="../../">See the leaderboard →</a></p>'
                 f'<h2>Badges</h2><div class="grid">{tiles}</div>'
                 f'{embed}'
                 f'<h2>Contributions</h2><div class="panel">'
