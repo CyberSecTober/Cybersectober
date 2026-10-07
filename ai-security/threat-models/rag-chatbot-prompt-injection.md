@@ -1,58 +1,58 @@
-Prompt Injection Threat Model for a RAG Customer-Support Chatbot
+##Prompt Injection Threat Model for a RAG Customer-Support Chatbot
 
-1. Overview
+##1. Overview
 
 This document presents a threat model for HelpDesk Buddy, a fictional customer-support chatbot that uses Retrieval-Augmented Generation (RAG).
 
 The model focuses on prompt injection and related risks such as:
 
-Poisoned documents
+->Poisoned documents
 
-Indirect prompt injection
+->Indirect prompt injection
 
-Data exfiltration
+->Data exfiltration
 
-Retrieval manipulation
+->Retrieval manipulation
 
-Cross-user data leakage
+->Cross-user data leakage
 
-Over-permissioned tools
+->Over-permissioned tools
 
-Unauthorized tool actions
+->Unauthorized tool actions
 
 The architecture was reviewed using the Microsoft Threat Modeling Tool and the STRIDE methodology.
 
-2. Scope
+##2. Scope
 
 The threat model covers the following components:
 
-Customer
+(i)Customer
 
-Chat Application
+(ii)Chat Application
 
-RAG Orchestrator
+(iii)RAG Orchestrator
 
-Vector Database
+(iv)Vector Database
 
-Language Model
+(v)Language Model
 
-Output Validation
+(vi)Output Validation
 
-Support Staff
+(vii)Support Staff
 
-Support Document Store
+(viii)Support Document Store
 
-Document Processor
+(ix)Document Processor
 
-Tool Authorization
+(x)Tool Authorization
 
-Support Tools
+(xi)Support Tools
 
-Customer DataStore
+(xii)Customer DataStore
 
 The system is completely fictional and is used for educational and defensive security analysis.
 
-3. Fictional System — HelpDesk Buddy
+##3. Fictional System — HelpDesk Buddy
 
 HelpDesk Buddy is a fictional customer-support chatbot using RAG.
 
@@ -80,7 +80,7 @@ Account-status lookup
 
 HelpDesk Buddy is completely fictional and is used only for this threat-modeling exercise.
 
-4. System Architecture
+##4. System Architecture
 
 The system was modeled using the Microsoft Threat Modeling Tool.
 
@@ -142,7 +142,7 @@ Customer DataStore
 
 The architecture separates application, document processing, vector storage, and tool-access areas using trust boundaries.
 
-5. Attacker Model
+##5. Attacker Model
 
 Possible attackers include:
 
@@ -160,7 +160,7 @@ The attacker does not automatically have direct backend access.
 
 The main goal is to manipulate the RAG pipeline or chatbot into performing an unauthorized action.
 
-6. Trust Boundaries
+##6. Trust Boundaries
 
 The model contains four main trust boundaries.
 
@@ -208,7 +208,7 @@ Customer DataStore
 
 This is the most sensitive area because tools may access customer information.
 
-7. Threat Modeling Methodology
+##7. Threat Modeling Methodology
 
 The architecture was analyzed using the Microsoft Threat Modeling Tool and STRIDE.
 
@@ -256,7 +256,7 @@ The TMT analysis identified 92 potential threats:
 
 These are potential threats identified from the model, not confirmed vulnerabilities.
 
-8. RAG-Specific Threat Analysis
+##8. RAG-Specific Threat Analysis
 
 T1. Poisoned Documents
 
@@ -431,7 +431,7 @@ Require confirmation for sensitive actions.
 
 Log tool calls.
 
-9. Risk Summary
+##9. Risk Summary
 
 ID
 
@@ -513,7 +513,7 @@ High
 
 High
 
-10. Security Controls
+##10. Security Controls
 
 Input
 
@@ -561,7 +561,7 @@ Perform authorization outside the LLM.
 
 Log tool actions.
 
-11. Detection and Monitoring
+##11. Detection and Monitoring
 
 Monitor for:
 
@@ -583,7 +583,7 @@ Sensitive-data access
 
 Logs should support investigation without unnecessarily storing private customer information.
 
-12. Security Testing
+##12. Security Testing
 
 Test 1 — Malicious Document
 
@@ -619,7 +619,7 @@ Send unexpected parameters to a support tool.
 
 Expected: Server-side validation rejects the request.
 
-13. Defense in Depth
+##13. Defense in Depth
 
 Security should not depend on one control.
 
@@ -651,7 +651,7 @@ A successful prompt injection should not automatically become a system compromis
 
 The LLM should generate answers, not make security decisions.
 
-14. Mapping TMT Findings to RAG Threats
+##14. Mapping TMT Findings to RAG Threats
 
 The Microsoft Threat Modeling Tool generated general STRIDE findings. These were mapped to the RAG-specific risks.
 
@@ -741,7 +741,7 @@ Availability
 
 These are potential TMT findings, not confirmed vulnerabilities.
 
-15. Why STRIDE Alone Is Not Enough
+##15. Why STRIDE Alone Is Not Enough
 
 STRIDE helps analyze the architecture, but it does not fully describe LLM-specific attacks.
 
@@ -771,7 +771,7 @@ Access-control analysis
 
 Tool security
 
-16. Residual Risk
+##16. Residual Risk
 
 Even with these controls, some risk remains:
 
@@ -789,7 +789,7 @@ Authorization bugs may still cause data leakage.
 
 The threat model should be reviewed when the architecture, data sources, model, or tools change.
 
-17. Key Security Principles
+##17. Key Security Principles
 
 1. Retrieved Content Is Untrusted
 
@@ -825,34 +825,58 @@ Even if the LLM is manipulated, backend controls should prevent unauthorized acc
 
 18. Conclusion
 The HelpDesk Buddy model shows that RAG systems introduce security risks beyond traditional applications.
+
 The main risks are:
+
 Poisoned documents
+
 Indirect prompt injection
+
 Data leakage
+
 Over-permissioned tools
+
 Retrieval manipulation
+
 Cross-user data leakage
+
 Unauthorized tool actions
-Microsoft Threat Modeling Tool helped identify architectural risks through STRIDE, while the manual analysis covered LLM-specific attacks.
+
+Microsoft Threat Modeling Tool helped identify architectural risks through STRIDE, while the manual analysis 
+covered LLM-specific attacks.
+
 Never treat the LLM as a trusted security boundary.
 
-19. References
+##20. References
 
 OWASP Top 10 for Large Language Model Applications
+
 OWASP LLM Prompt Injection Prevention Cheat Sheet
+
 NIST AI Risk Management Framework
+
 MITRE ATLAS
+
 Microsoft Threat Modeling Tool
+
 Microsoft STRIDE Methodology
 
-20. Disclaimer and Contributor
+##20. Disclaimer and Contributor
+
 Disclaimer
+
 This threat model uses a completely fictional system called HelpDesk Buddy.
+
 It is created for educational and defensive-security purposes only.
 
 Contributor
+
 Name: Priyanshi Sharma
+
 GitHub:https://github.com/priyanshi17112007
+
 Track: AI Security
+
 Challenge: Prompt Injection Threat Model for a RAG Chatbot
+
 Contribution: Threat modeling and STRIDE analysis of a fictional RAG customer-support chatbot
