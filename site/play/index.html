@@ -1299,7 +1299,7 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
   function normIssue(i) {
     var labels = (i.labels || []).map(function (l) { return typeof l === "string" ? l : l.name; });
     return { number: i.number, title: String(i.title || "").replace(/^\[(Open to all|Challenge)\]\s*/i, ""), labels: labels, open: labels.indexOf("open-to-all") !== -1, assigned: !!(i.assigned || (i.assignees && i.assignees.length)),
-      what: i.what != null ? i.what : mdSection(i.body, "What to build"), done: i.done != null ? i.done : mdSection(i.body, "Done when"), url: REPO + "/issues/" + i.number };
+      what: i.what != null ? i.what : mdSection(i.body, "What to build"), done: i.done != null ? i.done : mdSection(i.body, "Done when"), path: i.path !== undefined ? i.path : donePath(i.body), url: REPO + "/issues/" + i.number };
   }
   // Which building each challenge lives in
   function homeOf(c) {
@@ -1397,7 +1397,7 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
         if (name === "fork") html += card(i, "Fork the repository", '<p class="small muted">A fork is your own copy of the CyberSecTOBER repository. You only do this once.</p><div class="row"><a class="btn" target="_blank" rel="noopener" href="https://github.com/' + UP + '/fork" data-act>' + ic("git", "#fff", 18) + 'Fork on GitHub</a><button class="btn ghost" id="chkfork">I\'ve forked it</button></div><div class="small muted" id="forkmsg" style="margin-top:8px"></div>');
         if (name === "commit") html += card(i, built && built.line ? "Add your line in your fork" : "Add your file in your fork", !built ? '<p class="small muted">Preparing your file…</p>' : built.line ?
           '<pre class="prline" id="pline">' + esc(built.line) + '</pre><div class="row"><button class="btn ghost" id="cpline">Copy it</button><a class="btn" target="_blank" rel="noopener" data-act href="' + fork + "/edit/main/" + built.path + '">Open ' + esc(built.path.split("/").pop()) + '</a></div><p class="small muted" style="margin:8px 0 0">Paste it on a new line at the very bottom, then press <b>Commit changes</b>.</p><button class="btn ghost block" data-next style="margin-top:10px">Done, it\'s committed</button>'
-          : '<p class="small muted">GitHub opens in your fork with <b>' + esc(built.path) + '</b> already started. Fill it in, then press <b>Commit changes</b>.</p><a class="btn block" target="_blank" rel="noopener" data-act href="' + fork + "/new/main?filename=" + encodeURIComponent(built.path) + "&value=" + encodeURIComponent(built.content) + '">' + ic("git", "#fff", 18) + 'Open my file on GitHub</a><button class="btn ghost block" data-next style="margin-top:10px">Done, it\'s committed</button>');
+          : '<p class="small muted">GitHub opens in your fork with <b>' + esc(built.path) + '</b> already started. Replace every example sentence with your own words, then press <b>Commit changes</b>.</p><a class="btn block" target="_blank" rel="noopener" data-act href="' + fork + "/new/main?filename=" + encodeURIComponent(built.path) + "&value=" + encodeURIComponent(built.content) + '">' + ic("git", "#fff", 18) + 'Open my file on GitHub</a><button class="btn ghost block" data-next style="margin-top:10px">Done, it\'s committed</button><div class="small muted" id="cmsg" style="margin-top:8px"></div>');
         if (name === "pr") html += card(i, "Open the pull request", '<p class="small muted">This asks the mentors to add your work to CyberSecTOBER.</p><a class="btn block" target="_blank" rel="noopener" data-act href="https://github.com/' + UP + "/compare/main..." + encodeURIComponent(u) + ":Cybersectober:main?expand=1&title=" + encodeURIComponent(spec.prTitle(st.vals)) + "&body=" + encodeURIComponent((spec.prBody ? spec.prBody + "\n\n" : "") + "- [x] Fictional examples only\n- [x] My own work\n\nMade with Shield Up.") + '">' + ic("git", "#fff", 18) + 'Create pull request</a><button class="btn ghost block" id="chkpr" style="margin-top:10px">Check my pull request</button><div class="small muted" id="prmsg" style="margin-top:8px"></div>');
       });
       if (st.n) html += '<div class="ghcard" style="margin-top:14px">' + tile("trophy", "#10B981") + '<span style="flex:1"><b style="display:block">Pull request #' + st.n + (st.merged ? " is merged" : " is open") + '</b><span class="small muted">' + (st.merged ? "Your badge and points are on the way." : "A mentor reviews it. Once merged, your badge and points arrive automatically.") + '</span></span></div><a class="btn ghost block" style="margin-top:10px" target="_blank" rel="noopener" href="' + esc(st.url) + '">See it on GitHub</a>';
@@ -1406,7 +1406,9 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
       (spec.fields || []).forEach(function (f) { var el = $("pf-" + f.k); if (el) el.oninput = function () { st.vals[f.k] = el.value; built = null; save(); }; });
       $("stBody").querySelectorAll("[data-next]").forEach(function (x) { x.onclick = function () {
         if (steps[st.step] === "write") { var bad = spec.fields.filter(function (f) { return !String(st.vals[f.k] || "").trim() || (f.check && !f.check(st.vals[f.k])); })[0]; if (bad) return toast(bad.check && String(st.vals[bad.k]).trim() ? bad.bad : "Fill in: " + bad.l); }
-        st.step++; if (steps[st.step] === "fork" && S.forked) st.step++; if (steps[st.step - 1] !== "write") markAct("p"); save(); prepare();
+        var next = function () { st.step++; if (steps[st.step] === "fork" && S.forked) st.step++; if (steps[st.step - 1] !== "write") markAct("p"); save(); prepare(); };
+        if (steps[st.step] === "commit" && built && built.content && $("cmsg")) return verifyFile(u, built, $("cmsg"), next);
+        next();
       }; });
       $("stBody").querySelectorAll("[data-back]").forEach(function (x) { x.onclick = function () { st.step = +x.dataset.back; save(); prepare(); }; });
       $("stBody").querySelectorAll("[data-act]").forEach(function (x) { x.addEventListener("click", function () { markAct("p"); track("pr-step"); }); });
@@ -1464,12 +1466,60 @@ import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
       make: function (u, v, cb) { cb({ path: "awareness/glossary.md", line: "- **" + v.term.replace(/\*/g, "").trim() + "**: " + sentence(v.text).replace(/^\w/, function (x) { return x.toLowerCase(); }) + " (@" + u + ")" }); },
       prTitle: function (v) { return "Add glossary term: " + v.term.trim(); } }));
     if (chPoints(c) === 3 && /tip/.test(t) && !/translat/.test(t)) return flow(tipSpec(key, Object.assign({}, base, { intro: about })));
-    var tpl = /translat/.test(t) || L.indexOf("translation") !== -1 ? "translation" : /checklist/.test(t) ? "checklist" : /lab|capture-the-flag/.test(t) ? "lab" : /tool/.test(t) ? "tool" : "guide";
+    var tpl = /translat/.test(t) || L.indexOf("translation") !== -1 ? "translation" : /resource list/.test(t) ? "resource-list" : /checklist/.test(t) ? "checklist" : /lab|capture-the-flag/.test(t) ? "lab" : /tool/.test(t) ? "tool" : "guide";
     var track = L.indexOf("ai-security") !== -1 ? "ai-security" : L.indexOf("api-security") !== -1 ? "api-security" : L.indexOf("community") !== -1 || tpl === "translation" ? "community" : "awareness";
     var folder = /story/.test(t) ? "awareness/stories" : /quiz/.test(t) ? "awareness/quizzes" : tpl === "translation" ? "community/translations" : track;
-    flow(Object.assign({}, base, { fields: [{ k: "title", l: "Title of your " + (tpl === "guide" ? (/story/.test(t) ? "story" : /quiz/.test(t) ? "quiz" : "contribution") : tpl), ph: "e.g. " + c.title }],
-      make: function (u, v, cb) { template(tpl, function (raw) { cb({ path: folder + "/" + u.toLowerCase() + "-" + slugify(v.title) + ".md", content: fillTemplate(raw, v.title.trim(), u, track) }); }); },
+    var spec = c.path, fields = [{ k: "title", l: "Title of your " + (tpl === "guide" ? (/story/.test(t) ? "story" : /quiz/.test(t) ? "quiz" : "contribution") : tpl === "resource-list" ? "resource list" : tpl), ph: "e.g. " + c.title }];
+    // Placeholders in the challenge's path, such as <your-country> or your-language, become questions
+    (spec ? spec.split("/") : []).forEach(function (s) { var k = s.replace(/^<|>$/g, "").replace(/\.md$/, ""); if (k !== "track" && (/^<.+>$/.test(s) || /^your-/.test(s)) && !/^your-github-username/.test(s)) fields.push({ k: k, l: k.replace(/^your-/, "Your ").replace(/-/g, " "), ph: k === "your-country" ? "e.g. Nigeria" : k === "your-language" ? "e.g. Yoruba" : "" }); });
+    flow(Object.assign({}, base, { fields: fields,
+      make: function (u, v, cb) { template(tpl, function (raw) { cb({ path: spec ? specPath(spec, u, track, v) : folder + "/" + u.toLowerCase() + "-" + slugify(v.title) + ".md", content: fillTemplate(raw, v.title.trim(), u, track) }); }); },
       prTitle: function (v) { return v.title.trim(); } }));
+  }
+  // The file or folder a challenge asks for: the first `folder/file` in its "Done when"
+  function donePath(body) {
+    var sec = /^###\s*Done when\s*$([\s\S]*?)(?=^###|^---|$(?![\s\S]))/m.exec(body || ""), m = String(sec ? sec[1] : "").match(/`[^`\s]*\/[^`\s]*`/g) || [];
+    for (var i = 0; i < m.length; i++) { var p = m[i].slice(1, -1); if (!/^(templates\/|https?:)/.test(p)) return p; }
+    return null;
+  }
+  function specPath(spec, u, track, v) {
+    var dir = /\/$/.test(spec), segs = spec.replace(/\/$/, "").split("/").map(function (s) {
+      if (s === "<track>") return track;
+      if (/^your-github-username/.test(s)) return u.toLowerCase() + "-" + slugify(v.title) + (/\.md$/.test(s) ? ".md" : "");
+      var k = s.replace(/^<|>$/g, "").replace(/\.md$/, "");
+      return (/^<.+>$/.test(s) || /^your-/.test(s)) ? slugify(v[k]) + (/\.md$/.test(s) ? ".md" : "") : s;
+    });
+    var path = segs.join("/");
+    // A named folder for your work (labs, tools) gets a README; a shared folder (stories) gets your own file
+    if (dir) return /your-github-username/.test(spec) ? path + "/README.md" : path + "/" + u.toLowerCase() + "-" + slugify(v.title) + ".md";
+    return /\.md$/.test(path) ? path : path + ".md";
+  }
+  // Sentences from the template that should be replaced before the pull request is opened
+  function placeholderLines(content) {
+    var body = content.replace(/^---[\s\S]*?\n---/, ""), fence = false;
+    return body.split("\n").map(function (l) { return l.trim(); }).filter(function (l) {
+      if (/^```/.test(l)) { fence = !fence; return false; }
+      return !fence && l.length >= 8 && !/^(#|>|<!--|---)/.test(l) && !/SOLUTION\.md|LICENSE/.test(l);
+    });
+  }
+  // After "Done, it's committed": the file must be in the fork and filled in
+  function verifyFile(u, b, msg, ok) {
+    msg.textContent = "Checking your file on GitHub…";
+    fetch("https://api.github.com/repos/" + encodeURIComponent(u) + "/Cybersectober/contents/" + b.path.split("/").map(encodeURIComponent).join("/") + "?ref=main", { cache: "no-store" }).then(function (r) {
+      return r.status === 404 ? "" : r.ok ? r.json().then(function (j) { return decodeURIComponent(escape(atob(String(j.content || "").replace(/\n/g, "")))); }) : null;
+    }).then(function (text) {
+      if (text === null) return ok();
+      var edit = "https://github.com/" + u + "/Cybersectober/edit/main/" + b.path;
+      if (text === "") { msg.innerHTML = "We can't find <b>" + esc(b.path) + "</b> in your fork yet. Press <b>Commit changes</b> on GitHub, then try again."; return; }
+      var lines = text.split("\n").map(function (l) { return l.trim(); }), left = placeholderLines(b.content).filter(function (l) { return lines.indexOf(l) !== -1; });
+      var fm = (text.match(/^---[\s\S]*?\n---/) || [""])[0], unfilled = /^\s*\w+:.*\s\|\s/m.test(fm) || /^(title|description):\s*$/m.test(fm);
+      if (left.length >= 2 || unfilled) {
+        msg.innerHTML = (left.length >= 2 ? "Your file still has the template's example text: <i>" + esc(left[0]) + "</i> " : "The front matter at the top still needs filling in (one value each, e.g. <b>difficulty: beginner</b>). ") +
+          'Replace it with your own words, commit again, then press Done. <a href="' + esc(edit) + '" target="_blank" rel="noopener">Edit my file</a>';
+        return;
+      }
+      ok();
+    }).catch(function () { ok(); });
   }
 
   // ------------------------------------------------------------ Daily streak: days you took a pull request step

@@ -764,6 +764,13 @@ def issue_section(body, name):
     return text[:700]
 
 
+def done_path(body):
+    """The file or folder a challenge asks for: the first `folder/file` in its "Done when" section."""
+    m = re.search(r"^###\s*Done when\s*$(.*?)(?=^###|^---|\Z)", body or "", re.S | re.M)
+    return next((t for t in re.findall(r"`([^`\s]+)`", m.group(1) if m else "")
+                 if "/" in t and not t.startswith(("templates/", "http"))), None)
+
+
 def open_challenges():
     """Open challenge issues, published in data.json so the Shield Up game can show them."""
     try:
@@ -777,7 +784,8 @@ def open_challenges():
         if "pull_request" in i or not CHALLENGE_LABELS & set(labels):
             continue
         out.append({"number": i["number"], "title": i["title"], "labels": labels, "assigned": bool(i.get("assignees")),
-                    "what": issue_section(i.get("body"), "What to build"), "done": issue_section(i.get("body"), "Done when")})
+                    "what": issue_section(i.get("body"), "What to build"), "done": issue_section(i.get("body"), "Done when"),
+                    "path": done_path(i.get("body"))})
     return out
 
 
