@@ -29,6 +29,7 @@ SITE_URL = (os.environ.get("SITE_URL") or f"https://{OWNER.lower()}.github.io/{N
 REPO_URL = f"https://github.com/{REPO}"
 RAW_BADGES = f"https://raw.githubusercontent.com/{REPO}/main/badges"
 MARKER = "<!-- cybersectober-award -->"
+UPDATE_MARKER = "<!-- cybersectober-update -->"
 CATCH_UP_DAYS = 7
 NOW = datetime.fromisoformat(os.environ["NOW"]) if os.environ.get("NOW") else datetime.now(timezone.utc)
 
@@ -589,9 +590,32 @@ def post_comment(pr_number, body):
         return
     existing = award_comments(pr_number)
     if existing:
+        old = existing[0]["body"]
+        if old == body:
+            return
         api(f"/repos/{REPO}/issues/comments/{existing[0]['id']}", "PATCH", {"body": body})
+        notice = update_notice(old, body)
+        if notice:
+            api(f"/repos/{REPO}/issues/{pr_number}/comments", "POST", {"body": notice})
     else:
         api(f"/repos/{REPO}/issues/{pr_number}/comments", "POST", {"body": body})
+
+
+def update_notice(old, new):
+    """GitHub sends no email when a comment is edited, so when a later label adds points or badges, say so in a new
+    comment that mentions the contributor."""
+    badges = lambda b: re.findall(r"\*\*Badge earned: (.+?)\*\*", b)
+    points = lambda b: int((re.search(r"Points for this contribution: \*\*(\d+)\*\*", b) or [0, 0])[1])
+    login = re.search(r"Hi @([A-Za-z0-9-]+)", new)
+    gained = [b for b in badges(new) if b not in badges(old)]
+    extra = points(new) - points(old)
+    if not login or (not gained and extra <= 0):
+        return None
+    parts = ([f"**+{extra} points**"] if extra > 0 else []) + [f"the **{b}** badge" for b in gained]
+    what = parts[0] if len(parts) == 1 else ", ".join(parts[:-1]) + " and " + parts[-1]
+    return "\n".join([UPDATE_MARKER, f"Hi @{login[1]}, good news: your contribution has been updated with {what}. "
+                       f"The details are in the comment above, and your record is at {verify_url(login[1])}.", "",
+                       "The CyberSecTOBER team"])
 
 
 def withdraw_comments(excluded):
