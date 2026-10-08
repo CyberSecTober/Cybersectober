@@ -1,0 +1,29 @@
+name: Leaderboard updates
+
+on:
+  schedule:
+    - cron: "0 9 */2 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: standings
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Post where everyone stands
+        run: python3 scripts/standings.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
