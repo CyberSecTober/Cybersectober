@@ -31,6 +31,7 @@ TRACKS = ("awareness", "api-security", "ai-security", "community")
 LIST_FILES = {POSTS_FILE, TIPS_FILE, "awareness/glossary.md"}
 CHALLENGE_REF = re.compile(r"\b(?:close[sd]?|fix(?:e[sd])?|resolve[sd]?|part of)\s+#(\d+)", re.I)
 BAD_HEADING = re.compile(r"^#{2,6}[^#\s]")
+ORGANIZERS = {l.lower() for l in json.load(open("data/organizers.json"))} if os.path.exists("data/organizers.json") else set()
 
 
 def api(path, method="GET", body=None):
@@ -154,7 +155,9 @@ def linked_challenges(pr):
             issue = api(f"/repos/{REPO}/issues/{n}")
         except Exception:
             continue
-        if issue.get("pull_request") or not (issue["user"]["type"] == "Bot" or issue["author_association"] in TRUSTED):
+        # The Actions token can see a maintainer with private org membership as CONTRIBUTOR, so organizers count too
+        if issue.get("pull_request") or not (issue["user"]["type"] == "Bot" or issue["author_association"] in TRUSTED
+                                             or issue["user"]["login"].lower() in ORGANIZERS):
             continue
         m = re.search(r"### Done when\s+(.*?)(?:\n### |\Z)", issue.get("body") or "", re.S)
         if not m:
