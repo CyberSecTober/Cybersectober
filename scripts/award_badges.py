@@ -384,7 +384,11 @@ def compute(prs, manual, organizers=frozenset()):
     for pr in prs:
         login = pr["user"]["login"]
         if login.lower() in organizers:
-            continue
+            # An organizer can merge someone else's work on their behalf with a "Contributed by @username" line
+            on_behalf = re.search(r"^Contributed by @([A-Za-z0-9-]+)\s*$", pr.get("body") or "", re.M)
+            if not on_behalf or on_behalf.group(1).lower() in organizers:
+                continue
+            login = on_behalf.group(1)
         pts, labels, counts, is_post, is_tip = points_for(pr)
         if not counts:
             continue
