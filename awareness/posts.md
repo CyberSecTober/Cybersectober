@@ -9,3 +9,4 @@ Add **one post per pull request**: a short description, the link to your public 
 - [The importance of strong passwords](https://www.linkedin.com/posts/nwabueze-benita_cybersecurityawarenessmonth-cybersecurity-share-7512523201038483456--iUF/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADuHIlIBC3uBYjnELSOBHRHiDfPQ5ww_ihc) (@Ben-ita66)
 - [How to report incident in an organisation](https://substack.com/@cisca/note/c-355009164?r=yl34&utm_source=notes-share-action&utm_medium=web) (@damikanye)
 - [Stop revealing sensitive information in your contents as a creator](https://www.linkedin.com/posts/nwabueze-benita_cybersecurityawarenessmonth-cyberawareness-share-7513654746566651907-9lIk/) (@Ben-ita66)
+- [HUNTING FOR SQL INJECTION](https://x.com/gabbytech01/status/2108723452311961645?s=20) (@gabbytech01)
