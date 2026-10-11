@@ -5,22 +5,31 @@ import json
 import sys
 from pathlib import Path
 
+from agent import run_investigation
 from detector import analyze_events
+from log_parser import parse_auth_lines
 
 
 def build_parser():
     parser = argparse.ArgumentParser(
         prog="logpilot",
         description=(
-            "Analyze authentication logs for suspicious failed-login "
-            "patterns. Detection runs locally without an LLM."
+            "Analyze JSON authentication events or Linux SSH authentication "
+            "logs. Detection runs locally without an LLM."
         ),
     )
+
     parser.add_argument(
         "--input",
         required=True,
         type=Path,
-        help="Path to a JSON file containing a list of authentication events.",
+        help="Path to a JSON events file or Linux SSH authentication log.",
+    )
+    parser.add_argument(
+        "--format",
+        choices=("json", "authlog"),
+        default="json",
+        help="Input format: json or authlog (default: json).",
     )
     parser.add_argument(
         "--output",
@@ -45,6 +54,7 @@ def build_parser():
         default=10,
         help="Detection time window in minutes (default: 10).",
     )
+
     return parser
 
 
@@ -66,15 +76,46 @@ def render_report(report):
         )
         print(f"  Source IP: {finding['source_ip']}")
         print(f"  Details:   {finding['description']}")
-
-        evidence = finding["evidence"]
-        print(f"  Evidence:  {json.dumps(evidence, sort_keys=True)}")
+        print(f"  Evidence:  {json.dumps(finding['evidence'], sort_keys=True)}")
         print(f"  Guidance:  {finding['recommendation']}")
 
     if report["validation_errors"]:
         print("\nInput validation warnings:")
         for error in report["validation_errors"]:
             print(f"  - {error}")
+
+    investigation = report.get("investigation")
+    if investigation:
+        print("\nInvestigation Summary")
+        print("---------------------")
+        print(investigation.get("analyst_summary", "No summary available."))
+
+        
+        for item in investigation.get("source_investigations", []):
+         print(f"\nSource IP: {item.get('source_ip', 'Unknown')}")
+         print(f"  Assessment: {item.get('assessment', 'Not available')}")
+         print(f"  Rules triggered: {', '.join(item.get('rule_ids', [])) or 'None'}")
+         print(f"  Confidence note: {item.get('confidence_note', 'Not available')}")
+
+
+        recommendations = investigation.get("recommendations", [])
+        if recommendations:
+            print("\nInvestigation Recommendations:")
+            for recommendation in recommendations:
+                print(f"  - {recommendation}")
+
+        print(
+            "\nInvestigation mode: "
+            f"{investigation.get('mode', 'unspecified')}"
+        )
+        print(
+            "LLM used: "
+            f"{'Yes' if investigation.get('llm_used') else 'No'}"
+        )
+        print(
+            "Automated response performed: "
+            f"{'Yes' if investigation.get('automated_response_performed') else 'No'}"
+        )
 
     if not report["findings"]:
         print("\nNo configured detection rules were triggered.")
@@ -88,15 +129,26 @@ def main(argv=None):
 
     try:
         if not args.input.is_file():
-            print(f"LOGPILOT AI: input file does not exist or is not a file: {args.input}", file=sys.stderr)
+            print(
+                f"LOGPILOT AI: input file does not exist or is not a file: "
+                f"{args.input}",
+                file=sys.stderr,
+            )
             return 2
 
         with args.input.open("r", encoding="utf-8") as file:
-            events = json.load(file)
+            if args.format == "json":
+                events = json.load(file)
 
-        if not isinstance(events, list):
-            print("LOGPILOT AI: input JSON must contain a list of event objects", file=sys.stderr)
-            return 2
+                if not isinstance(events, list):
+                    print(
+                        "LOGPILOT AI: input JSON must contain a list "
+                        "of event objects",
+                        file=sys.stderr,
+                    )
+                    return 2
+            else:
+                events = parse_auth_lines(file)
 
         report = analyze_events(
             events,
@@ -105,16 +157,16 @@ def main(argv=None):
             window_minutes=args.window_minutes,
         )
 
+        # Run the deterministic investigation workflow after detection.
+        report = run_investigation(report)
+
         if args.output:
-            # Do not create missing parent directories silently.
             with args.output.open("w", encoding="utf-8") as file:
                 json.dump(report, file, indent=2, ensure_ascii=False)
                 file.write("\n")
 
         render_report(report)
 
-        # Invalid records are reported in the report, and do not hide
-        # findings from valid records. Use a nonzero exit code to flag them.
         return 2 if report["validation_errors"] else 0
 
     except json.JSONDecodeError as exc:
@@ -128,7 +180,10 @@ def main(argv=None):
         print(f"LOGPILOT AI: file error: {exc}", file=sys.stderr)
         return 2
     except (TypeError, ValueError) as exc:
-        print(f"LOGPILOT AI: invalid input or configuration: {exc}", file=sys.stderr)
+        print(
+            f"LOGPILOT AI: invalid input or configuration: {exc}",
+            file=sys.stderr,
+        )
         return 2
 
 
