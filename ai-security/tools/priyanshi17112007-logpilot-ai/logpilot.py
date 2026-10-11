@@ -74,7 +74,13 @@ def render_report(report):
             f"[{finding['severity'].upper()}] "
             f"{finding['rule_id']}: {finding['title']}"
         )
-        print(f"  Source IP: {finding['source_ip']}")
+
+        source_ip = finding.get("source_ip")
+        if source_ip:
+           print(f"  Source IP: {source_ip}")
+        else:
+           print("  Source:    Local host (no remote IP)")
+
         print(f"  Details:   {finding['description']}")
         print(f"  Evidence:  {json.dumps(finding['evidence'], sort_keys=True)}")
         print(f"  Guidance:  {finding['recommendation']}")
