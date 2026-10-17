@@ -12,3 +12,4 @@ Add one security tip per line, with your name. Keep it short and practical.
 - **Grandma, Grandpa: Never give anyone the code that comes by text message.**, real banks and companies will never ask you for that code. Only a thief would. (@nyimenkabenson)
 - **Always back up your important data.**, use cloud backup to keep a copy of important files safe, so you don’t lose everything if something happens to your device. (@EstherEgbagbe)
 - **Choose an email provider that supports SPF, DKIM and DMARC authentication**, these email authentication mechanisms help prevent email spoofing and protect your domain from being abused in phishing attacks. (@MGLabs)
+- **Lock your GitHub Actions dependencies**, use a workflow dependency lockfile or pin third-party actions to verified full-length commit SHAs to reduce supply-chain risks. (@zhoushuming073-cell)
