@@ -1,0 +1,5 @@
+Oct  9 10:00:00 server sshd[1001]: Failed password for alice from 203.0.113.10 port 50001 ssh2
+Oct  9 10:01:00 server sshd[1002]: Failed password for bob from 203.0.113.10 port 50002 ssh2
+Oct  9 10:02:00 server sshd[1003]: Failed password for charlie from 203.0.113.10 port 50003 ssh2
+Oct  9 10:03:00 server sshd[1004]: Failed password for alice from 203.0.113.10 port 50004 ssh2
+Oct  9 10:04:00 server sshd[1005]: Failed password for bob from 203.0.113.10 port 50005 ssh2

@@ -21,7 +21,7 @@ jobs:
       issues: write
     steps:
       # Checks out main, never the pull request; the PR is only read through the API.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           ref: main
       - name: Check for floods, duplicate posts and duplicate tips

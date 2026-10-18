@@ -29,6 +29,7 @@ SITE_URL = (os.environ.get("SITE_URL") or f"https://{OWNER.lower()}.github.io/{N
 REPO_URL = f"https://github.com/{REPO}"
 RAW_BADGES = f"https://raw.githubusercontent.com/{REPO}/main/badges"
 MARKER = "<!-- cybersectober-award -->"
+UPDATE_MARKER = "<!-- cybersectober-update -->"
 CATCH_UP_DAYS = 7
 NOW = datetime.fromisoformat(os.environ["NOW"]) if os.environ.get("NOW") else datetime.now(timezone.utc)
 
@@ -307,6 +308,15 @@ def merged_prs():
     return sorted(prs, key=lambda p: p["merged_at"])
 
 
+def split_excluded(prs):
+    """Contributions that were reverted (GitHub's Revert button names the branch revert-<number>-...) or labelled
+    `invalid` earn nothing, and neither do the revert pull requests themselves. Returns (counted, excluded)."""
+    reverts = {p["number"]: int(m.group(1)) for p in prs if (m := re.match(r"revert-(\d+)-", p["head"]["ref"]))}
+    gone = set(reverts.values()) | {p["number"] for p in prs if any(l["name"] == "invalid" for l in p["labels"])}
+    return ([p for p in prs if p["number"] not in gone and p["number"] not in reverts],
+            [p for p in prs if p["number"] in gone])
+
+
 CONTENT_DIRS = ("awareness/", "api-security/", "ai-security/", "community/")
 MAINTENANCE_DIRS = ("scripts/", ".github/", "data/")
 
@@ -374,7 +384,11 @@ def compute(prs, manual, organizers=frozenset()):
     for pr in prs:
         login = pr["user"]["login"]
         if login.lower() in organizers:
-            continue
+            # An organizer can merge someone else's work on their behalf with a "Contributed by @username" line
+            on_behalf = re.search(r"^Contributed by @([A-Za-z0-9-]+)\s*$", pr.get("body") or "", re.M)
+            if not on_behalf or on_behalf.group(1).lower() in organizers:
+                continue
+            login = on_behalf.group(1)
         pts, labels, counts, is_post, is_tip = points_for(pr)
         if not counts:
             continue
@@ -421,6 +435,8 @@ def compute(prs, manual, organizers=frozenset()):
     ranked = sorted(users.values(), key=lambda u: (-u["points"], min((p["merged_at"] for p in u["prs"]), default="9")))
     for i, u in enumerate(ranked, 1):
         u["rank"] = i
+        # Points needed to overtake the person one place above (ties go to whoever merged first).
+        u["to_pass"] = ranked[i - 2]["points"] - u["points"] + 1 if i > 1 else None
     return ranked
 
 
@@ -506,6 +522,19 @@ def next_tier(points):
     return None
 
 
+def standing(u):
+    """One sentence on where the contributor sits and what it takes to move up."""
+    if u["to_pass"] is None:
+        return "You are **#1** on the leaderboard. Keep contributing to stay on top."
+    n = u["to_pass"]
+    return (f"You are **#{u['rank']}** on the leaderboard. **{n} more point{'' if n == 1 else 's'}** "
+            f"moves you up to #{u['rank'] - 1}.")
+
+
+def md_bold(text):
+    return re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", html.escape(text))
+
+
 def comment_body(u, pr_number):
     pr = next(p for p in u["prs"] if p["number"] == pr_number)
     new = [s for s, b in u["badges"].items() if b["pr"] == pr_number]
@@ -521,8 +550,7 @@ def comment_body(u, pr_number):
                  f"Hi @{login}, thank you for contributing to CyberSecTOBER 2026. "
                  "Your pull request has been merged and added to your record.", "",
                  f"- Points for this contribution: **{pr['points']}**",
-                 f"- Total points: **{u['points']}**",
-                 f"- Leaderboard rank: **{u['rank']}**", ""]
+                 f"- Total points: **{u['points']}**", ""]
     if pr["capped"]:
         lines += [f"Your tip has been merged. Only your first {MAX_TIPS_FOR_POINTS} tips earn points, so this one is "
                   "recorded without points. Guides, translations, checklists, labs and tools are the way to keep earning.", ""]
@@ -542,6 +570,9 @@ def comment_body(u, pr_number):
         nt = next_tier(u["points"])
         if nt:
             lines += [f"**Next milestone:** {nt[0]} more points to reach {nt[1]}.", ""]
+    lines += [f"**Leaderboard:** {standing(u)} [See the leaderboard]({SITE_URL})", ""]
+    if pr["post"]:
+        lines += ["Posts earn badges. Tips, guides, translations, checklists, labs and tools earn points.", ""]
     lines += [f"**Verification:** your badges and contributions can be verified publicly at {verify_url(login)}. "
               "Use this link as the Credential URL when adding a badge to LinkedIn. To display your badges on your GitHub "
               "profile, copy the ready-made snippet from your verification page.", "",
@@ -563,9 +594,53 @@ def post_comment(pr_number, body):
         return
     existing = award_comments(pr_number)
     if existing:
+        old = existing[0]["body"]
+        if old == body:
+            return
         api(f"/repos/{REPO}/issues/comments/{existing[0]['id']}", "PATCH", {"body": body})
+        notice = update_notice(old, body)
+        if notice:
+            api(f"/repos/{REPO}/issues/{pr_number}/comments", "POST", {"body": notice})
     else:
         api(f"/repos/{REPO}/issues/{pr_number}/comments", "POST", {"body": body})
+
+
+def update_notice(old, new):
+    """GitHub sends no email when a comment is edited, so when a later label adds points or badges, say so in a new
+    comment that mentions the contributor."""
+    badges = lambda b: re.findall(r"\*\*Badge earned: (.+?)\*\*", b)
+    points = lambda b: int((re.search(r"Points for this contribution: \*\*(\d+)\*\*", b) or [0, 0])[1])
+    login = re.search(r"Hi @([A-Za-z0-9-]+)", new)
+    gained = [b for b in badges(new) if b not in badges(old)]
+    extra = points(new) - points(old)
+    if not login or (not gained and extra <= 0):
+        return None
+    parts = ([f"**+{extra} points**"] if extra > 0 else []) + [f"the **{b}** badge" for b in gained]
+    what = parts[0] if len(parts) == 1 else ", ".join(parts[:-1]) + " and " + parts[-1]
+    return "\n".join([UPDATE_MARKER, f"Hi @{login[1]}, good news: your contribution has been updated with {what}. "
+                       f"The details are in the comment above, and your record is at {verify_url(login[1])}.", "",
+                       "The CyberSecTOBER team"])
+
+
+def withdraw_comments(excluded):
+    """Replace the award comment on recently merged contributions that no longer count."""
+    cutoff = NOW - timedelta(days=CATCH_UP_DAYS)
+    for p in excluded:
+        if datetime.fromisoformat(p["merged_at"].replace("Z", "+00:00")) < cutoff:
+            continue
+        comments = award_comments(p["number"])
+        if not comments or "### Contribution not counted" in comments[0]["body"]:
+            continue
+        body = "\n".join([MARKER, "### Contribution not counted", "",
+                           f"Hi @{p['user']['login']}, this contribution has been withdrawn, so it no "
+                           "longer counts towards points or badges, and the badge announced here has been withdrawn.", "",
+                           "You are very welcome to open a new pull request with the finished contribution. "
+                           f"Your record is at {SITE_URL}.", "", "The CyberSecTOBER team"])
+        print(f"PR #{p['number']} no longer counts; updating its award comment.")
+        if DRY_RUN:
+            print(f"--- DRY RUN: comment for PR #{p['number']} ---\n{body}\n---")
+        else:
+            api(f"/repos/{REPO}/issues/comments/{comments[0]['id']}", "PATCH", {"body": body})
 
 
 def catch_up(ranked):
@@ -736,6 +811,42 @@ def table(headers, rows, empty):
     return f'<div class="table-wrap"><table><tr>{head}</tr>{"".join(rows)}</table></div>'
 
 
+CHALLENGE_LABELS = {"open-to-all", "good first issue", "beginner", "intermediate", "advanced"}
+
+
+def issue_section(body, name):
+    """Plain text of one '### Heading' section of a challenge issue, for the game."""
+    m = re.search(rf"^###\s*{re.escape(name)}\s*$(.*?)(?=^###|^---|\Z)", body or "", re.S | re.M)
+    text = m.group(1).strip() if m else ""
+    text = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", text).replace("`", "")
+    return text[:700]
+
+
+def done_path(body):
+    """The file or folder a challenge asks for: the first `folder/file` in its "Done when" section."""
+    m = re.search(r"^###\s*Done when\s*$(.*?)(?=^###|^---|\Z)", body or "", re.S | re.M)
+    return next((t for t in re.findall(r"`([^`\s]+)`", m.group(1) if m else "")
+                 if "/" in t and not t.startswith(("templates/", "http"))), None)
+
+
+def open_challenges():
+    """Open challenge issues, published in data.json so the Shield Up game can show them."""
+    try:
+        issues = paginate(f"/repos/{REPO}/issues?state=open")
+    except Exception as e:  # the site still builds without them
+        print(f"::warning::Could not list open challenges: {e}")
+        return []
+    out = []
+    for i in issues:
+        labels = [label["name"] for label in i.get("labels", [])]
+        if "pull_request" in i or not CHALLENGE_LABELS & set(labels):
+            continue
+        out.append({"number": i["number"], "title": i["title"], "labels": labels, "assigned": bool(i.get("assignees")),
+                    "what": issue_section(i.get("body"), "What to build"), "done": issue_section(i.get("body"), "Done when"),
+                    "path": done_path(i.get("body"))})
+    return out
+
+
 def build_site(ranked):
     shutil.rmtree(OUT_DIR, ignore_errors=True)
     os.makedirs(OUT_DIR)
@@ -787,7 +898,8 @@ def build_site(ranked):
                                      "badges": [s for s in BADGES if s in u["badges"]], "contributions": len(u["prs"]),
                                      "country": u["country"][1] if u.get("country") else None,
                                      "merged": sorted(p["merged_at"][:10] for p in u["prs"])}
-                                    for u in ranked]}, f, indent=1)
+                                    for u in ranked],
+                   "challenges": open_challenges()}, f, indent=1)
 
     for u, p in contributions:
         d = os.path.join(OUT_DIR, "c", str(p["number"]))
@@ -828,6 +940,7 @@ def build_site(ranked):
                 f'<div class="stats"><div><b>{u["points"]}</b><span>points</span></div><div><b>{len(u["badges"])}</b><span>badges</span></div>'
                 f'<div><b>#{u["rank"]}</b><span>leaderboard rank</span></div><div><b>{len(u["prs"])}</b><span>merged contributions</span></div></div>'
                 f'{progress}'
+                f'<p class="muted" style="margin:12px 0 0">{md_bold(standing(u))} <a href="../../">See the leaderboard →</a></p>'
                 f'<h2>Badges</h2><div class="grid">{tiles}</div>'
                 f'{embed}'
                 f'<h2>Contributions</h2><div class="panel">'
@@ -837,7 +950,8 @@ def build_site(ranked):
 
 def main():
     manual = json.load(open("data/manual-awards.json")) if os.path.exists("data/manual-awards.json") else {}
-    ranked = compute(merged_prs(), manual, load_organizers())
+    counted, excluded = split_excluded(merged_prs())
+    ranked = compute(counted, manual, load_organizers())
     add_countries(ranked)
     build_site(ranked)
     print(f"Built site for {len(ranked)} contributor(s) at {OUT_DIR}/")
@@ -849,6 +963,7 @@ def main():
         else:
             print(f"PR #{n} is not a merged contribution (not merged into main, or maintenance only); no comment posted.")
     catch_up(ranked)
+    withdraw_comments(excluded)
 
 
 if __name__ == "__main__":

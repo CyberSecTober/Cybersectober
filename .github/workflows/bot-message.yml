@@ -1,0 +1,31 @@
+name: Post a message as the bot
+
+# Lets a maintainer post a comment as the CyberSecTOBER bot from the Actions tab
+# (Actions > Post a message as the bot > Run workflow). Only people with write access can run it.
+on:
+  workflow_dispatch:
+    inputs:
+      number:
+        description: "Issue or pull request number"
+        required: true
+      message:
+        description: "Message (Markdown)"
+        required: true
+
+permissions: {}
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Post the comment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NUMBER: ${{ inputs.number }}
+          MESSAGE: ${{ inputs.message }}
+        run: |
+          case "$NUMBER" in ''|*[!0-9]*) echo "Number must be digits only"; exit 1;; esac
+          gh api "repos/$GITHUB_REPOSITORY/issues/$NUMBER/comments" -f body="$MESSAGE" --jq .html_url
