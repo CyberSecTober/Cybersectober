@@ -11,3 +11,4 @@ Add **one post per pull request**: a short description, the link to your public 
 - [Cybersecurity and Business Continuity](https://substack.com/@cisca/note/c-356871027?r=yl34&utm_source=notes-share-action&utm_medium=web) (@damikanye)
 - [Stop revealing sensitive information in your contents as a creator](https://www.linkedin.com/posts/nwabueze-benita_cybersecurityawarenessmonth-cyberawareness-share-7513654746566651907-9lIk/) (@Ben-ita66)
 - [Securing AI coding tool access to GitHub](https://x.com/zsm13524/status/2111372635242471663) (@zhoushuming073-cell)
+- [MFA fatigue attack](https://x.com/Ogechee_/status/2110989117882577302?s=20) (@Ben-ita66)
