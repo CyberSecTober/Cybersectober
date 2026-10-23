@@ -13,3 +13,4 @@ Add one security tip per line, with your name. Keep it short and practical.
 - **Always back up your important data.**, use cloud backup to keep a copy of important files safe, so you don’t lose everything if something happens to your device. (@EstherEgbagbe)
 - **Choose an email provider that supports SPF, DKIM and DMARC authentication**, these email authentication mechanisms help prevent email spoofing and protect your domain from being abused in phishing attacks. (@MGLabs)
 - **Lock your GitHub Actions dependencies**, use a workflow dependency lockfile or pin third-party actions to verified full-length commit SHAs to reduce supply-chain risks. (@zhoushuming073-cell)
+- **Never approve MFA requests that you did not generate**, if you get an MFA request you did not generate yourself deny it and if you suspect someone has your password, change it through the official website and secure your account. (@Ben-ita66)
